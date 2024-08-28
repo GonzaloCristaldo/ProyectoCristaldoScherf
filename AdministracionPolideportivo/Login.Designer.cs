@@ -33,6 +33,8 @@
             txtUsuario = new TextBox();
             txtContrasena = new TextBox();
             btnEntrar = new Button();
+            btnCerrar = new Button();
+            btnMinimizar = new Button();
             SuspendLayout();
             // 
             // lblUsuario
@@ -70,24 +72,49 @@
             // 
             // btnEntrar
             // 
-            btnEntrar.Location = new Point(169, 228);
+            btnEntrar.Location = new Point(179, 226);
             btnEntrar.Name = "btnEntrar";
             btnEntrar.Size = new Size(114, 23);
             btnEntrar.TabIndex = 4;
             btnEntrar.Text = "Iniciar Sesión";
             btnEntrar.UseVisualStyleBackColor = true;
             // 
+            // btnCerrar
+            // 
+            btnCerrar.Location = new Point(449, 12);
+            btnCerrar.Name = "btnCerrar";
+            btnCerrar.Size = new Size(40, 38);
+            btnCerrar.TabIndex = 5;
+            btnCerrar.Text = "X";
+            btnCerrar.UseVisualStyleBackColor = true;
+            // 
+            // btnMinimizar
+            // 
+            btnMinimizar.Location = new Point(394, 12);
+            btnMinimizar.Name = "btnMinimizar";
+            btnMinimizar.Size = new Size(40, 38);
+            btnMinimizar.TabIndex = 6;
+            btnMinimizar.Text = "-";
+            btnMinimizar.UseVisualStyleBackColor = true;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(501, 518);
+            ControlBox = false;
+            Controls.Add(btnMinimizar);
+            Controls.Add(btnCerrar);
             Controls.Add(btnEntrar);
             Controls.Add(txtContrasena);
             Controls.Add(txtUsuario);
             Controls.Add(lblContrasena);
             Controls.Add(lblUsuario);
+            FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
             Name = "Login";
+            ShowIcon = false;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             ResumeLayout(false);
             PerformLayout();
@@ -100,5 +127,7 @@
         private TextBox txtUsuario;
         private TextBox txtContrasena;
         private Button btnEntrar;
+        private Button btnCerrar;
+        private Button btnMinimizar;
     }
 }
