@@ -1,6 +1,6 @@
 ﻿namespace AdministracionPolideportivo
 {
-    partial class Form1
+    partial class Login
     {
         /// <summary>
         ///  Required designer variable.
@@ -38,7 +38,7 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
-            lblUsuario.Location = new Point(134, 104);
+            lblUsuario.Location = new Point(103, 97);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(47, 15);
             lblUsuario.TabIndex = 0;
@@ -47,7 +47,7 @@
             // lblContrasena
             // 
             lblContrasena.AutoSize = true;
-            lblContrasena.Location = new Point(125, 156);
+            lblContrasena.Location = new Point(94, 149);
             lblContrasena.Name = "lblContrasena";
             lblContrasena.Size = new Size(67, 15);
             lblContrasena.TabIndex = 1;
@@ -55,14 +55,14 @@
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(219, 101);
+            txtUsuario.Location = new Point(188, 94);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(189, 23);
             txtUsuario.TabIndex = 2;
             // 
             // txtContrasena
             // 
-            txtContrasena.Location = new Point(219, 156);
+            txtContrasena.Location = new Point(188, 149);
             txtContrasena.Name = "txtContrasena";
             txtContrasena.PasswordChar = '*';
             txtContrasena.Size = new Size(189, 23);
@@ -70,24 +70,24 @@
             // 
             // btnEntrar
             // 
-            btnEntrar.Location = new Point(200, 235);
+            btnEntrar.Location = new Point(169, 228);
             btnEntrar.Name = "btnEntrar";
             btnEntrar.Size = new Size(114, 23);
             btnEntrar.TabIndex = 4;
             btnEntrar.Text = "Iniciar Sesión";
             btnEntrar.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(501, 518);
             Controls.Add(btnEntrar);
             Controls.Add(txtContrasena);
             Controls.Add(txtUsuario);
             Controls.Add(lblContrasena);
             Controls.Add(lblUsuario);
-            Name = "Form1";
+            Name = "Login";
             Text = "Form1";
             ResumeLayout(false);
             PerformLayout();
