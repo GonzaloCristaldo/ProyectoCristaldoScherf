@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             lblUsuario = new Label();
             lblContrasena = new Label();
             txtUsuario = new TextBox();
@@ -42,6 +43,7 @@
             // lblUsuario
             // 
             lblUsuario.AutoSize = true;
+            lblUsuario.BackColor = Color.Transparent;
             lblUsuario.Location = new Point(105, 156);
             lblUsuario.Name = "lblUsuario";
             lblUsuario.Size = new Size(47, 15);
@@ -104,6 +106,8 @@
             // panel1
             // 
             panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
+            panel1.BackgroundImageLayout = ImageLayout.Stretch;
             panel1.Controls.Add(btnEntrar);
             panel1.Controls.Add(btnMinimizar);
             panel1.Controls.Add(txtUsuario);
