@@ -89,6 +89,7 @@
             btnCerrar.TabIndex = 5;
             btnCerrar.Text = "X";
             btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.Click += btnCerrar_Click;
             // 
             // btnMinimizar
             // 
@@ -98,6 +99,7 @@
             btnMinimizar.TabIndex = 6;
             btnMinimizar.Text = "-";
             btnMinimizar.UseVisualStyleBackColor = true;
+            btnMinimizar.Click += btnMinimizar_Click;
             // 
             // panel1
             // 
