@@ -5,6 +5,14 @@ namespace AdministracionPolideportivo
         public Login()
         {
             InitializeComponent();
+            this.BackColor = System.Drawing.Color.FromArgb(51, 153, 51);
+
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics, this.panel1.ClientRectangle, Color.DarkBlue, ButtonBorderStyle.Solid);
         }
     }
 }
