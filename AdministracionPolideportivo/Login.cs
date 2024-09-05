@@ -6,7 +6,7 @@ namespace AdministracionPolideportivo
         {
             InitializeComponent();
             this.BackColor = System.Drawing.Color.FromArgb(51, 153, 51);
-      
+
 
 
         }
@@ -26,6 +26,12 @@ namespace AdministracionPolideportivo
             this.WindowState = FormWindowState.Minimized;
 
 
+        }
+
+        private void btnEntrar_Click(object sender, EventArgs e)
+        {
+            VentanaMenu menu = new VentanaMenu();
+            menu.Show();
         }
     }
 }
