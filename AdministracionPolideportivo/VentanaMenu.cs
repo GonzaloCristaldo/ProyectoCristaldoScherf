@@ -30,6 +30,7 @@ namespace AdministracionPolideportivo
         private Color borderColor = Color.DarkBlue;  // Custom border color
         private bool isMaximized = false;  // Track if the form is maximized
         private Rectangle normalBounds;    // Store form bounds when not maximized
+        private bool isResizing = false; //Trackea cuando una ventana esta siendo redimencionada para evitar parpadeos
 
         //Variables usadas para arrastrar la ventana
         int movX, movY;
@@ -39,6 +40,13 @@ namespace AdministracionPolideportivo
         protected bool isDragging = false;
         private Button button1;
         private Button button2;
+        private bool shouldMaximize = false;
+        private bool shouldSnapRight = false;
+        private bool shouldSnapLeft = false;
+        Screen currentScreen;
+
+
+
         protected Rectangle lastRectangle;
         public VentanaMenu()
         {
@@ -59,6 +67,7 @@ namespace AdministracionPolideportivo
             this.MouseDown += Form_MouseDown;
             this.MouseMove += Form_MouseMove;
             this.MouseUp += Form_MouseUp;
+            this.Move += Form_Move;
 
         }
 
@@ -183,6 +192,37 @@ namespace AdministracionPolideportivo
 
         }
 
+        private void Form_Move(object sender, EventArgs e)
+        {
+            if (isResizing) return; // Evitar parpadeo si ya estamos redimensionando
+
+            Screen currentScreen = Screen.FromPoint(this.Location);
+
+            // Redimensionar hacia la izquierda (ajustar al borde izquierdo)
+            if (this.Left <= currentScreen.WorkingArea.Left + 5)
+            {
+                isResizing = true;
+                this.Bounds = new Rectangle(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top,
+                                            currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
+                isMaximized = false;
+                isResizing = false;
+            }
+            // Redimensionar hacia la derecha (ajustar al borde derecho)
+            else if (this.Right >= currentScreen.WorkingArea.Right - 5)
+            {
+                
+            }
+            // Maximizar al arrastrar al borde superior
+            else if (this.Top <= currentScreen.WorkingArea.Top + 5)
+            {
+                MaximizeForm();
+            }
+            // Restaurar el formulario si se arrastra fuera de la parte inferior
+            else if (this.Bottom >= currentScreen.WorkingArea.Bottom - 5 && !isMaximized)
+            {
+                RestoreForm();
+            }
+        }
         private void panelOpciones_Paint(object sender, PaintEventArgs e)
         {
 
@@ -304,29 +344,36 @@ namespace AdministracionPolideportivo
 
         private void Form_MouseMove(object sender, MouseEventArgs e)
         {
-            Screen currentScreen = Screen.FromPoint(this.Location);
+            if (isDragging)
+            {
+                currentScreen = Screen.FromPoint(this.Location);
 
-            // Detect if the form is dragged to the top, left, or right edges of the screen
-            if (this.Left <= currentScreen.WorkingArea.Left + 5)  // Snap to left
-            {
-                this.Bounds = new Rectangle(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top,
-                                            currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
-                isMaximized = false;  // Not fully maximized
-            }
-            else if (this.Right >= currentScreen.WorkingArea.Right - 5)  // Snap to right
-            {
-                this.Bounds = new Rectangle(currentScreen.WorkingArea.Left + currentScreen.WorkingArea.Width / 2,
-                                            currentScreen.WorkingArea.Top,
-                                            currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
-                isMaximized = false;
-            }
-            else if (this.Top <= currentScreen.WorkingArea.Top + 5)  // Maximize when dragged to the top
-            {
-                MaximizeForm();
-            }
-            else if (this.Bottom >= currentScreen.WorkingArea.Bottom - 5 && !isMaximized)
-            {
-                RestoreForm();  // Restore size if dragged away from edges
+                // Si el borde superior está alcanzado, señalamos que debe maximizarse al soltar el mouse
+                if (this.Top <= currentScreen.WorkingArea.Top + 5)
+                {
+                    shouldMaximize = true;  // Bandera para maximizar
+                }
+                else
+                {
+                    shouldMaximize = false; // No maximizar si no está cerca del borde superior
+                }
+                // Detect if the form is dragged to the top, left, or right edges of the screen
+                if (this.Left <= currentScreen.WorkingArea.Left + 5)  // Snap to left
+                {
+                    shouldSnapLeft = true;
+                }
+                else if (this.Right >= currentScreen.WorkingArea.Right - 5)  // Snap to right
+                {
+                    shouldSnapRight = true;
+                }
+                else if (this.Top <= currentScreen.WorkingArea.Top + 5)  // Maximize when dragged to the top
+                {
+                    shouldMaximize = true;
+                }
+                else if (this.Bottom >= currentScreen.WorkingArea.Bottom - 5 && !isMaximized)
+                {
+                    RestoreForm();  // Restore size if dragged away from edges
+                }
             }
         }
 
@@ -337,17 +384,53 @@ namespace AdministracionPolideportivo
             {
                 this.Bounds = normalBounds;  // Restore to original size
             }
+            // Solo maximizar cuando el usuario suelte el mouse y esté cerca del borde superior
+            if (shouldMaximize && !isMaximized)
+            {
+                MaximizeForm();
+            }else if (shouldSnapRight)
+            {
+                SnapRight();
+            }
+            else if (shouldSnapLeft)
+            {
+                SnapLeft();
+            }
+
+                isDragging = false; // Finaliza el arrastre
+        }
+
+        private void SnapRight()
+        {
+            isResizing = true;
+            this.Bounds = new Rectangle(currentScreen.WorkingArea.Left + currentScreen.WorkingArea.Width / 2,
+                                        currentScreen.WorkingArea.Top,
+                                        currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
+            isMaximized = false;
+            isResizing = false;
+            shouldSnapRight = false;
+        }
+
+        private void SnapLeft()
+        {
+            this.Bounds = new Rectangle(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top,
+                                                currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
+            isMaximized = false;  // Not fully maximized
+            shouldSnapLeft = false;
         }
 
         private void MaximizeForm()
         {
             if (!isMaximized)
             {
-                normalBounds = this.Bounds;  // Save the original bounds
+                normalBounds = this.Bounds; // Guardar los límites originales
                 Screen currentScreen = Screen.FromPoint(this.Location);
-                this.Bounds = currentScreen.WorkingArea;  // Maximize to screen
+                isResizing = true;
+                this.Bounds = currentScreen.WorkingArea; // Maximizar al tamaño completo de la pantalla
                 isMaximized = true;
+                isResizing = false;
             }
+            shouldMaximize = false;
         }
 
         private void RestoreForm()
