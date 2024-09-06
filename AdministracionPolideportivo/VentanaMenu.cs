@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo
 {
-    internal class VentanaMenu : Form
+    internal class VentanaMenu : Resizable
     {
         //Variables usadas para arrastrar la ventana
         int movX, movY;
