@@ -10,12 +10,14 @@ namespace AdministracionPolideportivo
     {
         protected bool isDragging = false;
         protected Rectangle lastRectangle;
-        public Resizable()
+
+        public Resizable() 
         {
-            lastRectangle = DisplayRectangle;
-            initialiseFormEdge();
+            this.FormBorderStyle = FormBorderStyle.None;
+
             
         }
+
 
         protected void initialiseFormEdge()
         {
