@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AdministracionPolideportivo
 {
@@ -45,7 +46,7 @@ namespace AdministracionPolideportivo
 
             //Aplicando color a los paneles del menu
             this.panelNavegacion.BackColor = Color.FromArgb(18, 77, 10);
-            this.panelOpciones.BackColor = Color.FromArgb(31, 31, 31);
+            this.panelOpciones.BackColor = Color.FromArgb(31,31,31);
             this.panelFormulario.BackColor = Color.FromArgb(49, 49, 49);
 
 
@@ -66,10 +67,33 @@ namespace AdministracionPolideportivo
             base.OnPaint(e);
             // Draw custom border
             ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle,
-                borderColor, borderWidth, ButtonBorderStyle.Solid,
-                borderColor, borderWidth, ButtonBorderStyle.Solid,
-                borderColor, borderWidth, ButtonBorderStyle.Solid,
-                borderColor, borderWidth, ButtonBorderStyle.Solid);
+                Color.FromArgb(31, 31, 31), borderWidth, ButtonBorderStyle.Solid,
+                Color.FromArgb(18, 77, 10), borderWidth, ButtonBorderStyle.Solid,
+                Color.FromArgb(31, 31, 31), borderWidth, ButtonBorderStyle.Solid,
+                Color.FromArgb(31, 31, 31), borderWidth, ButtonBorderStyle.Solid);
+            //draw border details
+            Rectangle rcDetalles= this.ClientRectangle;
+            rcDetalles.Width = this.Width;
+            rcDetalles.Height = this.Height-borderWidth-panelFormulario.Height;
+            ControlPaint.DrawBorder(e.Graphics, rcDetalles,
+                Color.FromArgb(18, 77, 10), borderWidth, ButtonBorderStyle.Solid,
+                Color.FromArgb(18, 77, 10), borderWidth, ButtonBorderStyle.Solid,
+                Color.FromArgb(18, 77, 10), borderWidth, ButtonBorderStyle.Solid,
+                Color.FromArgb(18,77,10), borderWidth, ButtonBorderStyle.Solid);
+            Rectangle rcAreaTrabajo=panelFormulario.ClientRectangle;
+            Point location = PointToScreen(panelFormulario.Location);
+            rcAreaTrabajo.Width = panelFormulario.Width;
+            rcAreaTrabajo.Height = panelFormulario.Height;
+            rcAreaTrabajo.Width -= borderWidth*2;
+            rcAreaTrabajo.Height -= borderWidth*2;
+            rcAreaTrabajo.X = location.X; rcAreaTrabajo.Y = location.Y;
+            /*rcAreaTrabajo.Width = panelFormulario.Width;
+            rcAreaTrabajo.Height = panelFormulario.Height;*/
+            ControlPaint.DrawBorder(e.Graphics, rcAreaTrabajo,
+                Color.FromArgb(31,31,31), borderWidth*3, ButtonBorderStyle.Solid,
+                Color.FromArgb(31,31,31), borderWidth*3, ButtonBorderStyle.Solid,
+                Color.FromArgb(31,31,31), borderWidth*3, ButtonBorderStyle.Solid,
+                Color.FromArgb(31,31,31), borderWidth*3, ButtonBorderStyle.Solid);
         }
 
         private void InitializeComponent()
@@ -217,246 +241,7 @@ namespace AdministracionPolideportivo
 
         //funciones para redimensionar la ventana
 
-        protected void initialiseFormEdge()
-        {
-            int resizeWidth = 5;
-
-            this.MouseDown += new MouseEventHandler(form_MouseDown);
-            this.MouseMove += new MouseEventHandler(form_MouseMove);
-            this.MouseUp += delegate (object sender, MouseEventArgs e)
-            {
-                isDragging = false;
-            };
-
-            // bottom
-            UserControl uc1 = new UserControl()
-            {
-                Anchor = (AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Right),
-                Height = resizeWidth,
-                Width = this.DisplayRectangle.Width - (resizeWidth * 2),
-                Left = resizeWidth,
-                Dock = DockStyle.Bottom,
-                Top = this.DisplayRectangle.Height - resizeWidth,
-                //BackColor = Color.Transparent,
-                Cursor = Cursors.SizeNS,
-                BackColor = Color.FromArgb(31, 31, 31)
-            };
-            panelFormulario.Controls.Add(uc1);
-            uc1.MouseDown += form_MouseDown;
-            uc1.MouseUp += form_MouseUp;
-            uc1.MouseMove += delegate (object sender, MouseEventArgs e)
-            {
-                if (isDragging)
-                {
-                    this.Size = new Size(lastRectangle.Width, e.Y - lastRectangle.Y + this.Height);
-                }
-            };
-            uc1.BringToFront();
-            uc1.TabIndex = 0;
-
-            this.Controls.Add(uc1);
-
-            // right
-            UserControl uc2 = new UserControl()
-            {
-                Anchor = (AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom),
-                Height = this.DisplayRectangle.Height - (resizeWidth * 2),
-                Width = resizeWidth,
-                Left = this.DisplayRectangle.Width - resizeWidth,
-                Top = resizeWidth,
-                Dock = DockStyle.Right,
-                BackColor = Color.FromArgb(31, 31, 31),
-                Cursor = Cursors.SizeWE,
-                ForeColor = Color.Black
-            };
-            uc2.MouseDown += form_MouseDown;
-            uc2.MouseUp += form_MouseUp;
-            uc2.MouseMove += delegate (object sender, MouseEventArgs e)
-            {
-                if (isDragging)
-                {
-                    this.Size = new Size(e.X - lastRectangle.X + this.Width, lastRectangle.Height);
-                }
-            };
-            uc2.BringToFront();
-
-            this.Controls.Add(uc2);
-
-            // bottom-right
-            UserControl uc3 = new UserControl()
-            {
-                Anchor = (AnchorStyles.Bottom | AnchorStyles.Right),
-                Height = resizeWidth,
-                Width = resizeWidth,
-                Left = this.DisplayRectangle.Width - resizeWidth,
-                Top = this.DisplayRectangle.Height - resizeWidth,
-                /*Dock = DockStyle.*/
-                BackColor = Color.Transparent,
-                Cursor = Cursors.SizeNWSE
-            };
-            uc3.MouseDown += form_MouseDown;
-            uc3.MouseUp += form_MouseUp;
-            uc3.MouseMove += delegate (object sender, MouseEventArgs e)
-            {
-                if (isDragging)
-                {
-                    this.Size = new Size((e.X - lastRectangle.X + this.Width), (e.Y - lastRectangle.Y + this.Height));
-                }
-            };
-            uc3.BringToFront();
-
-            this.Controls.Add(uc3);
-
-            // top-right
-            UserControl uc4 = new UserControl()
-            {
-                Anchor = (AnchorStyles.Top | AnchorStyles.Right),
-                Height = resizeWidth,
-                Width = resizeWidth,
-                Left = this.DisplayRectangle.Width - resizeWidth,
-                Top = 0,
-                BackColor = Color.Transparent,
-                Cursor = Cursors.SizeNESW
-            };
-            uc4.MouseDown += form_MouseDown;
-            uc4.MouseUp += form_MouseUp;
-            uc4.MouseMove += delegate (object sender, MouseEventArgs e)
-            {
-                if (isDragging)
-                {
-                    int diff = (e.Location.Y - lastRectangle.Y);
-                    int y = (this.Location.Y + diff);
-
-                    this.Location = new Point(this.Location.X, y);
-                    this.Size = new Size(e.X - lastRectangle.X + this.Width, (this.Height + (diff * -1)));
-                }
-            };
-            uc4.BringToFront();
-            //uc4.BackColor = Color.Firebrick;
-
-            this.Controls.Add(uc4);
-
-            // top
-            UserControl uc5 = new UserControl()
-            {
-                Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right),
-                Height = resizeWidth,
-                Width = this.DisplayRectangle.Width - (resizeWidth * 2),
-                Left = resizeWidth,
-                Top = 0,
-                Dock = DockStyle.Top,
-                BackColor = Color.FromArgb(31, 31, 31),
-                Cursor = Cursors.SizeNS,
-                ForeColor = Color.FromArgb(18, 77, 10)
-            };
-            uc5.MouseDown += form_MouseDown;
-            uc5.MouseUp += form_MouseUp;
-            uc5.MouseMove += delegate (object sender, MouseEventArgs e)
-            {
-                if (isDragging)
-                {
-                    int diff = (e.Location.Y - lastRectangle.Y);
-                    int y = (this.Location.Y + diff);
-
-                    this.Location = new Point(this.Location.X, y);
-                    this.Size = new Size(lastRectangle.Width, (this.Height + (diff * -1)));
-                }
-            };
-            uc5.BringToFront();
-
-            this.Controls.Add(uc5);
-
-            // left
-            UserControl uc6 = new UserControl()
-            {
-                Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Bottom),
-                Height = this.DisplayRectangle.Height - (resizeWidth * 2),
-                Width = resizeWidth,
-                Left = 0,
-                Top = resizeWidth,
-                Dock = DockStyle.Left,
-                BackColor = Color.FromArgb(31, 31, 31),
-                Cursor = Cursors.SizeWE,
-                ForeColor = Color.Black
-            };
-            uc6.MouseDown += form_MouseDown;
-            uc6.MouseUp += form_MouseUp;
-            uc6.MouseMove += delegate (object sender, MouseEventArgs e)
-            {
-                if (isDragging)
-                {
-                    int diff = (e.Location.X - lastRectangle.X);
-                    int x = (this.Location.X + diff);
-
-                    this.Location = new Point(x, this.Location.Y);
-                    this.Size = new Size((this.Width + (diff * -1)), this.Height);
-                }
-            };
-            uc6.BringToFront();
-
-            this.Controls.Add(uc6);
-
-            // bottom-left
-            UserControl uc7 = new UserControl()
-            {
-                Anchor = (AnchorStyles.Bottom | AnchorStyles.Left),
-                Height = resizeWidth,
-                Width = resizeWidth,
-                Left = 0,
-                Top = this.DisplayRectangle.Height - resizeWidth,
-                BackColor = Color.Transparent,
-                Cursor = Cursors.SizeNESW
-            };
-            uc7.MouseDown += form_MouseDown;
-            uc7.MouseUp += form_MouseUp;
-            uc7.MouseMove += delegate (object sender, MouseEventArgs e)
-            {
-                if (isDragging)
-                {
-                    int diff = (e.Location.X - lastRectangle.X);
-                    int x = (this.Location.X + diff);
-
-                    this.Location = new Point(x, this.Location.Y);
-                    this.Size = new Size((this.Width + (diff * -1)), (e.Y - lastRectangle.Y + this.Height));
-                }
-            };
-            uc7.BringToFront();
-
-            this.Controls.Add(uc7);
-
-            // bottom-left
-            UserControl uc8 = new UserControl()
-            {
-                Anchor = (AnchorStyles.Bottom | AnchorStyles.Left),
-                //Dock = DockStyle.Bottom,
-                Height = resizeWidth,
-                Width = resizeWidth,
-                Left = 0,
-                Top = 0,
-                BackColor = Color.Transparent,
-                Cursor = Cursors.SizeNWSE,
-                ForeColor = Color.Transparent
-
-            };
-            uc8.MouseDown += form_MouseDown;
-            uc8.MouseUp += form_MouseUp;
-            uc8.MouseMove += delegate (object sender, MouseEventArgs e)
-            {
-                if (isDragging)
-                {
-                    int dX = (e.Location.X - lastRectangle.X);
-                    int dY = (e.Location.Y - lastRectangle.Y);
-                    int x = (this.Location.X + dX);
-                    int y = (this.Location.Y + dY);
-
-                    this.Location = new Point(x, y);
-                    this.Size = new Size((this.Width + (dX * -1)), (this.Height + (dY * -1)));
-                }
-            };
-            uc8.BringToFront();
-
-            this.Controls.Add(uc8);
-        }
+       
         private void form_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
