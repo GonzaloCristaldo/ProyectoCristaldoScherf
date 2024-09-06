@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,6 +9,27 @@ namespace AdministracionPolideportivo
 {
     internal class VentanaMenu : Form
     {
+        [DllImport("user32.dll")]
+        private static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HTCAPTION = 0x2;
+
+        // Constants for resizing
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTLEFT = 0xA;
+        private const int HTRIGHT = 0xB;
+        private const int HTTOP = 0xC;
+        private const int HTBOTTOM = 0xF;
+
+        private int borderWidth = 5;  // Custom border width
+        private Color borderColor = Color.DarkBlue;  // Custom border color
+        private bool isMaximized = false;  // Track if the form is maximized
+        private Rectangle normalBounds;    // Store form bounds when not maximized
+
         //Variables usadas para arrastrar la ventana
         int movX, movY;
         bool isMoving;
@@ -31,11 +53,24 @@ namespace AdministracionPolideportivo
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             Console.WriteLine("ventana construida");
 
-            initialiseFormEdge();
-            Console.WriteLine("Cuadrito construido");
+            this.FormBorderStyle = FormBorderStyle.None;  // Remove default form border
+            this.Padding = new Padding(borderWidth);      // Add padding for the custom border
+            this.MouseDown += Form_MouseDown;
+            this.MouseMove += Form_MouseMove;
+            this.MouseUp += Form_MouseUp;
 
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            // Draw custom border
+            ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle,
+                borderColor, borderWidth, ButtonBorderStyle.Solid,
+                borderColor, borderWidth, ButtonBorderStyle.Solid,
+                borderColor, borderWidth, ButtonBorderStyle.Solid,
+                borderColor, borderWidth, ButtonBorderStyle.Solid);
+        }
 
         private void InitializeComponent()
         {
@@ -451,5 +486,93 @@ namespace AdministracionPolideportivo
         {
             Console.WriteLine("BOTON CLICKEADO");
         }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            // Handle window resizing with custom border
+            if (m.Msg == WM_NCHITTEST)
+            {
+                Point cursor = PointToClient(Cursor.Position);
+
+                if (cursor.X <= borderWidth)
+                    m.Result = (IntPtr)HTLEFT;
+                else if (cursor.X >= ClientSize.Width - borderWidth)
+                    m.Result = (IntPtr)HTRIGHT;
+                else if (cursor.Y <= borderWidth)
+                    m.Result = (IntPtr)HTTOP;
+                else if (cursor.Y >= ClientSize.Height - borderWidth)
+                    m.Result = (IntPtr)HTBOTTOM;
+            }
+        }
+
+        private void Form_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && e.Y > borderWidth)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+                normalBounds = this.Bounds;  // Save the original bounds
+            }
+        }
+
+        private void Form_MouseMove(object sender, MouseEventArgs e)
+        {
+            Screen currentScreen = Screen.FromPoint(this.Location);
+
+            // Detect if the form is dragged to the top, left, or right edges of the screen
+            if (this.Left <= currentScreen.WorkingArea.Left + 5)  // Snap to left
+            {
+                this.Bounds = new Rectangle(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top,
+                                            currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
+                isMaximized = false;  // Not fully maximized
+            }
+            else if (this.Right >= currentScreen.WorkingArea.Right - 5)  // Snap to right
+            {
+                this.Bounds = new Rectangle(currentScreen.WorkingArea.Left + currentScreen.WorkingArea.Width / 2,
+                                            currentScreen.WorkingArea.Top,
+                                            currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
+                isMaximized = false;
+            }
+            else if (this.Top <= currentScreen.WorkingArea.Top + 5)  // Maximize when dragged to the top
+            {
+                MaximizeForm();
+            }
+            else if (this.Bottom >= currentScreen.WorkingArea.Bottom - 5 && !isMaximized)
+            {
+                RestoreForm();  // Restore size if dragged away from edges
+            }
+        }
+
+        private void Form_MouseUp(object sender, MouseEventArgs e)
+        {
+            // When the mouse is released, restore original size if not at the edges
+            if (!isMaximized && (this.Left > 5 && this.Top > 5))
+            {
+                this.Bounds = normalBounds;  // Restore to original size
+            }
+        }
+
+        private void MaximizeForm()
+        {
+            if (!isMaximized)
+            {
+                normalBounds = this.Bounds;  // Save the original bounds
+                Screen currentScreen = Screen.FromPoint(this.Location);
+                this.Bounds = currentScreen.WorkingArea;  // Maximize to screen
+                isMaximized = true;
+            }
+        }
+
+        private void RestoreForm()
+        {
+            if (isMaximized)
+            {
+                this.Bounds = normalBounds;  // Restore to original size
+                isMaximized = false;
+            }
+        }
+
     }
 }
