@@ -69,7 +69,7 @@ namespace AdministracionPolideportivo
             this.MouseMove += Form_MouseMove;
             this.MouseUp += Form_MouseUp;
             this.Move += Form_Move;
-
+            normalBounds = this.Bounds;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -270,9 +270,11 @@ namespace AdministracionPolideportivo
             if (e.Button == MouseButtons.Left)
             {
                 isDragging = true;
-                lastRectangle = new Rectangle(e.Location.X, e.Location.Y, this.Width, this.Height);
+                if (!isMaximized) {
+                    lastRectangle = new Rectangle(e.Location.X, e.Location.Y, this.Width, this.Height);
+                } 
                 Console.WriteLine("isDragging");
-                if (isSnapped==false) { 
+                if (isSnapped==false && isMaximized==false) { 
                     normalBounds = this.Bounds;
                 }
                 
@@ -295,6 +297,7 @@ namespace AdministracionPolideportivo
             }
             if (isDragging)
             {
+                RestoreForm();
                 currentScreen = Screen.FromPoint(this.Location);
 
                 // Si el borde superior está alcanzado, señalamos que debe maximizarse al soltar el mouse
@@ -321,7 +324,9 @@ namespace AdministracionPolideportivo
                     && this.Right >= currentScreen.WorkingArea.Right - 5)
                 {
                     RestoreForm();  // Restore size if dragged away from edges
-                }
+                }/*else if(isMaximized){
+
+                }*/
                 else
                 {
                     shouldMaximize = false; // No maximizar si no está cerca del borde superior
@@ -460,15 +465,17 @@ namespace AdministracionPolideportivo
         {
             if (isMaximized || isSnapped)
             {
-                Console.WriteLine("anda el restore");
+                
+                /*Console.WriteLine("anda el restore");
                 Rectangle tamanoDefault = new Rectangle();
                 tamanoDefault.Width = 800;
-                tamanoDefault.Height = 600;
-                this.Bounds = tamanoDefault;  // Restore to original size
+                tamanoDefault.Height = 600;*/
+                this.Bounds = normalBounds;  // Restore to original size
+                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
                 isMaximized = false;
-                shouldMaximize=false;
-                shouldSnapLeft=false;
-                shouldSnapRight=false;
+                shouldMaximize = false;
+                shouldSnapLeft = false;
+                shouldSnapRight = false;
                 isSnapped = false;
             }
         }
