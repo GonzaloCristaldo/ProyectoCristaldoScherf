@@ -1,3 +1,5 @@
+using AdministracionPolideportivo.CPresentacion;
+
 namespace AdministracionPolideportivo
 {
     public partial class Login : Form

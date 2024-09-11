@@ -27,4 +27,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CDatos\" />
+    <Folder Include="CNegocio\" />
+  </ItemGroup>
+
 </Project>

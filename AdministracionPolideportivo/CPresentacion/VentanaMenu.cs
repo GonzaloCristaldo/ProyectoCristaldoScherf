@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AdministracionPolideportivo
+namespace AdministracionPolideportivo.CPresentacion
 {
     internal class VentanaMenu : Form
     {
@@ -14,7 +14,7 @@ namespace AdministracionPolideportivo
         private static extern bool ReleaseCapture();
 
         [DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private static extern nint SendMessage(nint hWnd, int Msg, int wParam, int lParam);
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HTCAPTION = 0x2;
@@ -38,8 +38,6 @@ namespace AdministracionPolideportivo
 
         //variables usadas para redimensionar el tamaño de la ventana 
         protected bool isDragging = false;
-        private Button button1;
-        private Button button2;
         private bool shouldMaximize = false;
         private bool shouldSnapRight = false;
         private bool shouldSnapLeft = false;
@@ -54,56 +52,56 @@ namespace AdministracionPolideportivo
             InitializeComponent();
 
             //Aplicando color a los paneles del menu
-            this.panelNavegacion.BackColor = Color.FromArgb(18, 77, 10);
-            this.panelOpciones.BackColor = Color.FromArgb(31,31,31);
-            this.panelFormulario.BackColor = Color.FromArgb(49, 49, 49);
+            panelNavegacion.BackColor = Color.FromArgb(18, 77, 10);
+            panelOpciones.BackColor = Color.FromArgb(31, 31, 31);
+            panelFormulario.BackColor = Color.FromArgb(49, 49, 49);
 
 
-            this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.ResizeRedraw, true);
             Console.WriteLine("ventana construida");
 
-            this.FormBorderStyle = FormBorderStyle.None;  // Remove default form border
-            this.Padding = new Padding(borderWidth);      // Add padding for the custom border
-            this.MouseDown += Form_MouseDown;
-            this.MouseMove += Form_MouseMove;
-            this.MouseUp += Form_MouseUp;
-            this.Move += Form_Move;
-            normalBounds = this.Bounds;
+            FormBorderStyle = FormBorderStyle.None;  // Remove default form border
+            Padding = new Padding(borderWidth);      // Add padding for the custom border
+            MouseDown += Form_MouseDown;
+            MouseMove += Form_MouseMove;
+            MouseUp += Form_MouseUp;
+            Move += Form_Move;
+            normalBounds = Bounds;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             // Draw custom border
-            ControlPaint.DrawBorder(e.Graphics, this.ClientRectangle,
+            ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
                 Color.FromArgb(31, 31, 31), borderWidth, ButtonBorderStyle.Solid,
                 Color.FromArgb(18, 77, 10), borderWidth, ButtonBorderStyle.Solid,
                 Color.FromArgb(31, 31, 31), borderWidth, ButtonBorderStyle.Solid,
                 Color.FromArgb(31, 31, 31), borderWidth, ButtonBorderStyle.Solid);
             //draw border details
-            Rectangle rcDetalles= this.ClientRectangle;
-            rcDetalles.Width = this.Width;
-            rcDetalles.Height = this.Height-borderWidth-panelFormulario.Height;
+            Rectangle rcDetalles = ClientRectangle;
+            rcDetalles.Width = Width;
+            rcDetalles.Height = Height - borderWidth - panelFormulario.Height;
             ControlPaint.DrawBorder(e.Graphics, rcDetalles,
                 Color.FromArgb(18, 77, 10), borderWidth, ButtonBorderStyle.Solid,
                 Color.FromArgb(18, 77, 10), borderWidth, ButtonBorderStyle.Solid,
                 Color.FromArgb(18, 77, 10), borderWidth, ButtonBorderStyle.Solid,
-                Color.FromArgb(18,77,10), borderWidth, ButtonBorderStyle.Solid);
-            Rectangle rcAreaTrabajo=panelFormulario.ClientRectangle;
+                Color.FromArgb(18, 77, 10), borderWidth, ButtonBorderStyle.Solid);
+            Rectangle rcAreaTrabajo = panelFormulario.ClientRectangle;
             Point location = PointToScreen(panelFormulario.Location);
             rcAreaTrabajo.Width = panelFormulario.Width;
             rcAreaTrabajo.Height = panelFormulario.Height;
-            rcAreaTrabajo.Width -= borderWidth*2;
-            rcAreaTrabajo.Height -= borderWidth*2;
+            rcAreaTrabajo.Width -= borderWidth * 2;
+            rcAreaTrabajo.Height -= borderWidth * 2;
             rcAreaTrabajo.X = location.X; rcAreaTrabajo.Y = location.Y;
             /*rcAreaTrabajo.Width = panelFormulario.Width;
             rcAreaTrabajo.Height = panelFormulario.Height;*/
             ControlPaint.DrawBorder(e.Graphics, rcAreaTrabajo,
-                Color.FromArgb(31,31,31), borderWidth*3, ButtonBorderStyle.Solid,
-                Color.FromArgb(31,31,31), borderWidth*3, ButtonBorderStyle.Solid,
-                Color.FromArgb(31,31,31), borderWidth*3, ButtonBorderStyle.Solid,
-                Color.FromArgb(31,31,31), borderWidth*3, ButtonBorderStyle.Solid);
+                Color.FromArgb(31, 31, 31), borderWidth * 3, ButtonBorderStyle.Solid,
+                Color.FromArgb(31, 31, 31), borderWidth * 3, ButtonBorderStyle.Solid,
+                Color.FromArgb(31, 31, 31), borderWidth * 3, ButtonBorderStyle.Solid,
+                Color.FromArgb(31, 31, 31), borderWidth * 3, ButtonBorderStyle.Solid);
         }
 
         private void InitializeComponent()
@@ -111,9 +109,6 @@ namespace AdministracionPolideportivo
             panelNavegacion = new Panel();
             panelOpciones = new Panel();
             panelFormulario = new Panel();
-            button2 = new Button();
-            button1 = new Button();
-            panelFormulario.SuspendLayout();
             SuspendLayout();
             // 
             // panelNavegacion
@@ -140,32 +135,12 @@ namespace AdministracionPolideportivo
             // 
             // panelFormulario
             // 
-            panelFormulario.Controls.Add(button2);
-            panelFormulario.Controls.Add(button1);
             panelFormulario.Dock = DockStyle.Fill;
             panelFormulario.Location = new Point(200, 34);
             panelFormulario.Name = "panelFormulario";
             panelFormulario.Size = new Size(494, 416);
             panelFormulario.TabIndex = 2;
             panelFormulario.Paint += panelFormulario_Paint;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(290, 166);
-            button2.Name = "button2";
-            button2.Size = new Size(92, 45);
-            button2.TabIndex = 2;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(122, 159);
-            button1.Name = "button1";
-            button1.Size = new Size(102, 52);
-            button1.TabIndex = 1;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
             // 
             // VentanaMenu
             // 
@@ -180,7 +155,6 @@ namespace AdministracionPolideportivo
             MouseDown += VentanaMenu_MouseDown;
             MouseMove += VentanaMenu_MouseMove;
             MouseUp += VentanaMenu_MouseUp;
-            panelFormulario.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -197,10 +171,10 @@ namespace AdministracionPolideportivo
         {
             if (isResizing) return; // Evitar parpadeo si ya estamos redimensionando
 
-            Screen currentScreen = Screen.FromPoint(this.Location);
+            Screen currentScreen = Screen.FromPoint(Location);
 
             // Redimensionar hacia la izquierda (ajustar al borde izquierdo)
-            if (this.Left <= currentScreen.WorkingArea.Left + 5)
+            if (Left <= currentScreen.WorkingArea.Left + 5)
             {
                 /*isResizing = true;
                 this.Bounds = new Rectangle(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top,
@@ -209,17 +183,17 @@ namespace AdministracionPolideportivo
                 isResizing = false;*/
             }
             // Redimensionar hacia la derecha (ajustar al borde derecho)
-            else if (this.Right >= currentScreen.WorkingArea.Right - 5)
+            else if (Right >= currentScreen.WorkingArea.Right - 5)
             {
-                
+
             }
             // Maximizar al arrastrar al borde superior
-            else if (this.Top <= currentScreen.WorkingArea.Top + 5)
+            else if (Top <= currentScreen.WorkingArea.Top + 5)
             {
                 //MaximizeForm();
             }
             // Restaurar el formulario si se arrastra fuera de la parte inferior
-            else if (this.Bottom >= currentScreen.WorkingArea.Bottom - 5 && !isMaximized)
+            else if (Bottom >= currentScreen.WorkingArea.Bottom - 5 && !isMaximized)
             {
                 RestoreForm();
             }
@@ -244,14 +218,14 @@ namespace AdministracionPolideportivo
             isMoving = true;
             movX = e.X;
             movY = e.Y;
-            
+
         }
 
         private void VentanaMenu_MouseMove(object sender, MouseEventArgs e)
         {
             if (isMoving)
             {
-                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
+                SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
             }
         }
 
@@ -270,16 +244,18 @@ namespace AdministracionPolideportivo
             if (e.Button == MouseButtons.Left)
             {
                 isDragging = true;
-                if (!isMaximized) {
-                    lastRectangle = new Rectangle(e.Location.X, e.Location.Y, this.Width, this.Height);
-                } 
-                Console.WriteLine("isDragging");
-                if (isSnapped==false && isMaximized==false) { 
-                    normalBounds = this.Bounds;
+                if (!isMaximized)
+                {
+                    lastRectangle = new Rectangle(e.Location.X, e.Location.Y, Width, Height);
                 }
-                
+                Console.WriteLine("isDragging");
+                if (isSnapped == false && isMaximized == false)
+                {
+                    normalBounds = Bounds;
+                }
+
             }
-            
+
         }
 
         private void panelNavegacion_MouseMove(object sender, MouseEventArgs e)
@@ -288,40 +264,40 @@ namespace AdministracionPolideportivo
             {
                 this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
             }*/
-            
+
             if (isDragging)
             {
-                int x = (this.Location.X + (e.Location.X - lastRectangle.X));
-                int y = (this.Location.Y + (e.Location.Y - lastRectangle.Y));
-                this.Location = new Point(x, y);
+                int x = Location.X + (e.Location.X - lastRectangle.X);
+                int y = Location.Y + (e.Location.Y - lastRectangle.Y);
+                Location = new Point(x, y);
             }
             if (isDragging)
             {
                 RestoreForm();
-                currentScreen = Screen.FromPoint(this.Location);
+                currentScreen = Screen.FromPoint(Location);
 
                 // Si el borde superior está alcanzado, señalamos que debe maximizarse al soltar el mouse
-                if (this.Top <= currentScreen.WorkingArea.Top + 5 )
+                if (Top <= currentScreen.WorkingArea.Top + 5)
                 {
                     shouldMaximize = true;  // Bandera para maximizar
                     shouldSnapLeft = false;
                     shouldSnapRight = false;
-                    
+
                 }
-                else if (this.Left <= currentScreen.WorkingArea.Left + 5)  // Snap to left
+                else if (Left <= currentScreen.WorkingArea.Left + 5)  // Snap to left
                 {
                     shouldSnapLeft = true;
                     shouldSnapRight = false;
                     shouldMaximize = false;
                 }
-                else if (this.Right >= currentScreen.WorkingArea.Right - 5)  // Snap to right
+                else if (Right >= currentScreen.WorkingArea.Right - 5)  // Snap to right
                 {
                     shouldSnapRight = true;
                     shouldSnapLeft = false;
                     shouldMaximize = false;
                 }
-                else if (this.Top <= currentScreen.WorkingArea.Top + 5 && this.Left <= currentScreen.WorkingArea.Left + 5
-                    && this.Right >= currentScreen.WorkingArea.Right - 5)
+                else if (Top <= currentScreen.WorkingArea.Top + 5 && Left <= currentScreen.WorkingArea.Left + 5
+                    && Right >= currentScreen.WorkingArea.Right - 5)
                 {
                     RestoreForm();  // Restore size if dragged away from edges
                 }/*else if(isMaximized){
@@ -334,7 +310,7 @@ namespace AdministracionPolideportivo
                     shouldSnapRight = false;
 
                 }
-                
+
             }
 
         }
@@ -347,9 +323,9 @@ namespace AdministracionPolideportivo
                 this.Bounds = normalBounds;  // Restore to original size
             }*/
             // Solo maximizar cuando el usuario suelte el mouse y esté cerca del borde superior
-            Console.WriteLine("shouldMaximize = "+shouldMaximize);
+            Console.WriteLine("shouldMaximize = " + shouldMaximize);
             Console.WriteLine("isMaximized = " + isMaximized);
-            if (shouldMaximize && isMaximized==false)
+            if (shouldMaximize && isMaximized == false)
             {
                 Console.WriteLine("maximiza");
                 MaximizeForm();
@@ -369,20 +345,20 @@ namespace AdministracionPolideportivo
 
         //funciones para redimensionar la ventana
 
-       
+
         private void form_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void form_MouseMove(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void form_MouseUp(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -400,35 +376,35 @@ namespace AdministracionPolideportivo
                 Point cursor = PointToClient(Cursor.Position);
 
                 if (cursor.X <= borderWidth)
-                    m.Result = (IntPtr)HTLEFT;
+                    m.Result = HTLEFT;
                 else if (cursor.X >= ClientSize.Width - borderWidth)
-                    m.Result = (IntPtr)HTRIGHT;
+                    m.Result = HTRIGHT;
                 else if (cursor.Y <= borderWidth)
-                    m.Result = (IntPtr)HTTOP;
+                    m.Result = HTTOP;
                 else if (cursor.Y >= ClientSize.Height - borderWidth)
-                    m.Result = (IntPtr)HTBOTTOM;
+                    m.Result = HTBOTTOM;
             }
         }
 
         private void Form_MouseDown(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void Form_MouseMove(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void Form_MouseUp(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void SnapRight()
         {
             isResizing = true;
-            this.Bounds = new Rectangle(currentScreen.WorkingArea.Left + currentScreen.WorkingArea.Width / 2,
+            Bounds = new Rectangle(currentScreen.WorkingArea.Left + currentScreen.WorkingArea.Width / 2,
                                         currentScreen.WorkingArea.Top,
                                         currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
             isMaximized = false;
@@ -439,10 +415,10 @@ namespace AdministracionPolideportivo
 
         private void SnapLeft()
         {
-            this.Bounds = new Rectangle(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top,
+            Bounds = new Rectangle(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top,
                                                 currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
             isMaximized = false;  // Not fully maximized
-            isResizing=false;
+            isResizing = false;
             shouldSnapLeft = false;
             isSnapped = true;
         }
@@ -451,10 +427,10 @@ namespace AdministracionPolideportivo
         {
             if (!isMaximized)
             {
-                normalBounds = this.Bounds; // Guardar los límites originales
-                Screen currentScreen = Screen.FromPoint(this.Location);
+                normalBounds = Bounds; // Guardar los límites originales
+                Screen currentScreen = Screen.FromPoint(Location);
                 isResizing = true;
-                this.Bounds = currentScreen.WorkingArea; // Maximizar al tamaño completo de la pantalla
+                Bounds = currentScreen.WorkingArea; // Maximizar al tamaño completo de la pantalla
                 isMaximized = true;
                 isResizing = false;
             }
@@ -465,13 +441,13 @@ namespace AdministracionPolideportivo
         {
             if (isMaximized || isSnapped)
             {
-                
+
                 /*Console.WriteLine("anda el restore");
                 Rectangle tamanoDefault = new Rectangle();
                 tamanoDefault.Width = 800;
                 tamanoDefault.Height = 600;*/
-                this.Bounds = normalBounds;  // Restore to original size
-                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
+                Bounds = normalBounds;  // Restore to original size
+                SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
                 isMaximized = false;
                 shouldMaximize = false;
                 shouldSnapLeft = false;
