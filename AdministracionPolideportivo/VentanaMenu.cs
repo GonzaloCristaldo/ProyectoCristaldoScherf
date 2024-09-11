@@ -43,7 +43,7 @@ namespace AdministracionPolideportivo
         private bool shouldMaximize = false;
         private bool shouldSnapRight = false;
         private bool shouldSnapLeft = false;
-        private bool shouldSaveBounds = true;
+        private bool isSnapped = true;
         Screen currentScreen;
 
 
@@ -272,7 +272,7 @@ namespace AdministracionPolideportivo
                 isDragging = true;
                 lastRectangle = new Rectangle(e.Location.X, e.Location.Y, this.Width, this.Height);
                 Console.WriteLine("isDragging");
-                if (shouldSaveBounds) { 
+                if (isSnapped==false) { 
                     normalBounds = this.Bounds;
                 }
                 
@@ -298,7 +298,7 @@ namespace AdministracionPolideportivo
                 currentScreen = Screen.FromPoint(this.Location);
 
                 // Si el borde superior está alcanzado, señalamos que debe maximizarse al soltar el mouse
-                if (this.Top <= currentScreen.WorkingArea.Top + 5)
+                if (this.Top <= currentScreen.WorkingArea.Top + 5 )
                 {
                     shouldMaximize = true;  // Bandera para maximizar
                     shouldSnapLeft = false;
@@ -317,7 +317,8 @@ namespace AdministracionPolideportivo
                     shouldSnapLeft = false;
                     shouldMaximize = false;
                 }
-                else if (this.Bottom >= currentScreen.WorkingArea.Bottom - 5 && !isMaximized)
+                else if (this.Top <= currentScreen.WorkingArea.Top + 5 && this.Left <= currentScreen.WorkingArea.Left + 5
+                    && this.Right >= currentScreen.WorkingArea.Right - 5)
                 {
                     RestoreForm();  // Restore size if dragged away from edges
                 }
@@ -366,29 +367,17 @@ namespace AdministracionPolideportivo
        
         private void form_MouseDown(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("el evento ocurre");
-            if (e.Button == MouseButtons.Left)
-            {
-                isDragging = true;
-                lastRectangle = new Rectangle(e.Location.X, e.Location.Y, this.Width, this.Height);
-                Console.WriteLine("isDragging");
-            }
+            
         }
 
         private void form_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragging)
-            {
-                int x = (this.Location.X + (e.Location.X - lastRectangle.X));
-                int y = (this.Location.Y + (e.Location.Y - lastRectangle.Y));
-
-                this.Location = new Point(x, y);
-            }
+            
         }
 
         private void form_MouseUp(object sender, MouseEventArgs e)
         {
-            isDragging = false;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -418,12 +407,7 @@ namespace AdministracionPolideportivo
 
         private void Form_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && e.Y > borderWidth)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
-                normalBounds = this.Bounds;  // Save the original bounds
-            }
+            
         }
 
         private void Form_MouseMove(object sender, MouseEventArgs e)
@@ -433,25 +417,7 @@ namespace AdministracionPolideportivo
 
         private void Form_MouseUp(object sender, MouseEventArgs e)
         {
-            // When the mouse is released, restore original size if not at the edges
-            if (!isMaximized && (this.Left > 5 && this.Top > 5))
-            {
-                this.Bounds = normalBounds;  // Restore to original size
-            }
-            // Solo maximizar cuando el usuario suelte el mouse y esté cerca del borde superior
-            if (shouldMaximize && !isMaximized)
-            {
-                MaximizeForm();
-            }else if (shouldSnapRight)
-            {
-                SnapRight();
-            }
-            else if (shouldSnapLeft)
-            {
-                SnapLeft();
-            }
-
-                isDragging = false; // Finaliza el arrastre
+            
         }
 
         private void SnapRight()
@@ -463,6 +429,7 @@ namespace AdministracionPolideportivo
             isMaximized = false;
             isResizing = false;
             shouldSnapRight = false;
+            isSnapped = true;
         }
 
         private void SnapLeft()
@@ -472,6 +439,7 @@ namespace AdministracionPolideportivo
             isMaximized = false;  // Not fully maximized
             isResizing=false;
             shouldSnapLeft = false;
+            isSnapped = true;
         }
 
         private void MaximizeForm()
@@ -490,14 +458,18 @@ namespace AdministracionPolideportivo
 
         private void RestoreForm()
         {
-            if (isMaximized)
+            if (isMaximized || isSnapped)
             {
-                this.Bounds = normalBounds;  // Restore to original size
+                Console.WriteLine("anda el restore");
+                Rectangle tamanoDefault = new Rectangle();
+                tamanoDefault.Width = 800;
+                tamanoDefault.Height = 600;
+                this.Bounds = tamanoDefault;  // Restore to original size
                 isMaximized = false;
                 shouldMaximize=false;
                 shouldSnapLeft=false;
                 shouldSnapRight=false;
-                shouldSaveBounds = true;
+                isSnapped = false;
             }
         }
 
