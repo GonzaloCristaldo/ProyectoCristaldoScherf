@@ -158,9 +158,9 @@ namespace AdministracionPolideportivo.CPresentacion
             ResumeLayout(false);
         }
 
-        private Panel panelNavegacion;
-        private Panel panelOpciones;
-        private Panel panelFormulario;
+        protected Panel panelNavegacion;
+        protected Panel panelOpciones;
+        protected Panel panelFormulario;
 
         private void panelNavegacion_Paint(object sender, PaintEventArgs e)
         {

@@ -53,6 +53,7 @@
             // lblContrasena
             // 
             lblContrasena.AutoSize = true;
+            lblContrasena.BackColor = Color.Transparent;
             lblContrasena.Location = new Point(96, 208);
             lblContrasena.Name = "lblContrasena";
             lblContrasena.Size = new Size(67, 15);
