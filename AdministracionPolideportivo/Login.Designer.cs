@@ -66,6 +66,7 @@
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(189, 23);
             txtUsuario.TabIndex = 2;
+            txtUsuario.TextChanged += txtUsuario_TextChanged;
             // 
             // txtContrasena
             // 

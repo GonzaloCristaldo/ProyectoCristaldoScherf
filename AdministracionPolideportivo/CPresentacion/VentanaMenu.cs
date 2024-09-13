@@ -104,7 +104,7 @@ namespace AdministracionPolideportivo.CPresentacion
                 Color.FromArgb(31, 31, 31), borderWidth * 3, ButtonBorderStyle.Solid);
         }
 
-        private void InitializeComponent()
+        protected void InitializeComponent()
         {
             panelNavegacion = new Panel();
             panelOpciones = new Panel();
@@ -158,17 +158,17 @@ namespace AdministracionPolideportivo.CPresentacion
             ResumeLayout(false);
         }
 
-        protected Panel panelNavegacion;
-        protected Panel panelOpciones;
-        protected Panel panelFormulario;
+        public Panel panelNavegacion;
+        public Panel panelOpciones;
+        public Panel panelFormulario;
 
-        private void panelNavegacion_Paint(object sender, PaintEventArgs e)
+        public void panelNavegacion_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void Form_Move(object sender, EventArgs e)
-        {
+        public void Form_Move(object sender, EventArgs e)
+        {   
             if (isResizing) return; // Evitar parpadeo si ya estamos redimensionando
 
             Screen currentScreen = Screen.FromPoint(Location);
@@ -198,17 +198,17 @@ namespace AdministracionPolideportivo.CPresentacion
                 RestoreForm();
             }
         }
-        private void panelOpciones_Paint(object sender, PaintEventArgs e)
+        public void panelOpciones_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void panelFormulario_Paint(object sender, PaintEventArgs e)
+        public void panelFormulario_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void panelOpciones_MouseDown(object sender, MouseEventArgs e)
+        public void panelOpciones_MouseDown(object sender, MouseEventArgs e)
         {
 
         }
@@ -384,6 +384,7 @@ namespace AdministracionPolideportivo.CPresentacion
                 else if (cursor.Y >= ClientSize.Height - borderWidth)
                     m.Result = HTBOTTOM;
             }
+
         }
 
         private void Form_MouseDown(object sender, MouseEventArgs e)

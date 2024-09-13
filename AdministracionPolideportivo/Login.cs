@@ -32,11 +32,16 @@ namespace AdministracionPolideportivo
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-          vistaAdmin menu = new vistaAdmin();
+            VistaAdmin menu = new VistaAdmin();
             menu.Show();
 
             //  VentanaMenu menu = new VentanaMenu();
             //menu.Show();
+        }
+
+        private void txtUsuario_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
