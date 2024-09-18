@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdministracionPolideportivo.CPresentacion
+namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 {
     internal class vistaSuperAdmin : VentanaMenu
     {

@@ -37,6 +37,7 @@
             btnCerrar = new Button();
             btnMinimizar = new Button();
             panel1 = new Panel();
+            button1 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -111,6 +112,7 @@
             panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(btnEntrar);
             panel1.Controls.Add(btnMinimizar);
             panel1.Controls.Add(txtUsuario);
@@ -124,6 +126,16 @@
             panel1.Size = new Size(501, 518);
             panel1.TabIndex = 7;
             panel1.Paint += panel1_Paint;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(32, 391);
+            button1.Name = "button1";
+            button1.Size = new Size(120, 41);
+            button1.TabIndex = 7;
+            button1.Text = "vistaRecepcionista";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Login
             // 
@@ -153,5 +165,6 @@
         private Button btnCerrar;
         private Button btnMinimizar;
         private Panel panel1;
+        private Button button1;
     }
 }
