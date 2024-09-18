@@ -22,6 +22,7 @@ namespace AdministracionPolideportivo.CPresentacion
             button2 = new Button();
             label4 = new Label();
             dataGridView1 = new DataGridView();
+            customButton1 = new CustomButton();
             panelNavegacion.SuspendLayout();
             panelOpciones.SuspendLayout();
             panelFormulario.SuspendLayout();
@@ -36,6 +37,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             // panelOpciones
             // 
+            panelOpciones.Controls.Add(customButton1);
             panelOpciones.Controls.Add(label4);
             panelOpciones.Controls.Add(label2);
             panelOpciones.Controls.Add(label3);
@@ -114,6 +116,16 @@ namespace AdministracionPolideportivo.CPresentacion
             dataGridView1.Size = new Size(379, 238);
             dataGridView1.TabIndex = 0;
             // 
+            // customButton1
+            // 
+            customButton1.BackColor = Color.Green;
+            customButton1.Location = new Point(76, 216);
+            customButton1.Name = "customButton1";
+            customButton1.Size = new Size(75, 23);
+            customButton1.TabIndex = 3;
+            customButton1.Text = "customButton1";
+            customButton1.UseVisualStyleBackColor = false;
+            // 
             // VistaAdmin
             // 
             ClientSize = new Size(694, 450);
@@ -133,6 +145,7 @@ namespace AdministracionPolideportivo.CPresentacion
         private Button button2;
         private Label label4;
         private DataGridView dataGridView1;
+        private CustomButton customButton1;
         private Label label1;
 
         private void label3_Click(object sender, EventArgs e)
