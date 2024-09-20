@@ -11,37 +11,140 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         public vistaRecepcionista()
         {
             InitializeComponent();
+            tablaOpciones.Width=panelOpciones.Width;
+            tablaOpciones.Height = tablaOpciones.RowCount * 80;
         }
-
-        private Button button1;
 
         private void InitializeComponent()
         {
-            button1 = new Button();
+            tablaOpciones = new TableLayoutPanel();
+            botonOpcion1 = new BotonOpcion();
+            botonOpcion2 = new BotonOpcion();
+            botonOpcion3 = new BotonOpcion();
+            botonOpcion4 = new BotonOpcion();
+            botonOpcion5 = new BotonOpcion();
             panelOpciones.SuspendLayout();
+            tablaOpciones.SuspendLayout();
             SuspendLayout();
             // 
             // panelOpciones
             // 
-            panelOpciones.Controls.Add(button1);
+            panelOpciones.Controls.Add(tablaOpciones);
             // 
-            // button1
+            // tablaOpciones
             // 
-            button1.Location = new Point(30, 72);
-            button1.Name = "button1";
-            button1.Size = new Size(118, 46);
-            button1.TabIndex = 0;
-            button1.Text = "Agregar Cancha";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            tablaOpciones.ColumnCount = 1;
+            tablaOpciones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tablaOpciones.Controls.Add(botonOpcion1, 0, 0);
+            tablaOpciones.Controls.Add(botonOpcion2, 0, 1);
+            tablaOpciones.Controls.Add(botonOpcion3, 0, 2);
+            tablaOpciones.Controls.Add(botonOpcion4, 0, 3);
+            tablaOpciones.Controls.Add(botonOpcion5, 0, 4);
+            tablaOpciones.Location = new Point(0, 0);
+            tablaOpciones.Name = "tablaOpciones";
+            tablaOpciones.RowCount = 5;
+            tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
+            tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
+            tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 88F));
+            tablaOpciones.Size = new Size(200, 298);
+            tablaOpciones.TabIndex = 0;
+            // 
+            // botonOpcion1
+            // 
+            botonOpcion1.BackColor = Color.FromArgb(64, 64, 64);
+            botonOpcion1.Dock = DockStyle.Fill;
+            botonOpcion1.FlatAppearance.BorderColor = Color.Red;
+            botonOpcion1.FlatAppearance.BorderSize = 0;
+            botonOpcion1.FlatStyle = FlatStyle.Flat;
+            botonOpcion1.Font = new Font("Segoe UI", 12F);
+            botonOpcion1.ForeColor = SystemColors.ButtonHighlight;
+            botonOpcion1.Location = new Point(3, 3);
+            botonOpcion1.Name = "botonOpcion1";
+            botonOpcion1.Size = new Size(194, 45);
+            botonOpcion1.TabIndex = 0;
+            botonOpcion1.Text = "Agregar Cancha";
+            botonOpcion1.UseVisualStyleBackColor = false;
+            // 
+            // botonOpcion2
+            // 
+            botonOpcion2.BackColor = Color.FromArgb(64, 64, 64);
+            botonOpcion2.Dock = DockStyle.Fill;
+            botonOpcion2.FlatAppearance.BorderColor = Color.Red;
+            botonOpcion2.FlatAppearance.BorderSize = 0;
+            botonOpcion2.FlatStyle = FlatStyle.Flat;
+            botonOpcion2.Font = new Font("Segoe UI", 12F);
+            botonOpcion2.ForeColor = SystemColors.ButtonHighlight;
+            botonOpcion2.Location = new Point(3, 54);
+            botonOpcion2.Name = "botonOpcion2";
+            botonOpcion2.Size = new Size(194, 44);
+            botonOpcion2.TabIndex = 0;
+            botonOpcion2.Text = "botonOpcion2";
+            botonOpcion2.UseVisualStyleBackColor = false;
+            // 
+            // botonOpcion3
+            // 
+            botonOpcion3.BackColor = Color.FromArgb(64, 64, 64);
+            botonOpcion3.Dock = DockStyle.Fill;
+            botonOpcion3.FlatAppearance.BorderColor = Color.Red;
+            botonOpcion3.FlatAppearance.BorderSize = 0;
+            botonOpcion3.FlatStyle = FlatStyle.Flat;
+            botonOpcion3.Font = new Font("Segoe UI", 12F);
+            botonOpcion3.ForeColor = SystemColors.ButtonHighlight;
+            botonOpcion3.Location = new Point(3, 104);
+            botonOpcion3.Name = "botonOpcion3";
+            botonOpcion3.Size = new Size(194, 48);
+            botonOpcion3.TabIndex = 0;
+            botonOpcion3.Text = "botonOpcion3";
+            botonOpcion3.UseVisualStyleBackColor = false;
+            // 
+            // botonOpcion4
+            // 
+            botonOpcion4.BackColor = Color.FromArgb(64, 64, 64);
+            botonOpcion4.Dock = DockStyle.Fill;
+            botonOpcion4.FlatAppearance.BorderColor = Color.Red;
+            botonOpcion4.FlatAppearance.BorderSize = 0;
+            botonOpcion4.FlatStyle = FlatStyle.Flat;
+            botonOpcion4.Font = new Font("Segoe UI", 12F);
+            botonOpcion4.ForeColor = SystemColors.ButtonHighlight;
+            botonOpcion4.Location = new Point(3, 158);
+            botonOpcion4.Name = "botonOpcion4";
+            botonOpcion4.Size = new Size(194, 49);
+            botonOpcion4.TabIndex = 0;
+            botonOpcion4.Text = "botonOpcion4";
+            botonOpcion4.UseVisualStyleBackColor = false;
+            // 
+            // botonOpcion5
+            // 
+            botonOpcion5.BackColor = Color.FromArgb(64, 64, 64);
+            botonOpcion5.Dock = DockStyle.Fill;
+            botonOpcion5.FlatAppearance.BorderColor = Color.Red;
+            botonOpcion5.FlatAppearance.BorderSize = 0;
+            botonOpcion5.FlatStyle = FlatStyle.Flat;
+            botonOpcion5.Font = new Font("Segoe UI", 12F);
+            botonOpcion5.ForeColor = SystemColors.ButtonHighlight;
+            botonOpcion5.Location = new Point(3, 213);
+            botonOpcion5.Name = "botonOpcion5";
+            botonOpcion5.Size = new Size(194, 82);
+            botonOpcion5.TabIndex = 0;
+            botonOpcion5.Text = "botonOpcion5";
+            botonOpcion5.UseVisualStyleBackColor = false;
             // 
             // vistaRecepcionista
             // 
             ClientSize = new Size(694, 450);
             Name = "vistaRecepcionista";
             panelOpciones.ResumeLayout(false);
+            tablaOpciones.ResumeLayout(false);
             ResumeLayout(false);
         }
+
+        private BotonOpcion botonOpcion1;
+        private BotonOpcion botonOpcion2;
+        private BotonOpcion botonOpcion3;
+        private BotonOpcion botonOpcion4;
+        private BotonOpcion botonOpcion5;
         Form formActual;
         private void button1_Click(object sender, EventArgs e)
         {
@@ -55,5 +158,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             formActual= formularioNuevo;
 
         }
+
+        private TableLayoutPanel tablaOpciones;
     }
 }

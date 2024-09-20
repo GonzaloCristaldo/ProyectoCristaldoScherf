@@ -8,15 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AdministracionPolideportivo.CPresentacion
+namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 {
-    public partial class FormularioEstandar : Form
+    public partial class AgregarCancha : AdministracionPolideportivo.CPresentacion.FormularioEstandar
     {
-        public FormularioEstandar()
+        public AgregarCancha()
         {
             InitializeComponent();
-            this.TopLevel = false;
-            this.BackColor = Color.FromArgb(49, 49, 49);
         }
     }
 }
