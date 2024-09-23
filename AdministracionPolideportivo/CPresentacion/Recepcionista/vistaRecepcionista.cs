@@ -11,18 +11,20 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         public vistaRecepcionista()
         {
             InitializeComponent();
-            tablaOpciones.Width=panelOpciones.Width;
+            tablaOpciones.Width = panelOpciones.Width;
             tablaOpciones.Height = tablaOpciones.RowCount * 80;
+            agregarOpcion(opcionAgregarCancha);
+            agregarOpcion(botonOpcion2);
         }
 
         private void InitializeComponent()
         {
             tablaOpciones = new TableLayoutPanel();
-            botonOpcion1 = new BotonOpcion();
-            botonOpcion2 = new BotonOpcion();
-            botonOpcion3 = new BotonOpcion();
-            botonOpcion4 = new BotonOpcion();
-            botonOpcion5 = new BotonOpcion();
+            opcionAgregarCancha = new BotonOpcion(new AgregarCancha(),this,formActual);
+            botonOpcion2 = new BotonOpcion(new Form1(), this, formActual);
+            botonOpcion3 = new BotonOpcion(null, this, formActual);
+            botonOpcion4 = new BotonOpcion(null, this, formActual);
+            botonOpcion5 = new BotonOpcion(null, this, formActual);
             panelOpciones.SuspendLayout();
             tablaOpciones.SuspendLayout();
             SuspendLayout();
@@ -35,7 +37,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // 
             tablaOpciones.ColumnCount = 1;
             tablaOpciones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tablaOpciones.Controls.Add(botonOpcion1, 0, 0);
+            tablaOpciones.Controls.Add(opcionAgregarCancha, 0, 0);
             tablaOpciones.Controls.Add(botonOpcion2, 0, 1);
             tablaOpciones.Controls.Add(botonOpcion3, 0, 2);
             tablaOpciones.Controls.Add(botonOpcion4, 0, 3);
@@ -53,19 +55,20 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // 
             // botonOpcion1
             // 
-            botonOpcion1.BackColor = Color.FromArgb(64, 64, 64);
-            botonOpcion1.Dock = DockStyle.Fill;
-            botonOpcion1.FlatAppearance.BorderColor = Color.Red;
-            botonOpcion1.FlatAppearance.BorderSize = 0;
-            botonOpcion1.FlatStyle = FlatStyle.Flat;
-            botonOpcion1.Font = new Font("Segoe UI", 12F);
-            botonOpcion1.ForeColor = SystemColors.ButtonHighlight;
-            botonOpcion1.Location = new Point(3, 3);
-            botonOpcion1.Name = "botonOpcion1";
-            botonOpcion1.Size = new Size(194, 45);
-            botonOpcion1.TabIndex = 0;
-            botonOpcion1.Text = "Agregar Cancha";
-            botonOpcion1.UseVisualStyleBackColor = false;
+            opcionAgregarCancha.BackColor = Color.FromArgb(64, 64, 64);
+            opcionAgregarCancha.Dock = DockStyle.Fill;
+            opcionAgregarCancha.FlatAppearance.BorderColor = Color.Red;
+            opcionAgregarCancha.FlatAppearance.BorderSize = 0;
+            opcionAgregarCancha.FlatStyle = FlatStyle.Flat;
+            opcionAgregarCancha.Font = new Font("Segoe UI", 12F);
+            opcionAgregarCancha.ForeColor = SystemColors.ButtonHighlight;
+            opcionAgregarCancha.Location = new Point(3, 3);
+            opcionAgregarCancha.Name = "botonOpcion1";
+            opcionAgregarCancha.Size = new Size(194, 45);
+            opcionAgregarCancha.TabIndex = 0;
+            opcionAgregarCancha.Text = "Agregar Cancha";
+            opcionAgregarCancha.UseVisualStyleBackColor = false;
+            
             // 
             // botonOpcion2
             // 
@@ -140,13 +143,13 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             ResumeLayout(false);
         }
 
-        private BotonOpcion botonOpcion1;
+        private BotonOpcion opcionAgregarCancha;
         private BotonOpcion botonOpcion2;
         private BotonOpcion botonOpcion3;
         private BotonOpcion botonOpcion4;
         private BotonOpcion botonOpcion5;
-        Form formActual;
-        private void button1_Click(object sender, EventArgs e)
+        
+        /*private void button1_Click(object sender, EventArgs e)
         {
             Form1 formularioNuevo = new Form1();//Se instancia el formulario que se desea agregar al panel
             formularioNuevo.TopLevel = false;//se cambia la propiedad toplevel para que el formulario pueda ser hijo del formulario principal
@@ -154,11 +157,12 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             formularioNuevo.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;//se saca el borde
             formularioNuevo.Dock = DockStyle.Fill;//El formulario cubre toda el area de su panel padre
             formularioNuevo.Show();
-            if (formActual != null) {this.panelFormulario.Controls.Remove(formActual); }
-            formActual= formularioNuevo;
+            if (formActual != null) { this.panelFormulario.Controls.Remove(formActual); }
+            formActual = formularioNuevo;
 
-        }
+        }*/
 
         private TableLayoutPanel tablaOpciones;
+
     }
 }

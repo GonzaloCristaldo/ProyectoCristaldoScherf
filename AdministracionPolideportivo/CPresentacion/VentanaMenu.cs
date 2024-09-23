@@ -19,6 +19,9 @@ namespace AdministracionPolideportivo.CPresentacion
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HTCAPTION = 0x2;
 
+        public BotonOpcion[] opciones;
+        public int indexOpciones;
+
         // Constants for resizing
         private const int WM_NCHITTEST = 0x84;
         private const int HTLEFT = 0xA;
@@ -44,13 +47,14 @@ namespace AdministracionPolideportivo.CPresentacion
         private bool isSnapped = true;
         Screen currentScreen;
 
-
+        public Form formActual;//utilizado para llevar registro del formulario abierto
 
         protected Rectangle lastRectangle;
         public VentanaMenu()
         {
             InitializeComponent();
-
+            opciones = new BotonOpcion[50];
+            indexOpciones = 0;
             //Aplicando color a los paneles del menu
             panelNavegacion.BackColor = Color.FromArgb(18, 77, 10);
             panelOpciones.BackColor = Color.FromArgb(31, 31, 31);
@@ -68,6 +72,32 @@ namespace AdministracionPolideportivo.CPresentacion
             MouseUp += Form_MouseUp;
             Move += Form_Move;
             normalBounds = Bounds;
+        }
+
+        public void actualizarFormulario(Form nuevo)
+        {
+            System.Console.WriteLine("entra al metodo");
+            formActual = nuevo;
+            if (opciones.Length>0) {
+                System.Console.WriteLine("hay opciones en el array");
+                for (int i=0;i<opciones.GetLength(0);i++) {
+                    System.Console.WriteLine("opcion n" + i);
+                    if (opciones[i]!=null)
+                    {
+                        System.Console.WriteLine("en esta opcion no hay null");
+                        opciones[i].FormularioViejo = formActual;
+                        System.Console.WriteLine("SE actualizo el formulario viejo");
+                    }
+                }
+            }
+            
+        }
+
+        public void agregarOpcion(BotonOpcion opcionNueva)
+        {
+            //opciones.Append<BotonOpcion>(opcionNueva);
+            opciones[indexOpciones]= opcionNueva;
+            indexOpciones++;
         }
 
         protected override void OnPaint(PaintEventArgs e)

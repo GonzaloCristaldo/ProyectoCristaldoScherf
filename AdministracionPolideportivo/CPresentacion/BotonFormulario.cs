@@ -8,8 +8,8 @@ namespace AdministracionPolideportivo.CPresentacion
 {
     internal class BotonFormulario : Button
     {
-        public BotonFormulario() {
-
+        public BotonFormulario()
+        {
             BackColor = Color.DimGray;
             Font = new Font("Segoe UI", 10F);
             ForeColor = Color.White;
@@ -19,7 +19,8 @@ namespace AdministracionPolideportivo.CPresentacion
             TabIndex = 0;
             Text = "botonFormulario1";
             UseVisualStyleBackColor = false;
-
+            
         }
+
     }
 }
