@@ -8,5 +8,13 @@ namespace AdministracionPolideportivo.CNegocio
 {
     internal class Pago
     {
+
+        public int idPago {  get; set; }
+        public int idReserva {  get; set; }
+
+        
+
+
+
     }
 }

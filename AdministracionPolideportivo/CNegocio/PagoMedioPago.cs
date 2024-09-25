@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo.CNegocio
 {
-    internal class MedioPago
+    internal class PagoMedioPago
     {
+    
+        public int idPago {  get; set; }
+        public int idMedioPago { get; set; }
 
-        public int idMedioPago {  get; set; }
-        public String nombreMedioPago { get; set; }
-
+        public double monto {  get; set; }
     }
 }
