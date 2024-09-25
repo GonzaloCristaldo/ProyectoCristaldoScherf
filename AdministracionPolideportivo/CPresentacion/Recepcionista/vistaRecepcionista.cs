@@ -50,7 +50,6 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // 
             // vistaRecepcionista
             // 
-            ClientSize = new Size(694, 450);
             Name = "vistaRecepcionista";
             panelOpciones.ResumeLayout(false);
             panelOpciones.PerformLayout();

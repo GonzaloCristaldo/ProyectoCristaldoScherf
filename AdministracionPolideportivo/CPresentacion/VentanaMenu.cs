@@ -65,7 +65,9 @@ namespace AdministracionPolideportivo.CPresentacion
 
             FormBorderStyle = FormBorderStyle.None;  // Remove default form border
             Padding = new Padding(borderWidth);      // Add padding for the custom border
+            Size = new Size(1100,450);
             normalBounds = Bounds;
+
         }
 
         public void actualizarFormulario(Form nuevo)
@@ -134,7 +136,7 @@ namespace AdministracionPolideportivo.CPresentacion
             panelNavegacion.Dock = DockStyle.Top;
             panelNavegacion.Location = new Point(0, 0);
             panelNavegacion.Name = "panelNavegacion";
-            panelNavegacion.Size = new Size(900, 34);
+            panelNavegacion.Size = new Size(1100, 34);
             panelNavegacion.TabIndex = 0;
             
             panelNavegacion.MouseDown += panelNavegacion_MouseDown;
@@ -161,10 +163,11 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             // VentanaMenu
             // 
-            Size = new Size(1100, 450);
+            
             Controls.Add(panelFormulario);
             Controls.Add(panelOpciones);
             Controls.Add(panelNavegacion);
+            Size = new Size(1100, 450);
             FormBorderStyle = FormBorderStyle.None;
             Name = "VentanaMenu";
             StartPosition = FormStartPosition.CenterScreen;
@@ -205,11 +208,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void panelNavegacion_MouseDown(object sender, MouseEventArgs e)
         {
-            /*isDragging = true;
-            movX = e.X;
-            movY = e.Y;*/
-
-            
+                     
             if (e.Button == MouseButtons.Left)
             {
                 isDragging = true;
