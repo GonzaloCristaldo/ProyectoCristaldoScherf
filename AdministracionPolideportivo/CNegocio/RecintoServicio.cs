@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo.CNegocio
 {
-    internal class ServicioPartido
+    internal class RecintoServicio
     {
-        public ServicioPartido(int idServicio, int idPartido)
+        public RecintoServicio(int idRecinto, int idServicio)
         {
-            IdPartido = idPartido;
+            IdRecinto = idRecinto;
             IdServicio = idServicio;
         }
 
-        public int IdPartido { get; set; }
+        public int IdRecinto{ get; set; }
 
         public int IdServicio { get; set; }
+
     }
 }

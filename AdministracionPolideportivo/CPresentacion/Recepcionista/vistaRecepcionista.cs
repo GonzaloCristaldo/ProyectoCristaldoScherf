@@ -15,13 +15,13 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             //tablaOpciones.Width = panelOpciones.Width;
             
 
-            AgregarBotonOpcion(new BotonOpcion(new AgregarCancha(),this,formActual, "Agregar Cancha"));
+            AgregarBotonOpcion(new BotonOpcion(new AgregarRecinto(),this,formActual, "Agregar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual, "Agregar Servicio Adicional"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarCliente(), this, formActual, "Agregar Cliente"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarCliente(), this, formActual, "Buscar Cliente"));
-            AgregarBotonOpcion(new BotonOpcion(new BuscarCancha(), this, formActual, "Buscar Cancha"));
-            AgregarBotonOpcion(new BotonOpcion(new ProgramarPartido(), this, formActual, "Programar Nuevo Partido"));
-            AgregarBotonOpcion(new BotonOpcion(new BuscarPartido(), this, formActual, "Buscar Partido"));
+            AgregarBotonOpcion(new BotonOpcion(new BuscarRecinto(), this, formActual, "Buscar Recinto"));
+            AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(), this, formActual, "Programar Nueva Reserva"));
+            AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
         }
 
         private void InitializeComponent()

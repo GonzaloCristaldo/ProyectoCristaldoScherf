@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo.CNegocio
 {
-    internal class Partido
+    internal class Reserva
     {
-        public Partido(int idPartido, int idCancha, int idCliente, TimeOnly hora)
+        public Reserva(int idReserva, int idRecinto, int idCliente, DateOnly fecha, TimeOnly hora)
         {
-            this.idPartido = idPartido;
-            this.idCancha = idCancha;
+            this.idReserva = idReserva;
+            this.idRecinto = idRecinto;
             this.idCliente = idCliente;
+            Fecha = fecha;
             Hora = hora;
         }
 
-        public int idPartido {  get; set; }
-        public int idCancha { get; set; }
+        public int idReserva {  get; set; }
+        public int idRecinto { get; set; }
 
         public int idCliente { get; set; }
 

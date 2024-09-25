@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 {
-    internal class ProgramarPartido : FormularioEstandar
+    internal class ProgramarReserva : FormularioEstandar
     {
 
-        public ProgramarPartido()
+        public ProgramarReserva()
         {
 
             InitializeComponent();
@@ -75,7 +75,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             labelFormulario3.Name = "labelFormulario3";
             labelFormulario3.Size = new Size(50, 15);
             labelFormulario3.TabIndex = 4;
-            labelFormulario3.Text = "Cancha:";
+            labelFormulario3.Text = "Recinto:";
             // 
             // comboBoxEstandar2
             // 
@@ -134,7 +134,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnAgendar.Name = "btnAgendar";
             btnAgendar.Size = new Size(146, 41);
             btnAgendar.TabIndex = 0;
-            btnAgendar.Text = "Agendar Partido";
+            btnAgendar.Text = "Agendar Reserva";
             btnAgendar.UseVisualStyleBackColor = false;
             // 
             // cbServicioAdicional
@@ -190,7 +190,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             labelFormulario6.TabIndex = 9;
             labelFormulario6.Text = "Total: $0";
             // 
-            // ProgramarPartido
+            // ProgramarReserva
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(662, 396);
@@ -209,7 +209,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             Controls.Add(labelFormulario2);
             Controls.Add(labelFormulario1);
             Controls.Add(comboBoxEstandar1);
-            Name = "ProgramarPartido";
+            Name = "ProgramarReserva";
             ResumeLayout(false);
             PerformLayout();
         }

@@ -99,7 +99,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // AgregarServicioAdicional
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            ClientSize = new Size(467, 361);
+            ClientSize = new Size(426, 228);
             Controls.Add(btnAgregar);
             Controls.Add(textoNumerico1);
             Controls.Add(texto2);

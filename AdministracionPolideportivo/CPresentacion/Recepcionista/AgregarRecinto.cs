@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 {
-    public partial class AgregarCancha : AdministracionPolideportivo.CPresentacion.FormularioEstandar
+    public partial class AgregarRecinto : AdministracionPolideportivo.CPresentacion.FormularioEstandar
     {
-        public AgregarCancha()
+        public AgregarRecinto()
         {
             InitializeComponent();
         }

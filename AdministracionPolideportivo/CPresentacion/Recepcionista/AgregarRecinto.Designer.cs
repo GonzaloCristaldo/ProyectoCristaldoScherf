@@ -1,6 +1,6 @@
 ﻿namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 {
-    partial class AgregarCancha
+    partial class AgregarRecinto
     {
         /// <summary>
         /// Required designer variable.
@@ -32,8 +32,6 @@
             txtNumCancha = new TextoNumerico();
             lblTarifa = new LabelFormulario();
             txtTarifa = new TextoNumerico();
-            cbEstado = new ComboBoxEstandar();
-            lblEstado = new LabelFormulario();
             lblTipo = new LabelFormulario();
             cbTipo = new ComboBoxEstandar();
             lblUbicacion = new LabelFormulario();
@@ -53,7 +51,7 @@
             lblNumero.Name = "lblNumero";
             lblNumero.Size = new Size(110, 15);
             lblNumero.TabIndex = 0;
-            lblNumero.Text = "Numero de Cancha";
+            lblNumero.Text = "Numero de Recinto";
             lblNumero.Click += labelFormulario1_Click;
             // 
             // txtNumCancha
@@ -85,35 +83,15 @@
             txtTarifa.Size = new Size(82, 23);
             txtTarifa.TabIndex = 1;
             // 
-            // cbEstado
-            // 
-            cbEstado.BackColor = SystemColors.WindowFrame;
-            cbEstado.ForeColor = Color.White;
-            cbEstado.FormattingEnabled = true;
-            cbEstado.Location = new Point(128, 64);
-            cbEstado.Name = "cbEstado";
-            cbEstado.Size = new Size(168, 23);
-            cbEstado.TabIndex = 0;
-            // 
-            // lblEstado
-            // 
-            lblEstado.AutoSize = true;
-            lblEstado.ForeColor = Color.White;
-            lblEstado.Location = new Point(11, 67);
-            lblEstado.Name = "lblEstado";
-            lblEstado.Size = new Size(111, 15);
-            lblEstado.TabIndex = 3;
-            lblEstado.Text = "Estado de la cancha";
-            // 
             // lblTipo
             // 
             lblTipo.AutoSize = true;
             lblTipo.ForeColor = Color.White;
-            lblTipo.Location = new Point(33, 96);
+            lblTipo.Location = new Point(33, 67);
             lblTipo.Name = "lblTipo";
             lblTipo.Size = new Size(89, 15);
             lblTipo.TabIndex = 4;
-            lblTipo.Text = "Tipo de Cancha";
+            lblTipo.Text = "Tipo de Recinto";
             lblTipo.Click += labelFormulario1_Click_2;
             // 
             // cbTipo
@@ -121,7 +99,7 @@
             cbTipo.BackColor = SystemColors.WindowFrame;
             cbTipo.ForeColor = Color.White;
             cbTipo.FormattingEnabled = true;
-            cbTipo.Location = new Point(128, 93);
+            cbTipo.Location = new Point(128, 64);
             cbTipo.Name = "cbTipo";
             cbTipo.Size = new Size(168, 23);
             cbTipo.TabIndex = 0;
@@ -130,7 +108,7 @@
             // 
             lblUbicacion.AutoSize = true;
             lblUbicacion.ForeColor = Color.White;
-            lblUbicacion.Location = new Point(62, 126);
+            lblUbicacion.Location = new Point(62, 97);
             lblUbicacion.Name = "lblUbicacion";
             lblUbicacion.Size = new Size(60, 15);
             lblUbicacion.TabIndex = 5;
@@ -140,7 +118,7 @@
             // 
             txtUbicacion.BackColor = SystemColors.WindowFrame;
             txtUbicacion.ForeColor = Color.White;
-            txtUbicacion.Location = new Point(128, 123);
+            txtUbicacion.Location = new Point(128, 94);
             txtUbicacion.Name = "txtUbicacion";
             txtUbicacion.Size = new Size(210, 23);
             txtUbicacion.TabIndex = 0;
@@ -154,7 +132,7 @@
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(146, 41);
             btnAgregar.TabIndex = 0;
-            btnAgregar.Text = "Agregar Cancha";
+            btnAgregar.Text = "Agregar Recinto";
             btnAgregar.UseVisualStyleBackColor = false;
             // 
             // txtServiciosAgregados
@@ -200,7 +178,7 @@
             cbServicioAdicional.Size = new Size(210, 23);
             cbServicioAdicional.TabIndex = 11;
             // 
-            // AgregarCancha
+            // AgregarRecinto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -214,13 +192,11 @@
             Controls.Add(lblUbicacion);
             Controls.Add(cbTipo);
             Controls.Add(lblTipo);
-            Controls.Add(lblEstado);
-            Controls.Add(cbEstado);
             Controls.Add(txtTarifa);
             Controls.Add(lblTarifa);
             Controls.Add(txtNumCancha);
             Controls.Add(lblNumero);
-            Name = "AgregarCancha";
+            Name = "AgregarRecinto";
             Text = "AgregarCancha";
             ResumeLayout(false);
             PerformLayout();
@@ -232,8 +208,6 @@
         private TextoNumerico txtNumCancha;
         private LabelFormulario lblTarifa;
         private TextoNumerico txtTarifa;
-        private ComboBoxEstandar cbEstado;
-        private LabelFormulario lblEstado;
         private LabelFormulario lblTipo;
         private ComboBoxEstandar cbTipo;
         private LabelFormulario lblUbicacion;

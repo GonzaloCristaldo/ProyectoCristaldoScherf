@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 {
-    internal class BuscarPartido : FormularioEstandar
+    internal class BuscarReserva : FormularioEstandar
     {
-        public BuscarPartido()
+        public BuscarReserva()
         {
 
             InitializeComponent();
@@ -31,9 +31,9 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             labelFormulario1.ForeColor = Color.White;
             labelFormulario1.Location = new Point(228, 21);
             labelFormulario1.Name = "labelFormulario1";
-            labelFormulario1.Size = new Size(104, 15);
+            labelFormulario1.Size = new Size(106, 15);
             labelFormulario1.TabIndex = 0;
-            labelFormulario1.Text = "Buscar Partido por";
+            labelFormulario1.Text = "Buscar Reserva por";
             // 
             // cbBuscar
             // 
@@ -63,7 +63,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(146, 41);
             btnBuscar.TabIndex = 0;
-            btnBuscar.Text = "Buscar Partido";
+            btnBuscar.Text = "Buscar Reserva";
             btnBuscar.UseVisualStyleBackColor = false;
             // 
             // dataGridView1
@@ -74,7 +74,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             dataGridView1.Size = new Size(534, 171);
             dataGridView1.TabIndex = 1;
             // 
-            // BuscarPartido
+            // BuscarReserva
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(586, 411);
@@ -83,7 +83,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             Controls.Add(texto1);
             Controls.Add(cbBuscar);
             Controls.Add(labelFormulario1);
-            Name = "BuscarPartido";
+            Name = "BuscarReserva";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
