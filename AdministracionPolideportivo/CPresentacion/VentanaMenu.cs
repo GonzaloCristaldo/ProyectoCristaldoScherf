@@ -60,34 +60,25 @@ namespace AdministracionPolideportivo.CPresentacion
             panelOpciones.BackColor = Color.FromArgb(31, 31, 31);
             panelFormulario.BackColor = Color.FromArgb(49, 49, 49);
 
-
             DoubleBuffered = true;
             SetStyle(ControlStyles.ResizeRedraw, true);
-            
 
             FormBorderStyle = FormBorderStyle.None;  // Remove default form border
             Padding = new Padding(borderWidth);      // Add padding for the custom border
-            Move += Form_Move;
             normalBounds = Bounds;
         }
 
         public void actualizarFormulario(Form nuevo)
         {
-            
             formActual = nuevo;
             if (opciones.Length>0) {
-                
                 for (int i=0;i<opciones.GetLength(0);i++) {
-                    
                     if (opciones[i]!=null)
                     {
-                        
                         opciones[i].FormularioViejo = formActual;
-                        
                     }
                 }
             }
-            
         }
 
         public void agregarOpcion(BotonOpcion opcionNueva)
@@ -189,37 +180,7 @@ namespace AdministracionPolideportivo.CPresentacion
         public Panel panelFormulario;
 
 
-        public void Form_Move(object sender, EventArgs e)
-        {   
-            if (isResizing) return; // Evitar parpadeo si ya estamos redimensionando
-
-            Screen currentScreen = Screen.FromPoint(Location);
-
-            // Redimensionar hacia la izquierda (ajustar al borde izquierdo)
-            if (Left <= currentScreen.WorkingArea.Left + 5)
-            {
-                /*isResizing = true;
-                this.Bounds = new Rectangle(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top,
-                                            currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
-                isMaximized = false;
-                isResizing = false;*/
-            }
-            // Redimensionar hacia la derecha (ajustar al borde derecho)
-            else if (Right >= currentScreen.WorkingArea.Right - 5)
-            {
-
-            }
-            // Maximizar al arrastrar al borde superior
-            else if (Top <= currentScreen.WorkingArea.Top + 5)
-            {
-                //MaximizeForm();
-            }
-            // Restaurar el formulario si se arrastra fuera de la parte inferior
-            else if (Bottom >= currentScreen.WorkingArea.Bottom - 5 && !isMaximized)
-            {
-                RestoreForm();
-            }
-        }
+        
 
         private void VentanaMenu_MouseDown(object sender, MouseEventArgs e)
         {
@@ -268,11 +229,6 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void panelNavegacion_MouseMove(object sender, MouseEventArgs e)
         {
-            /*if (isMoving)
-            {
-                this.SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
-            }*/
-
             if (isDragging)
             {
                 int x = Location.X + (e.Location.X - lastRectangle.X);
