@@ -8,8 +8,8 @@ namespace AdministracionPolideportivo.CPresentacion
 {
     internal class LabelFormulario : Label
     {
-        public LabelFormulario() { 
-        
+        public LabelFormulario() {
+            ForeColor = Color.White;
         }
     }
 }

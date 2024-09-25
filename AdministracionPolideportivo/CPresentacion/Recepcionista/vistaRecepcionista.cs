@@ -11,10 +11,13 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         public vistaRecepcionista()
         {
             InitializeComponent();
+            contadorOpciones = 0;
             tablaOpciones.Width = panelOpciones.Width;
-            tablaOpciones.Height = tablaOpciones.RowCount * 80;
-            agregarOpcion(opcionAgregarCancha);
-            agregarOpcion(botonOpcion2);
+            
+
+            AgregarOpcion(new BotonOpcion(new AgregarCancha(),this,formActual));
+            AgregarOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual));
+
         }
 
         private void InitializeComponent()
@@ -37,19 +40,14 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // 
             tablaOpciones.ColumnCount = 1;
             tablaOpciones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tablaOpciones.Controls.Add(opcionAgregarCancha, 0, 0);
-            tablaOpciones.Controls.Add(botonOpcion2, 0, 1);
-            tablaOpciones.Controls.Add(botonOpcion3, 0, 2);
-            tablaOpciones.Controls.Add(botonOpcion4, 0, 3);
-            tablaOpciones.Controls.Add(botonOpcion5, 0, 4);
             tablaOpciones.Location = new Point(0, 0);
             tablaOpciones.Name = "tablaOpciones";
             tablaOpciones.RowCount = 5;
-            tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            /*tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 54F));
             tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 55F));
-            tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 88F));
+            tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 88F));*/
             tablaOpciones.Size = new Size(200, 298);
             tablaOpciones.TabIndex = 0;
             // 
@@ -148,21 +146,32 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private BotonOpcion botonOpcion3;
         private BotonOpcion botonOpcion4;
         private BotonOpcion botonOpcion5;
+
+        private int contadorOpciones;
         
-        /*private void button1_Click(object sender, EventArgs e)
-        {
-            Form1 formularioNuevo = new Form1();//Se instancia el formulario que se desea agregar al panel
-            formularioNuevo.TopLevel = false;//se cambia la propiedad toplevel para que el formulario pueda ser hijo del formulario principal
-            this.panelFormulario.Controls.Add(formularioNuevo);//se agrega el formulario al panel
-            formularioNuevo.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;//se saca el borde
-            formularioNuevo.Dock = DockStyle.Fill;//El formulario cubre toda el area de su panel padre
-            formularioNuevo.Show();
-            if (formActual != null) { this.panelFormulario.Controls.Remove(formActual); }
-            formActual = formularioNuevo;
-
-        }*/
-
+       
         private TableLayoutPanel tablaOpciones;
+
+        private void AgregarOpcion(BotonOpcion nuevoBoton)
+        {
+            /*Se agrega el boton a la tabla de opciones, en la primer columna
+            (0) y en la fila correspondiente al contador*/
+            tablaOpciones.Controls.Add(nuevoBoton,0,contadorOpciones);
+
+            //Se actualiza el contador
+            contadorOpciones++;
+
+            //Se redimensiona el panel
+            tablaOpciones.Height = tablaOpciones.RowCount * 80;
+
+            //Se agrega una fila a la tabla
+            tablaOpciones.RowCount++;
+
+            //Se agrega la opcion al array definido en la superclase
+            agregarOpcion(nuevoBoton);
+
+            
+        }
 
     }
 }

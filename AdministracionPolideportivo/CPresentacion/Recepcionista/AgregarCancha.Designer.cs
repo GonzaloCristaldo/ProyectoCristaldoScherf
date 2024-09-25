@@ -28,197 +28,147 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            texto1 = new Texto();
-            texto2 = new Texto();
-            label2 = new Label();
-            texto3 = new Texto();
-            label3 = new Label();
-            texto4 = new Texto();
-            label4 = new Label();
-            textoNumerico1 = new TextoNumerico();
-            labelFormulario1 = new LabelFormulario();
-            labelFormulario2 = new LabelFormulario();
-            textoNumerico2 = new TextoNumerico();
-            labelFormulario3 = new LabelFormulario();
-            textoNumerico3 = new TextoNumerico();
-            labelFormulario4 = new LabelFormulario();
-            textoNumerico4 = new TextoNumerico();
+            lblNumero = new LabelFormulario();
+            txtNumCancha = new TextoNumerico();
+            lblTarifa = new LabelFormulario();
+            txtTarifa = new TextoNumerico();
+            cbEstado = new ComboBoxEstandar();
+            lblEstado = new LabelFormulario();
+            lblTipo = new LabelFormulario();
+            cbTipo = new ComboBoxEstandar();
+            lblUbicacion = new LabelFormulario();
+            txtUbicacion = new Texto();
+            btnAgregar = new BotonFormulario();
             SuspendLayout();
             // 
-            // label1
+            // lblNumero
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 11F);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(12, 46);
-            label1.Name = "label1";
-            label1.Size = new Size(50, 20);
-            label1.TabIndex = 0;
-            label1.Text = "label1";
+            lblNumero.AutoSize = true;
+            lblNumero.ForeColor = Color.White;
+            lblNumero.Location = new Point(12, 9);
+            lblNumero.Name = "lblNumero";
+            lblNumero.Size = new Size(110, 15);
+            lblNumero.TabIndex = 0;
+            lblNumero.Text = "Numero de Cancha";
+            lblNumero.Click += labelFormulario1_Click;
             // 
-            // texto1
+            // txtNumCancha
             // 
-            texto1.BackColor = SystemColors.WindowFrame;
-            texto1.ForeColor = Color.White;
-            texto1.Location = new Point(98, 46);
-            texto1.Name = "texto1";
-            texto1.Size = new Size(210, 23);
-            texto1.TabIndex = 0;
+            txtNumCancha.BackColor = SystemColors.WindowFrame;
+            txtNumCancha.ForeColor = Color.White;
+            txtNumCancha.Location = new Point(128, 6);
+            txtNumCancha.Name = "txtNumCancha";
+            txtNumCancha.Size = new Size(82, 23);
+            txtNumCancha.TabIndex = 1;
             // 
-            // texto2
+            // lblTarifa
             // 
-            texto2.BackColor = SystemColors.WindowFrame;
-            texto2.ForeColor = Color.White;
-            texto2.Location = new Point(98, 84);
-            texto2.Name = "texto2";
-            texto2.Size = new Size(210, 23);
-            texto2.TabIndex = 1;
+            lblTarifa.AutoSize = true;
+            lblTarifa.ForeColor = Color.White;
+            lblTarifa.Location = new Point(37, 38);
+            lblTarifa.Name = "lblTarifa";
+            lblTarifa.Size = new Size(85, 15);
+            lblTarifa.TabIndex = 2;
+            lblTarifa.Text = "Tarifa por Hora";
+            lblTarifa.Click += labelFormulario1_Click_1;
             // 
-            // label2
+            // txtTarifa
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 11F);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(12, 84);
-            label2.Name = "label2";
-            label2.Size = new Size(50, 20);
-            label2.TabIndex = 2;
-            label2.Text = "label2";
+            txtTarifa.BackColor = SystemColors.WindowFrame;
+            txtTarifa.ForeColor = Color.White;
+            txtTarifa.Location = new Point(128, 35);
+            txtTarifa.Name = "txtTarifa";
+            txtTarifa.Size = new Size(82, 23);
+            txtTarifa.TabIndex = 1;
             // 
-            // texto3
+            // cbEstado
             // 
-            texto3.BackColor = SystemColors.WindowFrame;
-            texto3.ForeColor = Color.White;
-            texto3.Location = new Point(98, 126);
-            texto3.Name = "texto3";
-            texto3.Size = new Size(210, 23);
-            texto3.TabIndex = 3;
+            cbEstado.BackColor = SystemColors.WindowFrame;
+            cbEstado.ForeColor = Color.White;
+            cbEstado.FormattingEnabled = true;
+            cbEstado.Location = new Point(128, 64);
+            cbEstado.Name = "cbEstado";
+            cbEstado.Size = new Size(168, 23);
+            cbEstado.TabIndex = 0;
             // 
-            // label3
+            // lblEstado
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 11F);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(12, 126);
-            label3.Name = "label3";
-            label3.Size = new Size(50, 20);
-            label3.TabIndex = 4;
-            label3.Text = "label3";
+            lblEstado.AutoSize = true;
+            lblEstado.ForeColor = Color.White;
+            lblEstado.Location = new Point(11, 67);
+            lblEstado.Name = "lblEstado";
+            lblEstado.Size = new Size(111, 15);
+            lblEstado.TabIndex = 3;
+            lblEstado.Text = "Estado de la cancha";
             // 
-            // texto4
+            // lblTipo
             // 
-            texto4.BackColor = SystemColors.WindowFrame;
-            texto4.ForeColor = Color.White;
-            texto4.Location = new Point(98, 169);
-            texto4.Name = "texto4";
-            texto4.Size = new Size(210, 23);
-            texto4.TabIndex = 5;
+            lblTipo.AutoSize = true;
+            lblTipo.ForeColor = Color.White;
+            lblTipo.Location = new Point(33, 96);
+            lblTipo.Name = "lblTipo";
+            lblTipo.Size = new Size(89, 15);
+            lblTipo.TabIndex = 4;
+            lblTipo.Text = "Tipo de Cancha";
+            lblTipo.Click += labelFormulario1_Click_2;
             // 
-            // label4
+            // cbTipo
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 11F);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(12, 169);
-            label4.Name = "label4";
-            label4.Size = new Size(50, 20);
-            label4.TabIndex = 6;
-            label4.Text = "label4";
+            cbTipo.BackColor = SystemColors.WindowFrame;
+            cbTipo.ForeColor = Color.White;
+            cbTipo.FormattingEnabled = true;
+            cbTipo.Location = new Point(128, 93);
+            cbTipo.Name = "cbTipo";
+            cbTipo.Size = new Size(168, 23);
+            cbTipo.TabIndex = 0;
             // 
-            // textoNumerico1
+            // lblUbicacion
             // 
-            textoNumerico1.BackColor = SystemColors.WindowFrame;
-            textoNumerico1.ForeColor = Color.White;
-            textoNumerico1.Location = new Point(431, 47);
-            textoNumerico1.Name = "textoNumerico1";
-            textoNumerico1.Size = new Size(210, 23);
-            textoNumerico1.TabIndex = 1;
+            lblUbicacion.AutoSize = true;
+            lblUbicacion.ForeColor = Color.White;
+            lblUbicacion.Location = new Point(62, 126);
+            lblUbicacion.Name = "lblUbicacion";
+            lblUbicacion.Size = new Size(60, 15);
+            lblUbicacion.TabIndex = 5;
+            lblUbicacion.Text = "Ubicación";
             // 
-            // labelFormulario1
+            // txtUbicacion
             // 
-            labelFormulario1.AutoSize = true;
-            labelFormulario1.Location = new Point(329, 50);
-            labelFormulario1.Name = "labelFormulario1";
-            labelFormulario1.Size = new Size(96, 15);
-            labelFormulario1.TabIndex = 7;
-            labelFormulario1.Text = "labelFormulario1";
+            txtUbicacion.BackColor = SystemColors.WindowFrame;
+            txtUbicacion.ForeColor = Color.White;
+            txtUbicacion.Location = new Point(128, 123);
+            txtUbicacion.Name = "txtUbicacion";
+            txtUbicacion.Size = new Size(210, 23);
+            txtUbicacion.TabIndex = 0;
             // 
-            // labelFormulario2
+            // btnAgregar
             // 
-            labelFormulario2.AutoSize = true;
-            labelFormulario2.Location = new Point(329, 88);
-            labelFormulario2.Name = "labelFormulario2";
-            labelFormulario2.Size = new Size(96, 15);
-            labelFormulario2.TabIndex = 9;
-            labelFormulario2.Text = "labelFormulario2";
-            // 
-            // textoNumerico2
-            // 
-            textoNumerico2.BackColor = SystemColors.WindowFrame;
-            textoNumerico2.ForeColor = Color.White;
-            textoNumerico2.Location = new Point(431, 85);
-            textoNumerico2.Name = "textoNumerico2";
-            textoNumerico2.Size = new Size(210, 23);
-            textoNumerico2.TabIndex = 8;
-            // 
-            // labelFormulario3
-            // 
-            labelFormulario3.AutoSize = true;
-            labelFormulario3.Location = new Point(329, 130);
-            labelFormulario3.Name = "labelFormulario3";
-            labelFormulario3.Size = new Size(96, 15);
-            labelFormulario3.TabIndex = 11;
-            labelFormulario3.Text = "labelFormulario3";
-            // 
-            // textoNumerico3
-            // 
-            textoNumerico3.BackColor = SystemColors.WindowFrame;
-            textoNumerico3.ForeColor = Color.White;
-            textoNumerico3.Location = new Point(431, 127);
-            textoNumerico3.Name = "textoNumerico3";
-            textoNumerico3.Size = new Size(210, 23);
-            textoNumerico3.TabIndex = 10;
-            // 
-            // labelFormulario4
-            // 
-            labelFormulario4.AutoSize = true;
-            labelFormulario4.Location = new Point(329, 172);
-            labelFormulario4.Name = "labelFormulario4";
-            labelFormulario4.Size = new Size(96, 15);
-            labelFormulario4.TabIndex = 13;
-            labelFormulario4.Text = "labelFormulario4";
-            // 
-            // textoNumerico4
-            // 
-            textoNumerico4.BackColor = SystemColors.WindowFrame;
-            textoNumerico4.ForeColor = Color.White;
-            textoNumerico4.Location = new Point(431, 169);
-            textoNumerico4.Name = "textoNumerico4";
-            textoNumerico4.Size = new Size(210, 23);
-            textoNumerico4.TabIndex = 12;
+            btnAgregar.BackColor = Color.DimGray;
+            btnAgregar.Font = new Font("Segoe UI", 10F);
+            btnAgregar.ForeColor = Color.White;
+            btnAgregar.Location = new Point(102, 169);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(146, 41);
+            btnAgregar.TabIndex = 0;
+            btnAgregar.Text = "Agregar Cancha";
+            btnAgregar.UseVisualStyleBackColor = false;
             // 
             // AgregarCancha
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(labelFormulario4);
-            Controls.Add(textoNumerico4);
-            Controls.Add(labelFormulario3);
-            Controls.Add(textoNumerico3);
-            Controls.Add(labelFormulario2);
-            Controls.Add(textoNumerico2);
-            Controls.Add(labelFormulario1);
-            Controls.Add(textoNumerico1);
-            Controls.Add(texto4);
-            Controls.Add(label4);
-            Controls.Add(texto3);
-            Controls.Add(label3);
-            Controls.Add(texto2);
-            Controls.Add(label2);
-            Controls.Add(texto1);
-            Controls.Add(label1);
+            ClientSize = new Size(367, 249);
+            Controls.Add(btnAgregar);
+            Controls.Add(txtUbicacion);
+            Controls.Add(lblUbicacion);
+            Controls.Add(cbTipo);
+            Controls.Add(lblTipo);
+            Controls.Add(lblEstado);
+            Controls.Add(cbEstado);
+            Controls.Add(txtTarifa);
+            Controls.Add(lblTarifa);
+            Controls.Add(txtNumCancha);
+            Controls.Add(lblNumero);
             Name = "AgregarCancha";
             Text = "AgregarCancha";
             ResumeLayout(false);
@@ -227,21 +177,16 @@
 
         #endregion
 
-        private Label label1;
-        private Texto texto1;
-        private Texto texto2;
-        private Label label2;
-        private Texto texto3;
-        private Label label3;
-        private Texto texto4;
-        private Label label4;
-        private TextoNumerico textoNumerico1;
-        private LabelFormulario labelFormulario1;
-        private LabelFormulario labelFormulario2;
-        private TextoNumerico textoNumerico2;
-        private LabelFormulario labelFormulario3;
-        private TextoNumerico textoNumerico3;
-        private LabelFormulario labelFormulario4;
-        private TextoNumerico textoNumerico4;
+        private LabelFormulario lblNumero;
+        private TextoNumerico txtNumCancha;
+        private LabelFormulario lblTarifa;
+        private TextoNumerico txtTarifa;
+        private ComboBoxEstandar cbEstado;
+        private LabelFormulario lblEstado;
+        private LabelFormulario lblTipo;
+        private ComboBoxEstandar cbTipo;
+        private LabelFormulario lblUbicacion;
+        private Texto txtUbicacion;
+        private BotonFormulario btnAgregar;
     }
 }

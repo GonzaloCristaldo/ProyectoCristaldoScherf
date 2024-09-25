@@ -16,5 +16,20 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         {
             InitializeComponent();
         }
+
+        private void labelFormulario1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelFormulario1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelFormulario1_Click_2(object sender, EventArgs e)
+        {
+
+        }
     }
 }
