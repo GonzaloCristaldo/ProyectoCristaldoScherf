@@ -67,9 +67,6 @@ namespace AdministracionPolideportivo.CPresentacion
 
             FormBorderStyle = FormBorderStyle.None;  // Remove default form border
             Padding = new Padding(borderWidth);      // Add padding for the custom border
-            MouseDown += Form_MouseDown;
-            MouseMove += Form_MouseMove;
-            MouseUp += Form_MouseUp;
             Move += Form_Move;
             normalBounds = Bounds;
         }
@@ -148,7 +145,7 @@ namespace AdministracionPolideportivo.CPresentacion
             panelNavegacion.Name = "panelNavegacion";
             panelNavegacion.Size = new Size(900, 34);
             panelNavegacion.TabIndex = 0;
-            panelNavegacion.Paint += panelNavegacion_Paint;
+            
             panelNavegacion.MouseDown += panelNavegacion_MouseDown;
             panelNavegacion.MouseMove += panelNavegacion_MouseMove;
             panelNavegacion.MouseUp += panelNavegacion_MouseUp;
@@ -160,8 +157,7 @@ namespace AdministracionPolideportivo.CPresentacion
             panelOpciones.Name = "panelOpciones";
             panelOpciones.Size = new Size(226, 416);
             panelOpciones.TabIndex = 1;
-            panelOpciones.Paint += panelOpciones_Paint;
-            panelOpciones.MouseDown += panelOpciones_MouseDown;
+            
             // 
             // panelFormulario
             // 
@@ -170,7 +166,7 @@ namespace AdministracionPolideportivo.CPresentacion
             panelFormulario.Name = "panelFormulario";
             panelFormulario.Size = new Size(674, 416);
             panelFormulario.TabIndex = 2;
-            panelFormulario.Paint += panelFormulario_Paint;
+            
             // 
             // VentanaMenu
             // 
@@ -192,10 +188,6 @@ namespace AdministracionPolideportivo.CPresentacion
         public Panel panelOpciones;
         public Panel panelFormulario;
 
-        public void panelNavegacion_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         public void Form_Move(object sender, EventArgs e)
         {   
@@ -227,20 +219,6 @@ namespace AdministracionPolideportivo.CPresentacion
             {
                 RestoreForm();
             }
-        }
-        public void panelOpciones_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        public void panelFormulario_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        public void panelOpciones_MouseDown(object sender, MouseEventArgs e)
-        {
-
         }
 
         private void VentanaMenu_MouseDown(object sender, MouseEventArgs e)
@@ -347,11 +325,6 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void panelNavegacion_MouseUp(object sender, MouseEventArgs e)
         {
-            // When the mouse is released, restore original size if not at the edges
-            /*if (!isMaximized && (this.Left > 5 && this.Top > 5))
-            {
-                this.Bounds = normalBounds;  // Restore to original size
-            }*/
             // Solo maximizar cuando el usuario suelte el mouse y esté cerca del borde superior
             
             if (shouldMaximize && isMaximized == false)
@@ -374,27 +347,6 @@ namespace AdministracionPolideportivo.CPresentacion
 
         //funciones para redimensionar la ventana
 
-
-        private void form_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void form_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void form_MouseUp(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -416,21 +368,6 @@ namespace AdministracionPolideportivo.CPresentacion
 
         }
 
-        private void Form_MouseDown(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void Form_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        private void Form_MouseUp(object sender, MouseEventArgs e)
-        {
-
-        }
-
         private void SnapRight()
         {
             isResizing = true;
@@ -447,7 +384,7 @@ namespace AdministracionPolideportivo.CPresentacion
         {
             Bounds = new Rectangle(currentScreen.WorkingArea.Left, currentScreen.WorkingArea.Top,
                                                 currentScreen.WorkingArea.Width / 2, currentScreen.WorkingArea.Height);
-            isMaximized = false;  // Not fully maximized
+            isMaximized = false;
             isResizing = false;
             shouldSnapLeft = false;
             isSnapped = true;
@@ -471,12 +408,7 @@ namespace AdministracionPolideportivo.CPresentacion
         {
             if (isMaximized || isSnapped)
             {
-
-                /*Console.WriteLine("anda el restore");
-                Rectangle tamanoDefault = new Rectangle();
-                tamanoDefault.Width = 800;
-                tamanoDefault.Height = 600;*/
-                Bounds = normalBounds;  // Restore to original size
+                Bounds = normalBounds;  // Restaurar al tamaño original
                 SetDesktopLocation(MousePosition.X - movX, MousePosition.Y - movY);
                 isMaximized = false;
                 shouldMaximize = false;
