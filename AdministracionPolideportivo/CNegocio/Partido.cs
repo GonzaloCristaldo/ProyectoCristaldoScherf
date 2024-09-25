@@ -8,5 +8,12 @@ namespace AdministracionPolideportivo.CNegocio
 {
     internal class Partido
     {
+        public int idPartido {  get; set; }
+        public int idCancha { get; set; }
+
+        public int idCliente { get; set; }
+
+        public TimeOnly Hora { get; set; }
+
     }
 }
