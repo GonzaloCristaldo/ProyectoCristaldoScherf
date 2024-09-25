@@ -65,22 +65,10 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             /*Se agrega el boton a la tabla de opciones, en la primer columna
             (0) y en la fila correspondiente al contador*/
             tablaOpciones.Controls.Add(nuevoBoton,0,contadorOpciones);
-
             //Se actualiza el contador
             contadorOpciones++;
-
-            //Se agrega una fila a la tabla
-            //tablaOpciones.RowCount++;
-
-            //Se redimensiona el panel
-            //tablaOpciones.Height = contadorOpciones * 80;
-
-            
-
             //Se agrega la opcion al array definido en la superclase
-            agregarOpcion(nuevoBoton);
-
-            
+            agregarOpcion(nuevoBoton); 
         }
 
     }

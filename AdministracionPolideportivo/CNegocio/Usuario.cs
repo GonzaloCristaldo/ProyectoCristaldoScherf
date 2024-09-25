@@ -8,5 +8,8 @@ namespace AdministracionPolideportivo.CNegocio
 {
     internal class Usuario
     {
+
+
+
     }
 }

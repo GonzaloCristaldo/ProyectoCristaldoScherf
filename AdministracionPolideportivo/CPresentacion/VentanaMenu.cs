@@ -170,7 +170,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             // VentanaMenu
             // 
-            ClientSize = new Size(900, 450);
+            Size = new Size(1100, 450);
             Controls.Add(panelFormulario);
             Controls.Add(panelOpciones);
             Controls.Add(panelNavegacion);
