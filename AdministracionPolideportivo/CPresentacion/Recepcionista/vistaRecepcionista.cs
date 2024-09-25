@@ -15,19 +15,14 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             tablaOpciones.Width = panelOpciones.Width;
             
 
-            AgregarOpcion(new BotonOpcion(new AgregarCancha(),this,formActual));
-            AgregarOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual));
+            AgregarOpcion(new BotonOpcion(new AgregarCancha(),this,formActual, "Agregar Cancha"));
+            AgregarOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual, "Agregar Servicio Adicional"));
 
         }
 
         private void InitializeComponent()
         {
             tablaOpciones = new TableLayoutPanel();
-            opcionAgregarCancha = new BotonOpcion(new AgregarCancha(),this,formActual);
-            botonOpcion2 = new BotonOpcion(new Form1(), this, formActual);
-            botonOpcion3 = new BotonOpcion(null, this, formActual);
-            botonOpcion4 = new BotonOpcion(null, this, formActual);
-            botonOpcion5 = new BotonOpcion(null, this, formActual);
             panelOpciones.SuspendLayout();
             tablaOpciones.SuspendLayout();
             SuspendLayout();
@@ -50,87 +45,6 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Absolute, 88F));*/
             tablaOpciones.Size = new Size(200, 298);
             tablaOpciones.TabIndex = 0;
-            // 
-            // botonOpcion1
-            // 
-            opcionAgregarCancha.BackColor = Color.FromArgb(64, 64, 64);
-            opcionAgregarCancha.Dock = DockStyle.Fill;
-            opcionAgregarCancha.FlatAppearance.BorderColor = Color.Red;
-            opcionAgregarCancha.FlatAppearance.BorderSize = 0;
-            opcionAgregarCancha.FlatStyle = FlatStyle.Flat;
-            opcionAgregarCancha.Font = new Font("Segoe UI", 12F);
-            opcionAgregarCancha.ForeColor = SystemColors.ButtonHighlight;
-            opcionAgregarCancha.Location = new Point(3, 3);
-            opcionAgregarCancha.Name = "botonOpcion1";
-            opcionAgregarCancha.Size = new Size(194, 45);
-            opcionAgregarCancha.TabIndex = 0;
-            opcionAgregarCancha.Text = "Agregar Cancha";
-            opcionAgregarCancha.UseVisualStyleBackColor = false;
-            
-            // 
-            // botonOpcion2
-            // 
-            botonOpcion2.BackColor = Color.FromArgb(64, 64, 64);
-            botonOpcion2.Dock = DockStyle.Fill;
-            botonOpcion2.FlatAppearance.BorderColor = Color.Red;
-            botonOpcion2.FlatAppearance.BorderSize = 0;
-            botonOpcion2.FlatStyle = FlatStyle.Flat;
-            botonOpcion2.Font = new Font("Segoe UI", 12F);
-            botonOpcion2.ForeColor = SystemColors.ButtonHighlight;
-            botonOpcion2.Location = new Point(3, 54);
-            botonOpcion2.Name = "botonOpcion2";
-            botonOpcion2.Size = new Size(194, 44);
-            botonOpcion2.TabIndex = 0;
-            botonOpcion2.Text = "botonOpcion2";
-            botonOpcion2.UseVisualStyleBackColor = false;
-            // 
-            // botonOpcion3
-            // 
-            botonOpcion3.BackColor = Color.FromArgb(64, 64, 64);
-            botonOpcion3.Dock = DockStyle.Fill;
-            botonOpcion3.FlatAppearance.BorderColor = Color.Red;
-            botonOpcion3.FlatAppearance.BorderSize = 0;
-            botonOpcion3.FlatStyle = FlatStyle.Flat;
-            botonOpcion3.Font = new Font("Segoe UI", 12F);
-            botonOpcion3.ForeColor = SystemColors.ButtonHighlight;
-            botonOpcion3.Location = new Point(3, 104);
-            botonOpcion3.Name = "botonOpcion3";
-            botonOpcion3.Size = new Size(194, 48);
-            botonOpcion3.TabIndex = 0;
-            botonOpcion3.Text = "botonOpcion3";
-            botonOpcion3.UseVisualStyleBackColor = false;
-            // 
-            // botonOpcion4
-            // 
-            botonOpcion4.BackColor = Color.FromArgb(64, 64, 64);
-            botonOpcion4.Dock = DockStyle.Fill;
-            botonOpcion4.FlatAppearance.BorderColor = Color.Red;
-            botonOpcion4.FlatAppearance.BorderSize = 0;
-            botonOpcion4.FlatStyle = FlatStyle.Flat;
-            botonOpcion4.Font = new Font("Segoe UI", 12F);
-            botonOpcion4.ForeColor = SystemColors.ButtonHighlight;
-            botonOpcion4.Location = new Point(3, 158);
-            botonOpcion4.Name = "botonOpcion4";
-            botonOpcion4.Size = new Size(194, 49);
-            botonOpcion4.TabIndex = 0;
-            botonOpcion4.Text = "botonOpcion4";
-            botonOpcion4.UseVisualStyleBackColor = false;
-            // 
-            // botonOpcion5
-            // 
-            botonOpcion5.BackColor = Color.FromArgb(64, 64, 64);
-            botonOpcion5.Dock = DockStyle.Fill;
-            botonOpcion5.FlatAppearance.BorderColor = Color.Red;
-            botonOpcion5.FlatAppearance.BorderSize = 0;
-            botonOpcion5.FlatStyle = FlatStyle.Flat;
-            botonOpcion5.Font = new Font("Segoe UI", 12F);
-            botonOpcion5.ForeColor = SystemColors.ButtonHighlight;
-            botonOpcion5.Location = new Point(3, 213);
-            botonOpcion5.Name = "botonOpcion5";
-            botonOpcion5.Size = new Size(194, 82);
-            botonOpcion5.TabIndex = 0;
-            botonOpcion5.Text = "botonOpcion5";
-            botonOpcion5.UseVisualStyleBackColor = false;
             // 
             // vistaRecepcionista
             // 
