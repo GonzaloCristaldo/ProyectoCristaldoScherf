@@ -158,7 +158,7 @@ namespace AdministracionPolideportivo.CPresentacion
             panelOpciones.Dock = DockStyle.Left;
             panelOpciones.Location = new Point(0, 34);
             panelOpciones.Name = "panelOpciones";
-            panelOpciones.Size = new Size(200, 416);
+            panelOpciones.Size = new Size(226, 416);
             panelOpciones.TabIndex = 1;
             panelOpciones.Paint += panelOpciones_Paint;
             panelOpciones.MouseDown += panelOpciones_MouseDown;
@@ -166,9 +166,9 @@ namespace AdministracionPolideportivo.CPresentacion
             // panelFormulario
             // 
             panelFormulario.Dock = DockStyle.Fill;
-            panelFormulario.Location = new Point(200, 34);
+            panelFormulario.Location = new Point(226, 34);
             panelFormulario.Name = "panelFormulario";
-            panelFormulario.Size = new Size(494, 416);
+            panelFormulario.Size = new Size(468, 416);
             panelFormulario.TabIndex = 2;
             panelFormulario.Paint += panelFormulario_Paint;
             // 
