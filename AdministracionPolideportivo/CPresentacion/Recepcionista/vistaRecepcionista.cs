@@ -17,8 +17,9 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
             AgregarBotonOpcion(new BotonOpcion(new AgregarCancha(),this,formActual, "Agregar Cancha"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual, "Agregar Servicio Adicional"));
+            AgregarBotonOpcion(new BotonOpcion(new AgregarCliente(), this, formActual, "Agregar Cliente"));
 
-            
+
         }
 
         private void InitializeComponent()
@@ -29,6 +30,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // 
             // panelOpciones
             // 
+            panelOpciones.AutoScroll = true;
             panelOpciones.Controls.Add(tablaOpciones);
             // 
             // tablaOpciones
@@ -36,11 +38,12 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             tablaOpciones.AutoSize = true;
             tablaOpciones.ColumnCount = 1;
             tablaOpciones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tablaOpciones.Dock = DockStyle.Top;
             tablaOpciones.Location = new Point(0, 0);
             tablaOpciones.Name = "tablaOpciones";
             tablaOpciones.RowCount = 1;
             tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tablaOpciones.Size = new Size(226, 27);
+            tablaOpciones.Size = new Size(226, 0);
             tablaOpciones.TabIndex = 0;
             // 
             // vistaRecepcionista
