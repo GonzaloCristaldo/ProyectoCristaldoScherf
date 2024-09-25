@@ -63,7 +63,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
             DoubleBuffered = true;
             SetStyle(ControlStyles.ResizeRedraw, true);
-            Console.WriteLine("ventana construida");
+            
 
             FormBorderStyle = FormBorderStyle.None;  // Remove default form border
             Padding = new Padding(borderWidth);      // Add padding for the custom border
@@ -76,17 +76,17 @@ namespace AdministracionPolideportivo.CPresentacion
 
         public void actualizarFormulario(Form nuevo)
         {
-            System.Console.WriteLine("entra al metodo");
+            
             formActual = nuevo;
             if (opciones.Length>0) {
-                System.Console.WriteLine("hay opciones en el array");
+                
                 for (int i=0;i<opciones.GetLength(0);i++) {
-                    System.Console.WriteLine("opcion n" + i);
+                    
                     if (opciones[i]!=null)
                     {
-                        System.Console.WriteLine("en esta opcion no hay null");
+                        
                         opciones[i].FormularioViejo = formActual;
-                        System.Console.WriteLine("SE actualizo el formulario viejo");
+                        
                     }
                 }
             }
@@ -270,7 +270,7 @@ namespace AdministracionPolideportivo.CPresentacion
             movX = e.X;
             movY = e.Y;*/
 
-            Console.WriteLine("el evento ocurre");
+            
             if (e.Button == MouseButtons.Left)
             {
                 isDragging = true;
@@ -278,7 +278,7 @@ namespace AdministracionPolideportivo.CPresentacion
                 {
                     lastRectangle = new Rectangle(e.Location.X, e.Location.Y, Width, Height);
                 }
-                Console.WriteLine("isDragging");
+                
                 if (isSnapped == false && isMaximized == false)
                 {
                     normalBounds = Bounds;
@@ -353,11 +353,10 @@ namespace AdministracionPolideportivo.CPresentacion
                 this.Bounds = normalBounds;  // Restore to original size
             }*/
             // Solo maximizar cuando el usuario suelte el mouse y esté cerca del borde superior
-            Console.WriteLine("shouldMaximize = " + shouldMaximize);
-            Console.WriteLine("isMaximized = " + isMaximized);
+            
             if (shouldMaximize && isMaximized == false)
             {
-                Console.WriteLine("maximiza");
+                
                 MaximizeForm();
             }
             else if (shouldSnapRight)
@@ -393,7 +392,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("BOTON CLICKEADO");
+            
         }
 
         protected override void WndProc(ref Message m)

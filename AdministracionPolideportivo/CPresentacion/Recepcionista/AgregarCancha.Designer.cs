@@ -39,6 +39,10 @@
             lblUbicacion = new LabelFormulario();
             txtUbicacion = new Texto();
             btnAgregar = new BotonFormulario();
+            txtServiciosAgregados = new Texto();
+            btnAgregarServicio = new BotonFormulario();
+            lblServicio = new LabelFormulario();
+            cbServicioAdicional = new ComboBoxEstandar();
             SuspendLayout();
             // 
             // lblNumero
@@ -146,18 +150,65 @@
             btnAgregar.BackColor = Color.DimGray;
             btnAgregar.Font = new Font("Segoe UI", 10F);
             btnAgregar.ForeColor = Color.White;
-            btnAgregar.Location = new Point(102, 169);
+            btnAgregar.Location = new Point(84, 238);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(146, 41);
             btnAgregar.TabIndex = 0;
             btnAgregar.Text = "Agregar Cancha";
             btnAgregar.UseVisualStyleBackColor = false;
             // 
+            // txtServiciosAgregados
+            // 
+            txtServiciosAgregados.BackColor = SystemColors.WindowFrame;
+            txtServiciosAgregados.Enabled = false;
+            txtServiciosAgregados.ForeColor = Color.White;
+            txtServiciosAgregados.Location = new Point(329, 176);
+            txtServiciosAgregados.Multiline = true;
+            txtServiciosAgregados.Name = "txtServiciosAgregados";
+            txtServiciosAgregados.Size = new Size(291, 180);
+            txtServiciosAgregados.TabIndex = 9;
+            // 
+            // btnAgregarServicio
+            // 
+            btnAgregarServicio.BackColor = Color.DimGray;
+            btnAgregarServicio.Font = new Font("Segoe UI", 10F);
+            btnAgregarServicio.ForeColor = Color.White;
+            btnAgregarServicio.Location = new Point(409, 101);
+            btnAgregarServicio.Name = "btnAgregarServicio";
+            btnAgregarServicio.Size = new Size(146, 41);
+            btnAgregarServicio.TabIndex = 10;
+            btnAgregarServicio.Text = "Agregar Servicio";
+            btnAgregarServicio.UseVisualStyleBackColor = false;
+            // 
+            // lblServicio
+            // 
+            lblServicio.AutoSize = true;
+            lblServicio.ForeColor = Color.White;
+            lblServicio.Location = new Point(429, 32);
+            lblServicio.Name = "lblServicio";
+            lblServicio.Size = new Size(101, 15);
+            lblServicio.TabIndex = 12;
+            lblServicio.Text = "Servicio Adicional";
+            // 
+            // cbServicioAdicional
+            // 
+            cbServicioAdicional.BackColor = SystemColors.WindowFrame;
+            cbServicioAdicional.ForeColor = Color.White;
+            cbServicioAdicional.FormattingEnabled = true;
+            cbServicioAdicional.Location = new Point(371, 59);
+            cbServicioAdicional.Name = "cbServicioAdicional";
+            cbServicioAdicional.Size = new Size(210, 23);
+            cbServicioAdicional.TabIndex = 11;
+            // 
             // AgregarCancha
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(367, 249);
+            ClientSize = new Size(644, 369);
+            Controls.Add(txtServiciosAgregados);
+            Controls.Add(btnAgregarServicio);
+            Controls.Add(lblServicio);
+            Controls.Add(cbServicioAdicional);
             Controls.Add(btnAgregar);
             Controls.Add(txtUbicacion);
             Controls.Add(lblUbicacion);
@@ -188,5 +239,9 @@
         private LabelFormulario lblUbicacion;
         private Texto txtUbicacion;
         private BotonFormulario btnAgregar;
+        private Texto txtServiciosAgregados;
+        private BotonFormulario btnAgregarServicio;
+        private LabelFormulario lblServicio;
+        private ComboBoxEstandar cbServicioAdicional;
     }
 }
