@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace AdministracionPolideportivo.CDatos
 {
@@ -18,10 +19,12 @@ namespace AdministracionPolideportivo.CDatos
         private String tipoCesped;
         private String tipoIluminacion;
 
-
+        SqlConnection conexion;
 
         
-        public Cancha() { }
+        public Cancha() {
+            conexion = new SqlConnection("");
+        }
 
         public Cancha(int anchoMts, int largoMts, int idCancha, int precioHora, string ubicacion, string estadoCesped, string tipoCesped, string tipoIluminacion)
         {
