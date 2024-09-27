@@ -109,6 +109,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             lblNombre.Size = new Size(57, 15);
             lblNombre.TabIndex = 4;
             lblNombre.Text = "Nombre: ";
+            lblNombre.Click += lblNombre_Click;
             // 
             // lblApellido
             // 
@@ -146,6 +147,11 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             Name = "BuscarCliente";
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void lblNombre_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -17,7 +17,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             contadorOpciones = 0;
             //tablaOpciones.Width = panelOpciones.Width;
 
-
+            AgregarBotonOpcion(new BotonOpcion(new listarClienteCheckIn_Out(), this, formActual, "CheckIN/CheckOut"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarRecinto(), this, formActual, "Agregar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual, "Agregar Servicio Adicional"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarCliente(), this, formActual, "Agregar Cliente"));
@@ -25,7 +25,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             AgregarBotonOpcion(new BotonOpcion(new BuscarRecinto(), this, formActual, "Buscar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(), this, formActual, "Programar Nueva Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
-            AgregarBotonOpcion(new BotonOpcion(new Estadisticas(), this, formActual, "Ver informacion estadistica"));
+            AgregarBotonOpcion(new BotonOpcion(new Estadisticas(), this, formActual, "Ver estadisticas"));
 
         }
         private void InitializeComponent()
