@@ -1,5 +1,6 @@
 using AdministracionPolideportivo.CPresentacion;
 using AdministracionPolideportivo.CPresentacion.Recepcionista;
+using AdministracionPolideportivo.CPresentacion.Admin;
 
 namespace AdministracionPolideportivo
 {
@@ -50,5 +51,13 @@ namespace AdministracionPolideportivo
             vistaRecepcionista menu = new vistaRecepcionista();
             menu.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            VistaAdmin menu = new VistaAdmin();
+            menu.Show();
+        }
     }
+
+  
 }

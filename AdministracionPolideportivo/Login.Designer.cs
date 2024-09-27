@@ -37,6 +37,7 @@
             btnCerrar = new Button();
             btnMinimizar = new Button();
             panel1 = new Panel();
+            button2 = new Button();
             button1 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -112,6 +113,7 @@
             panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
+            panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(btnEntrar);
             panel1.Controls.Add(btnMinimizar);
@@ -126,6 +128,16 @@
             panel1.Size = new Size(501, 518);
             panel1.TabIndex = 7;
             panel1.Paint += panel1_Paint;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(170, 391);
+            button2.Name = "button2";
+            button2.Size = new Size(120, 41);
+            button2.TabIndex = 8;
+            button2.Text = "vistaAdmin";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
@@ -166,5 +178,6 @@
         private Button btnMinimizar;
         private Panel panel1;
         private Button button1;
+        private Button button2;
     }
 }

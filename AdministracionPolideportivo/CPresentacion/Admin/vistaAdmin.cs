@@ -1,151 +1,103 @@
-﻿using System;
+﻿using AdministracionPolideportivo.CPresentacion.Recepcionista;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdministracionPolideportivo.CPresentacion
+namespace AdministracionPolideportivo.CPresentacion.Admin
+
 {
     internal class VistaAdmin : VentanaMenu
     {
-        public VistaAdmin() : base()
+        public VistaAdmin()
         {
 
             InitializeComponent();
+            contadorOpciones = 0;
+            //tablaOpciones.Width = panelOpciones.Width;
+
+
+            AgregarBotonOpcion(new BotonOpcion(new AgregarRecinto(), this, formActual, "Agregar Recinto"));
+            AgregarBotonOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual, "Agregar Servicio Adicional"));
+            AgregarBotonOpcion(new BotonOpcion(new AgregarCliente(), this, formActual, "Agregar Cliente"));
+            AgregarBotonOpcion(new BotonOpcion(new BuscarCliente(), this, formActual, "Buscar Cliente"));
+            AgregarBotonOpcion(new BotonOpcion(new BuscarRecinto(), this, formActual, "Buscar Recinto"));
+            AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(), this, formActual, "Programar Nueva Reserva"));
+            AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
         }
         private void InitializeComponent()
         {
-            label3 = new Label();
-            label1 = new Label();
-            label2 = new Label();
-            button1 = new Button();
-            button2 = new Button();
-            label4 = new Label();
-            dataGridView1 = new DataGridView();
-            customButton1 = new CustomButton();
+            tablaOpciones = new TableLayoutPanel();
+            btnCerrar = new Button();
+            btnMinimizar = new Button();
             panelNavegacion.SuspendLayout();
             panelOpciones.SuspendLayout();
-            panelFormulario.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // panelNavegacion
             // 
-            panelNavegacion.Controls.Add(button2);
-            panelNavegacion.Controls.Add(button1);
-            panelNavegacion.Controls.Add(label1);
+            panelNavegacion.Controls.Add(btnMinimizar);
+            panelNavegacion.Controls.Add(btnCerrar);
+            panelNavegacion.Size = new Size(1090, 34);
             // 
             // panelOpciones
             // 
-            panelOpciones.Controls.Add(customButton1);
-            panelOpciones.Controls.Add(label4);
-            panelOpciones.Controls.Add(label2);
-            panelOpciones.Controls.Add(label3);
+            panelOpciones.AutoScroll = true;
+            panelOpciones.Controls.Add(tablaOpciones);
+            panelOpciones.Size = new Size(226, 406);
             // 
             // panelFormulario
             // 
-            panelFormulario.Controls.Add(dataGridView1);
+            panelFormulario.Size = new Size(864, 406);
             // 
-            // label3
+            // tablaOpciones
             // 
-            label3.AutoSize = true;
-            label3.ForeColor = SystemColors.ButtonFace;
-            label3.Location = new Point(19, 60);
-            label3.Name = "label3";
-            label3.Size = new Size(89, 15);
-            label3.TabIndex = 0;
-            label3.Text = "Gestionar Socio";
-            label3.Click += label3_Click;
+            tablaOpciones.AutoSize = true;
+            tablaOpciones.ColumnCount = 1;
+            tablaOpciones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tablaOpciones.Dock = DockStyle.Top;
+            tablaOpciones.Location = new Point(0, 0);
+            tablaOpciones.Name = "tablaOpciones";
+            tablaOpciones.RowCount = 1;
+            tablaOpciones.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tablaOpciones.Size = new Size(226, 0);
+            tablaOpciones.TabIndex = 0;
             // 
-            // label1
+            // btnCerrar
             // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(286, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(131, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Gestion Socios del Club";
+            btnCerrar.Location = new Point(1060, 3);
+            btnCerrar.Name = "btnCerrar";
+            btnCerrar.Size = new Size(27, 24);
+            btnCerrar.TabIndex = 6;
+            btnCerrar.Text = "X";
+            btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.Click += btnCerrar_Click;
             // 
-            // label2
+            // btnMinimizar
             // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(19, 101);
-            label2.Name = "label2";
-            label2.Size = new Size(117, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Ver Listado de Socios";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(619, 5);
-            button1.Name = "button1";
-            button1.Size = new Size(21, 23);
-            button1.TabIndex = 1;
-            button1.Text = "-";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(646, 5);
-            button2.Name = "button2";
-            button2.Size = new Size(24, 23);
-            button2.TabIndex = 2;
-            button2.Text = "X";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.ForeColor = SystemColors.ButtonFace;
-            label4.Location = new Point(19, 142);
-            label4.Name = "label4";
-            label4.Size = new Size(105, 15);
-            label4.TabIndex = 2;
-            label4.Text = "Gestionar Canchas";
-            label4.Click += label4_Click;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(61, 60);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(379, 238);
-            dataGridView1.TabIndex = 0;
-            // 
-            // customButton1
-            // 
-            customButton1.BackColor = Color.Green;
-            customButton1.Location = new Point(76, 216);
-            customButton1.Name = "customButton1";
-            customButton1.Size = new Size(75, 23);
-            customButton1.TabIndex = 3;
-            customButton1.Text = "customButton1";
-            customButton1.UseVisualStyleBackColor = false;
+            btnMinimizar.Location = new Point(1029, 3);
+            btnMinimizar.Name = "btnMinimizar";
+            btnMinimizar.Size = new Size(25, 24);
+            btnMinimizar.TabIndex = 7;
+            btnMinimizar.Text = "-";
+            btnMinimizar.UseVisualStyleBackColor = true;
+            btnMinimizar.Click += btnMinimizar_Click;
             // 
             // VistaAdmin
             // 
-            ClientSize = new Size(694, 450);
+            ClientSize = new Size(1100, 450);
             Name = "VistaAdmin";
             panelNavegacion.ResumeLayout(false);
-            panelNavegacion.PerformLayout();
             panelOpciones.ResumeLayout(false);
             panelOpciones.PerformLayout();
-            panelFormulario.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
-        private Label label2;
-        private Label label3;
         private Button button1;
         private Button button2;
-        private Label label4;
-        private DataGridView dataGridView1;
-        private CustomButton customButton1;
+        private Button btnCerrar;
+        private Button btnMinimizar;
         private Label label1;
 
         private void label3_Click(object sender, EventArgs e)
@@ -166,6 +118,36 @@ namespace AdministracionPolideportivo.CPresentacion
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void botonFormulario1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private TableLayoutPanel tablaOpciones;
+        private int contadorOpciones;
+
+
+        private void AgregarBotonOpcion(BotonOpcion nuevoBoton)
+        {
+            /*Se agrega el boton a la tabla de opciones, en la primer columna
+            (0) y en la fila correspondiente al contador*/
+            tablaOpciones.Controls.Add(nuevoBoton, 0, contadorOpciones);
+            //Se actualiza el contador
+            contadorOpciones++;
+            //Se agrega la opcion al array definido en la superclase
+            agregarOpcion(nuevoBoton);
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
         }
     }
 }
