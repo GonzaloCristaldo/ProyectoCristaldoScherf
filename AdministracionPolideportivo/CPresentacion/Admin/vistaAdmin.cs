@@ -25,6 +25,8 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             AgregarBotonOpcion(new BotonOpcion(new BuscarRecinto(), this, formActual, "Buscar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(), this, formActual, "Programar Nueva Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
+            AgregarBotonOpcion(new BotonOpcion(new Estadisticas(), this, formActual, "Ver informacion estadistica"));
+
         }
         private void InitializeComponent()
         {
