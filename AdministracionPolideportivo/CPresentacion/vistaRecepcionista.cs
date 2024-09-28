@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdministracionPolideportivo.CPresentacion.Recepcionista;
 
-namespace AdministracionPolideportivo.CPresentacion.Recepcionista
+namespace AdministracionPolideportivo.CPresentacion
 {
     internal class vistaRecepcionista : VentanaMenu
     {
@@ -13,9 +14,9 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             InitializeComponent();
             contadorOpciones = 0;
             //tablaOpciones.Width = panelOpciones.Width;
-            
 
-            AgregarBotonOpcion(new BotonOpcion(new AgregarRecinto(),this,formActual, "Agregar Recinto"));
+
+            AgregarBotonOpcion(new BotonOpcion(new AgregarRecinto(), this, formActual, "Agregar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual, "Agregar Servicio Adicional"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarCliente(), this, formActual, "Agregar Cliente"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarCliente(), this, formActual, "Buscar Cliente"));
@@ -63,11 +64,11 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         {
             /*Se agrega el boton a la tabla de opciones, en la primer columna
             (0) y en la fila correspondiente al contador*/
-            tablaOpciones.Controls.Add(nuevoBoton,0,contadorOpciones);
+            tablaOpciones.Controls.Add(nuevoBoton, 0, contadorOpciones);
             //Se actualiza el contador
             contadorOpciones++;
             //Se agrega la opcion al array definido en la superclase
-            agregarOpcion(nuevoBoton); 
+            agregarOpcion(nuevoBoton);
         }
 
     }

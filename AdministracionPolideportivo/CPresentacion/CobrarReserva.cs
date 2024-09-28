@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdministracionPolideportivo.CPresentacion.Recepcionista
+namespace AdministracionPolideportivo.CPresentacion
 {
     internal class CobrarReserva : FormularioEstandar
     {
 
-        public CobrarReserva() {
+        public CobrarReserva()
+        {
             InitializeComponent();
         }
 
-        
+
 
         private void InitializeComponent()
         {

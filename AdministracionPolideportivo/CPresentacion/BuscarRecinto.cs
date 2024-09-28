@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdministracionPolideportivo.CPresentacion.Recepcionista
+namespace AdministracionPolideportivo.CPresentacion
 {
     internal class BuscarRecinto : FormularioEstandar
     {
