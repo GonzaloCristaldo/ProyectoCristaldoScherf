@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdministracionPolideportivo.CPresentacion.Recepcionista;
 
-namespace AdministracionPolideportivo.CPresentacion
+namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 {
     internal class vistaRecepcionista : VentanaMenu
     {

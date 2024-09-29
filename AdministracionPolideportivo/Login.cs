@@ -1,5 +1,5 @@
-using AdministracionPolideportivo.CPresentacion;
 using AdministracionPolideportivo.CPresentacion.Admin;
+using AdministracionPolideportivo.CPresentacion.Recepcionista;
 using System.Diagnostics;
 
 namespace AdministracionPolideportivo
