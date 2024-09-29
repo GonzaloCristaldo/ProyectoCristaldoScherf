@@ -1,5 +1,6 @@
 using AdministracionPolideportivo.CPresentacion.Admin;
 using AdministracionPolideportivo.CPresentacion.Recepcionista;
+using AdministracionPolideportivo.CPresentacion.SuperAdmin;
 using System.Diagnostics;
 
 namespace AdministracionPolideportivo
@@ -62,7 +63,7 @@ namespace AdministracionPolideportivo
         {
             try
             {
-                
+
                 string direccionCorreo = "destinatario@example.com";
 
                 // Muestra una ventana de confirmación
@@ -81,6 +82,23 @@ namespace AdministracionPolideportivo
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            vistaSuperAdmin menu = new vistaSuperAdmin();
+            menu.Show();
+        }
+
+        private void texto2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void texto1_TextChanged(object sender, EventArgs e)
         {
 
         }

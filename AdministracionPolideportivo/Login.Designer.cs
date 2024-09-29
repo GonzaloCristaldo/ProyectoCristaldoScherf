@@ -31,17 +31,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             lblUsuario = new Label();
             lblContrasena = new Label();
-            txtUsuario = new TextBox();
-            txtContrasena = new TextBox();
             btnEntrar = new Button();
             btnCerrar = new Button();
             btnMinimizar = new Button();
             panel1 = new Panel();
+            Usuario = new CPresentacion.Texto();
+            Contraseña = new CPresentacion.Texto();
+            button4 = new Button();
+            label1 = new Label();
+            button3 = new Button();
             pictureBox1 = new PictureBox();
             button2 = new Button();
             button1 = new Button();
-            button3 = new Button();
-            label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -65,25 +66,6 @@
             lblContrasena.Size = new Size(67, 15);
             lblContrasena.TabIndex = 1;
             lblContrasena.Text = "Contraseña";
-            // 
-            // txtUsuario
-            // 
-            txtUsuario.BackColor = SystemColors.Info;
-            txtUsuario.Cursor = Cursors.IBeam;
-            txtUsuario.Location = new Point(103, 233);
-            txtUsuario.Name = "txtUsuario";
-            txtUsuario.Size = new Size(201, 23);
-            txtUsuario.TabIndex = 2;
-            txtUsuario.TextChanged += txtUsuario_TextChanged;
-            // 
-            // txtContrasena
-            // 
-            txtContrasena.Cursor = Cursors.IBeam;
-            txtContrasena.Location = new Point(103, 277);
-            txtContrasena.Name = "txtContrasena";
-            txtContrasena.PasswordChar = '*';
-            txtContrasena.Size = new Size(201, 23);
-            txtContrasena.TabIndex = 3;
             // 
             // btnEntrar
             // 
@@ -126,6 +108,9 @@
             panel1.BackColor = Color.Transparent;
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
+            panel1.Controls.Add(Usuario);
+            panel1.Controls.Add(Contraseña);
+            panel1.Controls.Add(button4);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(button3);
             panel1.Controls.Add(pictureBox1);
@@ -133,10 +118,8 @@
             panel1.Controls.Add(button1);
             panel1.Controls.Add(btnEntrar);
             panel1.Controls.Add(btnMinimizar);
-            panel1.Controls.Add(txtUsuario);
             panel1.Controls.Add(btnCerrar);
             panel1.Controls.Add(lblUsuario);
-            panel1.Controls.Add(txtContrasena);
             panel1.Controls.Add(lblContrasena);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
@@ -144,6 +127,59 @@
             panel1.Size = new Size(400, 450);
             panel1.TabIndex = 7;
             panel1.Paint += panel1_Paint;
+            // 
+            // Usuario
+            // 
+            Usuario.BackColor = Color.Gainsboro;
+            Usuario.Cursor = Cursors.IBeam;
+            Usuario.ForeColor = Color.Black;
+            Usuario.Location = new Point(94, 233);
+            Usuario.Name = "Usuario";
+            Usuario.Size = new Size(210, 23);
+            Usuario.TabIndex = 0;
+            Usuario.TextChanged += texto2_TextChanged;
+            // 
+            // Contraseña
+            // 
+            Contraseña.BackColor = Color.Gainsboro;
+            Contraseña.Cursor = Cursors.IBeam;
+            Contraseña.ForeColor = Color.Black;
+            Contraseña.Location = new Point(94, 277);
+            Contraseña.Name = "Contraseña";
+            Contraseña.PasswordChar = '*';
+            Contraseña.Size = new Size(210, 23);
+            Contraseña.TabIndex = 0;
+            Contraseña.TextChanged += texto1_TextChanged;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(295, 368);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 12;
+            button4.Text = "vistaSuperAdmin";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(113, 393);
+            label1.Name = "label1";
+            label1.Size = new Size(170, 15);
+            label1.TabIndex = 11;
+            label1.Text = "¿Problemas para iniciar sesion?";
+            label1.Click += label1_Click;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(84, 411);
+            button3.Name = "button3";
+            button3.Size = new Size(220, 23);
+            button3.TabIndex = 10;
+            button3.Text = "Contactar Administrador general";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // pictureBox1
             // 
@@ -176,26 +212,6 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // button3
-            // 
-            button3.Location = new Point(84, 411);
-            button3.Name = "button3";
-            button3.Size = new Size(220, 23);
-            button3.TabIndex = 10;
-            button3.Text = "Contactar Administrador general";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(113, 393);
-            label1.Name = "label1";
-            label1.Size = new Size(170, 15);
-            label1.TabIndex = 11;
-            label1.Text = "¿Problemas para iniciar sesion?";
-            label1.Click += label1_Click;
-            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -219,8 +235,6 @@
 
         private Label lblUsuario;
         private Label lblContrasena;
-        private TextBox txtUsuario;
-        private TextBox txtContrasena;
         private Button btnEntrar;
         private Button btnCerrar;
         private Button btnMinimizar;
@@ -230,5 +244,8 @@
         private PictureBox pictureBox1;
         private Button button3;
         private Label label1;
+        private Button button4;
+        private CPresentacion.Texto Usuario;
+        private CPresentacion.Texto Contraseña;
     }
 }
