@@ -17,9 +17,9 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             botonFormulario1 = new BotonFormulario();
             botonFormulario2 = new BotonFormulario();
@@ -39,16 +39,16 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             // 
             // chart1
             // 
-            chartArea5.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            chart1.Legends.Add(legend5);
+            chartArea6.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            chart1.Legends.Add(legend6);
             chart1.Location = new Point(182, 60);
             chart1.Name = "chart1";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            chart1.Series.Add(series5);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            chart1.Series.Add(series6);
             chart1.Size = new Size(405, 264);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
@@ -145,7 +145,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(649, 60);
+            label2.Location = new Point(640, 60);
             label2.Name = "label2";
             label2.Size = new Size(95, 15);
             label2.TabIndex = 9;
