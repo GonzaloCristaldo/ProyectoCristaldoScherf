@@ -65,7 +65,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
             FormBorderStyle = FormBorderStyle.None;  // Remove default form border
             Padding = new Padding(borderWidth);      // Add padding for the custom border
-            Size = new Size(1100,450);
+            Size = new Size(1100,720);
             normalBounds = Bounds;
 
         }

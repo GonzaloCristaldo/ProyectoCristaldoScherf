@@ -1,5 +1,6 @@
 using AdministracionPolideportivo.CPresentacion;
 using AdministracionPolideportivo.CPresentacion.Admin;
+using System.Diagnostics;
 
 namespace AdministracionPolideportivo
 {
@@ -56,7 +57,34 @@ namespace AdministracionPolideportivo
             VistaAdmin menu = new VistaAdmin();
             menu.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                string direccionCorreo = "destinatario@example.com";
+
+                // Muestra una ventana de confirmación
+                var confirmacion = MessageBox.Show("¿Quieres enviar un correo?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (confirmacion == DialogResult.Yes)
+                {
+                    // Abre el cliente de correo predeterminado
+                    Process.Start($"mailto:{direccionCorreo}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir el cliente de correo: {ex.Message}");
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
-  
+
 }
