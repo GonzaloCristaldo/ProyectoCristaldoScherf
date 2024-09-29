@@ -7,17 +7,10 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo.CNegocio
 {
-    internal class MedioPago : EntidadDataGridView
+    internal class TipoRecinto : EntidadDataGridView
     {
-        public MedioPago(int idMedioPago, string nombreMedioPago)
-        {
-            this.idMedioPago = idMedioPago;
-            this.nombreMedioPago = nombreMedioPago;
-        }
-
-        public int idMedioPago {  get; set; }
-        public String nombreMedioPago { get; set; }
-
+        public int id {  get; set; }
+        public String nombre { get; set; }
         public override void CargarEnTabla(AdministracionPolideportivo.CPresentacion.DataGridViewEstandar tabla)
         {
             if (tabla.getDatoModelo().GetType() != this.GetType())
@@ -25,8 +18,8 @@ namespace AdministracionPolideportivo.CNegocio
                 tabla.setDatoModelo(this);
                 System.Console.WriteLine("El tipo de dato no era igual al dato modelo, se cambio la cabecera");
             }
-            String[] datosMedioPago = [idMedioPago.ToString(), nombreMedioPago];
-            tabla.Rows.Add(datosMedioPago);
+            String[] datosCliente = [id.ToString(), nombre];
+            tabla.Rows.Add(datosCliente);
 
         }
 
@@ -35,7 +28,7 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Clear();
             tabla.Rows.Clear();
             tabla.Columns.Add("id", "Id");
-            tabla.Columns.Add("nombre", "Medio de Pago");
+            tabla.Columns.Add("nombre", "Nombre");
         }
     }
 }
