@@ -132,7 +132,6 @@ namespace AdministracionPolideportivo.CPresentacion
         {
             new Cliente(1,43822713,"Lucas Daniel","Scherf","3794 - 123456").CargarEnTabla(tablaClientes);
 
-            consulta().CargarEnTabla(tablaClientes);
         }
     }
 }
