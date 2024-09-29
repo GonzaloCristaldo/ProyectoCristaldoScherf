@@ -31,7 +31,7 @@ namespace AdministracionPolideportivo.CNegocio
         {
             if (tabla.getDatoModelo().GetType()!=this.GetType())
             {
-                CrearCabecera(tabla);
+                tabla.setDatoModelo(this);
                 System.Console.WriteLine("El tipo de dato no era igual al dato modelo, se cambio la cabecera");
             }
             String[] datosCliente = [IdCliente.ToString(),DniCliente.ToString(),NombreCliente,ApellidoCliente,Telefono];
