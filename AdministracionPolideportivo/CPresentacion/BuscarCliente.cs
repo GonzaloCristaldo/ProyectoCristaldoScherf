@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdministracionPolideportivo.CNegocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,12 +19,14 @@ namespace AdministracionPolideportivo.CPresentacion
         private BotonFormulario btnBuscar;
         private ComboBoxEstandar cbBuscar;
         private LabelFormulario lblBuscar;
+        private DataGridViewEstandar tablaClientes;
+        private Panel panel1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private Texto txtBuscar;
-        private LabelFormulario lblID;
-        private LabelFormulario lblDNI;
-        private LabelFormulario lblNombre;
-        private LabelFormulario lblApellido;
-        private LabelFormulario lblTelefono;
 
         private void InitializeComponent()
         {
@@ -31,11 +34,15 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar = new ComboBoxEstandar();
             lblBuscar = new LabelFormulario();
             txtBuscar = new Texto();
-            lblID = new LabelFormulario();
-            lblDNI = new LabelFormulario();
-            lblNombre = new LabelFormulario();
-            lblApellido = new LabelFormulario();
-            lblTelefono = new LabelFormulario();
+            tablaClientes = new DataGridViewEstandar(new Cliente(0,0,"a","b","c"));
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+            panel1 = new Panel();
+            ((System.ComponentModel.ISupportInitialize)tablaClientes).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // btnBuscar
@@ -49,6 +56,7 @@ namespace AdministracionPolideportivo.CPresentacion
             btnBuscar.TabIndex = 0;
             btnBuscar.Text = "Buscar Cliente";
             btnBuscar.UseVisualStyleBackColor = false;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // cbBuscar
             // 
@@ -80,71 +88,37 @@ namespace AdministracionPolideportivo.CPresentacion
             txtBuscar.Size = new Size(210, 23);
             txtBuscar.TabIndex = 0;
             // 
-            // lblID
+            // tablaClientes
             // 
-            lblID.AutoSize = true;
-            lblID.ForeColor = Color.White;
-            lblID.Location = new Point(37, 194);
-            lblID.Name = "lblID";
-            lblID.Size = new Size(24, 15);
-            lblID.TabIndex = 2;
-            lblID.Text = "ID: ";
+            tablaClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tablaClientes.Dock = DockStyle.Fill;
+            tablaClientes.Location = new Point(0, 0);
+            tablaClientes.Name = "tablaClientes";
+            tablaClientes.Size = new Size(584, 116);
+            tablaClientes.TabIndex = 2;
+            
             // 
-            // lblDNI
+            // panel1
             // 
-            lblDNI.AutoSize = true;
-            lblDNI.ForeColor = Color.White;
-            lblDNI.Location = new Point(37, 218);
-            lblDNI.Name = "lblDNI";
-            lblDNI.Size = new Size(30, 15);
-            lblDNI.TabIndex = 3;
-            lblDNI.Text = "DNI:";
-            // 
-            // lblNombre
-            // 
-            lblNombre.AutoSize = true;
-            lblNombre.ForeColor = Color.White;
-            lblNombre.Location = new Point(37, 243);
-            lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(57, 15);
-            lblNombre.TabIndex = 4;
-            lblNombre.Text = "Nombre: ";
-            lblNombre.Click += lblNombre_Click;
-            // 
-            // lblApellido
-            // 
-            lblApellido.AutoSize = true;
-            lblApellido.ForeColor = Color.White;
-            lblApellido.Location = new Point(37, 270);
-            lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(57, 15);
-            lblApellido.TabIndex = 5;
-            lblApellido.Text = "Apellido: ";
-            // 
-            // lblTelefono
-            // 
-            lblTelefono.AutoSize = true;
-            lblTelefono.ForeColor = Color.White;
-            lblTelefono.Location = new Point(36, 298);
-            lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(58, 15);
-            lblTelefono.TabIndex = 6;
-            lblTelefono.Text = "Telefono: ";
+            panel1.AutoScroll = true;
+            panel1.Controls.Add(tablaClientes);
+            panel1.Location = new Point(13, 206);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(584, 116);
+            panel1.TabIndex = 3;
             // 
             // BuscarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            ClientSize = new Size(298, 334);
-            Controls.Add(lblTelefono);
-            Controls.Add(lblApellido);
-            Controls.Add(lblNombre);
-            Controls.Add(lblDNI);
-            Controls.Add(lblID);
+            ClientSize = new Size(609, 334);
+            Controls.Add(panel1);
             Controls.Add(txtBuscar);
             Controls.Add(lblBuscar);
             Controls.Add(cbBuscar);
             Controls.Add(btnBuscar);
             Name = "BuscarCliente";
+            ((System.ComponentModel.ISupportInitialize)tablaClientes).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -152,6 +126,13 @@ namespace AdministracionPolideportivo.CPresentacion
         private void lblNombre_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            new Cliente(1,43822713,"Lucas Daniel","Scherf","3794 - 123456").CargarEnTabla(tablaClientes);
+
+            consulta().CargarEnTabla(tablaClientes);
         }
     }
 }

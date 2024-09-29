@@ -33,8 +33,9 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             cbServicioAdicional = new ComboBoxEstandar();
             lblServicio = new LabelFormulario();
             btnAgregarServicio = new BotonFormulario();
-            txtServiciosAgregados = new Texto();
             labelFormulario6 = new LabelFormulario();
+            dataGridView1 = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // comboBoxEstandar1
@@ -169,17 +170,6 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnAgregarServicio.Text = "Agregar Servicio";
             btnAgregarServicio.UseVisualStyleBackColor = false;
             // 
-            // txtServiciosAgregados
-            // 
-            txtServiciosAgregados.BackColor = SystemColors.WindowFrame;
-            txtServiciosAgregados.Enabled = false;
-            txtServiciosAgregados.ForeColor = Color.White;
-            txtServiciosAgregados.Location = new Point(359, 186);
-            txtServiciosAgregados.Multiline = true;
-            txtServiciosAgregados.Name = "txtServiciosAgregados";
-            txtServiciosAgregados.Size = new Size(291, 180);
-            txtServiciosAgregados.TabIndex = 0;
-            // 
             // labelFormulario6
             // 
             labelFormulario6.AutoSize = true;
@@ -190,12 +180,20 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             labelFormulario6.TabIndex = 9;
             labelFormulario6.Text = "Total: $0";
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(343, 183);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(292, 150);
+            dataGridView1.TabIndex = 10;
+            // 
             // ProgramarReserva
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(662, 396);
+            Controls.Add(dataGridView1);
             Controls.Add(labelFormulario6);
-            Controls.Add(txtServiciosAgregados);
             Controls.Add(btnAgregarServicio);
             Controls.Add(lblServicio);
             Controls.Add(cbServicioAdicional);
@@ -210,6 +208,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             Controls.Add(labelFormulario1);
             Controls.Add(comboBoxEstandar1);
             Name = "ProgramarReserva";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -226,8 +225,8 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private ComboBoxEstandar cbServicioAdicional;
         private LabelFormulario lblServicio;
         private BotonFormulario btnAgregarServicio;
-        private Texto txtServiciosAgregados;
         private LabelFormulario labelFormulario6;
+        private DataGridView dataGridView1;
         private ComboBoxEstandar comboBoxEstandar2;
     }
 }
