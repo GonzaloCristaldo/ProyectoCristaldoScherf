@@ -32,53 +32,59 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             rbElegirRecintos = new RadioButton();
             lblUltimoRecinto = new LabelFormulario();
             groupBox1 = new GroupBox();
+            texto1 = new Texto();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // lblNombre
             // 
             lblNombre.AutoSize = true;
+            lblNombre.Font = new Font("Segoe UI", 18F);
             lblNombre.ForeColor = Color.White;
-            lblNombre.Location = new Point(31, 21);
+            lblNombre.Location = new Point(12, 12);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(114, 15);
+            lblNombre.Size = new Size(237, 32);
             lblNombre.TabIndex = 0;
-            lblNombre.Text = "Nombre del Servicio";
+            lblNombre.Text = "Nombre del Servicio:";
+            lblNombre.Click += lblNombre_Click;
             // 
             // lblDescripcion
             // 
             lblDescripcion.AutoSize = true;
+            lblDescripcion.Font = new Font("Segoe UI", 18F);
             lblDescripcion.ForeColor = Color.White;
-            lblDescripcion.Location = new Point(76, 50);
+            lblDescripcion.Location = new Point(12, 47);
             lblDescripcion.Name = "lblDescripcion";
-            lblDescripcion.Size = new Size(69, 15);
+            lblDescripcion.Size = new Size(143, 32);
             lblDescripcion.TabIndex = 1;
-            lblDescripcion.Text = "Descripción";
+            lblDescripcion.Text = "Descripción:";
+            lblDescripcion.Click += lblDescripcion_Click;
             // 
             // lblTarifa
             // 
             lblTarifa.AutoSize = true;
+            lblTarifa.Font = new Font("Segoe UI", 18F);
             lblTarifa.ForeColor = Color.White;
-            lblTarifa.Location = new Point(48, 76);
+            lblTarifa.Location = new Point(12, 79);
             lblTarifa.Name = "lblTarifa";
-            lblTarifa.Size = new Size(97, 15);
+            lblTarifa.Size = new Size(202, 32);
             lblTarifa.TabIndex = 2;
-            lblTarifa.Text = "Tarifa del servicio";
+            lblTarifa.Text = "Tarifa del servicio:";
             // 
             // txtNombre
             // 
             txtNombre.BackColor = SystemColors.WindowFrame;
             txtNombre.ForeColor = Color.White;
-            txtNombre.Location = new Point(151, 18);
+            txtNombre.Location = new Point(251, 21);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(210, 23);
+            txtNombre.Size = new Size(172, 23);
             txtNombre.TabIndex = 0;
             // 
             // txtDescripcion
             // 
             txtDescripcion.BackColor = SystemColors.WindowFrame;
             txtDescripcion.ForeColor = Color.White;
-            txtDescripcion.Location = new Point(151, 47);
+            txtDescripcion.Location = new Point(251, 56);
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(210, 23);
             txtDescripcion.TabIndex = 0;
@@ -87,7 +93,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // 
             txtTarifa.BackColor = SystemColors.WindowFrame;
             txtTarifa.ForeColor = Color.White;
-            txtTarifa.Location = new Point(151, 76);
+            txtTarifa.Location = new Point(251, 88);
             txtTarifa.Name = "txtTarifa";
             txtTarifa.Size = new Size(210, 23);
             txtTarifa.TabIndex = 1;
@@ -97,7 +103,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnAgregar.BackColor = Color.DimGray;
             btnAgregar.Font = new Font("Segoe UI", 10F);
             btnAgregar.ForeColor = Color.White;
-            btnAgregar.Location = new Point(141, 315);
+            btnAgregar.Location = new Point(215, 362);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(146, 41);
             btnAgregar.TabIndex = 0;
@@ -109,7 +115,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             cbRecintos.BackColor = SystemColors.WindowFrame;
             cbRecintos.ForeColor = Color.White;
             cbRecintos.FormattingEnabled = true;
-            cbRecintos.Location = new Point(78, 207);
+            cbRecintos.Location = new Point(138, 254);
             cbRecintos.Name = "cbRecintos";
             cbRecintos.Size = new Size(285, 23);
             cbRecintos.TabIndex = 0;
@@ -117,10 +123,11 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // labelFormulario1
             // 
             labelFormulario1.AutoSize = true;
+            labelFormulario1.Font = new Font("Segoe UI", 18F);
             labelFormulario1.ForeColor = Color.White;
-            labelFormulario1.Location = new Point(120, 179);
+            labelFormulario1.Location = new Point(93, 209);
             labelFormulario1.Name = "labelFormulario1";
-            labelFormulario1.Size = new Size(184, 15);
+            labelFormulario1.Size = new Size(373, 32);
             labelFormulario1.TabIndex = 3;
             labelFormulario1.Text = "Habilitar para el siguiente recinto:";
             // 
@@ -129,7 +136,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnHabilitarRecinto.BackColor = Color.DimGray;
             btnHabilitarRecinto.Font = new Font("Segoe UI", 10F);
             btnHabilitarRecinto.ForeColor = Color.White;
-            btnHabilitarRecinto.Location = new Point(110, 236);
+            btnHabilitarRecinto.Location = new Point(173, 283);
             btnHabilitarRecinto.Name = "btnHabilitarRecinto";
             btnHabilitarRecinto.Size = new Size(216, 41);
             btnHabilitarRecinto.TabIndex = 0;
@@ -140,7 +147,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // 
             rbHabilitarTodos.AutoSize = true;
             rbHabilitarTodos.ForeColor = Color.White;
-            rbHabilitarTodos.Location = new Point(13, 27);
+            rbHabilitarTodos.Location = new Point(13, 17);
             rbHabilitarTodos.Name = "rbHabilitarTodos";
             rbHabilitarTodos.Size = new Size(192, 19);
             rbHabilitarTodos.TabIndex = 4;
@@ -164,10 +171,11 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // lblUltimoRecinto
             // 
             lblUltimoRecinto.AutoSize = true;
+            lblUltimoRecinto.Font = new Font("Segoe UI", 18F);
             lblUltimoRecinto.ForeColor = Color.White;
-            lblUltimoRecinto.Location = new Point(12, 288);
+            lblUltimoRecinto.Location = new Point(10, 327);
             lblUltimoRecinto.Name = "lblUltimoRecinto";
-            lblUltimoRecinto.Size = new Size(132, 15);
+            lblUltimoRecinto.Size = new Size(264, 32);
             lblUltimoRecinto.TabIndex = 6;
             lblUltimoRecinto.Text = "Ultimo recinto añadido:";
             // 
@@ -175,16 +183,27 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // 
             groupBox1.Controls.Add(rbElegirRecintos);
             groupBox1.Controls.Add(rbHabilitarTodos);
-            groupBox1.Location = new Point(69, 105);
+            groupBox1.Location = new Point(124, 126);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(292, 71);
+            groupBox1.Size = new Size(323, 87);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
+            groupBox1.Enter += groupBox1_Enter;
+            // 
+            // texto1
+            // 
+            texto1.BackColor = SystemColors.WindowFrame;
+            texto1.ForeColor = Color.White;
+            texto1.Location = new Point(280, 336);
+            texto1.Name = "texto1";
+            texto1.Size = new Size(210, 23);
+            texto1.TabIndex = 0;
             // 
             // AgregarServicioAdicional
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            ClientSize = new Size(426, 368);
+            ClientSize = new Size(589, 425);
+            Controls.Add(texto1);
             Controls.Add(groupBox1);
             Controls.Add(lblUltimoRecinto);
             Controls.Add(btnHabilitarRecinto);
@@ -217,9 +236,25 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private RadioButton rbElegirRecintos;
         private LabelFormulario lblUltimoRecinto;
         private GroupBox groupBox1;
+        private Texto texto1;
         private LabelFormulario lblDescripcion;
 
         private void rbHabilitarTodos_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDescripcion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblNombre_Click(object sender, EventArgs e)
         {
 
         }

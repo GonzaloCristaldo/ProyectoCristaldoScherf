@@ -55,7 +55,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             txtDNI.BackColor = SystemColors.WindowFrame;
             txtDNI.ForeColor = Color.White;
-            txtDNI.Location = new Point(99, 24);
+            txtDNI.Location = new Point(106, 24);
             txtDNI.Name = "txtDNI";
             txtDNI.Size = new Size(117, 23);
             txtDNI.TabIndex = 1;
@@ -105,7 +105,7 @@ namespace AdministracionPolideportivo.CPresentacion
             lblTelefono.AutoSize = true;
             lblTelefono.Font = new Font("Segoe UI", 13F);
             lblTelefono.ForeColor = Color.White;
-            lblTelefono.Location = new Point(21, 167);
+            lblTelefono.Location = new Point(22, 166);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(79, 25);
             lblTelefono.TabIndex = 4;
@@ -125,7 +125,7 @@ namespace AdministracionPolideportivo.CPresentacion
             btnAgregarCliente.BackColor = Color.DimGray;
             btnAgregarCliente.Font = new Font("Segoe UI", 10F);
             btnAgregarCliente.ForeColor = Color.White;
-            btnAgregarCliente.Location = new Point(70, 227);
+            btnAgregarCliente.Location = new Point(106, 227);
             btnAgregarCliente.Name = "btnAgregarCliente";
             btnAgregarCliente.Size = new Size(146, 41);
             btnAgregarCliente.TabIndex = 0;

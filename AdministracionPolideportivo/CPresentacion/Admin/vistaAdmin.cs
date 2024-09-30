@@ -21,6 +21,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             btnCerrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             AgregarBotonOpcion(new BotonOpcion(new listarClienteCheckIn_Out(), this, formActual, "CheckIN/CheckOut"));
+            AgregarBotonOpcion(new BotonOpcion(new agregarUsuario(), this, formActual, "Agregar Recepcionista"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarRecinto(), this, formActual, "Agregar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual, "Agregar Servicio Adicional"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarCliente(), this, formActual, "Agregar Cliente"));
