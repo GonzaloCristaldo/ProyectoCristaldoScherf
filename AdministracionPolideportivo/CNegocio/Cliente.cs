@@ -44,8 +44,12 @@ namespace AdministracionPolideportivo.CNegocio
                 tabla.setDatoModelo(this);
                 System.Console.WriteLine("El tipo de dato no era igual al dato modelo, se cambio la cabecera");
             }
-            String[] datosCliente = [IdCliente.ToString(),DniCliente.ToString(),NombreCliente,ApellidoCliente,Telefono];
+            
+            Object[] datosCliente = [IdCliente.ToString(),DniCliente.ToString(),NombreCliente,ApellidoCliente,Telefono];
             tabla.Rows.Add(datosCliente);
+            
+            tabla.Rows[tabla.RowCount-2].Cells[datosCliente.Length] = new TablaBoton(this);
+
         }
 
         public override void CrearCabecera(TablaDatos tabla)
@@ -57,6 +61,7 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("nombre", "Nombre");
             tabla.Columns.Add("apellido", "Apellido");
             tabla.Columns.Add("telefono", "Telefono");
+            tabla.Columns.Add("modificar", "Modificar");
         }
     }
 }
