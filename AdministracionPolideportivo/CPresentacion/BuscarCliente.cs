@@ -15,6 +15,7 @@ namespace AdministracionPolideportivo.CPresentacion
         {
 
             InitializeComponent();
+            tabla.setDatoModelo(new Cliente(1, 1, "", "", ""));
 
         }
 
@@ -27,11 +28,12 @@ namespace AdministracionPolideportivo.CPresentacion
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private TablaDatos tabla;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
 
         /*private TablaDatos tablaClientes;*/
         private Texto txtBuscar;
@@ -47,12 +49,13 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar = new ComboBoxEstandar();
             lblBuscar = new LabelFormulario();
             txtBuscar = new Texto();
-            tabla = new TablaDatos(new Cliente(1,1,"","",""));
-            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
+            tabla = new TablaDatos();
+            dataGridViewTextBoxColumn11 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn12 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn13 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn14 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn15 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn16 = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)tabla).BeginInit();
             SuspendLayout();
             // 
@@ -128,36 +131,41 @@ namespace AdministracionPolideportivo.CPresentacion
             // tabla
             // 
             tabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabla.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10 });
+            tabla.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn11, dataGridViewTextBoxColumn12, dataGridViewTextBoxColumn13, dataGridViewTextBoxColumn14, dataGridViewTextBoxColumn15, dataGridViewTextBoxColumn16 });
             tabla.Location = new Point(253, 47);
             tabla.Name = "tabla";
             tabla.Size = new Size(543, 275);
             tabla.TabIndex = 2;
             // 
-            // dataGridViewTextBoxColumn6
+            // dataGridViewTextBoxColumn11
             // 
-            dataGridViewTextBoxColumn6.HeaderText = "Id";
-            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            dataGridViewTextBoxColumn11.HeaderText = "Id";
+            dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
             // 
-            // dataGridViewTextBoxColumn7
+            // dataGridViewTextBoxColumn12
             // 
-            dataGridViewTextBoxColumn7.HeaderText = "DNI";
-            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            dataGridViewTextBoxColumn12.HeaderText = "DNI";
+            dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             // 
-            // dataGridViewTextBoxColumn8
+            // dataGridViewTextBoxColumn13
             // 
-            dataGridViewTextBoxColumn8.HeaderText = "Nombre";
-            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            dataGridViewTextBoxColumn13.HeaderText = "Nombre";
+            dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             // 
-            // dataGridViewTextBoxColumn9
+            // dataGridViewTextBoxColumn14
             // 
-            dataGridViewTextBoxColumn9.HeaderText = "Apellido";
-            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            dataGridViewTextBoxColumn14.HeaderText = "Apellido";
+            dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             // 
-            // dataGridViewTextBoxColumn10
+            // dataGridViewTextBoxColumn15
             // 
-            dataGridViewTextBoxColumn10.HeaderText = "Telefono";
-            dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            dataGridViewTextBoxColumn15.HeaderText = "Telefono";
+            dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            dataGridViewTextBoxColumn16.HeaderText = "Modificar";
+            dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
             // 
             // BuscarCliente
             // 
@@ -184,6 +192,7 @@ namespace AdministracionPolideportivo.CPresentacion
             /*new Cliente(1,43822713,"Lucas Daniel","Scherf","3794 - 123456").CargarEnTabla(tablaClientes);*/
             //new Cliente(, "Lucas Daniel", "Scherf", "3794 - 123456").CargarEnTabla(tabla);
             List<Cliente> resultadoBusqueda = DALCliente.ListarClientes();
+            tabla.Rows.Clear();
             for (int i=0; i<resultadoBusqueda.Count;i++)
             {
                 resultadoBusqueda[i].CargarEnTabla(tabla);
