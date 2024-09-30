@@ -168,7 +168,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(406, 12);
+            pictureBox1.Location = new Point(403, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(147, 135);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
