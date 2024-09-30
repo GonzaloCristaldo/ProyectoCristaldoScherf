@@ -34,7 +34,6 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar = new ComboBoxEstandar();
             lblBuscar = new LabelFormulario();
             txtBuscar = new Texto();
-            tablaClientes = new DataGridViewEstandar(new Cliente(0,0,"a","b","c"));
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
@@ -72,10 +71,11 @@ namespace AdministracionPolideportivo.CPresentacion
             // lblBuscar
             // 
             lblBuscar.AutoSize = true;
+            
             lblBuscar.ForeColor = Color.White;
             lblBuscar.Location = new Point(87, 19);
             lblBuscar.Name = "lblBuscar";
-            lblBuscar.Size = new Size(106, 15);
+            lblBuscar.Size = new Size(158, 25);
             lblBuscar.TabIndex = 1;
             lblBuscar.Text = "Buscar Cliente por:";
             // 
@@ -91,12 +91,37 @@ namespace AdministracionPolideportivo.CPresentacion
             // tablaClientes
             // 
             tablaClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tablaClientes.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5 });
             tablaClientes.Dock = DockStyle.Fill;
             tablaClientes.Location = new Point(0, 0);
             tablaClientes.Name = "tablaClientes";
             tablaClientes.Size = new Size(584, 116);
             tablaClientes.TabIndex = 2;
-            
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.HeaderText = "Id";
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.HeaderText = "DNI";
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.HeaderText = "Nombre";
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewTextBoxColumn4.HeaderText = "Apellido";
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewTextBoxColumn5.HeaderText = "Telefono";
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
             // panel1
             // 
