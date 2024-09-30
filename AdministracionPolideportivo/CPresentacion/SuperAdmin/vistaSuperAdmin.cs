@@ -26,15 +26,16 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
             tablaOpciones = new TableLayoutPanel();
             btnCerrar = new Button();
             btnMinimizar = new Button();
+            labelFormulario1 = new LabelFormulario();
             panelNavegacion.SuspendLayout();
             panelOpciones.SuspendLayout();
             SuspendLayout();
             // 
             // panelNavegacion
             // 
+            panelNavegacion.Controls.Add(labelFormulario1);
             panelNavegacion.Controls.Add(btnMinimizar);
             panelNavegacion.Controls.Add(btnCerrar);
-            panelNavegacion.Size = new Size(1090, 34);
             // 
             // panelOpciones
             // 
@@ -79,11 +80,23 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
             btnMinimizar.UseVisualStyleBackColor = true;
             btnMinimizar.Click += btnMinimizar_Click;
             // 
-            // VistaAdmin
+            // labelFormulario1
+            // 
+            labelFormulario1.AutoSize = true;
+            labelFormulario1.Font = new Font("Segoe UI", 18F);
+            labelFormulario1.ForeColor = Color.White;
+            labelFormulario1.Location = new Point(19, 0);
+            labelFormulario1.Name = "labelFormulario1";
+            labelFormulario1.Size = new Size(233, 32);
+            labelFormulario1.TabIndex = 8;
+            labelFormulario1.Text = "Super Administrador";
+            // 
+            // vistaSuperAdmin
             // 
             ClientSize = new Size(1100, 450);
-            Name = "VistaAdmin";
+            Name = "vistaSuperAdmin";
             panelNavegacion.ResumeLayout(false);
+            panelNavegacion.PerformLayout();
             panelOpciones.ResumeLayout(false);
             panelOpciones.PerformLayout();
             ResumeLayout(false);
@@ -93,6 +106,7 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
         private Button button2;
         private Button btnCerrar;
         private Button btnMinimizar;
+        private LabelFormulario labelFormulario1;
         private Label label1;
 
         private void label3_Click(object sender, EventArgs e)

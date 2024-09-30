@@ -10,7 +10,7 @@ namespace AdministracionPolideportivo.CPresentacion
     {
         public LabelFormulario() {
             ForeColor = Color.White;
-            this.Font = new Font("Segoe UI", 13F); //Aca se establece el tamaño a todos
+            this.Font = new Font("Segoe UI", 18F); //Aca se establece el tamaño a todos
         }
     }
 }

@@ -8,6 +8,13 @@ namespace AdministracionPolideportivo.CPresentacion
 {
     internal class BuscarRecinto : FormularioEstandar
     {
+
+        public void LabelFormulario1_Click()
+        {
+            ForeColor = Color.White;
+            this.Font = new Font("Segoe UI", 10F); //Aca se establece el tamaño
+        }
+
         public BuscarRecinto()
         {
 
@@ -58,10 +65,11 @@ namespace AdministracionPolideportivo.CPresentacion
             // lblBuscar
             // 
             lblBuscar.AutoSize = true;
+            lblBuscar.Font = new Font("Segoe UI", 18F);
             lblBuscar.ForeColor = Color.White;
-            lblBuscar.Location = new Point(199, 9);
+            lblBuscar.Location = new Point(79, 7);
             lblBuscar.Name = "lblBuscar";
-            lblBuscar.Size = new Size(268, 15);
+            lblBuscar.Size = new Size(544, 32);
             lblBuscar.TabIndex = 1;
             lblBuscar.Text = "Busqueda y Gestion de Recintos del Polideportivo";
             // 
@@ -124,12 +132,14 @@ namespace AdministracionPolideportivo.CPresentacion
             // labelFormulario1
             // 
             labelFormulario1.AutoSize = true;
+            labelFormulario1.Font = new Font("Segoe UI", 18F);
             labelFormulario1.ForeColor = Color.White;
-            labelFormulario1.Location = new Point(169, 39);
+            labelFormulario1.Location = new Point(36, 52);
             labelFormulario1.Name = "labelFormulario1";
-            labelFormulario1.Size = new Size(64, 15);
+            labelFormulario1.Size = new Size(127, 32);
             labelFormulario1.TabIndex = 5;
             labelFormulario1.Text = "N° Recinto";
+            labelFormulario1.Click += labelFormulario1_Click;
             // 
             // botonFormulario4
             // 
@@ -199,6 +209,13 @@ namespace AdministracionPolideportivo.CPresentacion
         }
 
         private void botonFormulario2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        private void labelFormulario1_Click(object sender, EventArgs e)
         {
 
         }

@@ -17,9 +17,9 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             botonFormulario1 = new BotonFormulario();
             botonFormulario2 = new BotonFormulario();
@@ -28,27 +28,27 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             botonFormulario5 = new BotonFormulario();
             richTextBox1 = new RichTextBox();
             dateTimePicker1 = new DateTimePicker();
-            label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
             dateTimePicker2 = new DateTimePicker();
             botonFormulario6 = new BotonFormulario();
+            labelFormulario1 = new LabelFormulario();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             SuspendLayout();
             // 
             // chart1
             // 
-            chartArea6.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            chart1.Legends.Add(legend6);
+            chartArea2.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            chart1.Legends.Add(legend2);
             chart1.Location = new Point(182, 60);
             chart1.Name = "chart1";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            chart1.Series.Add(series6);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            chart1.Series.Add(series2);
             chart1.Size = new Size(405, 264);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
@@ -130,17 +130,6 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             dateTimePicker1.Size = new Size(200, 23);
             dateTimePicker1.TabIndex = 7;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(372, 30);
-            label1.Name = "label1";
-            label1.Size = new Size(50, 15);
-            label1.TabIndex = 8;
-            label1.Text = "Graficos";
-            label1.Click += label1_Click;
-            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -190,16 +179,27 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             botonFormulario6.Text = "Filtrar";
             botonFormulario6.UseVisualStyleBackColor = false;
             // 
+            // labelFormulario1
+            // 
+            labelFormulario1.AutoSize = true;
+            labelFormulario1.Font = new Font("Segoe UI", 18F);
+            labelFormulario1.ForeColor = Color.White;
+            labelFormulario1.Location = new Point(355, 9);
+            labelFormulario1.Name = "labelFormulario1";
+            labelFormulario1.Size = new Size(99, 32);
+            labelFormulario1.TabIndex = 13;
+            labelFormulario1.Text = "Graficos";
+            // 
             // Estadisticas
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(800, 450);
+            Controls.Add(labelFormulario1);
             Controls.Add(botonFormulario6);
             Controls.Add(dateTimePicker2);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(label1);
             Controls.Add(dateTimePicker1);
             Controls.Add(richTextBox1);
             Controls.Add(botonFormulario5);
@@ -253,5 +253,6 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
         private Label label4;
         private DateTimePicker dateTimePicker2;
         private BotonFormulario botonFormulario6;
+        private LabelFormulario labelFormulario1;
     }
 }

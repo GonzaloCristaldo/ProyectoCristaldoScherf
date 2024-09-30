@@ -27,8 +27,14 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private void InitializeComponent()
         {
             tablaOpciones = new TableLayoutPanel();
+            labelFormulario1 = new LabelFormulario();
+            panelNavegacion.SuspendLayout();
             panelOpciones.SuspendLayout();
             SuspendLayout();
+            // 
+            // panelNavegacion
+            // 
+            panelNavegacion.Controls.Add(labelFormulario1);
             // 
             // panelOpciones
             // 
@@ -48,15 +54,30 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             tablaOpciones.Size = new Size(226, 0);
             tablaOpciones.TabIndex = 0;
             // 
+            // labelFormulario1
+            // 
+            labelFormulario1.AutoSize = true;
+            labelFormulario1.Font = new Font("Segoe UI", 18F);
+            labelFormulario1.ForeColor = Color.White;
+            labelFormulario1.Location = new Point(19, 0);
+            labelFormulario1.Name = "labelFormulario1";
+            labelFormulario1.Size = new Size(159, 32);
+            labelFormulario1.TabIndex = 0;
+            labelFormulario1.Text = "Recepcionista";
+            // 
             // vistaRecepcionista
             // 
+            ClientSize = new Size(1100, 720);
             Name = "vistaRecepcionista";
+            panelNavegacion.ResumeLayout(false);
+            panelNavegacion.PerformLayout();
             panelOpciones.ResumeLayout(false);
             panelOpciones.PerformLayout();
             ResumeLayout(false);
         }
 
         private TableLayoutPanel tablaOpciones;
+        private LabelFormulario labelFormulario1;
         private int contadorOpciones;
 
         private void AgregarBotonOpcion(BotonOpcion nuevoBoton)
