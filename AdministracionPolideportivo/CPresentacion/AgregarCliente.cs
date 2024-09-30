@@ -153,14 +153,52 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
-            bool validacion = true;
-
-            if (validacion)
+            try
             {
-                Cliente cliente = new Cliente(Int32.Parse(txtDNI.Text),txtNombre.Text,txtApellido.Text,txtTelefono.Text);
-                System.Console.WriteLine("Registros afectados: "+DALCliente.AgregarCliente(cliente));
+                // Validación de campos en el formulario
+                if (string.IsNullOrEmpty(txtDNI.Text) || !int.TryParse(txtDNI.Text, out int dni))
+                {
+                    MessageBox.Show("Por favor, ingrese un DNI válido.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtNombre.Text))
+                {
+                    MessageBox.Show("Por favor, ingrese un nombre.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtApellido.Text))
+                {
+                    MessageBox.Show("Por favor, ingrese un apellido.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtTelefono.Text) || txtTelefono.Text.Length < 7)
+                {
+                    MessageBox.Show("Por favor, ingrese un teléfono válido.");
+                    return;
+                }
+
+                // Creación del cliente y llamada a la capa de datos
+                Cliente cliente = new Cliente(dni, txtNombre.Text, txtApellido.Text, txtTelefono.Text);
+                int resultado = DALCliente.AgregarCliente(cliente);
+
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Cliente agregado exitosamente.");
+                }
+                else
+                {
+                    MessageBox.Show("Error al agregar el cliente.");
+                }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
+
+
     }
 }
