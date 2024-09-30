@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
@@ -21,7 +23,7 @@ namespace AdministracionPolideportivo.CPresentacion
         private LabelFormulario lblApellido;
         private Texto txtApellido;
         private LabelFormulario lblTelefono;
-        private TextoNumerico textoNumerico1;
+        private TextoNumerico txtTelefono;
         private BotonFormulario btnAgregarCliente;
         private TextoNumerico txtDNI;
 
@@ -34,17 +36,18 @@ namespace AdministracionPolideportivo.CPresentacion
             lblApellido = new LabelFormulario();
             txtApellido = new Texto();
             lblTelefono = new LabelFormulario();
-            textoNumerico1 = new TextoNumerico();
+            txtTelefono = new TextoNumerico();
             btnAgregarCliente = new BotonFormulario();
             SuspendLayout();
             // 
             // lblDNI
             // 
             lblDNI.AutoSize = true;
+            lblDNI.Font = new Font("Segoe UI", 13F);
             lblDNI.ForeColor = Color.White;
             lblDNI.Location = new Point(22, 21);
             lblDNI.Name = "lblDNI";
-            lblDNI.Size = new Size(36, 15);
+            lblDNI.Size = new Size(55, 25);
             lblDNI.TabIndex = 0;
             lblDNI.Text = "D.N.I.";
             // 
@@ -52,7 +55,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             txtDNI.BackColor = SystemColors.WindowFrame;
             txtDNI.ForeColor = Color.White;
-            txtDNI.Location = new Point(87, 18);
+            txtDNI.Location = new Point(99, 24);
             txtDNI.Name = "txtDNI";
             txtDNI.Size = new Size(117, 23);
             txtDNI.TabIndex = 1;
@@ -60,10 +63,11 @@ namespace AdministracionPolideportivo.CPresentacion
             // lblNombre
             // 
             lblNombre.AutoSize = true;
+            lblNombre.Font = new Font("Segoe UI", 13F);
             lblNombre.ForeColor = Color.White;
             lblNombre.Location = new Point(22, 67);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(51, 15);
+            lblNombre.Size = new Size(78, 25);
             lblNombre.TabIndex = 2;
             lblNombre.Text = "Nombre";
             // 
@@ -71,7 +75,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             txtNombre.BackColor = SystemColors.WindowFrame;
             txtNombre.ForeColor = Color.White;
-            txtNombre.Location = new Point(87, 64);
+            txtNombre.Location = new Point(106, 70);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(210, 23);
             txtNombre.TabIndex = 0;
@@ -79,10 +83,11 @@ namespace AdministracionPolideportivo.CPresentacion
             // lblApellido
             // 
             lblApellido.AutoSize = true;
+            lblApellido.Font = new Font("Segoe UI", 13F);
             lblApellido.ForeColor = Color.White;
             lblApellido.Location = new Point(22, 118);
             lblApellido.Name = "lblApellido";
-            lblApellido.Size = new Size(51, 15);
+            lblApellido.Size = new Size(78, 25);
             lblApellido.TabIndex = 3;
             lblApellido.Text = "Apellido";
             // 
@@ -90,7 +95,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             txtApellido.BackColor = SystemColors.WindowFrame;
             txtApellido.ForeColor = Color.White;
-            txtApellido.Location = new Point(87, 115);
+            txtApellido.Location = new Point(106, 118);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(210, 23);
             txtApellido.TabIndex = 0;
@@ -98,21 +103,22 @@ namespace AdministracionPolideportivo.CPresentacion
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
+            lblTelefono.Font = new Font("Segoe UI", 13F);
             lblTelefono.ForeColor = Color.White;
             lblTelefono.Location = new Point(21, 167);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(52, 15);
+            lblTelefono.Size = new Size(79, 25);
             lblTelefono.TabIndex = 4;
             lblTelefono.Text = "Telefono";
             // 
-            // textoNumerico1
+            // txtTelefono
             // 
-            textoNumerico1.BackColor = SystemColors.WindowFrame;
-            textoNumerico1.ForeColor = Color.White;
-            textoNumerico1.Location = new Point(87, 167);
-            textoNumerico1.Name = "textoNumerico1";
-            textoNumerico1.Size = new Size(151, 23);
-            textoNumerico1.TabIndex = 1;
+            txtTelefono.BackColor = SystemColors.WindowFrame;
+            txtTelefono.ForeColor = Color.White;
+            txtTelefono.Location = new Point(106, 169);
+            txtTelefono.Name = "txtTelefono";
+            txtTelefono.Size = new Size(151, 23);
+            txtTelefono.TabIndex = 1;
             // 
             // btnAgregarCliente
             // 
@@ -125,13 +131,14 @@ namespace AdministracionPolideportivo.CPresentacion
             btnAgregarCliente.TabIndex = 0;
             btnAgregarCliente.Text = "Agregar Cliente";
             btnAgregarCliente.UseVisualStyleBackColor = false;
+            btnAgregarCliente.Click += btnAgregarCliente_Click;
             // 
             // AgregarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(336, 300);
             Controls.Add(btnAgregarCliente);
-            Controls.Add(textoNumerico1);
+            Controls.Add(txtTelefono);
             Controls.Add(lblTelefono);
             Controls.Add(txtApellido);
             Controls.Add(lblApellido);
@@ -142,6 +149,18 @@ namespace AdministracionPolideportivo.CPresentacion
             Name = "AgregarCliente";
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void btnAgregarCliente_Click(object sender, EventArgs e)
+        {
+            bool validacion = true;
+
+            if (validacion)
+            {
+                Cliente cliente = new Cliente(Int32.Parse(txtDNI.Text),txtNombre.Text,txtApellido.Text,txtTelefono.Text);
+                System.Console.WriteLine("Registros afectados: "+DALCliente.AgregarCliente(cliente));
+            }
+            
         }
     }
 }

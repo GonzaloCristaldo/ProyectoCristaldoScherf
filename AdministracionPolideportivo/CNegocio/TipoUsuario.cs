@@ -1,9 +1,10 @@
-﻿using AdministracionPolideportivo.CPresentacion;
+﻿using AdministracionPolideportivo.CPresentacion.Recepcionista;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdministracionPolideportivo.CPresentacion;
 
 namespace AdministracionPolideportivo.CNegocio
 {
@@ -18,7 +19,7 @@ namespace AdministracionPolideportivo.CNegocio
         public int idTipoUsuario {  get; set; }
         public string NombreTipoUsuario { get; set; }
 
-        public override void CargarEnTabla(AdministracionPolideportivo.CPresentacion.DataGridViewEstandar tabla)
+        public override void CargarEnTabla(TablaDatos tabla)
         {
             if (tabla.getDatoModelo().GetType() != this.GetType())
             {
@@ -30,7 +31,7 @@ namespace AdministracionPolideportivo.CNegocio
 
         }
 
-        public override void CrearCabecera(DataGridViewEstandar tabla)
+        public override void CrearCabecera(TablaDatos tabla)
         {
             tabla.Columns.Clear();
             tabla.Rows.Clear();

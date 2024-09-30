@@ -5,13 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdministracionPolideportivo.CPresentacion.Recepcionista
+namespace AdministracionPolideportivo.CPresentacion
 {
-    public class DataGridViewEstandar : DataGridView
+    public class TablaDatos : DataGridView
     {
+
         EntidadDataGridView datoModelo;
 
-        public DataGridViewEstandar(EntidadDataGridView datoModeloP)
+        public TablaDatos()
+        {
+
+        }
+
+        public TablaDatos(EntidadDataGridView datoModeloP)
         {
             setDatoModelo(datoModeloP);
         }
@@ -19,7 +25,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         public void setDatoModelo(EntidadDataGridView datoModeloP)
         {
             datoModelo = datoModeloP;
-            //datoModelo.CrearCabecera(this);
+            datoModelo.CrearCabecera(this);
         }
 
         public EntidadDataGridView getDatoModelo()
@@ -29,7 +35,8 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         public void AgregarEntidad(EntidadDataGridView entidad)
         {
-            //entidad.CargarEnTabla(this);
+            entidad.CargarEnTabla(this);
         }
+
     }
 }

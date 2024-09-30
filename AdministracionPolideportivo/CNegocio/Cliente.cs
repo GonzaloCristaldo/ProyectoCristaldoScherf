@@ -1,9 +1,11 @@
-﻿using AdministracionPolideportivo.CPresentacion;
+﻿using AdministracionPolideportivo.CPresentacion.Recepcionista;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdministracionPolideportivo.CPresentacion;
+
 
 namespace AdministracionPolideportivo.CNegocio
 {
@@ -20,6 +22,14 @@ namespace AdministracionPolideportivo.CNegocio
             Telefono = telefono;
         }
 
+        public Cliente(int dniCliente, string nombreCliente, string apellidoCliente, string telefono)
+        {
+            DniCliente = dniCliente;
+            NombreCliente = nombreCliente;
+            ApellidoCliente = apellidoCliente;
+            Telefono = telefono;
+        }
+
         public int IdCliente { get; set; }
         public int DniCliente { get; set; }
         public string NombreCliente { get; set; } = null!;
@@ -27,7 +37,7 @@ namespace AdministracionPolideportivo.CNegocio
         public string Telefono { get; set; } = null!;
 
 
-        public override void CargarEnTabla(AdministracionPolideportivo.CPresentacion.DataGridViewEstandar tabla)
+        public override void CargarEnTabla(TablaDatos tabla)
         {
             if (tabla.getDatoModelo().GetType()!=this.GetType())
             {
@@ -39,7 +49,7 @@ namespace AdministracionPolideportivo.CNegocio
             
         }
 
-        public override void CrearCabecera(DataGridViewEstandar tabla)
+        public override void CrearCabecera(TablaDatos tabla)
         {
             tabla.Columns.Clear();
             tabla.Rows.Clear();

@@ -1,4 +1,6 @@
-﻿using AdministracionPolideportivo.CNegocio;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
+using AdministracionPolideportivo.CPresentacion.Recepcionista;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,30 +21,55 @@ namespace AdministracionPolideportivo.CPresentacion
         private BotonFormulario btnBuscar;
         private ComboBoxEstandar cbBuscar;
         private LabelFormulario lblBuscar;
-        private DataGridViewEstandar tablaClientes;
-        private Panel panel1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private TablaDatos tabla;
+
+        /*private TablaDatos tablaClientes;*/
         private Texto txtBuscar;
 
         private void InitializeComponent()
         {
-            btnBuscar = new BotonFormulario();
-            cbBuscar = new ComboBoxEstandar();
-            lblBuscar = new LabelFormulario();
-            txtBuscar = new Texto();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
-            panel1 = new Panel();
-            ((System.ComponentModel.ISupportInitialize)tablaClientes).BeginInit();
-            panel1.SuspendLayout();
+            btnBuscar = new BotonFormulario();
+            cbBuscar = new ComboBoxEstandar();
+            lblBuscar = new LabelFormulario();
+            txtBuscar = new Texto();
+            tabla = new TablaDatos(new Cliente(1,1,"a","b","c"));
+            ((System.ComponentModel.ISupportInitialize)tabla).BeginInit();
             SuspendLayout();
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.HeaderText = "Id";
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.HeaderText = "DNI";
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.HeaderText = "Nombre";
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewTextBoxColumn4.HeaderText = "Apellido";
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewTextBoxColumn5.HeaderText = "Telefono";
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             // 
             // btnBuscar
             // 
@@ -71,7 +98,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // lblBuscar
             // 
             lblBuscar.AutoSize = true;
-            
+            lblBuscar.Font = new Font("Segoe UI", 13F);
             lblBuscar.ForeColor = Color.White;
             lblBuscar.Location = new Point(87, 19);
             lblBuscar.Name = "lblBuscar";
@@ -88,62 +115,25 @@ namespace AdministracionPolideportivo.CPresentacion
             txtBuscar.Size = new Size(210, 23);
             txtBuscar.TabIndex = 0;
             // 
-            // tablaClientes
+            // tabla
             // 
-            tablaClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tablaClientes.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5 });
-            tablaClientes.Dock = DockStyle.Fill;
-            tablaClientes.Location = new Point(0, 0);
-            tablaClientes.Name = "tablaClientes";
-            tablaClientes.Size = new Size(584, 116);
-            tablaClientes.TabIndex = 2;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.HeaderText = "Id";
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.HeaderText = "DNI";
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            dataGridViewTextBoxColumn3.HeaderText = "Nombre";
-            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            dataGridViewTextBoxColumn4.HeaderText = "Apellido";
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            dataGridViewTextBoxColumn5.HeaderText = "Telefono";
-            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // panel1
-            // 
-            panel1.AutoScroll = true;
-            panel1.Controls.Add(tablaClientes);
-            panel1.Location = new Point(13, 206);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(584, 116);
-            panel1.TabIndex = 3;
+            tabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tabla.Location = new Point(253, 47);
+            tabla.Name = "tabla";
+            tabla.Size = new Size(344, 275);
+            tabla.TabIndex = 2;
             // 
             // BuscarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(609, 334);
-            Controls.Add(panel1);
+            Controls.Add(tabla);
             Controls.Add(txtBuscar);
             Controls.Add(lblBuscar);
             Controls.Add(cbBuscar);
             Controls.Add(btnBuscar);
             Name = "BuscarCliente";
-            ((System.ComponentModel.ISupportInitialize)tablaClientes).EndInit();
-            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)tabla).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -155,8 +145,13 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            new Cliente(1,43822713,"Lucas Daniel","Scherf","3794 - 123456").CargarEnTabla(tablaClientes);
-
+            /*new Cliente(1,43822713,"Lucas Daniel","Scherf","3794 - 123456").CargarEnTabla(tablaClientes);*/
+            //new Cliente(, "Lucas Daniel", "Scherf", "3794 - 123456").CargarEnTabla(tabla);
+            List<Cliente> resultadoBusqueda = DALCliente.ListarClientes();
+            for (int i=0; i<resultadoBusqueda.Count;i++)
+            {
+                resultadoBusqueda[i].CargarEnTabla(tabla);
+            }
         }
     }
 }
