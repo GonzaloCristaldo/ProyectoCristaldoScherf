@@ -36,6 +36,17 @@ namespace AdministracionPolideportivo.CNegocio
         public string ApellidoCliente { get; set; } = null!;
         public string Telefono { get; set; } = null!;
 
+        public static void EditarEntidad(Cliente cliente)
+        {
+            AgregarCliente popUp = new AgregarCliente();
+            popUp.TopLevel = true;
+            popUp.FormBorderStyle= FormBorderStyle.FixedSingle;
+            popUp.txtDNI.Text = cliente.DniCliente.ToString();
+            popUp.txtNombre.Text = cliente.NombreCliente.ToString();
+            popUp.txtApellido.Text = cliente.ApellidoCliente.ToString();
+            popUp.txtTelefono.Text = cliente.Telefono.ToString();
+            popUp.ShowDialog();
+        }
 
         public override void CargarEnTabla(TablaDatos tabla)
         {
@@ -47,10 +58,23 @@ namespace AdministracionPolideportivo.CNegocio
             
             Object[] datosCliente = [IdCliente.ToString(),DniCliente.ToString(),NombreCliente,ApellidoCliente,Telefono];
             tabla.Rows.Add(datosCliente);
+            TablaBoton boton = new TablaBoton(this);
+            int filaBoton = tabla.RowCount - 2;
+            tabla.Rows[filaBoton].Cells[datosCliente.Length] = boton;
+            //tabla.Rows[tabla.RowCount - 2].Cells[datosCliente.Length].
             
-            tabla.Rows[tabla.RowCount-2].Cells[datosCliente.Length] = new TablaBoton(this);
 
+            void clickeado(Object sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex==filaBoton && e.ColumnIndex==datosCliente.Length)
+                {
+                    EditarEntidad(this);
+                }
+                
+            }
+            tabla.CellContentClick += clickeado;
         }
+
 
         public override void CrearCabecera(TablaDatos tabla)
         {

@@ -16,12 +16,13 @@ namespace AdministracionPolideportivo.CPresentacion
             this.entidad = entidad;
             //this.UseColumnTextForButtonValue = true;
             this.Value = "Editar";
+            //this.CellContentClick += EditarEntidad;
            
         }
         
-        public void EditarEntidad()
+        /*public void EditarEntidad()
         {
-
-        }
+            Console.WriteLine("Editar Entidad");
+        }*/
     }
 }

@@ -19,13 +19,13 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private LabelFormulario lblDNI;
         private LabelFormulario lblNombre;
-        private Texto txtNombre;
+        public Texto txtNombre;
         private LabelFormulario lblApellido;
-        private Texto txtApellido;
+        public Texto txtApellido;
         private LabelFormulario lblTelefono;
-        private TextoNumerico txtTelefono;
+        public TextoNumerico txtTelefono;
         private BotonFormulario btnAgregarCliente;
-        private TextoNumerico txtDNI;
+        public TextoNumerico txtDNI;
 
         private void InitializeComponent()
         {
