@@ -61,6 +61,7 @@ namespace AdministracionPolideportivo.CDatos
                     tipo = new TipoUsuario(3, "Recepcionista");
                 }
                 usuario.tipoUsuario = tipo;
+
                 conexion.Close();
                 return usuario;
             }
