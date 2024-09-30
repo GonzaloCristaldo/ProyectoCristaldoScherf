@@ -31,42 +31,77 @@ namespace AdministracionPolideportivo.CDatos
             return resultado;
         }
 
-        public static Usuario Login(int dni, String contraseña)
+        public static Usuario Login(int dni, string contraseña)
         {
-            using (SqlConnection conexion = ConexionDB.GetConexion())
+            // Validación: DNI y contraseña no deben estar vacíos
+            if (dni == 0)
             {
-                String query = "select * from Usuario where (DNI_Usuario="+dni+" and pass='"+contraseña+"');";
-                SqlCommand comando = new SqlCommand(query, conexion);
-                SqlDataReader lector = comando.ExecuteReader();
-
-                lector.Read();
-                Usuario usuario = new Usuario();
-                usuario.idUsuario = lector.GetInt32(0);
-                usuario.DniUsuario = lector.GetInt32(1);
-                usuario.nombreUsuario = lector.GetString(2);
-                usuario.apellidoUsuario = lector.GetString(3);
-                usuario.pass = lector.GetString(6);
-                usuario.Telefono = lector.GetString(7);
-                TipoUsuario tipo = new TipoUsuario(-1,"error");
-                if (lector.GetInt32(8)==1)
-                {
-                    tipo = new TipoUsuario(1,"Administrador");
-                }
-                else if (lector.GetInt32(8) == 2)
-                {
-                    tipo = new TipoUsuario(2, "SuperAdministrador");
-                }
-                else if (lector.GetInt32(8) == 3)
-                {
-                    tipo = new TipoUsuario(3, "Recepcionista");
-                }
-                usuario.tipoUsuario = tipo;
-
-                conexion.Close();
-                return usuario;
+                MessageBox.Show("Por favor, ingrese su DNI.");
+                return null;
             }
 
+            if (string.IsNullOrEmpty(contraseña))
+            {
+                MessageBox.Show("Por favor, ingrese su contraseña.");
+                return null;
+            }
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                // Consulta utilizando parámetros para evitar inyección de SQL
+                string query = "SELECT * FROM Usuario WHERE DNI_Usuario = @dni AND pass = @contraseña";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@dni", dni);
+                comando.Parameters.AddWithValue("@contraseña", contraseña);
+
+                try
+                {
+                    SqlDataReader lector = comando.ExecuteReader();
+
+                    // Verificar si hay datos
+                    if (lector.Read())
+                    {
+                        Usuario usuario = new Usuario();
+                        usuario.idUsuario = lector.GetInt32(0);
+                        usuario.DniUsuario = lector.GetInt32(1);
+                        usuario.nombreUsuario = lector.GetString(2);
+                        usuario.apellidoUsuario = lector.GetString(3);
+                        usuario.pass = lector.GetString(6);
+                        usuario.Telefono = lector.GetString(7);
+
+                        // Asignación del tipo de usuario
+                        TipoUsuario tipo = new TipoUsuario(-1, "error");
+                        int tipoUsuario = lector.GetInt32(8);
+                        switch (tipoUsuario)
+                        {
+                            case 1:
+                                tipo = new TipoUsuario(1, "Administrador");
+                                break;
+                            case 2:
+                                tipo = new TipoUsuario(2, "SuperAdministrador");
+                                break;
+                            case 3:
+                                tipo = new TipoUsuario(3, "Recepcionista");
+                                break;
+                        }
+                        usuario.tipoUsuario = tipo;
+
+                        return usuario; // Retorna el usuario si es válido
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuario o contraseña incorrectos.");
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar iniciar sesión: " + ex.Message);
+                    return null;
+                }
+            }
         }
+
 
     }
 }

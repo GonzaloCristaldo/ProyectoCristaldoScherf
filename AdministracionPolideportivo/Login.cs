@@ -36,31 +36,63 @@ namespace AdministracionPolideportivo
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            AdministracionPolideportivo.CNegocio.Usuario usuario = DALUsuario.Login(Int32.Parse(txtUsuario.Text),txtPass.Text);
-
-            if (usuario.tipoUsuario.NombreTipoUsuario.Equals("Administrador"))
+            // Validación: Verificar si los campos no están vacíos
+            if (string.IsNullOrEmpty(txtUsuario.Text))
             {
-                VistaAdmin menu = new VistaAdmin();
-                menu.Show();
-            }else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("Recepcionista"))
-            {
-                vistaRecepcionista menu = new vistaRecepcionista();
-                menu.Show();
-            }
-            else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("SuperAdministrador"))
-            {
-                vistaSuperAdmin menu = new vistaSuperAdmin();
-                menu.Show();
-            }else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("error"))
-            {
-                System.Console.WriteLine("login incorrecto");
+                MessageBox.Show("Por favor, ingrese su DNI.");
+                return;
             }
 
+            if (string.IsNullOrEmpty(txtPass.Text))
+            {
+                MessageBox.Show("Por favor, ingrese su contraseña.");
+                return;
+            }
 
+            try
+            {
+                // Convertir el texto del DNI a número
+                int dni = Int32.Parse(txtUsuario.Text);
+                // Intentar iniciar sesión
+                AdministracionPolideportivo.CNegocio.Usuario usuario = DALUsuario.Login(dni, txtPass.Text);
 
-            //  VentanaMenu menu = new VentanaMenu();
-            //menu.Show();
+                // Si el login retorna null, salir del método
+                if (usuario == null)
+                {
+                    return;
+                }
+
+                // Mostrar el menú correspondiente según el tipo de usuario
+                if (usuario.tipoUsuario.NombreTipoUsuario.Equals("Administrador"))
+                {
+                    VistaAdmin menu = new VistaAdmin();
+                    menu.Show();
+                }
+                else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("Recepcionista"))
+                {
+                    vistaRecepcionista menu = new vistaRecepcionista();
+                    menu.Show();
+                }
+                else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("SuperAdministrador"))
+                {
+                    vistaSuperAdmin menu = new vistaSuperAdmin();
+                    menu.Show();
+                }
+                else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("error"))
+                {
+                    MessageBox.Show("Credenciales incorrectas. Por favor, intente de nuevo.");
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("El DNI ingresado no es válido. Ingrese un número.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
+
 
         private void txtUsuario_TextChanged(object sender, EventArgs e)
         {
