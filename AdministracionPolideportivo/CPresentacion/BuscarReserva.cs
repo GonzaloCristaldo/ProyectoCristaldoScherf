@@ -28,10 +28,11 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // labelFormulario1
             // 
             labelFormulario1.AutoSize = true;
+            labelFormulario1.Font = new Font("Segoe UI", 15F);
             labelFormulario1.ForeColor = Color.White;
-            labelFormulario1.Location = new Point(228, 21);
+            labelFormulario1.Location = new Point(190, 9);
             labelFormulario1.Name = "labelFormulario1";
-            labelFormulario1.Size = new Size(106, 15);
+            labelFormulario1.Size = new Size(175, 28);
             labelFormulario1.TabIndex = 0;
             labelFormulario1.Text = "Buscar Reserva por";
             // 
@@ -40,7 +41,8 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             cbBuscar.BackColor = SystemColors.WindowFrame;
             cbBuscar.ForeColor = Color.White;
             cbBuscar.FormattingEnabled = true;
-            cbBuscar.Location = new Point(178, 48);
+            cbBuscar.Items.AddRange(new object[] { "Nombre", "Fecha", "Recinto", "Deporte", "Servicio " });
+            cbBuscar.Location = new Point(178, 54);
             cbBuscar.Name = "cbBuscar";
             cbBuscar.Size = new Size(210, 23);
             cbBuscar.TabIndex = 0;
@@ -49,7 +51,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             // 
             texto1.BackColor = SystemColors.WindowFrame;
             texto1.ForeColor = Color.White;
-            texto1.Location = new Point(158, 94);
+            texto1.Location = new Point(158, 98);
             texto1.Name = "texto1";
             texto1.Size = new Size(249, 23);
             texto1.TabIndex = 0;
@@ -59,7 +61,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnBuscar.BackColor = Color.DimGray;
             btnBuscar.Font = new Font("Segoe UI", 10F);
             btnBuscar.ForeColor = Color.White;
-            btnBuscar.Location = new Point(210, 137);
+            btnBuscar.Location = new Point(210, 151);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(146, 41);
             btnBuscar.TabIndex = 0;

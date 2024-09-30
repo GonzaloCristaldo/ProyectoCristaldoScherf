@@ -104,7 +104,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             // 
             // VistaAdmin
             // 
-            ClientSize = new Size(1100, 450);
+            ClientSize = new Size(1100, 550);
             Name = "VistaAdmin";
             panelNavegacion.ResumeLayout(false);
             panelNavegacion.PerformLayout();

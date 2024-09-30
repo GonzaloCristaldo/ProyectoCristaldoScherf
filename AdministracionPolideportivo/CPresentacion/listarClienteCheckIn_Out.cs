@@ -16,12 +16,15 @@ namespace AdministracionPolideportivo.CPresentacion
 
         public void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(listarClienteCheckIn_Out));
             dataGridView1 = new DataGridView();
             botonFormulario1 = new BotonFormulario();
             botonFormulario2 = new BotonFormulario();
-            pictureBox1 = new PictureBox();
             txtBuscar = new Texto();
             cbBuscar = new ComboBoxEstandar();
+            pictureBox1 = new PictureBox();
+            labelFormulario1 = new LabelFormulario();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -59,20 +62,11 @@ namespace AdministracionPolideportivo.CPresentacion
             botonFormulario2.Text = "Check-out";
             botonFormulario2.UseVisualStyleBackColor = false;
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new Point(80, 43);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(157, 152);
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
-            // 
             // txtBuscar
             // 
             txtBuscar.BackColor = SystemColors.WindowFrame;
             txtBuscar.ForeColor = Color.White;
-            txtBuscar.Location = new Point(50, 265);
+            txtBuscar.Location = new Point(46, 323);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(210, 23);
             txtBuscar.TabIndex = 2;
@@ -83,18 +77,52 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar.ForeColor = Color.White;
             cbBuscar.FormattingEnabled = true;
             cbBuscar.Items.AddRange(new object[] { "ID", "DNI", "Nombre", "Apellido", "Telefono" });
-            cbBuscar.Location = new Point(64, 214);
+            cbBuscar.Location = new Point(64, 250);
             cbBuscar.Name = "cbBuscar";
             cbBuscar.Size = new Size(183, 23);
             cbBuscar.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(64, 24);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(183, 173);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 7;
+            pictureBox1.TabStop = false;
+            // 
+            // labelFormulario1
+            // 
+            labelFormulario1.AutoSize = true;
+            labelFormulario1.Font = new Font("Segoe UI", 15F);
+            labelFormulario1.ForeColor = Color.White;
+            labelFormulario1.Location = new Point(101, 219);
+            labelFormulario1.Name = "labelFormulario1";
+            labelFormulario1.Size = new Size(108, 28);
+            labelFormulario1.TabIndex = 8;
+            labelFormulario1.Text = "Buscar por:";
+            labelFormulario1.Click += labelFormulario1_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Location = new Point(79, 305);
+            label1.Name = "label1";
+            label1.Size = new Size(130, 15);
+            label1.TabIndex = 9;
+            label1.Text = "Ingrese a continuacion:";
             // 
             // listarClienteCheckIn_Out
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
+            Controls.Add(labelFormulario1);
+            Controls.Add(pictureBox1);
             Controls.Add(cbBuscar);
             Controls.Add(txtBuscar);
-            Controls.Add(pictureBox1);
             Controls.Add(botonFormulario2);
             Controls.Add(botonFormulario1);
             Controls.Add(dataGridView1);
@@ -117,10 +145,17 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private DataGridView dataGridView1;
         private BotonFormulario botonFormulario1;
-        private PictureBox pictureBox1;
         private Texto txtBuscar;
         private ComboBoxEstandar cbBuscar;
+        private PictureBox pictureBox1;
+        private LabelFormulario labelFormulario1;
+        private Label label1;
         private BotonFormulario botonFormulario2;
+
+        private void labelFormulario1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

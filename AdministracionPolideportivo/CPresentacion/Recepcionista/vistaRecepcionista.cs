@@ -13,7 +13,8 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             InitializeComponent();
             contadorOpciones = 0;
             //tablaOpciones.Width = panelOpciones.Width;
-
+            btnMinimizar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCerrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             AgregarBotonOpcion(new BotonOpcion(new AgregarRecinto(), this, formActual, "Agregar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual, "Agregar Servicio Adicional"));
@@ -28,18 +29,28 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         {
             tablaOpciones = new TableLayoutPanel();
             labelFormulario1 = new LabelFormulario();
+            btnCerrar = new Button();
+            btnMinimizar = new Button();
             panelNavegacion.SuspendLayout();
             panelOpciones.SuspendLayout();
             SuspendLayout();
             // 
             // panelNavegacion
             // 
+            panelNavegacion.Controls.Add(btnMinimizar);
+            panelNavegacion.Controls.Add(btnCerrar);
             panelNavegacion.Controls.Add(labelFormulario1);
+            panelNavegacion.Size = new Size(990, 34);
             // 
             // panelOpciones
             // 
             panelOpciones.AutoScroll = true;
             panelOpciones.Controls.Add(tablaOpciones);
+            panelOpciones.Size = new Size(226, 656);
+            // 
+            // panelFormulario
+            // 
+            panelFormulario.Size = new Size(764, 656);
             // 
             // tablaOpciones
             // 
@@ -65,9 +76,29 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             labelFormulario1.TabIndex = 0;
             labelFormulario1.Text = "Recepcionista";
             // 
+            // btnCerrar
+            // 
+            btnCerrar.Location = new Point(960, 4);
+            btnCerrar.Name = "btnCerrar";
+            btnCerrar.Size = new Size(27, 24);
+            btnCerrar.TabIndex = 7;
+            btnCerrar.Text = "X";
+            btnCerrar.UseVisualStyleBackColor = true;
+            btnCerrar.Click += btnCerrar_Click;
+            // 
+            // btnMinimizar
+            // 
+            btnMinimizar.Location = new Point(929, 4);
+            btnMinimizar.Name = "btnMinimizar";
+            btnMinimizar.Size = new Size(25, 24);
+            btnMinimizar.TabIndex = 8;
+            btnMinimizar.Text = "-";
+            btnMinimizar.UseVisualStyleBackColor = true;
+            btnMinimizar.Click += btnMinimizar_Click;
+            // 
             // vistaRecepcionista
             // 
-            ClientSize = new Size(1100, 720);
+            ClientSize = new Size(1000, 700);
             Name = "vistaRecepcionista";
             panelNavegacion.ResumeLayout(false);
             panelNavegacion.PerformLayout();
@@ -78,6 +109,8 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         private TableLayoutPanel tablaOpciones;
         private LabelFormulario labelFormulario1;
+        private Button btnCerrar;
+        private Button btnMinimizar;
         private int contadorOpciones;
 
         private void AgregarBotonOpcion(BotonOpcion nuevoBoton)
@@ -91,5 +124,14 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             agregarOpcion(nuevoBoton);
         }
 
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+           System.Windows.Forms.Application.Exit();
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
     }
 }
