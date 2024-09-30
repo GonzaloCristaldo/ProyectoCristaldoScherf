@@ -1,3 +1,4 @@
+using AdministracionPolideportivo.CDatos;
 using AdministracionPolideportivo.CPresentacion.Admin;
 using AdministracionPolideportivo.CPresentacion.Recepcionista;
 using AdministracionPolideportivo.CPresentacion.SuperAdmin;
@@ -35,8 +36,27 @@ namespace AdministracionPolideportivo
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            VistaAdmin menu = new VistaAdmin();
-            menu.Show();
+            AdministracionPolideportivo.CNegocio.Usuario usuario = DALUsuario.Login(Int32.Parse(txtUsuario.Text),txtPass.Text);
+
+            if (usuario.tipoUsuario.NombreTipoUsuario.Equals("Administrador"))
+            {
+                VistaAdmin menu = new VistaAdmin();
+                menu.Show();
+            }else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("Recepcionista"))
+            {
+                vistaRecepcionista menu = new vistaRecepcionista();
+                menu.Show();
+            }
+            else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("SuperAdministrador"))
+            {
+                vistaSuperAdmin menu = new vistaSuperAdmin();
+                menu.Show();
+            }else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("error"))
+            {
+                System.Console.WriteLine("login incorrecto");
+            }
+
+
 
             //  VentanaMenu menu = new VentanaMenu();
             //menu.Show();
@@ -56,6 +76,7 @@ namespace AdministracionPolideportivo
         private void button2_Click(object sender, EventArgs e)
         {
             VistaAdmin menu = new VistaAdmin();
+            //menu.SetUsuario();
             menu.Show();
         }
 

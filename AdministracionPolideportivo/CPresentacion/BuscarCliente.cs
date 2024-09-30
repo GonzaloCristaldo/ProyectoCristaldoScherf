@@ -27,6 +27,11 @@ namespace AdministracionPolideportivo.CPresentacion
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private TablaDatos tabla;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
 
         /*private TablaDatos tablaClientes;*/
         private Texto txtBuscar;
@@ -42,7 +47,12 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar = new ComboBoxEstandar();
             lblBuscar = new LabelFormulario();
             txtBuscar = new Texto();
-            tabla = new TablaDatos(new Cliente(1,1,"a","b","c"));
+            tabla = new TablaDatos(new Cliente(1,1,"","",""));
+            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)tabla).BeginInit();
             SuspendLayout();
             // 
@@ -118,15 +128,41 @@ namespace AdministracionPolideportivo.CPresentacion
             // tabla
             // 
             tabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tabla.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10 });
             tabla.Location = new Point(253, 47);
             tabla.Name = "tabla";
-            tabla.Size = new Size(344, 275);
+            tabla.Size = new Size(543, 275);
             tabla.TabIndex = 2;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            dataGridViewTextBoxColumn6.HeaderText = "Id";
+            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            dataGridViewTextBoxColumn7.HeaderText = "DNI";
+            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            dataGridViewTextBoxColumn8.HeaderText = "Nombre";
+            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            dataGridViewTextBoxColumn9.HeaderText = "Apellido";
+            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            dataGridViewTextBoxColumn10.HeaderText = "Telefono";
+            dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             // 
             // BuscarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            ClientSize = new Size(609, 334);
+            ClientSize = new Size(824, 410);
             Controls.Add(tabla);
             Controls.Add(txtBuscar);
             Controls.Add(lblBuscar);

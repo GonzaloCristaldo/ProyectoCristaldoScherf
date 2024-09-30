@@ -35,8 +35,8 @@
             btnCerrar = new Button();
             btnMinimizar = new Button();
             panel1 = new Panel();
-            Usuario = new CPresentacion.Texto();
-            Contraseña = new CPresentacion.Texto();
+            txtUsuario = new CPresentacion.Texto();
+            txtPass = new CPresentacion.Texto();
             button4 = new Button();
             label1 = new Label();
             button3 = new Button();
@@ -108,8 +108,8 @@
             panel1.BackColor = Color.Transparent;
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
-            panel1.Controls.Add(Usuario);
-            panel1.Controls.Add(Contraseña);
+            panel1.Controls.Add(txtUsuario);
+            panel1.Controls.Add(txtPass);
             panel1.Controls.Add(button4);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(button3);
@@ -128,28 +128,28 @@
             panel1.TabIndex = 7;
             panel1.Paint += panel1_Paint;
             // 
-            // Usuario
+            // txtUsuario
             // 
-            Usuario.BackColor = Color.Gainsboro;
-            Usuario.Cursor = Cursors.IBeam;
-            Usuario.ForeColor = Color.Black;
-            Usuario.Location = new Point(94, 233);
-            Usuario.Name = "Usuario";
-            Usuario.Size = new Size(210, 23);
-            Usuario.TabIndex = 0;
-            Usuario.TextChanged += texto2_TextChanged;
+            txtUsuario.BackColor = Color.Gainsboro;
+            txtUsuario.Cursor = Cursors.IBeam;
+            txtUsuario.ForeColor = Color.Black;
+            txtUsuario.Location = new Point(94, 233);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(210, 23);
+            txtUsuario.TabIndex = 0;
+            txtUsuario.TextChanged += texto2_TextChanged;
             // 
-            // Contraseña
+            // txtPass
             // 
-            Contraseña.BackColor = Color.Gainsboro;
-            Contraseña.Cursor = Cursors.IBeam;
-            Contraseña.ForeColor = Color.Black;
-            Contraseña.Location = new Point(94, 277);
-            Contraseña.Name = "Contraseña";
-            Contraseña.PasswordChar = '*';
-            Contraseña.Size = new Size(210, 23);
-            Contraseña.TabIndex = 0;
-            Contraseña.TextChanged += texto1_TextChanged;
+            txtPass.BackColor = Color.Gainsboro;
+            txtPass.Cursor = Cursors.IBeam;
+            txtPass.ForeColor = Color.Black;
+            txtPass.Location = new Point(94, 277);
+            txtPass.Name = "txtPass";
+            txtPass.PasswordChar = '*';
+            txtPass.Size = new Size(210, 23);
+            txtPass.TabIndex = 0;
+            txtPass.TextChanged += texto1_TextChanged;
             // 
             // button4
             // 
@@ -245,7 +245,7 @@
         private Button button3;
         private Label label1;
         private Button button4;
-        private CPresentacion.Texto Usuario;
-        private CPresentacion.Texto Contraseña;
+        private CPresentacion.Texto txtUsuario;
+        private CPresentacion.Texto txtPass;
     }
 }

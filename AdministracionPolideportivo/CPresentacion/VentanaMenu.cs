@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdministracionPolideportivo.CNegocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -10,6 +11,9 @@ namespace AdministracionPolideportivo.CPresentacion
 {
     internal class VentanaMenu : Form
     {
+
+        public Usuario user;
+
         [DllImport("user32.dll")]
         private static extern bool ReleaseCapture();
 
@@ -52,6 +56,7 @@ namespace AdministracionPolideportivo.CPresentacion
         protected Rectangle lastRectangle;
         public VentanaMenu()
         {
+            
             InitializeComponent();
             opciones = new BotonOpcion[50];
             indexOpciones = 0;
@@ -69,7 +74,11 @@ namespace AdministracionPolideportivo.CPresentacion
             normalBounds = Bounds;
 
         }
-
+        public void SetUsuario(Usuario usuario)
+        {
+            user = usuario;
+        }
+        public Usuario GetUsuario() { return user; }
         public void actualizarFormulario(Form nuevo)
         {
             formActual = nuevo;

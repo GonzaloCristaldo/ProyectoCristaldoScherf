@@ -46,7 +46,6 @@ namespace AdministracionPolideportivo.CNegocio
             }
             String[] datosCliente = [IdCliente.ToString(),DniCliente.ToString(),NombreCliente,ApellidoCliente,Telefono];
             tabla.Rows.Add(datosCliente);
-            
         }
 
         public override void CrearCabecera(TablaDatos tabla)

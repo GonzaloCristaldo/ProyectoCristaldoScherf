@@ -25,6 +25,7 @@ namespace AdministracionPolideportivo.CNegocio
 
         public String Telefono {  get; set; }
 
+        public String pass {  get; set; }
         public override void CargarEnTabla(TablaDatos tabla)
         {
             if (tabla.getDatoModelo().GetType() != this.GetType())
