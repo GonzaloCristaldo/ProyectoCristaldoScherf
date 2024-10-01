@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +21,14 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         private void InitializeComponent()
         {
-            comboBoxEstandar1 = new ComboBoxEstandar();
+            cbCliente = new ComboBoxEstandar();
             labelFormulario1 = new LabelFormulario();
             labelFormulario2 = new LabelFormulario();
             labelFormulario3 = new LabelFormulario();
-            comboBoxEstandar2 = new ComboBoxEstandar();
-            dateTimePicker1 = new DateTimePicker();
+            cbRecinto = new ComboBoxEstandar();
+            fecha = new DateTimePicker();
             labelFormulario4 = new LabelFormulario();
-            comboBoxEstandar3 = new ComboBoxEstandar();
+            cbHora = new ComboBoxEstandar();
             labelFormulario5 = new LabelFormulario();
             btnAgendar = new BotonFormulario();
             cbServicioAdicional = new ComboBoxEstandar();
@@ -38,15 +39,15 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
-            // comboBoxEstandar1
+            // cbCliente
             // 
-            comboBoxEstandar1.BackColor = SystemColors.WindowFrame;
-            comboBoxEstandar1.ForeColor = Color.White;
-            comboBoxEstandar1.FormattingEnabled = true;
-            comboBoxEstandar1.Location = new Point(34, 69);
-            comboBoxEstandar1.Name = "comboBoxEstandar1";
-            comboBoxEstandar1.Size = new Size(274, 23);
-            comboBoxEstandar1.TabIndex = 0;
+            cbCliente.BackColor = SystemColors.WindowFrame;
+            cbCliente.ForeColor = Color.White;
+            cbCliente.FormattingEnabled = true;
+            cbCliente.Location = new Point(34, 69);
+            cbCliente.Name = "cbCliente";
+            cbCliente.Size = new Size(274, 23);
+            cbCliente.TabIndex = 0;
             // 
             // labelFormulario1
             // 
@@ -82,22 +83,22 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             labelFormulario3.TabIndex = 4;
             labelFormulario3.Text = "Recinto:";
             // 
-            // comboBoxEstandar2
+            // cbRecinto
             // 
-            comboBoxEstandar2.BackColor = SystemColors.WindowFrame;
-            comboBoxEstandar2.ForeColor = Color.White;
-            comboBoxEstandar2.FormattingEnabled = true;
-            comboBoxEstandar2.Location = new Point(34, 129);
-            comboBoxEstandar2.Name = "comboBoxEstandar2";
-            comboBoxEstandar2.Size = new Size(274, 23);
-            comboBoxEstandar2.TabIndex = 3;
+            cbRecinto.BackColor = SystemColors.WindowFrame;
+            cbRecinto.ForeColor = Color.White;
+            cbRecinto.FormattingEnabled = true;
+            cbRecinto.Location = new Point(34, 129);
+            cbRecinto.Name = "cbRecinto";
+            cbRecinto.Size = new Size(274, 23);
+            cbRecinto.TabIndex = 3;
             // 
-            // dateTimePicker1
+            // fecha
             // 
-            dateTimePicker1.Location = new Point(34, 196);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(274, 23);
-            dateTimePicker1.TabIndex = 5;
+            fecha.Location = new Point(34, 196);
+            fecha.Name = "fecha";
+            fecha.Size = new Size(274, 23);
+            fecha.TabIndex = 5;
             // 
             // labelFormulario4
             // 
@@ -110,16 +111,16 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             labelFormulario4.TabIndex = 6;
             labelFormulario4.Text = "Fecha:";
             // 
-            // comboBoxEstandar3
+            // cbHora
             // 
-            comboBoxEstandar3.BackColor = SystemColors.WindowFrame;
-            comboBoxEstandar3.ForeColor = Color.White;
-            comboBoxEstandar3.FormattingEnabled = true;
-            comboBoxEstandar3.Items.AddRange(new object[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" });
-            comboBoxEstandar3.Location = new Point(112, 263);
-            comboBoxEstandar3.Name = "comboBoxEstandar3";
-            comboBoxEstandar3.Size = new Size(82, 23);
-            comboBoxEstandar3.TabIndex = 0;
+            cbHora.BackColor = SystemColors.WindowFrame;
+            cbHora.ForeColor = Color.White;
+            cbHora.FormattingEnabled = true;
+            cbHora.Items.AddRange(new object[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" });
+            cbHora.Location = new Point(112, 263);
+            cbHora.Name = "cbHora";
+            cbHora.Size = new Size(82, 23);
+            cbHora.TabIndex = 0;
             // 
             // labelFormulario5
             // 
@@ -143,6 +144,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnAgendar.TabIndex = 0;
             btnAgendar.Text = "Agendar Reserva";
             btnAgendar.UseVisualStyleBackColor = false;
+            btnAgendar.Click += btnAgendar_Click;
             // 
             // cbServicioAdicional
             // 
@@ -207,27 +209,27 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             Controls.Add(cbServicioAdicional);
             Controls.Add(btnAgendar);
             Controls.Add(labelFormulario5);
-            Controls.Add(comboBoxEstandar3);
+            Controls.Add(cbHora);
             Controls.Add(labelFormulario4);
-            Controls.Add(dateTimePicker1);
+            Controls.Add(fecha);
             Controls.Add(labelFormulario3);
-            Controls.Add(comboBoxEstandar2);
+            Controls.Add(cbRecinto);
             Controls.Add(labelFormulario2);
             Controls.Add(labelFormulario1);
-            Controls.Add(comboBoxEstandar1);
+            Controls.Add(cbCliente);
             Name = "ProgramarReserva";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
-        private ComboBoxEstandar comboBoxEstandar1;
+        private ComboBoxEstandar cbCliente;
         private LabelFormulario labelFormulario1;
         private LabelFormulario labelFormulario2;
         private LabelFormulario labelFormulario3;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker fecha;
         private LabelFormulario labelFormulario4;
-        private ComboBoxEstandar comboBoxEstandar3;
+        private ComboBoxEstandar cbHora;
         private LabelFormulario labelFormulario5;
         private BotonFormulario btnAgendar;
         private ComboBoxEstandar cbServicioAdicional;
@@ -235,11 +237,51 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private BotonFormulario btnAgregarServicio;
         private LabelFormulario labelFormulario6;
         private DataGridView dataGridView1;
-        private ComboBoxEstandar comboBoxEstandar2;
+        private ComboBoxEstandar cbRecinto;
 
         private void labelFormulario1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAgendar_Click(object sender, EventArgs e)
+        {
+            if (cbCliente.Text.IsNullOrEmpty() || cbRecinto.Text.IsNullOrEmpty() || cbHora.Text.IsNullOrEmpty() || fecha.Text.IsNullOrEmpty()
+                /*cbCliente.Text.IsNullOrEmpty() || cbRecinto.Text.IsNullOrEmpty() || txtUbicacion.Text.IsNullOrEmpty() || cbTipo.Text.IsNullOrEmpty()*/)
+            {
+                List<String> vacios = new List<String>();
+                if (cbCliente.Text.IsNullOrEmpty())
+                {
+                    vacios.Add("Cliente");
+                }
+                if (cbRecinto.Text.IsNullOrEmpty())
+                {
+                    vacios.Add("Recinto");
+                }
+                if (fecha.Text.IsNullOrEmpty())
+                {
+                    vacios.Add("Fecha");
+                }
+                if (cbHora.Text.IsNullOrEmpty())
+                {
+                    vacios.Add("Hora");
+                }
+                String mensaje = "Por favor, complete los siguientes campos: ";
+                for (int i = 0; i < vacios.Count; i++)
+                {
+                    if (i + 1 < vacios.Count)
+                    {
+                        mensaje += vacios[i] + ", ";
+                    }
+                    else
+                    {
+                        mensaje += vacios[i] + ".";
+                    }
+
+                }
+                MessageBox.Show(mensaje);
+                return;
+            }
         }
     }
 }
