@@ -89,7 +89,7 @@ namespace AdministracionPolideportivo.CPresentacion
             btnBuscar.BackColor = Color.DimGray;
             btnBuscar.Font = new Font("Segoe UI", 10F);
             btnBuscar.ForeColor = Color.White;
-            btnBuscar.Location = new Point(67, 134);
+            btnBuscar.Location = new Point(437, 40);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(146, 41);
             btnBuscar.TabIndex = 0;
@@ -103,7 +103,7 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar.ForeColor = Color.White;
             cbBuscar.FormattingEnabled = true;
             cbBuscar.Items.AddRange(new object[] { "ID", "DNI", "Nombre", "Apellido", "Telefono" });
-            cbBuscar.Location = new Point(49, 47);
+            cbBuscar.Location = new Point(232, 12);
             cbBuscar.Name = "cbBuscar";
             cbBuscar.Size = new Size(183, 23);
             cbBuscar.TabIndex = 0;
@@ -113,7 +113,7 @@ namespace AdministracionPolideportivo.CPresentacion
             lblBuscar.AutoSize = true;
             lblBuscar.Font = new Font("Segoe UI", 13F);
             lblBuscar.ForeColor = Color.White;
-            lblBuscar.Location = new Point(87, 19);
+            lblBuscar.Location = new Point(68, 7);
             lblBuscar.Name = "lblBuscar";
             lblBuscar.Size = new Size(158, 25);
             lblBuscar.TabIndex = 1;
@@ -123,18 +123,18 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             txtBuscar.BackColor = SystemColors.WindowFrame;
             txtBuscar.ForeColor = Color.White;
-            txtBuscar.Location = new Point(37, 92);
+            txtBuscar.Location = new Point(68, 51);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(210, 23);
+            txtBuscar.Size = new Size(347, 23);
             txtBuscar.TabIndex = 0;
             // 
             // tabla
             // 
             tabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabla.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn11, dataGridViewTextBoxColumn12, dataGridViewTextBoxColumn13, dataGridViewTextBoxColumn14, dataGridViewTextBoxColumn15, dataGridViewTextBoxColumn16 });
-            tabla.Location = new Point(253, 47);
+            tabla.Location = new Point(12, 92);
             tabla.Name = "tabla";
-            tabla.Size = new Size(543, 275);
+            tabla.Size = new Size(644, 306);
             tabla.TabIndex = 2;
             // 
             // dataGridViewTextBoxColumn11
@@ -170,7 +170,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // BuscarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            ClientSize = new Size(824, 410);
+            ClientSize = new Size(669, 410);
             Controls.Add(tabla);
             Controls.Add(txtBuscar);
             Controls.Add(lblBuscar);
