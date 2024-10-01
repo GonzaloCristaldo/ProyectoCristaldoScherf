@@ -37,12 +37,9 @@
             panel1 = new Panel();
             txtUsuario = new CPresentacion.Texto();
             txtPass = new CPresentacion.Texto();
-            button4 = new Button();
             label1 = new Label();
             button3 = new Button();
             pictureBox1 = new PictureBox();
-            button2 = new Button();
-            button1 = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -110,12 +107,9 @@
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
             panel1.Controls.Add(txtUsuario);
             panel1.Controls.Add(txtPass);
-            panel1.Controls.Add(button4);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(button3);
             panel1.Controls.Add(pictureBox1);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
             panel1.Controls.Add(btnEntrar);
             panel1.Controls.Add(btnMinimizar);
             panel1.Controls.Add(btnCerrar);
@@ -151,16 +145,6 @@
             txtPass.TabIndex = 0;
             txtPass.TextChanged += texto1_TextChanged;
             // 
-            // button4
-            // 
-            button4.Location = new Point(295, 368);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 23);
-            button4.TabIndex = 12;
-            button4.Text = "vistaSuperAdmin";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -192,26 +176,6 @@
             pictureBox1.TabIndex = 9;
             pictureBox1.TabStop = false;
             // 
-            // button2
-            // 
-            button2.Location = new Point(268, 315);
-            button2.Name = "button2";
-            button2.Size = new Size(120, 41);
-            button2.TabIndex = 8;
-            button2.Text = "vistaAdmin";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(12, 315);
-            button1.Name = "button1";
-            button1.Size = new Size(120, 41);
-            button1.TabIndex = 7;
-            button1.Text = "vistaRecepcionista";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -239,12 +203,9 @@
         private Button btnCerrar;
         private Button btnMinimizar;
         private Panel panel1;
-        private Button button1;
-        private Button button2;
         private PictureBox pictureBox1;
         private Button button3;
         private Label label1;
-        private Button button4;
         private CPresentacion.Texto txtUsuario;
         private CPresentacion.Texto txtPass;
     }
