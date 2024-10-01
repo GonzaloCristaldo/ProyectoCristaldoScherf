@@ -10,6 +10,11 @@ namespace AdministracionPolideportivo.CNegocio
 {
     internal class Pago : EntidadDataGridView
     {
+
+        public static void EditarEntidad(Pago pago)
+        {
+            //TODO
+        }
         public Pago(int idPago, Reserva reserva)
         {
             this.idPago = idPago;
@@ -29,6 +34,20 @@ namespace AdministracionPolideportivo.CNegocio
             String[] datosPago = [idPago.ToString(), reserva.idReserva.ToString()];
             tabla.Rows.Add(datosPago);
 
+            TablaBoton boton = new TablaBoton(this);
+            int filaBoton = tabla.RowCount - 2;
+            tabla.Rows[filaBoton].Cells[datosPago.Length] = boton;
+
+            void clickeado(Object sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex == filaBoton && e.ColumnIndex == datosPago.Length)
+                {
+                    EditarEntidad(this);
+                }
+
+            }
+            tabla.CellContentClick += clickeado;
+
         }
 
         public override void CrearCabecera(TablaDatos tabla)
@@ -37,6 +56,7 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Rows.Clear();
             tabla.Columns.Add("id", "Id Pago");
             tabla.Columns.Add("dni", "Id Reserva");
+            tabla.Columns.Add("eliminar","Eliminar");
         }
 
 

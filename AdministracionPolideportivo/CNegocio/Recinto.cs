@@ -19,6 +19,14 @@ namespace AdministracionPolideportivo.CNegocio
             Ubicacion = ubicacion;
         }
 
+        public Recinto()
+        {
+            NroRecinto = -1;
+            TarifaHora = 0;
+            estado = new Estado();
+            tipoRecinto = new TipoRecinto();
+            Ubicacion = "";
+        }
         public int NroRecinto { get; set; }
 
         public double TarifaHora { get; set; }

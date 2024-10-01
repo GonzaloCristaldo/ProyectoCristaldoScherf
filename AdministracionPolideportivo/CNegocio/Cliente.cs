@@ -22,6 +22,16 @@ namespace AdministracionPolideportivo.CNegocio
             Telefono = telefono;
         }
 
+        public Cliente()
+        {
+
+            IdCliente = 123;
+            DniCliente = 213;
+            NombreCliente = "nombreCliente";
+            ApellidoCliente = "apellidoCliente";
+            Telefono = "";
+        }
+
         public Cliente(int dniCliente, string nombreCliente, string apellidoCliente, string telefono)
         {
             DniCliente = dniCliente;
@@ -31,7 +41,7 @@ namespace AdministracionPolideportivo.CNegocio
         }
 
         public int IdCliente { get; set; }
-        public int DniCliente { get; set; }
+        public long DniCliente { get; set; }
         public string NombreCliente { get; set; } = null!;
         public string ApellidoCliente { get; set; } = null!;
         public string Telefono { get; set; } = null!;
@@ -61,8 +71,6 @@ namespace AdministracionPolideportivo.CNegocio
             TablaBoton boton = new TablaBoton(this);
             int filaBoton = tabla.RowCount - 2;
             tabla.Rows[filaBoton].Cells[datosCliente.Length] = boton;
-            //tabla.Rows[tabla.RowCount - 2].Cells[datosCliente.Length].
-            
 
             void clickeado(Object sender, DataGridViewCellEventArgs e)
             {
