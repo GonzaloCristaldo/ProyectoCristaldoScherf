@@ -20,6 +20,7 @@ namespace AdministracionPolideportivo.CPresentacion
         public TablaDatos(EntidadDataGridView datoModeloP)
         {
             setDatoModelo(datoModeloP);
+            this.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         public void setDatoModelo(EntidadDataGridView datoModeloP)

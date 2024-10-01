@@ -10,6 +10,10 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 {
     internal class VistaAdmin : VentanaMenu
     {
+        private void cerrarForm(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
         public VistaAdmin()
         {
 
@@ -31,6 +35,9 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new Estadisticas(), this, formActual, "Ver estadisticas"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarUsuario(),this,formActual,"Buscar Usuario"));
+            BotonOpcion btnSalirSesion = new BotonOpcion(new Login(), this, formActual, "Cerrar Sesion"); ;
+            btnSalirSesion.Click +=cerrarForm;
+            AgregarBotonOpcion(btnSalirSesion);
         }
         private void InitializeComponent()
         {

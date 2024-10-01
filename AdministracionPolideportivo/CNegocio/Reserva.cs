@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdministracionPolideportivo.CPresentacion;
+using System.Runtime.CompilerServices;
 
 namespace AdministracionPolideportivo.CNegocio
 {
@@ -19,6 +20,8 @@ namespace AdministracionPolideportivo.CNegocio
             Hora = hora;
         }
 
+        
+
         public int idReserva {  get; set; }
         public Recinto recinto { get; set; }
 
@@ -28,6 +31,19 @@ namespace AdministracionPolideportivo.CNegocio
 
         public TimeOnly Hora { get; set; }
 
+        public static void EditarEntidad(Reserva reserva)
+        {
+            VerDetalle popUp = new VerDetalle();
+            popUp.TopLevel = true;
+            popUp.FormBorderStyle = FormBorderStyle.FixedSingle;
+            popUp.tabla.setDatoModelo(new ServicioAdicional(1, "", "", 0.1));
+            popUp.lblDetalle.Text = "Servicios adicionales de la reserva N° " + reserva.idReserva;
+            //TODO
+            //cargar datos dinamicamente a la tabla
+
+
+            popUp.ShowDialog();
+        }
         public override void CargarEnTabla(TablaDatos tabla)
         {
             if (tabla.getDatoModelo().GetType() != this.GetType())
@@ -35,9 +51,22 @@ namespace AdministracionPolideportivo.CNegocio
                 tabla.setDatoModelo(this);
                 System.Console.WriteLine("El tipo de dato no era igual al dato modelo, se cambio la cabecera");
             }
-            String[] datosCliente = [idReserva.ToString(), cliente.NombreCliente,recinto.NroRecinto.ToString(),Fecha.ToString()+Hora.ToString()];
-            tabla.Rows.Add(datosCliente);
+            String[] datosReserva = [idReserva.ToString(), cliente.NombreCliente,recinto.NroRecinto.ToString(),Fecha.ToString()+Hora.ToString()];
+            tabla.Rows.Add(datosReserva);
 
+            TablaBoton boton = new TablaBoton(this);
+            int filaBoton = tabla.RowCount - 2;
+            tabla.Rows[filaBoton].Cells[datosReserva.Length] = boton;
+
+            void clickeado(Object sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex == filaBoton && e.ColumnIndex == datosReserva.Length)
+                {
+                    EditarEntidad(this);
+                }
+
+            }
+            tabla.CellContentClick += clickeado;
         }
 
         public override void CrearCabecera(TablaDatos tabla)
@@ -48,6 +77,7 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("cliente", "Cliente");
             tabla.Columns.Add("recinto", "Recinto");
             tabla.Columns.Add("fecha", "Fecha");
+            tabla.Columns.Add("detalle","Adicionales");
         }
 
     }

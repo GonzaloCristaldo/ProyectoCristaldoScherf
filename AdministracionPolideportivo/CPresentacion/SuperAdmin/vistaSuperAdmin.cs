@@ -9,6 +9,11 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 {
     internal class vistaSuperAdmin : VentanaMenu
     {
+
+        private void cerrarForm(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
         public vistaSuperAdmin()
         {
 
@@ -24,6 +29,9 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
             AgregarBotonOpcion(new BotonOpcion(new RestaurarBDD(), this, formActual, "Restaurar la BDD"));
 
 
+            BotonOpcion btnSalirSesion = new BotonOpcion(new Login(), this, formActual, "Cerrar Sesion"); ;
+            btnSalirSesion.Click += cerrarForm;
+            AgregarBotonOpcion(btnSalirSesion);
         }
         private void InitializeComponent()
         {

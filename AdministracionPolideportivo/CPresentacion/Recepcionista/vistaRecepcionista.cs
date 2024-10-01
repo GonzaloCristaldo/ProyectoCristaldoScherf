@@ -8,6 +8,10 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 {
     internal class vistaRecepcionista : VentanaMenu
     {
+        private void cerrarForm(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
         public vistaRecepcionista()
         {
             InitializeComponent();
@@ -24,6 +28,9 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(), this, formActual, "Programar Nueva Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new ListarPagos(),this,formActual,"Listar Pagos"));
+            BotonOpcion btnSalirSesion = new BotonOpcion(new Login(), this, formActual, "Cerrar Sesion"); ;
+            btnSalirSesion.Click += cerrarForm;
+            AgregarBotonOpcion(btnSalirSesion);
         }
 
         private void InitializeComponent()
