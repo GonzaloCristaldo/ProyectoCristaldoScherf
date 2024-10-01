@@ -10,6 +10,18 @@ namespace AdministracionPolideportivo.CNegocio
 {
     internal class Recinto : EntidadDataGridView
     {
+        public static void EditarEntidad(Recinto recinto)
+        {
+            AgregarRecinto popUp = new AgregarRecinto();
+            popUp.TopLevel = true;
+            popUp.FormBorderStyle = FormBorderStyle.FixedSingle;
+            popUp.txtNumCancha.Text = recinto.NroRecinto.ToString();
+            popUp.txtTarifa.Text = recinto.TarifaHora.ToString();
+            popUp.txtUbicacion.Text = recinto.Ubicacion;
+            popUp.cbTipo.Text = recinto.tipoRecinto.nombre;
+            popUp.ShowDialog();
+        }
+
         public Recinto(int nroRecinto, double tarifaHora, Estado estadoP, TipoRecinto tipoRecintoP, string ubicacion)
         {
             NroRecinto = nroRecinto;
@@ -46,7 +58,19 @@ namespace AdministracionPolideportivo.CNegocio
             }
             String[] datosRecinto = [NroRecinto.ToString(), TarifaHora.ToString(), tipoRecinto.nombre.ToString(), Ubicacion, estado.nombre.ToString()];
             tabla.Rows.Add(datosRecinto);
+            TablaBoton boton = new TablaBoton(this);
+            int filaBoton = tabla.RowCount - 2;
+            tabla.Rows[filaBoton].Cells[datosRecinto.Length] = boton;
 
+            void clickeado(Object sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex == filaBoton && e.ColumnIndex == datosRecinto.Length)
+                {
+                    EditarEntidad(this);
+                }
+
+            }
+            tabla.CellContentClick += clickeado;
         }
 
         public override void CrearCabecera(TablaDatos tabla)
@@ -58,6 +82,7 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("tipo", "Tipo");
             tabla.Columns.Add("ubicacion", "Ubicación");
             tabla.Columns.Add("estado", "Estado");
+            tabla.Columns.Add("modificar","Editar");
         }
 
     }

@@ -223,15 +223,15 @@
         #endregion
 
         private LabelFormulario lblNumero;
-        private TextoNumerico txtNumCancha;
+        public TextoNumerico txtNumCancha;
         private LabelFormulario lblTarifa;
-        private TextoNumerico txtTarifa;
+        public TextoNumerico txtTarifa;
         private LabelFormulario lblTipo;
-        private ComboBoxEstandar cbTipo;
+        public ComboBoxEstandar cbTipo;
         private LabelFormulario lblUbicacion;
-        private Texto txtUbicacion;
+        public Texto txtUbicacion;
         private BotonFormulario btnAgregar;
-        private Texto txtServiciosAgregados;
+        public Texto txtServiciosAgregados;
         private BotonFormulario btnAgregarServicio;
         private LabelFormulario lblServicio;
         private ComboBoxEstandar cbServicioAdicional;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
-    internal class Texto : TextBox
+    public class Texto : TextBox
     {
         public Texto() {
             BackColor = SystemColors.WindowFrame;

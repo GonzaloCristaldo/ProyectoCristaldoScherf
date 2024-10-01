@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdministracionPolideportivo.CNegocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,12 +20,12 @@ namespace AdministracionPolideportivo.CPresentacion
         {
 
             InitializeComponent();
+            tablaDatos1.setDatoModelo(new Recinto());
 
         }
 
         private BotonFormulario btnBuscar;
         private LabelFormulario lblBuscar;
-        private DataGridView dataGridView1;
         private BotonFormulario botonFormulario1;
         private BotonFormulario botonFormulario2;
         private BotonFormulario botonFormulario3;
@@ -32,6 +33,7 @@ namespace AdministracionPolideportivo.CPresentacion
         private BotonFormulario botonFormulario4;
         private BotonFormulario botonFormulario5;
         private BotonFormulario botonFormulario6;
+        private TablaDatos tablaDatos1;
         private Texto txtBuscar;
 
         private void InitializeComponent()
@@ -39,7 +41,6 @@ namespace AdministracionPolideportivo.CPresentacion
             btnBuscar = new BotonFormulario();
             lblBuscar = new LabelFormulario();
             txtBuscar = new Texto();
-            dataGridView1 = new DataGridView();
             botonFormulario1 = new BotonFormulario();
             botonFormulario2 = new BotonFormulario();
             botonFormulario3 = new BotonFormulario();
@@ -47,7 +48,8 @@ namespace AdministracionPolideportivo.CPresentacion
             botonFormulario4 = new BotonFormulario();
             botonFormulario5 = new BotonFormulario();
             botonFormulario6 = new BotonFormulario();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            tablaDatos1 = new TablaDatos();
+            ((System.ComponentModel.ISupportInitialize)tablaDatos1).BeginInit();
             SuspendLayout();
             // 
             // btnBuscar
@@ -82,14 +84,6 @@ namespace AdministracionPolideportivo.CPresentacion
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(210, 23);
             txtBuscar.TabIndex = 0;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 155);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(659, 233);
-            dataGridView1.TabIndex = 2;
             // 
             // botonFormulario1
             // 
@@ -177,10 +171,19 @@ namespace AdministracionPolideportivo.CPresentacion
             botonFormulario6.Text = "Entrenamientos";
             botonFormulario6.UseVisualStyleBackColor = false;
             // 
+            // tablaDatos1
+            // 
+            tablaDatos1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tablaDatos1.Location = new Point(12, 155);
+            tablaDatos1.Name = "tablaDatos1";
+            tablaDatos1.Size = new Size(659, 233);
+            tablaDatos1.TabIndex = 9;
+            // 
             // BuscarRecinto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(683, 400);
+            Controls.Add(tablaDatos1);
             Controls.Add(botonFormulario6);
             Controls.Add(botonFormulario5);
             Controls.Add(botonFormulario4);
@@ -188,12 +191,11 @@ namespace AdministracionPolideportivo.CPresentacion
             Controls.Add(botonFormulario3);
             Controls.Add(botonFormulario2);
             Controls.Add(botonFormulario1);
-            Controls.Add(dataGridView1);
             Controls.Add(txtBuscar);
             Controls.Add(lblBuscar);
             Controls.Add(btnBuscar);
             Name = "BuscarRecinto";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tablaDatos1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

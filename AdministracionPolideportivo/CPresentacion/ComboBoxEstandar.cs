@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
-    internal class ComboBoxEstandar : ComboBox
+    public class ComboBoxEstandar : ComboBox
     {
 
         public ComboBoxEstandar()

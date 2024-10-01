@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
-    internal class TextoNumerico : TextBox
+    public class TextoNumerico : TextBox
     {
         public TextoNumerico()
         {

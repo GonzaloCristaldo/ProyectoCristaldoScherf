@@ -26,6 +26,21 @@ namespace AdministracionPolideportivo.CNegocio
         public String Telefono {  get; set; }
 
         public String pass {  get; set; }
+
+        public static void EditarEntidad(Usuario usuario)
+        {
+            agregarUsuario popUp = new agregarUsuario();
+            popUp.TopLevel = true;
+            popUp.FormBorderStyle = FormBorderStyle.FixedSingle;
+            popUp.txtDNI.Text = usuario.DniUsuario.ToString();
+            popUp.txtNombre.Text = usuario.nombreUsuario.ToString();
+            popUp.txtApellido.Text = usuario.apellidoUsuario.ToString();
+            popUp.txtTelefono.Text = usuario.Telefono.ToString();
+            popUp.cbSexo.Text = "Masculino";
+            popUp.cbTipo.Text = usuario.tipoUsuario.NombreTipoUsuario;
+            popUp.ShowDialog();
+        }
+
         public override void CargarEnTabla(TablaDatos tabla)
         {
             if (tabla.getDatoModelo().GetType() != this.GetType())
@@ -36,6 +51,19 @@ namespace AdministracionPolideportivo.CNegocio
             String[] datosUsuario = [idUsuario.ToString(), nombreUsuario, apellidoUsuario,DniUsuario.ToString(),
             Telefono,tipoUsuario.NombreTipoUsuario,fechaIngreso.ToString(),fechaNacimiento.ToString()];
             tabla.Rows.Add(datosUsuario);
+            TablaBoton boton = new TablaBoton(this);
+            int filaBoton = tabla.RowCount - 2;
+            tabla.Rows[filaBoton].Cells[datosUsuario.Length] = boton;
+
+            void clickeado(Object sender, DataGridViewCellEventArgs e)
+            {
+                if (e.RowIndex == filaBoton && e.ColumnIndex == datosUsuario.Length)
+                {
+                    EditarEntidad(this);
+                }
+
+            }
+            tabla.CellContentClick += clickeado;
 
         }
 
@@ -51,6 +79,7 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("tipo", "Tipo");
             tabla.Columns.Add("ingreso", "Fecha Ingreso");
             tabla.Columns.Add("nacimiento", "Fecha Nacimiento");
+            tabla.Columns.Add("editar","Modificar");
         }
 
     }

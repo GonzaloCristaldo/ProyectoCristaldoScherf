@@ -17,18 +17,18 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private LabelFormulario lblDNI;
         private LabelFormulario lblNombre;
-        private Texto txtNombre;
+        public Texto txtNombre;
         private LabelFormulario lblApellido;
-        private Texto txtApellido;
+        public Texto txtApellido;
         private LabelFormulario lblTelefono;
-        private TextoNumerico textoNumerico1;
+        public TextoNumerico txtTelefono;
         private BotonFormulario btnAgregarCliente;
-        private ComboBoxEstandar comboBoxEstandar1;
+        public ComboBoxEstandar cbTipo;
         private LabelFormulario labelFormulario1;
         private PictureBox pictureBox1;
-        private ComboBoxEstandar comboBoxEstandar2;
+        public ComboBoxEstandar cbSexo;
         private LabelFormulario labelFormulario2;
-        private TextoNumerico txtDNI;
+        public TextoNumerico txtDNI;
 
         private void InitializeComponent()
         {
@@ -40,12 +40,12 @@ namespace AdministracionPolideportivo.CPresentacion
             lblApellido = new LabelFormulario();
             txtApellido = new Texto();
             lblTelefono = new LabelFormulario();
-            textoNumerico1 = new TextoNumerico();
+            txtTelefono = new TextoNumerico();
             btnAgregarCliente = new BotonFormulario();
-            comboBoxEstandar1 = new ComboBoxEstandar();
+            cbTipo = new ComboBoxEstandar();
             labelFormulario1 = new LabelFormulario();
             pictureBox1 = new PictureBox();
-            comboBoxEstandar2 = new ComboBoxEstandar();
+            cbSexo = new ComboBoxEstandar();
             labelFormulario2 = new LabelFormulario();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -121,14 +121,14 @@ namespace AdministracionPolideportivo.CPresentacion
             lblTelefono.TabIndex = 4;
             lblTelefono.Text = "Telefono";
             // 
-            // textoNumerico1
+            // txtTelefono
             // 
-            textoNumerico1.BackColor = SystemColors.WindowFrame;
-            textoNumerico1.ForeColor = Color.White;
-            textoNumerico1.Location = new Point(146, 250);
-            textoNumerico1.Name = "textoNumerico1";
-            textoNumerico1.Size = new Size(151, 23);
-            textoNumerico1.TabIndex = 1;
+            txtTelefono.BackColor = SystemColors.WindowFrame;
+            txtTelefono.ForeColor = Color.White;
+            txtTelefono.Location = new Point(146, 250);
+            txtTelefono.Name = "txtTelefono";
+            txtTelefono.Size = new Size(151, 23);
+            txtTelefono.TabIndex = 1;
             // 
             // btnAgregarCliente
             // 
@@ -143,16 +143,16 @@ namespace AdministracionPolideportivo.CPresentacion
             btnAgregarCliente.UseVisualStyleBackColor = false;
             btnAgregarCliente.Click += btnAgregarCliente_Click;
             // 
-            // comboBoxEstandar1
+            // cbTipo
             // 
-            comboBoxEstandar1.BackColor = SystemColors.WindowFrame;
-            comboBoxEstandar1.ForeColor = Color.White;
-            comboBoxEstandar1.FormattingEnabled = true;
-            comboBoxEstandar1.Items.AddRange(new object[] { "Recepcionista", "Administrador (No apto para el admin)" });
-            comboBoxEstandar1.Location = new Point(146, 200);
-            comboBoxEstandar1.Name = "comboBoxEstandar1";
-            comboBoxEstandar1.Size = new Size(210, 23);
-            comboBoxEstandar1.TabIndex = 0;
+            cbTipo.BackColor = SystemColors.WindowFrame;
+            cbTipo.ForeColor = Color.White;
+            cbTipo.FormattingEnabled = true;
+            cbTipo.Items.AddRange(new object[] { "Recepcionista", "Administrador (No apto para el admin)" });
+            cbTipo.Location = new Point(146, 200);
+            cbTipo.Name = "cbTipo";
+            cbTipo.Size = new Size(210, 23);
+            cbTipo.TabIndex = 0;
             // 
             // labelFormulario1
             // 
@@ -176,16 +176,16 @@ namespace AdministracionPolideportivo.CPresentacion
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
-            // comboBoxEstandar2
+            // cbSexo
             // 
-            comboBoxEstandar2.BackColor = SystemColors.WindowFrame;
-            comboBoxEstandar2.ForeColor = Color.White;
-            comboBoxEstandar2.FormattingEnabled = true;
-            comboBoxEstandar2.Items.AddRange(new object[] { "Hombre", "Mujer" });
-            comboBoxEstandar2.Location = new Point(406, 200);
-            comboBoxEstandar2.Name = "comboBoxEstandar2";
-            comboBoxEstandar2.Size = new Size(144, 23);
-            comboBoxEstandar2.TabIndex = 0;
+            cbSexo.BackColor = SystemColors.WindowFrame;
+            cbSexo.ForeColor = Color.White;
+            cbSexo.FormattingEnabled = true;
+            cbSexo.Items.AddRange(new object[] { "Hombre", "Mujer" });
+            cbSexo.Location = new Point(406, 200);
+            cbSexo.Name = "cbSexo";
+            cbSexo.Size = new Size(144, 23);
+            cbSexo.TabIndex = 0;
             // 
             // labelFormulario2
             // 
@@ -203,12 +203,12 @@ namespace AdministracionPolideportivo.CPresentacion
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(586, 363);
             Controls.Add(labelFormulario2);
-            Controls.Add(comboBoxEstandar2);
+            Controls.Add(cbSexo);
             Controls.Add(pictureBox1);
             Controls.Add(labelFormulario1);
-            Controls.Add(comboBoxEstandar1);
+            Controls.Add(cbTipo);
             Controls.Add(btnAgregarCliente);
-            Controls.Add(textoNumerico1);
+            Controls.Add(txtTelefono);
             Controls.Add(lblTelefono);
             Controls.Add(txtApellido);
             Controls.Add(lblApellido);
