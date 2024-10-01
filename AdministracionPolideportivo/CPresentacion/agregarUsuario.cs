@@ -148,7 +148,7 @@ namespace AdministracionPolideportivo.CPresentacion
             cbTipo.BackColor = SystemColors.WindowFrame;
             cbTipo.ForeColor = Color.White;
             cbTipo.FormattingEnabled = true;
-            cbTipo.Items.AddRange(new object[] { "Recepcionista", "Administrador (No apto para el admin)" });
+            cbTipo.Items.AddRange(new object[] { "Recepcionista", "Administrador (No apto para el admin)", "Super-Administrador (No apto para el admin)" });
             cbTipo.Location = new Point(146, 200);
             cbTipo.Name = "cbTipo";
             cbTipo.Size = new Size(210, 23);

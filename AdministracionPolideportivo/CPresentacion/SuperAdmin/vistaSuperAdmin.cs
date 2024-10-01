@@ -20,6 +20,10 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
             btnCerrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
             AgregarBotonOpcion(new BotonOpcion(new agregarUsuario(), this, formActual, "Agregar Usuario de sistema"));
+            AgregarBotonOpcion(new BotonOpcion(new BackupBDD(), this, formActual, "Realizar un Backup de la BDD"));
+            AgregarBotonOpcion(new BotonOpcion(new RestaurarBDD(), this, formActual, "Restaurar la BDD"));
+
+
         }
         private void InitializeComponent()
         {

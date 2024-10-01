@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
-    internal class AgregarMedioPago : FormularioEstandar
+    internal class BackupBDD : FormularioEstandar
     {
 
-        public AgregarMedioPago()
+        public BackupBDD()
         {
 
             InitializeComponent();
