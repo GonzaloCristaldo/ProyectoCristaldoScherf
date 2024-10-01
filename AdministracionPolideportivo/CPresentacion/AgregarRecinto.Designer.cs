@@ -139,6 +139,7 @@
             btnAgregar.TabIndex = 0;
             btnAgregar.Text = "Agregar Recinto";
             btnAgregar.UseVisualStyleBackColor = false;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // txtServiciosAgregados
             // 
