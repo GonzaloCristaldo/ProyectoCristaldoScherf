@@ -255,21 +255,21 @@ namespace AdministracionPolideportivo.CPresentacion
                     return;
                 }
 
-                if (string.IsNullOrEmpty(textoNumerico1.Text) || !int.TryParse(textoNumerico1.Text, out int telefono) || telefono <= 0)
+                if (string.IsNullOrEmpty(txtApellido.Text) || !int.TryParse(txtNombre.Text, out int telefono) || telefono <= 0)
                 {
                     MessageBox.Show("Por favor, ingrese un número de teléfono válido.");
                     return;
                 }
 
                 // Verificar si se seleccionó un tipo de usuario
-                if (comboBoxEstandar1.SelectedItem == null)
+                if (cbTipo.SelectedItem == null)
                 {
                     MessageBox.Show("Por favor, seleccione un tipo de usuario.");
                     return;
                 }
 
                 // Verificar si se seleccionó un sexo
-                if (comboBoxEstandar2.SelectedItem == null)
+                if (cbSexo.SelectedItem == null)
                 {
                     MessageBox.Show("Por favor, seleccione un sexo.");
                     return;
@@ -297,9 +297,9 @@ namespace AdministracionPolideportivo.CPresentacion
             txtDNI.Clear();
             txtNombre.Clear();
             txtApellido.Clear();
-            textoNumerico1.Clear();
-            comboBoxEstandar1.SelectedIndex = -1; // Desmarcar selección
-            comboBoxEstandar2.SelectedIndex = -1; // Desmarcar selección
+            txtTelefono.Clear();
+            cbTipo.SelectedIndex = -1; // Desmarcar selección
+            cbSexo.SelectedIndex = -1; // Desmarcar selección
         }
     }
 }
