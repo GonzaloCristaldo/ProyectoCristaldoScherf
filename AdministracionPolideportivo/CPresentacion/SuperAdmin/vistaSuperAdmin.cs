@@ -13,6 +13,8 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
         private void cerrarForm(object sender, EventArgs e)
         {
             this.Hide();
+            Login log = new Login();
+            log.Show();
         }
         public vistaSuperAdmin()
         {
