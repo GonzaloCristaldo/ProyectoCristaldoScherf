@@ -12,9 +12,7 @@ namespace AdministracionPolideportivo.CPresentacion
     {
         public AgregarCliente()
         {
-
             InitializeComponent();
-
         }
 
         private LabelFormulario lblDNI;
@@ -180,13 +178,14 @@ namespace AdministracionPolideportivo.CPresentacion
                     return;
                 }
 
-                // Creación del cliente y llamada a la capa de datos
+                // Crea el cliente y llama a la capa de datos
                 Cliente cliente = new Cliente(dni, txtNombre.Text, txtApellido.Text, txtTelefono.Text);
                 int resultado = DALCliente.AgregarCliente(cliente);
 
                 if (resultado > 0)
                 {
                     MessageBox.Show("Cliente agregado exitosamente.");
+                    LimpiarCampos(); // Limpia los campos después de agregar el cliente
                 }
                 else
                 {
@@ -199,6 +198,13 @@ namespace AdministracionPolideportivo.CPresentacion
             }
         }
 
-
+        // Método para limpiar los campos del formulario
+        private void LimpiarCampos()
+        {
+            txtDNI.Clear();
+            txtNombre.Clear();
+            txtApellido.Clear();
+            txtTelefono.Clear();
+        }
     }
 }

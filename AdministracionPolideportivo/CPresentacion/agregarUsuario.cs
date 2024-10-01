@@ -141,6 +141,7 @@ namespace AdministracionPolideportivo.CPresentacion
             btnAgregarCliente.TabIndex = 0;
             btnAgregarCliente.Text = "Agregar Usuario";
             btnAgregarCliente.UseVisualStyleBackColor = false;
+            btnAgregarCliente.Click += btnAgregarCliente_Click;
             // 
             // comboBoxEstandar1
             // 
@@ -229,6 +230,76 @@ namespace AdministracionPolideportivo.CPresentacion
         private void labelFormulario1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAgregarCliente_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validaciones de los campos
+                if (string.IsNullOrEmpty(txtDNI.Text) || !int.TryParse(txtDNI.Text, out int dni) || dni <= 0)
+                {
+                    MessageBox.Show("Por favor, ingrese un DNI válido.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtNombre.Text))
+                {
+                    MessageBox.Show("Por favor, ingrese un nombre.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtApellido.Text))
+                {
+                    MessageBox.Show("Por favor, ingrese un apellido.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(textoNumerico1.Text) || !int.TryParse(textoNumerico1.Text, out int telefono) || telefono <= 0)
+                {
+                    MessageBox.Show("Por favor, ingrese un número de teléfono válido.");
+                    return;
+                }
+
+                // Verificar si se seleccionó un tipo de usuario
+                if (comboBoxEstandar1.SelectedItem == null)
+                {
+                    MessageBox.Show("Por favor, seleccione un tipo de usuario.");
+                    return;
+                }
+
+                // Verificar si se seleccionó un sexo
+                if (comboBoxEstandar2.SelectedItem == null)
+                {
+                    MessageBox.Show("Por favor, seleccione un sexo.");
+                    return;
+                }
+
+               //Para la BDD, 2da entrega
+                // Usuario nuevoUsuario = new Usuario(dni, txtNombre.Text, txtApellido.Text, telefono, comboBoxEstandar1.SelectedItem.ToString(), comboBoxEstandar2.SelectedItem.ToString());
+                // baseDeDatos.AgregarUsuario(nuevoUsuario);
+
+                // Mensaje de éxito
+                MessageBox.Show("Usuario agregado exitosamente.");
+
+                // Limpiar los campos después de agregar el usuario
+                LimpiarCampos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error: {ex.Message}");
+            }
+        }
+
+        // Método para limpiar los campos del formulario
+        private void LimpiarCampos()
+        {
+            txtDNI.Clear();
+            txtNombre.Clear();
+            txtApellido.Clear();
+            textoNumerico1.Clear();
+            comboBoxEstandar1.SelectedIndex = -1; // Desmarcar selección
+            comboBoxEstandar2.SelectedIndex = -1; // Desmarcar selección
         }
     }
 }

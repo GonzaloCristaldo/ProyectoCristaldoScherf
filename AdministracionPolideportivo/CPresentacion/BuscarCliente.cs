@@ -113,7 +113,7 @@ namespace AdministracionPolideportivo.CPresentacion
             lblBuscar.AutoSize = true;
             lblBuscar.Font = new Font("Segoe UI", 13F);
             lblBuscar.ForeColor = Color.White;
-            lblBuscar.Location = new Point(87, 19);
+            lblBuscar.Location = new Point(67, 19);
             lblBuscar.Name = "lblBuscar";
             lblBuscar.Size = new Size(158, 25);
             lblBuscar.TabIndex = 1;
@@ -134,7 +134,7 @@ namespace AdministracionPolideportivo.CPresentacion
             tabla.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn11, dataGridViewTextBoxColumn12, dataGridViewTextBoxColumn13, dataGridViewTextBoxColumn14, dataGridViewTextBoxColumn15, dataGridViewTextBoxColumn16 });
             tabla.Location = new Point(253, 47);
             tabla.Name = "tabla";
-            tabla.Size = new Size(543, 275);
+            tabla.Size = new Size(642, 275);
             tabla.TabIndex = 2;
             // 
             // dataGridViewTextBoxColumn11
@@ -170,7 +170,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // BuscarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            ClientSize = new Size(824, 410);
+            ClientSize = new Size(909, 410);
             Controls.Add(tabla);
             Controls.Add(txtBuscar);
             Controls.Add(lblBuscar);
@@ -189,8 +189,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            /*new Cliente(1,43822713,"Lucas Daniel","Scherf","3794 - 123456").CargarEnTabla(tablaClientes);*/
-            //new Cliente(, "Lucas Daniel", "Scherf", "3794 - 123456").CargarEnTabla(tabla);
+      
             List<Cliente> resultadoBusqueda = DALCliente.ListarClientes();
             tabla.Rows.Clear();
             for (int i=0; i<resultadoBusqueda.Count;i++)
