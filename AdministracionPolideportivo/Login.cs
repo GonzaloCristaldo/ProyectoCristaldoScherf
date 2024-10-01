@@ -67,16 +67,19 @@ namespace AdministracionPolideportivo
                 {
                     VistaAdmin menu = new VistaAdmin();
                     menu.Show();
+                    this.Hide();
                 }
                 else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("Recepcionista"))
                 {
                     vistaRecepcionista menu = new vistaRecepcionista();
                     menu.Show();
+                    this.Hide();
                 }
                 else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("SuperAdministrador"))
                 {
                     vistaSuperAdmin menu = new vistaSuperAdmin();
                     menu.Show();
+                    this.Hide();
                 }
                 else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("error"))
                 {
