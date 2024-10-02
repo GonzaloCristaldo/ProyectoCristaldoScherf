@@ -135,6 +135,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
         protected void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VentanaMenu));
             panelNavegacion = new Panel();
             panelOpciones = new Panel();
             panelFormulario = new Panel();
@@ -145,9 +146,8 @@ namespace AdministracionPolideportivo.CPresentacion
             panelNavegacion.Dock = DockStyle.Top;
             panelNavegacion.Location = new Point(0, 0);
             panelNavegacion.Name = "panelNavegacion";
-            panelNavegacion.Size = new Size(1100, 34);
+            panelNavegacion.Size = new Size(1084, 34);
             panelNavegacion.TabIndex = 0;
-            
             panelNavegacion.MouseDown += panelNavegacion_MouseDown;
             panelNavegacion.MouseMove += panelNavegacion_MouseMove;
             panelNavegacion.MouseUp += panelNavegacion_MouseUp;
@@ -157,27 +157,25 @@ namespace AdministracionPolideportivo.CPresentacion
             panelOpciones.Dock = DockStyle.Left;
             panelOpciones.Location = new Point(0, 34);
             panelOpciones.Name = "panelOpciones";
-            panelOpciones.Size = new Size(226, 416);
+            panelOpciones.Size = new Size(226, 377);
             panelOpciones.TabIndex = 1;
-            
             // 
             // panelFormulario
             // 
             panelFormulario.Dock = DockStyle.Fill;
             panelFormulario.Location = new Point(226, 34);
             panelFormulario.Name = "panelFormulario";
-            panelFormulario.Size = new Size(674, 416);
+            panelFormulario.Size = new Size(858, 377);
             panelFormulario.TabIndex = 2;
-            
             // 
             // VentanaMenu
             // 
-            
+            ClientSize = new Size(1084, 411);
             Controls.Add(panelFormulario);
             Controls.Add(panelOpciones);
             Controls.Add(panelNavegacion);
-            Size = new Size(1100, 450);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "VentanaMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Menu";
