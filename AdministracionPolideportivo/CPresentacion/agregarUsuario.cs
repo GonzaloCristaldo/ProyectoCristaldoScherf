@@ -279,8 +279,7 @@ namespace AdministracionPolideportivo.CPresentacion
                                      "Confirmar alta de usuario",
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (confirmResult == DialogResult.Yes)
-                { }
-                //Para la BDD, 2da entrega
+                {//Para la BDD, 2da entrega
                 // Usuario nuevoUsuario = new Usuario(dni, txtNombre.Text, txtApellido.Text, telefono, comboBoxEstandar1.SelectedItem.ToString(), comboBoxEstandar2.SelectedItem.ToString());
                 // baseDeDatos.AgregarUsuario(nuevoUsuario);
 
@@ -288,7 +287,9 @@ namespace AdministracionPolideportivo.CPresentacion
                 MessageBox.Show("Usuario agregado exitosamente.");
 
                 // Limpiar los campos después de agregar el usuario
-                LimpiarCampos();
+                LimpiarCampos(); 
+                }
+                
             }
             catch (Exception ex)
             {
