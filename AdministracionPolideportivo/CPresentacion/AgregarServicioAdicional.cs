@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -109,6 +110,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnAgregar.TabIndex = 0;
             btnAgregar.Text = "Agregar Servicio";
             btnAgregar.UseVisualStyleBackColor = false;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // cbRecintos
             // 
@@ -257,6 +259,49 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private void lblNombre_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            if (txtNombre.Text.IsNullOrEmpty() || txtTarifa.Text.IsNullOrEmpty() || txtDescripcion.Text.IsNullOrEmpty())
+            {
+                List<String> vacios = new List<String>();
+                if (txtNombre.Text.IsNullOrEmpty())
+                {
+                    vacios.Add("Nombre del servicio");
+                }
+                if (txtTarifa.Text.IsNullOrEmpty())
+                {
+                    vacios.Add("Tarifa");
+                }
+                if (txtDescripcion.Text.IsNullOrEmpty())
+                {
+                    vacios.Add("Descripción");
+                }
+                String mensaje = "Por favor, complete los siguientes campos: ";
+                for (int i = 0; i < vacios.Count; i++)
+                {
+                    if (i + 1 < vacios.Count)
+                    {
+                        mensaje += vacios[i] + ", ";
+                    }
+                    else
+                    {
+                        mensaje += vacios[i] + ".";
+                    }
+
+                }
+                MessageBox.Show(mensaje);
+                return;
+            }
+            else
+            {
+                var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo servicio adicional?",
+                                     "Confirmar alta de servicio adicional",
+                                     MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                { }
+            }
         }
     }
 }

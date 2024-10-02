@@ -55,7 +55,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                     vacios.Add("tipo de recinto");
                 }
                 String mensaje = "Por favor, complete los siguientes campos: ";
-                for (int i=0;i<vacios.Count;i++)
+                for (int i = 0; i < vacios.Count; i++)
                 {
                     if (i + 1 < vacios.Count)
                     {
@@ -63,12 +63,20 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                     }
                     else
                     {
-                        mensaje += vacios[i]+".";
+                        mensaje += vacios[i] + ".";
                     }
-                    
+
                 }
                 MessageBox.Show(mensaje);
                 return;
+            }
+            else
+            {
+                var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo recinto?",
+                                     "Confirmar alta de recinto",
+                                     MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                { }
             }
         }
     }

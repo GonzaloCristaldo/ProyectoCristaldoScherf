@@ -120,7 +120,7 @@ namespace AdministracionPolideportivo
             try
             {
 
-                string direccionCorreo = "destinatario@example.com";
+                string direccionCorreo = "gonzalodlp97@gmail.com";
 
                 // Muestra una ventana de confirmación
                 var confirmacion = MessageBox.Show("¿Quieres enviar un correo?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -128,7 +128,7 @@ namespace AdministracionPolideportivo
                 if (confirmacion == DialogResult.Yes)
                 {
                     // Abre el cliente de correo predeterminado
-                    Process.Start($"mailto:{direccionCorreo}");
+                    System.Diagnostics.Process.Start(new ProcessStartInfo("mailto:"+direccionCorreo) { UseShellExecute = true });
                 }
             }
             catch (Exception ex)
