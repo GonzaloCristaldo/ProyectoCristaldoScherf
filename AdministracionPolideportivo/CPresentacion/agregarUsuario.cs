@@ -255,7 +255,7 @@ namespace AdministracionPolideportivo.CPresentacion
                     return;
                 }
 
-                if (string.IsNullOrEmpty(txtApellido.Text) || !int.TryParse(txtNombre.Text, out int telefono) || telefono <= 0)
+                if (string.IsNullOrEmpty(txtTelefono.Text) || !int.TryParse(txtTelefono.Text, out int telefono) || telefono <= 0)
                 {
                     MessageBox.Show("Por favor, ingrese un número de teléfono válido.");
                     return;
@@ -275,7 +275,12 @@ namespace AdministracionPolideportivo.CPresentacion
                     return;
                 }
 
-               //Para la BDD, 2da entrega
+                var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo usuario?",
+                                     "Confirmar alta de usuario",
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (confirmResult == DialogResult.Yes)
+                { }
+                //Para la BDD, 2da entrega
                 // Usuario nuevoUsuario = new Usuario(dni, txtNombre.Text, txtApellido.Text, telefono, comboBoxEstandar1.SelectedItem.ToString(), comboBoxEstandar2.SelectedItem.ToString());
                 // baseDeDatos.AgregarUsuario(nuevoUsuario);
 

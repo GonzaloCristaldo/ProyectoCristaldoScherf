@@ -12,9 +12,17 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
     {
         private void cerrarForm(object sender, EventArgs e)
         {
-            this.Hide();
+
+            var confirmResult = MessageBox.Show("¿Estas seguro que deseas cerrar sesión?",
+                                     "Confirmar cierre de sesion",
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (confirmResult == DialogResult.Yes)
+            {this.Hide();
             Login log = new Login();
-            log.Show();
+            log.Show(); 
+            }
+
+            
         }
         public VistaAdmin()
         {
@@ -37,7 +45,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new Estadisticas(), this, formActual, "Ver estadisticas"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarUsuario(),this,formActual,"Buscar Usuario"));
-            BotonOpcion btnSalirSesion = new BotonOpcion(new Login(), this, formActual, "Cerrar Sesion"); ;
+            BotonOpcion btnSalirSesion = new BotonOpcion(new FormularioEstandar(), this, formActual, "Cerrar Sesion"); ;
             btnSalirSesion.Click +=cerrarForm;
             AgregarBotonOpcion(btnSalirSesion);
         }

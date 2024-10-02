@@ -298,7 +298,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             {
                 var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo servicio adicional?",
                                      "Confirmar alta de servicio adicional",
-                                     MessageBoxButtons.YesNo);
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (confirmResult == DialogResult.Yes)
                 { }
             }

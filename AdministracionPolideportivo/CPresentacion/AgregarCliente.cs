@@ -180,7 +180,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
                 var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo cliente?",
                                      "Confirmar alta de cliente",
-                                     MessageBoxButtons.YesNo);
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (confirmResult == DialogResult.Yes)
                 {
 

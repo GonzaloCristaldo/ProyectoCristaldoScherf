@@ -12,9 +12,18 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 
         private void cerrarForm(object sender, EventArgs e)
         {
-            this.Hide();
-            Login log = new Login();
-            log.Show();
+
+
+            var confirmResult = MessageBox.Show("¿Estas seguro que deseas cerrar sesión?",
+                                     "Confirmar cierre de sesion",
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (confirmResult == DialogResult.Yes)
+            {
+                this.Hide();
+                Login log = new Login();
+                log.Show();
+            }
+
         }
         public vistaSuperAdmin()
         {
@@ -31,7 +40,7 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
             AgregarBotonOpcion(new BotonOpcion(new RestaurarBDD(), this, formActual, "Restaurar la BDD"));
 
 
-            BotonOpcion btnSalirSesion = new BotonOpcion(new Login(), this, formActual, "Cerrar Sesion"); ;
+            BotonOpcion btnSalirSesion = new BotonOpcion(new FormularioEstandar(), this, formActual, "Cerrar Sesion"); ;
             btnSalirSesion.Click += cerrarForm;
             AgregarBotonOpcion(btnSalirSesion);
         }

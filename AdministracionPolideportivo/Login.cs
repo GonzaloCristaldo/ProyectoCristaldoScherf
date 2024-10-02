@@ -24,7 +24,17 @@ namespace AdministracionPolideportivo
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Application.Exit();
+
+
+            var confirmResult = MessageBox.Show("¿Estas seguro que deseas salir del programa?",
+                                     "Confirmar cierre",
+                                     MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2);
+            if (confirmResult == DialogResult.Yes)
+            {
+                System.Windows.Forms.Application.Exit();
+            }
+
+            
         }
 
         private void btnMinimizar_Click(object sender, EventArgs e)

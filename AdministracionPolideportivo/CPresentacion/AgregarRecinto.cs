@@ -74,7 +74,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             {
                 var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo recinto?",
                                      "Confirmar alta de recinto",
-                                     MessageBoxButtons.YesNo);
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (confirmResult == DialogResult.Yes)
                 { }
             }
