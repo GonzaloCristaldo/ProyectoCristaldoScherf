@@ -133,8 +133,10 @@ namespace AdministracionPolideportivo
                 string direccionCorreo = "gonzalodlp97@gmail.com";
 
                 // Muestra una ventana de confirmación
-                var confirmacion = MessageBox.Show("¿Quieres enviar un correo?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                var confirmacion = MessageBox.Show("¿Quieres enviar un correo?", "Confirmar",
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                
                 if (confirmacion == DialogResult.Yes)
                 {
                     // Abre el cliente de correo predeterminado
