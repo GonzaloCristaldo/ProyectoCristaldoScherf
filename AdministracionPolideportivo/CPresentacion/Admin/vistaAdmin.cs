@@ -17,12 +17,13 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
                                      "Confirmar cierre de sesion",
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (confirmResult == DialogResult.Yes)
-            {this.Hide();
-            Login log = new Login();
-            log.Show(); 
+            {
+                this.Hide();
+                Login log = new Login();
+                log.Show();
             }
 
-            
+
         }
         public VistaAdmin()
         {
@@ -44,9 +45,9 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(), this, formActual, "Programar Nueva Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new Estadisticas(), this, formActual, "Ver estadisticas"));
-            AgregarBotonOpcion(new BotonOpcion(new BuscarUsuario(),this,formActual,"Buscar Usuario"));
+            AgregarBotonOpcion(new BotonOpcion(new BuscarUsuario(), this, formActual, "Buscar Usuario"));
             BotonOpcion btnSalirSesion = new BotonOpcion(new FormularioEstandar(), this, formActual, "Cerrar Sesion"); ;
-            btnSalirSesion.Click +=cerrarForm;
+            btnSalirSesion.Click += cerrarForm;
             AgregarBotonOpcion(btnSalirSesion);
         }
         private void InitializeComponent()
@@ -69,11 +70,13 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             // 
             panelOpciones.AutoScroll = true;
             panelOpciones.Controls.Add(tablaOpciones);
-            panelOpciones.Size = new Size(226, 406);
+            panelOpciones.Size = new Size(226, 506);
             // 
             // panelFormulario
             // 
-            panelFormulario.Size = new Size(864, 406);
+            panelFormulario.AutoScrollMinSize = new Size(791, 383);
+            panelFormulario.Size = new Size(864, 506);
+            panelFormulario.Paint += panelFormulario_Paint;
             // 
             // tablaOpciones
             // 
@@ -185,6 +188,11 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void panelFormulario_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

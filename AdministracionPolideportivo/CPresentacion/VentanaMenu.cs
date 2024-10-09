@@ -162,6 +162,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             // panelFormulario
             // 
+            panelFormulario.AutoScroll = true;
             panelFormulario.Dock = DockStyle.Fill;
             panelFormulario.Location = new Point(226, 34);
             panelFormulario.Name = "panelFormulario";

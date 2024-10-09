@@ -16,8 +16,15 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         public AgregarRecinto()
         {
             InitializeComponent();
+            ubiPanel1 = 20;
+            anchoPaneles = (this.Width / 2) - 50;
+            ubiPanel2 += anchoPaneles + 30;
         }
 
+        int anchoPaneles;
+
+        int ubiPanel1;
+        int ubiPanel2;
         private void labelFormulario1_Click(object sender, EventArgs e)
         {
 
@@ -78,6 +85,28 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                 if (confirmResult == DialogResult.Yes)
                 { }
             }
+        }
+
+        private void AgregarRecinto_Resize(object sender, EventArgs e)
+        {
+            anchoPaneles = (this.Width / 2) - 25;
+            panelIzquierda.Width = anchoPaneles;
+            panelDerecha.Width = anchoPaneles;
+
+            ubiPanel1 = 20;
+
+            ubiPanel2 = anchoPaneles + 30;
+
+            panelIzquierda.Location= new Point(ubiPanel1, panelIzquierda.Location.Y);
+            panelDerecha.Location = new Point(ubiPanel2, panelDerecha.Location.Y);
+
+            txtNumCancha.Width = panelIzquierda.Width - 40;
+            txtNumCancha.Location = new Point(ubiPanel1, txtNumCancha.Location.Y);
+
+            
+
+            cbServicioAdicional.Width = panelDerecha.Width - 40;
+            cbServicioAdicional.Location = new Point(ubiPanel1, cbServicioAdicional.Location.Y);
         }
     }
 }
