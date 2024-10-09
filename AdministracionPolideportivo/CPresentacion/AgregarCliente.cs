@@ -13,6 +13,19 @@ namespace AdministracionPolideportivo.CPresentacion
         public AgregarCliente()
         {
             InitializeComponent();
+
+            /* calculamos el punto de
+            inicio de los textbox teniendo en cuenta el largo y la ubicacion
+            del label mas largo del formulario mas 10 pixeles de separacion entre label
+            y textbox*/
+            coordenadaXTextbox = lblTelefono.Width + lblTelefono.Location.X + 10;
+
+            /*le asignamos la ubicacion calculada a los textbox*/
+            txtApellido.Location = new Point(coordenadaXTextbox, txtApellido.Location.Y);
+            txtDNI.Location = new Point(coordenadaXTextbox,txtDNI.Location.Y);
+            txtNombre.Location = new Point(coordenadaXTextbox,txtNombre.Location.Y);
+            txtTelefono.Location = new Point(coordenadaXTextbox,txtTelefono.Location.Y);
+
         }
 
         private LabelFormulario lblDNI;
@@ -24,6 +37,9 @@ namespace AdministracionPolideportivo.CPresentacion
         public TextoNumerico txtTelefono;
         private BotonFormulario btnAgregarCliente;
         public TextoNumerico txtDNI;
+
+        
+        int coordenadaXTextbox;
 
         private void InitializeComponent()
         {
@@ -55,7 +71,7 @@ namespace AdministracionPolideportivo.CPresentacion
             txtDNI.ForeColor = Color.White;
             txtDNI.Location = new Point(106, 24);
             txtDNI.Name = "txtDNI";
-            txtDNI.Size = new Size(117, 23);
+            txtDNI.Size = new Size(210, 23);
             txtDNI.TabIndex = 1;
             // 
             // lblNombre
@@ -115,7 +131,7 @@ namespace AdministracionPolideportivo.CPresentacion
             txtTelefono.ForeColor = Color.White;
             txtTelefono.Location = new Point(106, 169);
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(151, 23);
+            txtTelefono.Size = new Size(210, 23);
             txtTelefono.TabIndex = 1;
             // 
             // btnAgregarCliente
@@ -123,7 +139,7 @@ namespace AdministracionPolideportivo.CPresentacion
             btnAgregarCliente.BackColor = Color.DimGray;
             btnAgregarCliente.Font = new Font("Segoe UI", 10F);
             btnAgregarCliente.ForeColor = Color.White;
-            btnAgregarCliente.Location = new Point(106, 227);
+            btnAgregarCliente.Location = new Point(106, 225);
             btnAgregarCliente.Name = "btnAgregarCliente";
             btnAgregarCliente.Size = new Size(146, 41);
             btnAgregarCliente.TabIndex = 0;
@@ -134,7 +150,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // AgregarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            ClientSize = new Size(336, 300);
+            ClientSize = new Size(405, 361);
             Controls.Add(btnAgregarCliente);
             Controls.Add(txtTelefono);
             Controls.Add(lblTelefono);
@@ -144,7 +160,9 @@ namespace AdministracionPolideportivo.CPresentacion
             Controls.Add(lblNombre);
             Controls.Add(txtDNI);
             Controls.Add(lblDNI);
+            MinimumSize = new Size(405, 361);
             Name = "AgregarCliente";
+            Resize += AgregarCliente_Resize;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -196,7 +214,7 @@ namespace AdministracionPolideportivo.CPresentacion
                     else
                     {
                         MessageBox.Show("Error al agregar el cliente.");
-                    } 
+                    }
                 }
             }
             catch (Exception ex)
@@ -212,6 +230,22 @@ namespace AdministracionPolideportivo.CPresentacion
             txtNombre.Clear();
             txtApellido.Clear();
             txtTelefono.Clear();
+        }
+
+        private void AgregarCliente_Resize(object sender, EventArgs e)
+        {
+
+            /*Calculamos dinamicamente el espacio que debe ocupar los textbox
+             tomando como referencia el ancho de la ventana y restando el espacio
+            que ocupan los label y una cantidad de pixeles de separacion con el margen
+            de la ventana*/
+            int anchoTextBox = this.Width - coordenadaXTextbox - 20;
+
+            //Le asignamos el nuevo tamaño calculado a cada textbox
+            txtApellido.Width = anchoTextBox;
+            txtTelefono.Width = anchoTextBox;
+            txtDNI.Width = anchoTextBox;
+            txtNombre.Width = anchoTextBox;
         }
     }
 }
