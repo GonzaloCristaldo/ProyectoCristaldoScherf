@@ -15,23 +15,26 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
             InitializeComponent();
             this.MinimumSize = new Size(cajaHabilitar.Width+40,btnAgregar.Location.Y+btnAgregar.Height+15);
+            txtDescripcion.Height=cajaHabilitar.Height;
             UbicarControles();
         }
 
         private void UbicarControles()
         {
 
-            lblDescripcion.Location = new System.Drawing.Point(lblNombre.Location.X,
-                lblNombre.Location.Y + 40);
             lblTarifa.Location = new System.Drawing.Point(lblNombre.Location.X,
+                lblNombre.Location.Y + 40);
+
+            lblDescripcion.Location = new System.Drawing.Point(lblNombre.Location.X,
                 lblNombre.Location.Y + 80);
+            
             coordenadaXTextbox = lblNombre.Width + lblNombre.Location.X + 10;
 
             txtNombre.Location = new Point(coordenadaXTextbox, lblNombre.Location.Y);
             txtDescripcion.Location = new Point(coordenadaXTextbox, lblDescripcion.Location.Y);
             txtTarifa.Location = new Point(coordenadaXTextbox, lblTarifa.Location.Y);
 
-            cajaHabilitar.Location = new Point((this.Width - cajaHabilitar.Width) / 2, lblTarifa.Location.Y + lblTarifa.Height + 10);
+            cajaHabilitar.Location = new Point((this.Width - cajaHabilitar.Width) / 2, txtDescripcion.Location.Y + txtDescripcion.Height + 10);
             lblHabilitar.Location = new Point((this.Width - lblHabilitar.Width) / 2, cajaHabilitar.Location.Y + cajaHabilitar.Height + 10);
             cbRecintos.Location = new Point((this.Width - cbRecintos.Width) / 2, lblHabilitar.Location.Y + lblHabilitar.Height + 10);
             btnHabilitarRecinto.Location = new Point((this.Width - btnHabilitarRecinto.Width) / 2, cbRecintos.Location.Y + cbRecintos.Height + 10);
@@ -111,6 +114,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             txtDescripcion.BackColor = SystemColors.WindowFrame;
             txtDescripcion.ForeColor = Color.White;
             txtDescripcion.Location = new Point(251, 44);
+            txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(210, 23);
             txtDescripcion.TabIndex = 0;
