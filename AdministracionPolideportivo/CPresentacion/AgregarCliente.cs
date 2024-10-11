@@ -150,7 +150,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // AgregarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            ClientSize = new Size(405, 361);
+            ClientSize = new Size(327, 275);
             Controls.Add(btnAgregarCliente);
             Controls.Add(txtTelefono);
             Controls.Add(lblTelefono);
@@ -160,7 +160,7 @@ namespace AdministracionPolideportivo.CPresentacion
             Controls.Add(lblNombre);
             Controls.Add(txtDNI);
             Controls.Add(lblDNI);
-            MinimumSize = new Size(405, 361);
+            MinimumSize = new Size(327, 275);
             Name = "AgregarCliente";
             Resize += AgregarCliente_Resize;
             ResumeLayout(false);

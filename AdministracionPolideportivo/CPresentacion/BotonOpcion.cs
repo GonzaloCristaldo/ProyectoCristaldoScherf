@@ -120,7 +120,8 @@ namespace AdministracionPolideportivo.CPresentacion
             formularioAsociado.TopLevel = false;//Necesario para poder identar formularios
             ventana.panelFormulario.Controls.Add(formularioAsociado);//agregar formulario al panel de la ventana a la que pertenece el boton
             formularioAsociado.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None; //eliminar el borde
-            formularioAsociado.Dock = DockStyle.Fill;//cubre toda el area del panel correspondiente
+            formularioAsociado.Dock = DockStyle.Fill;
+            //formularioAsociado.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
             formularioAsociado.Show();//muestra el formulario
 
             

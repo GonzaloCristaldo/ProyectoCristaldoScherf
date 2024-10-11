@@ -56,7 +56,7 @@ namespace AdministracionPolideportivo.CPresentacion
         protected Rectangle lastRectangle;
         public VentanaMenu()
         {
-            
+
             InitializeComponent();
             opciones = new BotonOpcion[50];
             indexOpciones = 0;
@@ -70,7 +70,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
             FormBorderStyle = FormBorderStyle.None;  // Remove default form border
             Padding = new Padding(borderWidth);      // Add padding for the custom border
-            Size = new Size(1100,720);
+            Size = new Size(1100, 720);
             normalBounds = Bounds;
 
         }
@@ -82,9 +82,11 @@ namespace AdministracionPolideportivo.CPresentacion
         public void actualizarFormulario(Form nuevo)
         {
             formActual = nuevo;
-            if (opciones.Length>0) {
-                for (int i=0;i<opciones.GetLength(0);i++) {
-                    if (opciones[i]!=null)
+            if (opciones.Length > 0)
+            {
+                for (int i = 0; i < opciones.GetLength(0); i++)
+                {
+                    if (opciones[i] != null)
                     {
                         opciones[i].FormularioViejo = formActual;
                     }
@@ -95,7 +97,7 @@ namespace AdministracionPolideportivo.CPresentacion
         public void agregarOpcion(BotonOpcion opcionNueva)
         {
             //opciones.Append<BotonOpcion>(opcionNueva);
-            opciones[indexOpciones]= opcionNueva;
+            opciones[indexOpciones] = opcionNueva;
             indexOpciones++;
         }
 
@@ -162,7 +164,6 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             // panelFormulario
             // 
-            panelFormulario.AutoScroll = true;
             panelFormulario.Dock = DockStyle.Fill;
             panelFormulario.Location = new Point(226, 34);
             panelFormulario.Name = "panelFormulario";
@@ -183,6 +184,7 @@ namespace AdministracionPolideportivo.CPresentacion
             MouseDown += VentanaMenu_MouseDown;
             MouseMove += VentanaMenu_MouseMove;
             MouseUp += VentanaMenu_MouseUp;
+            Resize += VentanaMenu_Resize;
             ResumeLayout(false);
         }
 
@@ -191,7 +193,7 @@ namespace AdministracionPolideportivo.CPresentacion
         public Panel panelFormulario;
 
 
-        
+
 
         private void VentanaMenu_MouseDown(object sender, MouseEventArgs e)
         {
@@ -216,7 +218,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void panelNavegacion_MouseDown(object sender, MouseEventArgs e)
         {
-                     
+
             if (e.Button == MouseButtons.Left)
             {
                 isDragging = true;
@@ -224,7 +226,7 @@ namespace AdministracionPolideportivo.CPresentacion
                 {
                     lastRectangle = new Rectangle(e.Location.X, e.Location.Y, Width, Height);
                 }
-                
+
                 if (isSnapped == false && isMaximized == false)
                 {
                     normalBounds = Bounds;
@@ -289,10 +291,10 @@ namespace AdministracionPolideportivo.CPresentacion
         private void panelNavegacion_MouseUp(object sender, MouseEventArgs e)
         {
             // Solo maximizar cuando el usuario suelte el mouse y esté cerca del borde superior
-            
+
             if (shouldMaximize && isMaximized == false)
             {
-                
+
                 MaximizeForm();
             }
             else if (shouldSnapRight)
@@ -381,5 +383,23 @@ namespace AdministracionPolideportivo.CPresentacion
             }
         }
 
+        private void VentanaMenu_Resize(object sender, EventArgs e)
+        {
+            if (formActual!=null)
+            {
+                if ((this.panelFormulario.Size.Width < this.formActual.MinimumSize.Width)|
+                    (this.panelFormulario.Size.Height < this.formActual.MinimumSize.Height))
+                {
+                    panelFormulario.AutoScroll = true;
+                    panelFormulario.AutoScrollMinSize = new Size(this.formActual.MinimumSize.Width,
+                        this.formActual.MinimumSize.Height);
+                }
+                else
+                {
+                    panelFormulario.AutoScroll = false;
+                    panelFormulario.AutoScrollMinSize = new Size(0,0);
+                } 
+            }
+        }
     }
 }

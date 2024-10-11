@@ -74,7 +74,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             // 
             // panelFormulario
             // 
-            panelFormulario.AutoScrollMinSize = new Size(791, 383);
+            panelFormulario.AutoScroll = true;
             panelFormulario.Size = new Size(864, 506);
             panelFormulario.Paint += panelFormulario_Paint;
             // 

@@ -67,7 +67,7 @@
             txtNumCancha.ForeColor = Color.White;
             txtNumCancha.Location = new Point(27, 43);
             txtNumCancha.Name = "txtNumCancha";
-            txtNumCancha.Size = new Size(321, 23);
+            txtNumCancha.Size = new Size(323, 23);
             txtNumCancha.TabIndex = 1;
             // 
             // lblTarifa
@@ -203,7 +203,6 @@
             // 
             // panelIzquierda
             // 
-            panelIzquierda.BorderStyle = BorderStyle.FixedSingle;
             panelIzquierda.Controls.Add(lblNumero);
             panelIzquierda.Controls.Add(txtNumCancha);
             panelIzquierda.Controls.Add(lblTarifa);
@@ -221,7 +220,6 @@
             // 
             // panelDerecha
             // 
-            panelDerecha.BorderStyle = BorderStyle.FixedSingle;
             panelDerecha.Controls.Add(txtServiciosAgregados);
             panelDerecha.Controls.Add(cbServicioAdicional);
             panelDerecha.Controls.Add(lblServicio);
