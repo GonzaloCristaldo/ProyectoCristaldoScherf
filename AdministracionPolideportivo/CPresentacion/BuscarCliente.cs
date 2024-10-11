@@ -176,6 +176,7 @@ namespace AdministracionPolideportivo.CPresentacion
             Controls.Add(lblBuscar);
             Controls.Add(cbBuscar);
             Controls.Add(btnBuscar);
+            MinimumSize = new Size(669, 410);
             Name = "BuscarCliente";
             ((System.ComponentModel.ISupportInitialize)tabla).EndInit();
             ResumeLayout(false);

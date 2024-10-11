@@ -89,6 +89,7 @@ namespace AdministracionPolideportivo.CPresentacion
             Controls.Add(cbBuscar);
             Controls.Add(btnBuscar);
             Controls.Add(tablaDatos1);
+            MinimumSize = new Size(800, 450);
             Name = "BuscarUsuario";
             ((System.ComponentModel.ISupportInitialize)tablaDatos1).EndInit();
             ResumeLayout(false);

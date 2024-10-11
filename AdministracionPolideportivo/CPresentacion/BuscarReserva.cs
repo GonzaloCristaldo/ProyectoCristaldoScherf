@@ -87,6 +87,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             Controls.Add(texto1);
             Controls.Add(cbBuscar);
             Controls.Add(labelFormulario1);
+            MinimumSize = new Size(790, 411);
             Name = "BuscarReserva";
             ((System.ComponentModel.ISupportInitialize)tablaDatos1).EndInit();
             ResumeLayout(false);

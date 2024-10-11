@@ -194,6 +194,7 @@ namespace AdministracionPolideportivo.CPresentacion
             Controls.Add(txtBuscar);
             Controls.Add(lblBuscar);
             Controls.Add(btnBuscar);
+            MinimumSize = new Size(683, 400);
             Name = "BuscarRecinto";
             ((System.ComponentModel.ISupportInitialize)tablaDatos1).EndInit();
             ResumeLayout(false);
