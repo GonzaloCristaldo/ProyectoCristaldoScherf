@@ -41,7 +41,7 @@
             btnAgregarServicio = new BotonFormulario();
             lblServicio = new LabelFormulario();
             cbServicioAdicional = new ComboBoxEstandar();
-            labelFormulario1 = new LabelFormulario();
+            lblTitulo = new LabelFormulario();
             panelIzquierda = new Panel();
             panelDerecha = new Panel();
             panelIzquierda.SuspendLayout();
@@ -53,7 +53,7 @@
             lblNumero.AutoSize = true;
             lblNumero.Font = new Font("Segoe UI", 18F);
             lblNumero.ForeColor = Color.White;
-            lblNumero.Location = new Point(96, 8);
+            lblNumero.Location = new Point(77, 8);
             lblNumero.Name = "lblNumero";
             lblNumero.Size = new Size(222, 32);
             lblNumero.TabIndex = 0;
@@ -75,7 +75,7 @@
             lblTarifa.AutoSize = true;
             lblTarifa.Font = new Font("Segoe UI", 18F);
             lblTarifa.ForeColor = Color.White;
-            lblTarifa.Location = new Point(108, 72);
+            lblTarifa.Location = new Point(98, 72);
             lblTarifa.Name = "lblTarifa";
             lblTarifa.Size = new Size(171, 32);
             lblTarifa.TabIndex = 2;
@@ -86,7 +86,7 @@
             // 
             txtTarifa.BackColor = SystemColors.WindowFrame;
             txtTarifa.ForeColor = Color.White;
-            txtTarifa.Location = new Point(111, 107);
+            txtTarifa.Location = new Point(72, 107);
             txtTarifa.Name = "txtTarifa";
             txtTarifa.Size = new Size(207, 23);
             txtTarifa.TabIndex = 1;
@@ -96,7 +96,7 @@
             lblTipo.AutoSize = true;
             lblTipo.Font = new Font("Segoe UI", 18F);
             lblTipo.ForeColor = Color.White;
-            lblTipo.Location = new Point(98, 124);
+            lblTipo.Location = new Point(98, 133);
             lblTipo.Name = "lblTipo";
             lblTipo.Size = new Size(181, 32);
             lblTipo.TabIndex = 4;
@@ -108,7 +108,7 @@
             cbTipo.BackColor = SystemColors.WindowFrame;
             cbTipo.ForeColor = Color.White;
             cbTipo.FormattingEnabled = true;
-            cbTipo.Location = new Point(108, 159);
+            cbTipo.Location = new Point(111, 168);
             cbTipo.Name = "cbTipo";
             cbTipo.Size = new Size(168, 23);
             cbTipo.TabIndex = 0;
@@ -118,7 +118,7 @@
             lblUbicacion.AutoSize = true;
             lblUbicacion.Font = new Font("Segoe UI", 18F);
             lblUbicacion.ForeColor = Color.White;
-            lblUbicacion.Location = new Point(131, 185);
+            lblUbicacion.Location = new Point(134, 194);
             lblUbicacion.Name = "lblUbicacion";
             lblUbicacion.Size = new Size(118, 32);
             lblUbicacion.TabIndex = 5;
@@ -128,7 +128,7 @@
             // 
             txtUbicacion.BackColor = SystemColors.WindowFrame;
             txtUbicacion.ForeColor = Color.White;
-            txtUbicacion.Location = new Point(86, 220);
+            txtUbicacion.Location = new Point(89, 229);
             txtUbicacion.Name = "txtUbicacion";
             txtUbicacion.Size = new Size(210, 23);
             txtUbicacion.TabIndex = 0;
@@ -138,7 +138,7 @@
             btnAgregar.BackColor = Color.DimGray;
             btnAgregar.Font = new Font("Segoe UI", 10F);
             btnAgregar.ForeColor = Color.White;
-            btnAgregar.Location = new Point(118, 249);
+            btnAgregar.Location = new Point(123, 268);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(146, 41);
             btnAgregar.TabIndex = 0;
@@ -190,16 +190,16 @@
             cbServicioAdicional.Size = new Size(210, 23);
             cbServicioAdicional.TabIndex = 11;
             // 
-            // labelFormulario1
+            // lblTitulo
             // 
-            labelFormulario1.AutoSize = true;
-            labelFormulario1.Font = new Font("Segoe UI", 18F);
-            labelFormulario1.ForeColor = Color.White;
-            labelFormulario1.Location = new Point(191, 9);
-            labelFormulario1.Name = "labelFormulario1";
-            labelFormulario1.Size = new Size(384, 32);
-            labelFormulario1.TabIndex = 13;
-            labelFormulario1.Text = "Agregar nuevo recinto al complejo";
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 18F);
+            lblTitulo.ForeColor = Color.White;
+            lblTitulo.Location = new Point(191, 9);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(384, 32);
+            lblTitulo.TabIndex = 13;
+            lblTitulo.Text = "Agregar nuevo recinto al complejo";
             // 
             // panelIzquierda
             // 
@@ -237,7 +237,7 @@
             ClientSize = new Size(791, 383);
             Controls.Add(panelDerecha);
             Controls.Add(panelIzquierda);
-            Controls.Add(labelFormulario1);
+            Controls.Add(lblTitulo);
             MinimumSize = new Size(791, 383);
             Name = "AgregarRecinto";
             Text = "AgregarCancha";
@@ -265,7 +265,7 @@
         private BotonFormulario btnAgregarServicio;
         private LabelFormulario lblServicio;
         private ComboBoxEstandar cbServicioAdicional;
-        private LabelFormulario labelFormulario1;
+        private LabelFormulario lblTitulo;
         private Panel panelIzquierda;
         private Panel panelDerecha;
     }

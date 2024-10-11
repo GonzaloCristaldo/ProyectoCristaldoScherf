@@ -25,6 +25,52 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         int ubiPanel1;
         int ubiPanel2;
+
+        private void UbicarControles()
+        {
+            anchoPaneles = (this.Width / 2) - 25;
+            panelIzquierda.Width = anchoPaneles;
+            panelDerecha.Width = anchoPaneles;
+
+            ubiPanel1 = 20;
+
+            ubiPanel2 = anchoPaneles + 30;
+
+            lblTitulo.Location = new Point((this.Width - lblTitulo.Width) / 2, lblTitulo.Location.Y);
+
+            panelIzquierda.Location = new Point(ubiPanel1, panelIzquierda.Location.Y);
+            panelDerecha.Location = new Point(ubiPanel2, panelDerecha.Location.Y);
+
+            txtNumCancha.Width = panelIzquierda.Width - 40;
+            txtNumCancha.Location = new Point(ubiPanel1, txtNumCancha.Location.Y);
+
+            cbServicioAdicional.Width = panelDerecha.Width - 40;
+            cbServicioAdicional.Location = new Point(ubiPanel1, cbServicioAdicional.Location.Y);
+
+            txtServiciosAgregados.Width = panelDerecha.Width;
+            txtServiciosAgregados.Location = new Point((panelDerecha.Width - txtServiciosAgregados.Width) / 2, txtServiciosAgregados.Location.Y);
+
+
+            lblNumero.Location = new Point((panelIzquierda.Width-lblNumero.Width)/2,lblNumero.Location.Y);
+            lblTarifa.Location = new Point((panelIzquierda.Width - lblTarifa.Width) / 2, lblTarifa.Location.Y);
+            lblTipo.Location = new Point((panelIzquierda.Width - lblTipo.Width) / 2, lblTipo.Location.Y);
+            lblUbicacion.Location = new Point((panelIzquierda.Width - lblUbicacion.Width) / 2, lblUbicacion.Location.Y);
+            btnAgregar.Location = new Point((panelIzquierda.Width - btnAgregar.Width) / 2, btnAgregar.Location.Y);
+            cbTipo.Location = new Point((panelIzquierda.Width - cbTipo.Width) / 2, cbTipo.Location.Y);
+
+            lblServicio.Location = new Point((panelDerecha.Width - lblServicio.Width) / 2, lblServicio.Location.Y);
+            btnAgregarServicio.Location = new Point((panelDerecha.Width - btnAgregarServicio.Width) / 2, btnAgregarServicio.Location.Y);
+
+            cbTipo.Width = panelDerecha.Width - 40;
+            cbTipo.Location = new Point((panelIzquierda.Width-cbTipo.Width)/2,cbTipo.Location.Y);
+
+            txtTarifa.Width = panelIzquierda.Width - 40;
+            txtTarifa.Location = new Point((panelIzquierda.Width - txtTarifa.Width) / 2, txtTarifa.Location.Y);
+
+            txtUbicacion.Width = panelIzquierda.Width - 40;
+            txtUbicacion.Location = new Point((panelIzquierda.Width - txtUbicacion.Width ) / 2, txtUbicacion.Location.Y);
+        }
+
         private void labelFormulario1_Click(object sender, EventArgs e)
         {
 
@@ -89,24 +135,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         private void AgregarRecinto_Resize(object sender, EventArgs e)
         {
-            anchoPaneles = (this.Width / 2) - 25;
-            panelIzquierda.Width = anchoPaneles;
-            panelDerecha.Width = anchoPaneles;
-
-            ubiPanel1 = 20;
-
-            ubiPanel2 = anchoPaneles + 30;
-
-            panelIzquierda.Location= new Point(ubiPanel1, panelIzquierda.Location.Y);
-            panelDerecha.Location = new Point(ubiPanel2, panelDerecha.Location.Y);
-
-            txtNumCancha.Width = panelIzquierda.Width - 40;
-            txtNumCancha.Location = new Point(ubiPanel1, txtNumCancha.Location.Y);
-
-            
-
-            cbServicioAdicional.Width = panelDerecha.Width - 40;
-            cbServicioAdicional.Location = new Point(ubiPanel1, cbServicioAdicional.Location.Y);
+            UbicarControles();
         }
     }
 }
