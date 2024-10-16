@@ -19,6 +19,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             ubiPanel1 = 20;
             anchoPaneles = (this.Width / 2) - 50;
             ubiPanel2 += anchoPaneles + 30;
+            UbicarControles();
         }
 
         int anchoPaneles;

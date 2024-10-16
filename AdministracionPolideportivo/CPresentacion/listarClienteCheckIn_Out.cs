@@ -126,6 +126,7 @@ namespace AdministracionPolideportivo.CPresentacion
             Controls.Add(botonFormulario2);
             Controls.Add(botonFormulario1);
             Controls.Add(dataGridView1);
+            MinimumSize = new Size(800, 450);
             Name = "listarClienteCheckIn_Out";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
