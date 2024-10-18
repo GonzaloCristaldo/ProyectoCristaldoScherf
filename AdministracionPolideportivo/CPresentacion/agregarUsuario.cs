@@ -23,6 +23,9 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void UbicarElementos()
         {
+
+            LabelFormulario lblMasGrande = lblNacimiento;
+
             panelIzquierda.Location = new System.Drawing.Point(0, (this.Height - panelIzquierda.Height) / 2);
             panelIzquierda.Width = (Int32)(this.Width * (2.0 / 3.0));
             Console.WriteLine(panelIzquierda.Width);
@@ -42,21 +45,21 @@ namespace AdministracionPolideportivo.CPresentacion
             lblPass.Location = new System.Drawing.Point(10, lblTelefono.Location.Y + lblTelefono.Height + 10);
             lblNacimiento.Location = new System.Drawing.Point(10, lblPass.Location.Y + lblPass.Height + 10);
 
-            txtDNI.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblDNI.Location.Y);
-            txtNombre.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblNombre.Location.Y);
-            txtApellido.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblApellido.Location.Y);
-            cbTipo.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblTipo.Location.Y);
-            txtTelefono.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblTelefono.Location.Y);
-            txtPass.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblPass.Location.Y);
-            dtpNacimiento.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblNacimiento.Location.Y);
+            txtDNI.Location = new System.Drawing.Point(lblMasGrande.Location.X + lblMasGrande.Width + 5, lblDNI.Location.Y);
+            txtNombre.Location = new System.Drawing.Point(lblMasGrande.Location.X + lblMasGrande.Width + 5, lblNombre.Location.Y);
+            txtApellido.Location = new System.Drawing.Point(lblMasGrande.Location.X + lblMasGrande.Width + 5, lblApellido.Location.Y);
+            cbTipo.Location = new System.Drawing.Point(lblMasGrande.Location.X + lblMasGrande.Width + 5, lblTipo.Location.Y);
+            txtTelefono.Location = new System.Drawing.Point(lblMasGrande.Location.X + lblMasGrande.Width + 5, lblTelefono.Location.Y);
+            txtPass.Location = new System.Drawing.Point(lblMasGrande.Location.X + lblMasGrande.Width + 5, lblPass.Location.Y);
+            dtpNacimiento.Location = new System.Drawing.Point(lblMasGrande.Location.X + lblMasGrande.Width + 5, lblNacimiento.Location.Y);
 
-            txtDNI.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
-            txtApellido.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
-            txtTelefono.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
-            txtNombre.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
-            cbTipo.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
-            txtPass.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
-            dtpNacimiento.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
+            txtDNI.Width = panelIzquierda.Width - lblMasGrande.Location.X - lblMasGrande.Width - 10;
+            txtApellido.Width = panelIzquierda.Width - lblMasGrande.Location.X - lblMasGrande.Width - 10;
+            txtTelefono.Width = panelIzquierda.Width - lblMasGrande.Location.X - lblMasGrande.Width - 10;
+            txtNombre.Width = panelIzquierda.Width - lblMasGrande.Location.X - lblMasGrande.Width - 10;
+            cbTipo.Width = panelIzquierda.Width - lblMasGrande.Location.X - lblMasGrande.Width - 10;
+            txtPass.Width = panelIzquierda.Width - lblMasGrande.Location.X - lblMasGrande.Width - 10;
+            dtpNacimiento.Width = panelIzquierda.Width - lblMasGrande.Location.X - lblMasGrande.Width - 10;
 
             //panel derecho
             pictureBox1.Width = 150;
@@ -71,7 +74,7 @@ namespace AdministracionPolideportivo.CPresentacion
             cbSexo.Location = new Point(lblSexo.Location.X + lblSexo.Width + 10, lblSexo.Location.Y);
             cbSexo.Width = panelDerecha.Width - cbSexo.Location.X - 20;
 
-            btnAgregar.Location = new System.Drawing.Point((panelIzquierda.Width - btnAgregar.Width) / 2, txtTelefono.Location.Y + txtTelefono.Height + 15);
+            btnAgregar.Location = new System.Drawing.Point((panelDerecha.Width - btnAgregar.Width) / 2, cbSexo.Location.Y + cbSexo.Height + 15);
 
 
         }
