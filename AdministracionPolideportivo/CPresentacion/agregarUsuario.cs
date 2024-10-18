@@ -8,6 +8,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
@@ -19,6 +20,11 @@ namespace AdministracionPolideportivo.CPresentacion
             InitializeComponent();
             UbicarElementos();
             //TODO traer tipos de la db y cargar en el combo box
+
+            List<TipoUsuario> tipos=DALTipoUsuario.ListarTiposDeUsuario();
+            cbTipo.DataSource = tipos;
+            cbTipo.DataContext = tipos;
+            
         }
 
         private void UbicarElementos()
@@ -466,11 +472,13 @@ namespace AdministracionPolideportivo.CPresentacion
 
                     ImageConverter converter = new ImageConverter();
                     byte[] imagen = (byte[])converter.ConvertTo(new Bitmap(selectedFile), typeof(byte[]));
-                   
-                    // Crea el cliente y llama a la capa de datos
-                    /*Usuario usuario = new Usuario(txtNombre.Text, txtApellido.Text, cbTipo.SelectedItem, txtPass.Text, Int32.Parse(txtDNI.Text),
-                        dtpNacimiento.Value,DateTime.Today,txtTelefono.Text,txtPass.Text, imagen,cbSexo.Text);
-                    int resultado = DALUsuario.AgregarUsuario(usuario);*/
+
+                    
+
+                    // Crea el usuario y llama a la capa de datos
+                    Usuario usuario = new Usuario(txtNombre.Text, txtApellido.Text, cbTipo.SelectedValue, txtPass.Text, Int32.Parse(txtDNI.Text),
+                        dtpNacimiento.Value,DateTime.Today,txtTelefono.Text, imagen,cbSexo.Text);
+                    int resultado = DALUsuario.AgregarUsuario(usuario);
 
                     /*if (resultado > 0)
                     {

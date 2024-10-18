@@ -38,5 +38,12 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("id", "Id");
             tabla.Columns.Add("nombre", "Tipo de Usuario");
         }
+
+        public override string ToString()
+        {
+
+            return NombreTipoUsuario;
+        }
+
     }
 }

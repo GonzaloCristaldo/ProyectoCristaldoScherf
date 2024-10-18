@@ -10,7 +10,7 @@ namespace AdministracionPolideportivo.CNegocio
 {
     internal class Usuario : EntidadDataGridView
     {
-        public Usuario(string nombreUsuario, string apellidoUsuario, TipoUsuario tipoUsuario, string passUsuario, int dniUsuario, DateTime fechaNacimiento, DateTime fechaIngreso, string telefono, string pass, byte[] foto)
+        public Usuario(string nombreUsuario, string apellidoUsuario, TipoUsuario tipoUsuario, string passUsuario, int dniUsuario, DateTime fechaNacimiento, DateTime fechaIngreso, string telefono, byte[] foto,string sexo)
         {
             this.nombreUsuario = nombreUsuario;
             this.apellidoUsuario = apellidoUsuario;
