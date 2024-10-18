@@ -28,13 +28,13 @@ namespace AdministracionPolideportivo
 
             var confirmResult = MessageBox.Show("¿Estas seguro que deseas salir del programa?",
                                      "Confirmar cierre",
-                                     MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2);
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (confirmResult == DialogResult.Yes)
             {
                 System.Windows.Forms.Application.Exit();
             }
 
-            
+
         }
 
         private void btnMinimizar_Click(object sender, EventArgs e)
@@ -136,11 +136,11 @@ namespace AdministracionPolideportivo
 
                 var confirmacion = MessageBox.Show("¿Quieres enviar un correo?", "Confirmar",
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                
+
                 if (confirmacion == DialogResult.Yes)
                 {
                     // Abre el cliente de correo predeterminado
-                    System.Diagnostics.Process.Start(new ProcessStartInfo("mailto:"+direccionCorreo) { UseShellExecute = true });
+                    System.Diagnostics.Process.Start(new ProcessStartInfo("mailto:" + direccionCorreo) { UseShellExecute = true });
                 }
             }
             catch (Exception ex)
@@ -169,6 +169,13 @@ namespace AdministracionPolideportivo
         private void texto1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            VistaAdmin menu = new VistaAdmin();
+            //menu.SetUsuario();
+            menu.Show();
         }
     }
 

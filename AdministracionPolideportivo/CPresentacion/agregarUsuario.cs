@@ -231,7 +231,7 @@ namespace AdministracionPolideportivo.CPresentacion
             // pictureBox1
             // 
             pictureBox1.Anchor = AnchorStyles.None;
-            pictureBox1.Image = Resources.usuario_default;
+            pictureBox1.Image = new Bitmap (new MemoryStream (Resources.usuario_default));
             pictureBox1.Location = new Point(75, 8);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(147, 135);
@@ -421,7 +421,7 @@ namespace AdministracionPolideportivo.CPresentacion
             cbTipo.SelectedIndex = -1; // Desmarcar selección
             cbSexo.SelectedIndex = -1; // Desmarcar selección
             txtImagen.Clear();
-            pictureBox1.Image = Resources.usuario_default;
+            pictureBox1.Image = new Bitmap(new MemoryStream(Resources.usuario_default));
         }
 
         private void btnImagen_Click(object sender, EventArgs e)
