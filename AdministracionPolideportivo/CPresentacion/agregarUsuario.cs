@@ -1,10 +1,13 @@
-﻿using AdministracionPolideportivo.Properties;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
+using AdministracionPolideportivo.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
@@ -15,16 +18,17 @@ namespace AdministracionPolideportivo.CPresentacion
 
             InitializeComponent();
             UbicarElementos();
+            //TODO traer tipos de la db y cargar en el combo box
         }
 
         private void UbicarElementos()
         {
-            panelIzquierda.Location = new System.Drawing.Point(0, (this.Height-panelIzquierda.Height)/2);
+            panelIzquierda.Location = new System.Drawing.Point(0, (this.Height - panelIzquierda.Height) / 2);
             panelIzquierda.Width = (Int32)(this.Width * (2.0 / 3.0));
             Console.WriteLine(panelIzquierda.Width);
             //panelIzquierda.Height = this.Height;
 
-            panelDerecha.Location = new System.Drawing.Point(panelIzquierda.Width, ((this.Height - panelDerecha.Height) / 2)+15);
+            panelDerecha.Location = new System.Drawing.Point(panelIzquierda.Width, ((this.Height - panelDerecha.Height) / 2) + 15);
             panelDerecha.Width = this.Width - panelIzquierda.Width;
             Console.WriteLine(panelDerecha.Width);
 
@@ -35,18 +39,24 @@ namespace AdministracionPolideportivo.CPresentacion
             lblApellido.Location = new System.Drawing.Point(10, lblNombre.Location.Y + lblNombre.Height + 10);
             lblTipo.Location = new System.Drawing.Point(10, lblApellido.Location.Y + lblApellido.Height + 10);
             lblTelefono.Location = new System.Drawing.Point(10, lblTipo.Location.Y + lblTipo.Height + 10);
+            lblPass.Location = new System.Drawing.Point(10, lblTelefono.Location.Y + lblTelefono.Height + 10);
+            lblNacimiento.Location = new System.Drawing.Point(10, lblPass.Location.Y + lblPass.Height + 10);
 
             txtDNI.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblDNI.Location.Y);
             txtNombre.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblNombre.Location.Y);
             txtApellido.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblApellido.Location.Y);
             cbTipo.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblTipo.Location.Y);
             txtTelefono.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblTelefono.Location.Y);
+            txtPass.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblPass.Location.Y);
+            dtpNacimiento.Location = new System.Drawing.Point(lblTelefono.Location.X + lblTelefono.Width + 5, lblNacimiento.Location.Y);
 
             txtDNI.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
             txtApellido.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
             txtTelefono.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
             txtNombre.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
             cbTipo.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
+            txtPass.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
+            dtpNacimiento.Width = panelIzquierda.Width - lblTelefono.Location.X - lblTelefono.Width - 10;
 
             //panel derecho
             pictureBox1.Width = 150;
@@ -59,7 +69,7 @@ namespace AdministracionPolideportivo.CPresentacion
             btnImagen.Location = new System.Drawing.Point((panelDerecha.Width - btnImagen.Width) / 2, txtImagen.Location.Y + 10 + txtImagen.Height);
             lblSexo.Location = new System.Drawing.Point(10, btnImagen.Location.Y + btnImagen.Height + 10);
             cbSexo.Location = new Point(lblSexo.Location.X + lblSexo.Width + 10, lblSexo.Location.Y);
-            cbSexo.Width = panelDerecha.Width - cbSexo.Location.X - 20 ;
+            cbSexo.Width = panelDerecha.Width - cbSexo.Location.X - 20;
 
             btnAgregar.Location = new System.Drawing.Point((panelIzquierda.Width - btnAgregar.Width) / 2, txtTelefono.Location.Y + txtTelefono.Height + 15);
 
@@ -85,6 +95,10 @@ namespace AdministracionPolideportivo.CPresentacion
         private BotonFormulario btnImagen;
         private OpenFileDialog openFileDialog1;
         public TextoNumerico txtDNI;
+        public TextoNumerico txtPass;
+        private LabelFormulario lblPass;
+        private LabelFormulario lblNacimiento;
+        private DateTimePicker dtpNacimiento;
         string selectedFile;
 
         private void InitializeComponent()
@@ -105,10 +119,14 @@ namespace AdministracionPolideportivo.CPresentacion
             cbSexo = new ComboBoxEstandar();
             lblSexo = new LabelFormulario();
             panelIzquierda = new Panel();
+            txtPass = new TextoNumerico();
+            lblPass = new LabelFormulario();
             panelDerecha = new Panel();
             txtImagen = new Texto();
             btnImagen = new BotonFormulario();
             openFileDialog1 = new OpenFileDialog();
+            lblNacimiento = new LabelFormulario();
+            dtpNacimiento = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelIzquierda.SuspendLayout();
             panelDerecha.SuspendLayout();
@@ -199,7 +217,7 @@ namespace AdministracionPolideportivo.CPresentacion
             btnAgregar.BackColor = Color.LimeGreen;
             btnAgregar.Font = new Font("Segoe UI", 10F);
             btnAgregar.ForeColor = Color.White;
-            btnAgregar.Location = new Point(107, 275);
+            btnAgregar.Location = new Point(71, 307);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(146, 41);
             btnAgregar.TabIndex = 0;
@@ -247,7 +265,7 @@ namespace AdministracionPolideportivo.CPresentacion
             cbSexo.ForeColor = Color.White;
             cbSexo.FormattingEnabled = true;
             cbSexo.Items.AddRange(new object[] { "Hombre", "Mujer" });
-            cbSexo.Location = new Point(72, 236);
+            cbSexo.Location = new Point(73, 249);
             cbSexo.Name = "cbSexo";
             cbSexo.Size = new Size(144, 23);
             cbSexo.TabIndex = 0;
@@ -257,7 +275,7 @@ namespace AdministracionPolideportivo.CPresentacion
             lblSexo.AutoSize = true;
             lblSexo.Font = new Font("Segoe UI", 13F);
             lblSexo.ForeColor = Color.White;
-            lblSexo.Location = new Point(12, 233);
+            lblSexo.Location = new Point(13, 246);
             lblSexo.Name = "lblSexo";
             lblSexo.Size = new Size(54, 25);
             lblSexo.TabIndex = 7;
@@ -265,9 +283,12 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             // panelIzquierda
             // 
+            panelIzquierda.Controls.Add(dtpNacimiento);
+            panelIzquierda.Controls.Add(lblNacimiento);
+            panelIzquierda.Controls.Add(txtPass);
+            panelIzquierda.Controls.Add(lblPass);
             panelIzquierda.Controls.Add(txtDNI);
             panelIzquierda.Controls.Add(lblDNI);
-            panelIzquierda.Controls.Add(btnAgregar);
             panelIzquierda.Controls.Add(lblNombre);
             panelIzquierda.Controls.Add(lblTipo);
             panelIzquierda.Controls.Add(txtNombre);
@@ -278,8 +299,28 @@ namespace AdministracionPolideportivo.CPresentacion
             panelIzquierda.Controls.Add(txtTelefono);
             panelIzquierda.Location = new Point(12, 12);
             panelIzquierda.Name = "panelIzquierda";
-            panelIzquierda.Size = new Size(360, 319);
+            panelIzquierda.Size = new Size(360, 382);
             panelIzquierda.TabIndex = 8;
+            // 
+            // txtPass
+            // 
+            txtPass.BackColor = SystemColors.WindowFrame;
+            txtPass.ForeColor = Color.White;
+            txtPass.Location = new Point(136, 279);
+            txtPass.Name = "txtPass";
+            txtPass.Size = new Size(151, 23);
+            txtPass.TabIndex = 7;
+            // 
+            // lblPass
+            // 
+            lblPass.AutoSize = true;
+            lblPass.Font = new Font("Segoe UI", 13F);
+            lblPass.ForeColor = Color.White;
+            lblPass.Location = new Point(11, 277);
+            lblPass.Name = "lblPass";
+            lblPass.Size = new Size(101, 25);
+            lblPass.TabIndex = 6;
+            lblPass.Text = "Contraseña";
             // 
             // panelDerecha
             // 
@@ -287,17 +328,18 @@ namespace AdministracionPolideportivo.CPresentacion
             panelDerecha.Controls.Add(btnImagen);
             panelDerecha.Controls.Add(pictureBox1);
             panelDerecha.Controls.Add(cbSexo);
+            panelDerecha.Controls.Add(btnAgregar);
             panelDerecha.Controls.Add(lblSexo);
             panelDerecha.Location = new Point(378, 12);
             panelDerecha.Name = "panelDerecha";
-            panelDerecha.Size = new Size(287, 319);
+            panelDerecha.Size = new Size(287, 382);
             panelDerecha.TabIndex = 9;
             // 
             // txtImagen
             // 
             txtImagen.BackColor = SystemColors.WindowFrame;
             txtImagen.ForeColor = Color.White;
-            txtImagen.Location = new Point(12, 153);
+            txtImagen.Location = new Point(22, 158);
             txtImagen.Name = "txtImagen";
             txtImagen.ReadOnly = true;
             txtImagen.Size = new Size(210, 23);
@@ -308,7 +350,7 @@ namespace AdministracionPolideportivo.CPresentacion
             btnImagen.BackColor = Color.DimGray;
             btnImagen.Font = new Font("Segoe UI", 10F);
             btnImagen.ForeColor = Color.White;
-            btnImagen.Location = new Point(13, 182);
+            btnImagen.Location = new Point(23, 187);
             btnImagen.MaximumSize = new Size(146, 41);
             btnImagen.Name = "btnImagen";
             btnImagen.Size = new Size(146, 41);
@@ -320,6 +362,26 @@ namespace AdministracionPolideportivo.CPresentacion
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // lblNacimiento
+            // 
+            lblNacimiento.AutoSize = true;
+            lblNacimiento.Font = new Font("Segoe UI", 15F);
+            lblNacimiento.ForeColor = Color.White;
+            lblNacimiento.Location = new Point(11, 332);
+            lblNacimiento.Name = "lblNacimiento";
+            lblNacimiento.Size = new Size(113, 28);
+            lblNacimiento.TabIndex = 8;
+            lblNacimiento.Text = "Nacimiento";
+            lblNacimiento.Click += labelFormulario1_Click_1;
+            // 
+            // dtpNacimiento
+            // 
+            dtpNacimiento.Format = DateTimePickerFormat.Short;
+            dtpNacimiento.Location = new Point(130, 337);
+            dtpNacimiento.Name = "dtpNacimiento";
+            dtpNacimiento.Size = new Size(200, 23);
+            dtpNacimiento.TabIndex = 9;
             // 
             // agregarUsuario
             // 
@@ -399,11 +461,23 @@ namespace AdministracionPolideportivo.CPresentacion
                  // Usuario nuevoUsuario = new Usuario(dni, txtNombre.Text, txtApellido.Text, telefono, comboBoxEstandar1.SelectedItem.ToString(), comboBoxEstandar2.SelectedItem.ToString());
                  // baseDeDatos.AgregarUsuario(nuevoUsuario);
 
-                    // Mensaje de éxito
-                    MessageBox.Show("Usuario agregado exitosamente.");
+                    ImageConverter converter = new ImageConverter();
+                    byte[] imagen = (byte[])converter.ConvertTo(new Bitmap(selectedFile), typeof(byte[]));
+                   
+                    // Crea el cliente y llama a la capa de datos
+                    /*Usuario usuario = new Usuario(txtNombre.Text, txtApellido.Text, cbTipo.SelectedItem, txtPass.Text, Int32.Parse(txtDNI.Text),
+                        dtpNacimiento.Value,DateTime.Today,txtTelefono.Text,txtPass.Text, imagen,cbSexo.Text);
+                    int resultado = DALUsuario.AgregarUsuario(usuario);*/
 
-                    // Limpiar los campos después de agregar el usuario
-                    LimpiarCampos();
+                    /*if (resultado > 0)
+                    {
+                        MessageBox.Show("Usuario agregado exitosamente.");
+                        LimpiarCampos(); // Limpia los campos después de agregar el cliente
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al agregar el usuario.");
+                    }*/
                 }
 
             }
@@ -448,6 +522,11 @@ namespace AdministracionPolideportivo.CPresentacion
         private void agregarUsuario_Resize(object sender, EventArgs e)
         {
             UbicarElementos();
+        }
+
+        private void labelFormulario1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

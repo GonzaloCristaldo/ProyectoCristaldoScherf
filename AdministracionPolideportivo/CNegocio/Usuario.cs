@@ -10,7 +10,43 @@ namespace AdministracionPolideportivo.CNegocio
 {
     internal class Usuario : EntidadDataGridView
     {
+        public Usuario(string nombreUsuario, string apellidoUsuario, TipoUsuario tipoUsuario, string passUsuario, int dniUsuario, DateTime fechaNacimiento, DateTime fechaIngreso, string telefono, string pass, byte[] foto)
+        {
+            this.nombreUsuario = nombreUsuario;
+            this.apellidoUsuario = apellidoUsuario;
+            this.tipoUsuario = tipoUsuario;
+            this.passUsuario = passUsuario;
+            DniUsuario = dniUsuario;
+            this.fechaNacimiento = fechaNacimiento;
+            this.fechaIngreso = fechaIngreso;
+            Telefono = telefono;
+            this.pass = pass;
+            this.foto = foto;
+            this.sexo = sexo;
+        }
 
+        public Usuario(int idUsuario, string nombreUsuario, string apellidoUsuario, TipoUsuario tipoUsuario, string passUsuario, int dniUsuario, DateTime fechaNacimiento, DateTime fechaIngreso, string telefono, string pass, byte[] foto, String sexo)
+        {
+            this.idUsuario = idUsuario;
+            this.nombreUsuario = nombreUsuario;
+            this.apellidoUsuario = apellidoUsuario;
+            this.tipoUsuario = tipoUsuario;
+            this.passUsuario = passUsuario;
+            DniUsuario = dniUsuario;
+            this.fechaNacimiento = fechaNacimiento;
+            this.fechaIngreso = fechaIngreso;
+            Telefono = telefono;
+            this.pass = pass;
+            this.foto = foto;
+            this.sexo = sexo;
+        }
+
+        public Usuario()
+        {
+
+        }
+
+        public String sexo {  get; set; }
         public int idUsuario {  get; set; }
         public string nombreUsuario { get; set; }
         public string apellidoUsuario { get; set; }
@@ -20,12 +56,14 @@ namespace AdministracionPolideportivo.CNegocio
         private String passUsuario { get; set; }
 
         public int DniUsuario { get; set; }
-        public DateOnly fechaNacimiento { get; set; }
-        public DateOnly fechaIngreso {  get; set; }
+        public DateTime fechaNacimiento { get; set; }
+        public DateTime fechaIngreso {  get; set; }
 
         public String Telefono {  get; set; }
 
         public String pass {  get; set; }
+
+        public byte[] foto { get; set; }
 
         public static void EditarEntidad(Usuario usuario)
         {
@@ -38,6 +76,7 @@ namespace AdministracionPolideportivo.CNegocio
             popUp.txtTelefono.Text = usuario.Telefono.ToString();
             popUp.cbSexo.Text = "Masculino";
             popUp.cbTipo.Text = usuario.tipoUsuario.NombreTipoUsuario;
+            //TODO agregar imagen (foto del usuario) desde la db al picturebox
             popUp.ShowDialog();
         }
 
