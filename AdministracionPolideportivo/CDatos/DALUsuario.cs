@@ -68,7 +68,7 @@ namespace AdministracionPolideportivo.CDatos
                         usuario.apellidoUsuario = lector.GetString(3);
                         usuario.pass = lector.GetString(6);
                         usuario.Telefono = lector.GetString(7);
-                        usuario.tipoUsuario = new TipoUsuario(lector.GetString(8));
+                        //usuario.tipoUsuario = new TipoUsuario(lector.GetString(8));
 
                         // Asignación del tipo de usuario
                         TipoUsuario tipo = new TipoUsuario(-1, "error");
