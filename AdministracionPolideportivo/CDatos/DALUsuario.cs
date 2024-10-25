@@ -121,8 +121,20 @@ namespace AdministracionPolideportivo.CDatos
 
                 while (lector.Read())
                 {
-                    Stream stream=lector.GetStream(2);
-                    byte[] foto = new byte[stream.];
+                    Stream stream=lector.GetStream(2); 
+
+                    byte[] foto = new byte[stream.Length];
+
+                    for(int i = 0; i < foto.Length;i++)
+                    {   
+                        int byteLeido = stream.ReadByte();
+                        if (byteLeido != -1)
+                        {
+                            foto[i]= (byte)byteLeido;
+                        }
+                        
+                    }
+
                     Usuario usuario = new Usuario(lector.GetInt32(0),lector.GetString(3), lector.GetString(4), DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),lector.GetInt32(1),lector.GetDateTime(6), lector.GetDateTime(5),lector.GetString(8), lector.GetString(7), foto,lector.GetString(10));
                     lista.Add(usuario);
                 }

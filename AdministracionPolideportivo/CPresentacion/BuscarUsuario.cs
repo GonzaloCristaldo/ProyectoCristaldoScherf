@@ -1,4 +1,5 @@
-﻿using AdministracionPolideportivo.CNegocio;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace AdministracionPolideportivo.CPresentacion
             tablaDatos1.setDatoModelo(new Usuario());
         }
 
-       
+
         private TablaDatos tablaDatos1;
 
 
@@ -47,8 +48,9 @@ namespace AdministracionPolideportivo.CPresentacion
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(146, 41);
             btnBuscar.TabIndex = 0;
-            btnBuscar.Text = "Buscar Cliente";
+            btnBuscar.Text = "Buscar Usuario";
             btnBuscar.UseVisualStyleBackColor = false;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // cbBuscar
             // 
@@ -76,9 +78,9 @@ namespace AdministracionPolideportivo.CPresentacion
             labelFormulario1.ForeColor = Color.White;
             labelFormulario1.Location = new Point(321, 9);
             labelFormulario1.Name = "labelFormulario1";
-            labelFormulario1.Size = new Size(173, 28);
+            labelFormulario1.Size = new Size(180, 28);
             labelFormulario1.TabIndex = 1;
-            labelFormulario1.Text = "Buscar Cliente por:";
+            labelFormulario1.Text = "Buscar Usuario por:";
             // 
             // BuscarUsuario
             // 
@@ -100,5 +102,15 @@ namespace AdministracionPolideportivo.CPresentacion
         private ComboBoxEstandar cbBuscar;
         private Texto txtBuscar;
         private LabelFormulario labelFormulario1;
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            List<Usuario> resultadoBusqueda = DALUsuario.ListarUsuarios();
+            tablaDatos1.Rows.Clear();
+            for (int i = 0; i < resultadoBusqueda.Count; i++)
+            {
+                resultadoBusqueda[i].CargarEnTabla(tablaDatos1);
+            }
+        }
     }
 }
