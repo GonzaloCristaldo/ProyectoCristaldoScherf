@@ -16,14 +16,15 @@ namespace AdministracionPolideportivo.CPresentacion
     {
         public agregarUsuario()
         {
+            
 
             InitializeComponent();
             UbicarElementos();
             //TODO traer tipos de la db y cargar en el combo box
-
             List<TipoUsuario> tipos=DALTipoUsuario.ListarTiposDeUsuario();
             cbTipo.DataSource = tipos;
             cbTipo.DataContext = tipos;
+            
             
         }
 
@@ -104,7 +105,7 @@ namespace AdministracionPolideportivo.CPresentacion
         private BotonFormulario btnImagen;
         private OpenFileDialog openFileDialog1;
         public TextoNumerico txtDNI;
-        public TextoNumerico txtPass;
+        public Texto txtPass;
         private LabelFormulario lblPass;
         private LabelFormulario lblNacimiento;
         private DateTimePicker dtpNacimiento;
@@ -128,7 +129,7 @@ namespace AdministracionPolideportivo.CPresentacion
             cbSexo = new ComboBoxEstandar();
             lblSexo = new LabelFormulario();
             panelIzquierda = new Panel();
-            txtPass = new TextoNumerico();
+            txtPass = new Texto();
             lblPass = new LabelFormulario();
             panelDerecha = new Panel();
             txtImagen = new Texto();
@@ -466,21 +467,17 @@ namespace AdministracionPolideportivo.CPresentacion
                                      "Confirmar alta de usuario",
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (confirmResult == DialogResult.Yes)
-                {//Para la BDD, 2da entrega
-                 // Usuario nuevoUsuario = new Usuario(dni, txtNombre.Text, txtApellido.Text, telefono, comboBoxEstandar1.SelectedItem.ToString(), comboBoxEstandar2.SelectedItem.ToString());
-                 // baseDeDatos.AgregarUsuario(nuevoUsuario);
-
+                {
                     ImageConverter converter = new ImageConverter();
                     byte[] imagen = (byte[])converter.ConvertTo(new Bitmap(selectedFile), typeof(byte[]));
 
                     
-
                     // Crea el usuario y llama a la capa de datos
-                    Usuario usuario = new Usuario(txtNombre.Text, txtApellido.Text, cbTipo.SelectedValue, txtPass.Text, Int32.Parse(txtDNI.Text),
+                    Usuario usuario = new Usuario(txtNombre.Text, txtApellido.Text, (TipoUsuario)cbTipo.SelectedValue, txtPass.Text, Int32.Parse(txtDNI.Text),
                         dtpNacimiento.Value,DateTime.Today,txtTelefono.Text, imagen,cbSexo.Text);
                     int resultado = DALUsuario.AgregarUsuario(usuario);
 
-                    /*if (resultado > 0)
+                    if (resultado > 0)
                     {
                         MessageBox.Show("Usuario agregado exitosamente.");
                         LimpiarCampos(); // Limpia los campos después de agregar el cliente
@@ -488,7 +485,7 @@ namespace AdministracionPolideportivo.CPresentacion
                     else
                     {
                         MessageBox.Show("Error al agregar el usuario.");
-                    }*/
+                    }
                 }
 
             }

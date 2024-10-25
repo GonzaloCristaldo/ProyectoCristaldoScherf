@@ -71,12 +71,12 @@ namespace AdministracionPolideportivo.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Byte[].
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] usuario_default {
+        internal static System.Drawing.Bitmap usuario_default {
             get {
                 object obj = ResourceManager.GetObject("usuario_default", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

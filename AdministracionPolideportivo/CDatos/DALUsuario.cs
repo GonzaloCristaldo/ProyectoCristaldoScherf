@@ -11,19 +11,24 @@ namespace AdministracionPolideportivo.CDatos
 {
     internal class DALUsuario
     {
-
-        public static int AgregarCliente(Usuario usuario)
+        //FALTA AGREGAR LA IMAGEN A LA BDD Y EN ESTE SCRIPT
+        public static int AgregarUsuario(Usuario usuario)
         {
-
+           
             int resultado = 0;
 
             using (SqlConnection conexion = ConexionDB.GetConexion())
             {
                 String fechaNacimiento = "'" + usuario.fechaNacimiento.Year + "-" + usuario.fechaNacimiento.Month + "-" + usuario.fechaNacimiento.Day + "'";
                 String fechaIngreso ="'"+usuario.fechaIngreso.Year+"-"+usuario.fechaIngreso.Month+"-"+usuario.fechaIngreso.Day+"'";
-                String query = "insert into Usuario (DNI_Usuario,Nombre_Usuario,Apellido_Usuario,Fecha_Ingreso,Fecha_Nacimiento,pass,telefono,Id_Tipo) values (" + usuario.DniUsuario + ",'" + usuario.nombreUsuario + "','" + usuario.apellidoUsuario +
-                    ","+fechaIngreso+","+fechaNacimiento+
-                    ",'"+usuario.pass+"','" +usuario.Telefono + "',"+usuario.tipoUsuario.idTipoUsuario + ");";
+                String query = "insert into Usuario (DNI_Usuario,Nombre_Usuario,Apellido_Usuario,Fecha_Ingreso,Fecha_Nacimiento,pass,telefono,Id_Tipo,Sexo_Usuario) values (" + usuario.DniUsuario + ",'" + usuario.nombreUsuario + "','" + usuario.apellidoUsuario +
+                    "',"+fechaIngreso+","+fechaNacimiento+
+                    ",'"+usuario.pass+"','" +usuario.Telefono + "',"+usuario.tipoUsuario.idTipoUsuario +",'"+usuario.sexo+ "');";
+
+                /*String query = "insert into Cliente (dni_cliente,nombre_cliente,apellido_cliente,telefono_cliente) values (" +
+                        cliente.DniCliente + ",'" + cliente.NombreCliente + "','" + cliente.ApellidoCliente + "','" + cliente.Telefono + "');";*/
+
+
                 SqlCommand comando = new SqlCommand(query, conexion);
                 resultado = comando.ExecuteNonQuery();
             }
@@ -103,6 +108,29 @@ namespace AdministracionPolideportivo.CDatos
             }
         }
 
+
+        public static List<Usuario> ListarUsuarios()
+        {
+            List<Usuario> lista = new List<Usuario>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Usuario";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Stream stream=lector.GetStream(2);
+                    byte[] foto = new byte[stream.];
+                    Usuario usuario = new Usuario(lector.GetInt32(0),lector.GetString(3), lector.GetString(4), DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),lector.GetInt32(1),lector.GetDateTime(6), lector.GetDateTime(5),lector.GetString(8), lector.GetString(7), foto,lector.GetString(10));
+                    lista.Add(usuario);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
 
     }
 }
