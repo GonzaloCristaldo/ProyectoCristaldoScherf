@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdministracionPolideportivo.CNegocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,9 +26,12 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
             }
 
         }
-        public vistaSuperAdmin()
-        {
 
+        Usuario usuario;
+
+        public vistaSuperAdmin(Usuario usuario)
+        {
+            this.usuario = usuario;
             InitializeComponent();
             contadorOpciones = 0;
             //tablaOpciones.Width = panelOpciones.Width;

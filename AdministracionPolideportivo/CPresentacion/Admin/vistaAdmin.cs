@@ -1,4 +1,5 @@
-﻿using AdministracionPolideportivo.CPresentacion.Recepcionista;
+﻿using AdministracionPolideportivo.CNegocio;
+using AdministracionPolideportivo.CPresentacion.Recepcionista;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,12 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
 
         }
-        public VistaAdmin()
-        {
 
+        Usuario usuario;
+
+        public VistaAdmin(Usuario usuario)
+        {
+            this.usuario = usuario;
             InitializeComponent();
             contadorOpciones = 0;
             //tablaOpciones.Width = panelOpciones.Width;
