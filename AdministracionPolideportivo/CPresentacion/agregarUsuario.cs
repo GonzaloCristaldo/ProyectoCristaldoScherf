@@ -507,6 +507,8 @@ namespace AdministracionPolideportivo.CPresentacion
             cbTipo.SelectedIndex = -1; // Desmarcar selección
             cbSexo.SelectedIndex = -1; // Desmarcar selección
             txtImagen.Clear();
+            txtPass.Clear();
+            dtpNacimiento.ResetText();
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
         }
 

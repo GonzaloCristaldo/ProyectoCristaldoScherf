@@ -81,7 +81,32 @@ namespace AdministracionPolideportivo.CDatos
 
             return lista;
         }
+
+        //consultas por campo
+        public static List<Cliente> BuscarPorID(String input)
+        {
+            List<Cliente> lista = new List<Cliente>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Cliente where id_cliente = "+input+";";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Cliente cliente = new Cliente(lector.GetInt32(0), lector.GetInt32(1), lector.GetString(2), lector.GetString(3), lector.GetString(4));
+                    lista.Add(cliente);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
     }
+
+
+
 
 
 }

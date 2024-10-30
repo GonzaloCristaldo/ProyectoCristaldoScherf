@@ -1,6 +1,7 @@
 ﻿using AdministracionPolideportivo.CDatos;
 using AdministracionPolideportivo.CNegocio;
 using AdministracionPolideportivo.CPresentacion.Recepcionista;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,7 +103,7 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar.BackColor = SystemColors.WindowFrame;
             cbBuscar.ForeColor = Color.White;
             cbBuscar.FormattingEnabled = true;
-            cbBuscar.Items.AddRange(new object[] { "ID", "DNI", "Nombre", "Apellido", "Telefono" });
+            cbBuscar.Items.AddRange(new object[] { "ID", "DNI", "Nombre", "Apellido", "Telefono", "Listar Clientes" });
             cbBuscar.Location = new Point(232, 12);
             cbBuscar.Name = "cbBuscar";
             cbBuscar.Size = new Size(183, 23);
@@ -188,16 +189,49 @@ namespace AdministracionPolideportivo.CPresentacion
 
         }
 
+        private void cargarResultado()
+        {
+
+        }
+
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            /*new Cliente(1,43822713,"Lucas Daniel","Scherf","3794 - 123456").CargarEnTabla(tablaClientes);*/
-            //new Cliente(, "Lucas Daniel", "Scherf", "3794 - 123456").CargarEnTabla(tabla);
-            List<Cliente> resultadoBusqueda = DALCliente.ListarClientes();
-            tabla.Rows.Clear();
-            for (int i=0; i<resultadoBusqueda.Count;i++)
+            List<Cliente> resultadoBusqueda=new List<Cliente>();
+            if (txtBuscar.Text.IsNullOrEmpty() && !cbBuscar.Text.Equals("Listar Clientes"))
             {
-                resultadoBusqueda[i].CargarEnTabla(tabla);
+                if (cbBuscar.Text.Equals("ID"))
+                {
+                    resultadoBusqueda = DALCliente.BuscarPorID(txtBuscar.Text);
+                }/*else if (cbBuscar.Text.Equals("DNI"))
+                {
+                    resultadoBusqueda = DALCliente.BuscarPorDNI(txtBuscar.Text);
+                }
+                else if (cbBuscar.Text.Equals("Nombre"))
+                {
+                    resultadoBusqueda = DALCliente.BuscarPorNombre(txtBuscar.Text);
+                }
+                else if (cbBuscar.Text.Equals("Apellido"))
+                {
+                    resultadoBusqueda = DALCliente.BuscarPorApellido(txtBuscar.Text);
+                }
+                else if (cbBuscar.Text.Equals("Telefono"))
+                {
+                    resultadoBusqueda = DALCliente.BuscarPorTelefono(txtBuscar.Text);
+                }*/
+            }else
+            {
+                resultadoBusqueda = DALCliente.ListarClientes();
+               
             }
+            
+             tabla.Rows.Clear();
+             for (int i = 0; i < resultadoBusqueda.Count; i++)
+             {
+                 resultadoBusqueda[i].CargarEnTabla(tabla);
+             }
+
         }
     }
+
+
 }
