@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using AdministracionPolideportivo.CNegocio;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AdministracionPolideportivo.CDatos;
+
 
 namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 {
@@ -20,6 +23,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             anchoPaneles = (this.Width / 2) - 50;
             ubiPanel2 += anchoPaneles + 30;
             UbicarControles();
+            cbTipo.DataSource = DALTipoRecinto.ListarTiposRecinto();
         }
 
         int anchoPaneles;
@@ -130,7 +134,15 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                                      "Confirmar alta de recinto",
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (confirmResult == DialogResult.Yes)
-                { }
+                {
+                    Recinto recinto = new Recinto();
+                    recinto.TarifaHora = Int32.Parse(txtTarifa.Text);
+                    recinto.estado = DALEstado.BuscarEstado("funcionando");
+                    recinto.tipoRecinto = (TipoRecinto)cbTipo.SelectedItem;
+                    recinto.Ubicacion = txtUbicacion.Text;
+                    recinto.NroRecinto = Int32.Parse(txtNumCancha.Text);
+                    DALRecinto.AgregarRecinto(recinto);
+                }
             }
         }
 
