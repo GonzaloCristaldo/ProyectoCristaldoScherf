@@ -15,6 +15,15 @@ namespace AdministracionPolideportivo.CPresentacion
         {
             InitializeComponent();
             tablaDatos1.setDatoModelo(new Usuario());
+
+            byte[] imageData= DALUsuario.pruebaFoto();
+            Bitmap bmp;
+            using (var ms = new MemoryStream(imageData))
+            {
+                bmp = new Bitmap(ms);
+            }
+
+            fotoUsuario.Image = bmp;
         }
 
 
@@ -28,14 +37,18 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar = new ComboBoxEstandar();
             txtBuscar = new Texto();
             labelFormulario1 = new LabelFormulario();
+            fotoUsuario = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)tablaDatos1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)fotoUsuario).BeginInit();
             SuspendLayout();
             // 
             // tablaDatos1
             // 
             tablaDatos1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tablaDatos1.Location = new Point(12, 159);
+            tablaDatos1.MultiSelect = false;
             tablaDatos1.Name = "tablaDatos1";
+            tablaDatos1.ReadOnly = true;
             tablaDatos1.Size = new Size(776, 279);
             tablaDatos1.TabIndex = 0;
             // 
@@ -82,10 +95,19 @@ namespace AdministracionPolideportivo.CPresentacion
             labelFormulario1.TabIndex = 1;
             labelFormulario1.Text = "Buscar Usuario por:";
             // 
+            // fotoUsuario
+            // 
+            fotoUsuario.Location = new Point(584, 9);
+            fotoUsuario.Name = "fotoUsuario";
+            fotoUsuario.Size = new Size(154, 144);
+            fotoUsuario.TabIndex = 2;
+            fotoUsuario.TabStop = false;
+            // 
             // BuscarUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(800, 450);
+            Controls.Add(fotoUsuario);
             Controls.Add(labelFormulario1);
             Controls.Add(txtBuscar);
             Controls.Add(cbBuscar);
@@ -94,6 +116,7 @@ namespace AdministracionPolideportivo.CPresentacion
             MinimumSize = new Size(800, 450);
             Name = "BuscarUsuario";
             ((System.ComponentModel.ISupportInitialize)tablaDatos1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)fotoUsuario).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -112,5 +135,7 @@ namespace AdministracionPolideportivo.CPresentacion
                 resultadoBusqueda[i].CargarEnTabla(tablaDatos1);
             }
         }
+
+        private PictureBox fotoUsuario;
     }
 }

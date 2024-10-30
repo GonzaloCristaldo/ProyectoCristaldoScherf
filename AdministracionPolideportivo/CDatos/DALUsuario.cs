@@ -6,12 +6,63 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Collections;
+using System.Data;
 
 namespace AdministracionPolideportivo.CDatos
 {
     internal class DALUsuario
     {
-        //FALTA AGREGAR LA IMAGEN A LA BDD Y EN ESTE SCRIPT
+       
+
+        public static byte[] pruebaFoto()
+        {
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                const string statement = "SELECT [foto_usuario] FROM usuario  WHERE id_Usuario = 8;";
+
+                using (var cmd = new SqlCommand() { Connection = conexion, CommandText = statement })
+                {
+
+                    try
+                    {
+                        conexion.Open();
+
+                        var reader = cmd.ExecuteReader();
+                        conexion.Close();
+
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+
+                            // the blob column
+                            var fieldOrdinal = reader.GetOrdinal("foto_usuario");
+
+                            var blob = new byte[(reader.GetBytes(
+                                fieldOrdinal, 0,
+                                null, 0,
+                                int.MaxValue))];
+
+                            reader.GetBytes(fieldOrdinal, 0, blob, 0, blob.Length);
+
+                            
+                            return blob;
+
+                        }
+
+
+                    }
+
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return new byte[0];
+
+                    }
+                }
+            }
+            return new byte[0];
+        }
+
         public static int AgregarUsuario(Usuario usuario)
         {
            
@@ -19,17 +70,27 @@ namespace AdministracionPolideportivo.CDatos
 
             using (SqlConnection conexion = ConexionDB.GetConexion())
             {
+
+               /**/
+
+
                 String fechaNacimiento = "'" + usuario.fechaNacimiento.Year + "-" + usuario.fechaNacimiento.Month + "-" + usuario.fechaNacimiento.Day + "'";
                 String fechaIngreso ="'"+usuario.fechaIngreso.Year+"-"+usuario.fechaIngreso.Month+"-"+usuario.fechaIngreso.Day+"'";
-                String query = "insert into Usuario (DNI_Usuario,Nombre_Usuario,Apellido_Usuario,Fecha_Ingreso,Fecha_Nacimiento,pass,telefono,Id_Tipo,Sexo_Usuario) values (" + usuario.DniUsuario + ",'" + usuario.nombreUsuario + "','" + usuario.apellidoUsuario +
-                    "',"+fechaIngreso+","+fechaNacimiento+
+                String query = "insert into Usuario (DNI_Usuario,Nombre_Usuario,foto_usuario,Apellido_Usuario,Fecha_Ingreso,Fecha_Nacimiento,pass,telefono,Id_Tipo,Sexo_Usuario) values (" + 
+                    usuario.DniUsuario + ",'" + usuario.nombreUsuario + "',@foto,'"//AQUI HAY QUE CONVERTIR LA FOTO QUE ESTA EN BYTE[] A VARBINARY PARA LA INSERCION EN LA DB
+                    + usuario.apellidoUsuario + "',"+fechaIngreso+","+fechaNacimiento+
                     ",'"+usuario.pass+"','" +usuario.Telefono + "',"+usuario.tipoUsuario.idTipoUsuario +",'"+usuario.sexo+ "');";
+
+
+                
 
                 /*String query = "insert into Cliente (dni_cliente,nombre_cliente,apellido_cliente,telefono_cliente) values (" +
                         cliente.DniCliente + ",'" + cliente.NombreCliente + "','" + cliente.ApellidoCliente + "','" + cliente.Telefono + "');";*/
 
 
                 SqlCommand comando = new SqlCommand(query, conexion);
+                    comando.Parameters.Add("@foto",
+                        SqlDbType.VarBinary, usuario.foto.Length).Value = usuario.foto;
                 resultado = comando.ExecuteNonQuery();
             }
 

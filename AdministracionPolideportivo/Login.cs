@@ -75,19 +75,19 @@ namespace AdministracionPolideportivo
                 // Mostrar el menú correspondiente según el tipo de usuario
                 if (usuario.tipoUsuario.NombreTipoUsuario.Equals("Administrador"))
                 {
-                    VistaAdmin menu = new VistaAdmin();
+                    VistaAdmin menu = new VistaAdmin(usuario);
                     menu.Show();
                     this.Hide();
                 }
                 else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("Recepcionista"))
                 {
-                    vistaRecepcionista menu = new vistaRecepcionista();
+                    vistaRecepcionista menu = new vistaRecepcionista(usuario);
                     menu.Show();
                     this.Hide();
                 }
                 else if (usuario.tipoUsuario.NombreTipoUsuario.Equals("SuperAdministrador"))
                 {
-                    vistaSuperAdmin menu = new vistaSuperAdmin();
+                    vistaSuperAdmin menu = new vistaSuperAdmin(usuario);
                     menu.Show();
                     this.Hide();
                 }
@@ -112,18 +112,14 @@ namespace AdministracionPolideportivo
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            vistaRecepcionista menu = new vistaRecepcionista();
-            menu.Show();
-        }
 
-        private void button2_Click(object sender, EventArgs e)
+
+        /*private void button2_Click(object sender, EventArgs e)
         {
             VistaAdmin menu = new VistaAdmin();
             //menu.SetUsuario();
             menu.Show();
-        }
+        }*/
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -154,12 +150,12 @@ namespace AdministracionPolideportivo
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        /*private void button4_Click(object sender, EventArgs e)
         {
 
             vistaSuperAdmin menu = new vistaSuperAdmin();
             menu.Show();
-        }
+        }*/
 
         private void texto2_TextChanged(object sender, EventArgs e)
         {
@@ -173,7 +169,7 @@ namespace AdministracionPolideportivo
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            VistaAdmin menu = new VistaAdmin();
+            VistaAdmin menu = new VistaAdmin(DALUsuario.Login(1234,"admin"));
             //menu.SetUsuario();
             menu.Show();
         }
