@@ -91,7 +91,7 @@ namespace AdministracionPolideportivo.CNegocio
             Telefono,tipoUsuario.NombreTipoUsuario,fechaIngreso.ToString(),fechaNacimiento.ToString()];
             tabla.Rows.Add(datosUsuario);
             TablaBoton boton = new TablaBoton(this);
-            int filaBoton = tabla.RowCount - 2;
+            int filaBoton = tabla.RowCount - 1;
             tabla.Rows[filaBoton].Cells[datosUsuario.Length] = boton;
 
             void clickeado(Object sender, DataGridViewCellEventArgs e)

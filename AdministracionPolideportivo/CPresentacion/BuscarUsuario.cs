@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
@@ -15,20 +16,12 @@ namespace AdministracionPolideportivo.CPresentacion
         {
             InitializeComponent();
             tablaDatos1.setDatoModelo(new Usuario());
-
-            /*byte[] imageData= DALUsuario.pruebaFoto();
-            Bitmap bmp;
-            using (var ms = new MemoryStream(imageData))
-            {
-                bmp = new Bitmap(ms);
-            }
-
-            fotoUsuario.Image = bmp;*/
+            fotoUsuario.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
 
         private TablaDatos tablaDatos1;
-
+        private PictureBox fotoUsuario;
 
         private void InitializeComponent()
         {
@@ -44,6 +37,8 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             // tablaDatos1
             // 
+            tablaDatos1.AllowUserToAddRows = false;
+            tablaDatos1.AllowUserToDeleteRows = false;
             tablaDatos1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tablaDatos1.Location = new Point(12, 159);
             tablaDatos1.MultiSelect = false;
@@ -51,6 +46,7 @@ namespace AdministracionPolideportivo.CPresentacion
             tablaDatos1.ReadOnly = true;
             tablaDatos1.Size = new Size(776, 279);
             tablaDatos1.TabIndex = 0;
+            tablaDatos1.SelectionChanged += tablaDatos1_SelectionChanged;
             // 
             // btnBuscar
             // 
@@ -136,6 +132,19 @@ namespace AdministracionPolideportivo.CPresentacion
             }
         }
 
-        private PictureBox fotoUsuario;
+        
+
+        private void tablaDatos1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (tablaDatos1.SelectedRows.Count > 0)
+            {
+                // Obtén el Id del usuario seleccionado de la columna correspondiente
+                int idUsuario = Convert.ToInt32(tablaDatos1.SelectedRows[0].Cells["Id"].Value);
+
+                // Llama al método para cargar y mostrar la foto del usuario
+                
+                fotoUsuario.Image = DALUsuario.TraerFotoUsuario(idUsuario);
+            }
+        }
     }
 }

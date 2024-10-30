@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Data;
+using System.Net;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Windows.Forms;
 
 namespace AdministracionPolideportivo.CDatos
 {
@@ -203,5 +206,46 @@ namespace AdministracionPolideportivo.CDatos
             return lista;
         }
 
+        public static Image TraerFotoUsuario(int idUsuario)
+        {
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                // Consulta utilizando parámetros para evitar inyección de SQL
+                string query = "SELECT foto_usuario FROM Usuario WHERE id_usuario = @id_usuario_p";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@id_usuario_p", idUsuario);
+                try
+                {
+                    byte[] imageData = (byte[])comando.ExecuteScalar();
+                    // Verificar si hay datos
+                    if (imageData.Length>0)
+                    {
+                        // Si hay una imagen, conviértela y muéstrala en el PictureBox
+                        if (imageData != null)
+                        {
+                            using (MemoryStream ms = new MemoryStream(imageData))
+                            {
+                                return Image.FromStream(ms);
+                            }
+                        }
+                        else
+                        {
+                            // Si no hay imagen, limpia el PictureBox
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("id de usuario o imagen invalida.");
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
+            }
+        }
     }
 }
