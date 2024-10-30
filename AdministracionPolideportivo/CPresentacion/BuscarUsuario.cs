@@ -16,14 +16,14 @@ namespace AdministracionPolideportivo.CPresentacion
             InitializeComponent();
             tablaDatos1.setDatoModelo(new Usuario());
 
-            byte[] imageData= DALUsuario.pruebaFoto();
+            /*byte[] imageData= DALUsuario.pruebaFoto();
             Bitmap bmp;
             using (var ms = new MemoryStream(imageData))
             {
                 bmp = new Bitmap(ms);
             }
 
-            fotoUsuario.Image = bmp;
+            fotoUsuario.Image = bmp;*/
         }
 
 

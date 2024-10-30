@@ -119,26 +119,24 @@ namespace AdministracionPolideportivo.CDatos
                 SqlCommand comando = new SqlCommand(query, conexion);
                 comando.Parameters.AddWithValue("@dni", dni);
                 comando.Parameters.AddWithValue("@contraseña", contraseña);
-
                 try
                 {
                     SqlDataReader lector = comando.ExecuteReader();
-
                     // Verificar si hay datos
                     if (lector.Read())
                     {
                         Usuario usuario = new Usuario();
                         usuario.idUsuario = lector.GetInt32(0);
                         usuario.DniUsuario = lector.GetInt32(1);
-                        usuario.nombreUsuario = lector.GetString(2);
-                        usuario.apellidoUsuario = lector.GetString(3);
-                        usuario.pass = lector.GetString(6);
-                        usuario.Telefono = lector.GetString(7);
+                        usuario.nombreUsuario = lector.GetString(3);
+                        usuario.apellidoUsuario = lector.GetString(4);
+                        usuario.pass = lector.GetString(7);
+                        usuario.Telefono = lector.GetString(8);
                         //usuario.tipoUsuario = new TipoUsuario(lector.GetString(8));
 
                         // Asignación del tipo de usuario
                         TipoUsuario tipo = new TipoUsuario(-1, "error");
-                        int tipoUsuario = lector.GetInt32(8);
+                        int tipoUsuario = lector.GetInt32(9);
                         switch (tipoUsuario)
                         {
                             case 1:
