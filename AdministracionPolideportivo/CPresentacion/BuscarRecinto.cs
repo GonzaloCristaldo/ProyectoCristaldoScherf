@@ -24,6 +24,11 @@ namespace AdministracionPolideportivo.CPresentacion
 
         }
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
+
         private BotonFormulario btnBuscar;
         private LabelFormulario lblBuscar;
         private BotonFormulario botonFormulario1;

@@ -17,6 +17,10 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         }
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
         private void InitializeComponent()
         {
             labelFormulario1 = new LabelFormulario();

@@ -14,6 +14,10 @@ namespace AdministracionPolideportivo.CPresentacion
             InitializeComponent();
         }
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
         public void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(listarClienteCheckIn_Out));

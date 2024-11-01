@@ -23,13 +23,19 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             anchoPaneles = (this.Width / 2) - 50;
             ubiPanel2 += anchoPaneles + 30;
             UbicarControles();
-            cbTipo.DataSource = DALTipoRecinto.ListarTiposRecinto();
+            RefrescarCB();
         }
 
         int anchoPaneles;
 
         int ubiPanel1;
         int ubiPanel2;
+
+        override public void RefrescarCB()
+        {
+            cbTipo.DataSource = DALTipoRecinto.ListarTiposRecinto();
+            cbServicioAdicional.DataSource = DALServicioAdicional.ListarServicios();
+        }
 
         private void UbicarControles()
         {

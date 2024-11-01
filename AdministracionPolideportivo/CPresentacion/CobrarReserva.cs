@@ -118,6 +118,11 @@ namespace AdministracionPolideportivo.CPresentacion
             PerformLayout();
         }
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
+
         private LabelFormulario labelFormulario1;
         private BotonFormulario botonFormulario1;
         private DataGridView dataGridView1;

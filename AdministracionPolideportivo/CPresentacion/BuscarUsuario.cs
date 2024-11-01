@@ -21,6 +21,10 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar.SelectedIndex = 5;
         }
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
 
         private TablaDatos tablaDatos1;
         private PictureBox fotoUsuario;

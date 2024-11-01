@@ -44,7 +44,7 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
             AgregarBotonOpcion(new BotonOpcion(new RestaurarBDD(), this, formActual, "Restaurar la BDD"));
 
 
-            BotonOpcion btnSalirSesion = new BotonOpcion(new FormularioEstandar(), this, formActual, "Cerrar Sesion"); ;
+            BotonOpcion btnSalirSesion = new BotonOpcion(new AgregarCliente(), this, formActual, "Cerrar Sesion"); ;
             btnSalirSesion.Click += cerrarForm;
             AgregarBotonOpcion(btnSalirSesion);
         }

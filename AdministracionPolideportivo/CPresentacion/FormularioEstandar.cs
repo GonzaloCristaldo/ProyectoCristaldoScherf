@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,7 +12,7 @@ using System.Windows.Forms;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
-    public partial class FormularioEstandar : Form
+    public abstract partial class FormularioEstandar : Form
     {
         public FormularioEstandar()
         {
@@ -18,5 +20,7 @@ namespace AdministracionPolideportivo.CPresentacion
             this.TopLevel = false;
             this.BackColor = Color.FromArgb(49, 49, 49);
         }
+
+        abstract public void RefrescarCB();
     }
 }

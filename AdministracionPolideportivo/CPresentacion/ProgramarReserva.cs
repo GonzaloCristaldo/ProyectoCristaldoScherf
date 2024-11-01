@@ -20,6 +20,11 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             UbicarControles();
         }
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
+
         int anchoPaneles;
 
         int ubiPanel1;

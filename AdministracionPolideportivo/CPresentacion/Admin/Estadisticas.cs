@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +13,11 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
         public Estadisticas()
         {
             InitializeComponent();
+        }
+
+        override public void RefrescarCB()
+        {
+            //TODO
         }
 
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;

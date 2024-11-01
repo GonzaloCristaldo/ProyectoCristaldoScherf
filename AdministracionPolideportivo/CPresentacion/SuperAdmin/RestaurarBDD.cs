@@ -16,7 +16,10 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 
         }
 
-
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
 
         private void InitializeComponent()
         {

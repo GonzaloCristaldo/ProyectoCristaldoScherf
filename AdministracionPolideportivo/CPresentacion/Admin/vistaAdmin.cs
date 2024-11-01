@@ -50,7 +50,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new Estadisticas(), this, formActual, "Ver estadisticas"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarUsuario(), this, formActual, "Buscar Usuario"));
-            BotonOpcion btnSalirSesion = new BotonOpcion(new FormularioEstandar(), this, formActual, "Cerrar Sesion"); ;
+            BotonOpcion btnSalirSesion = new BotonOpcion(new AgregarCliente(), this, formActual, "Cerrar Sesion"); ;
             btnSalirSesion.Click += cerrarForm;
             AgregarBotonOpcion(btnSalirSesion);
         }

@@ -17,6 +17,11 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private TablaDatos tabla;
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
+
         private void InitializeComponent()
         {
             tabla = new TablaDatos();

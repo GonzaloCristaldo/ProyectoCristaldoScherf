@@ -22,6 +22,10 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             UbicarControles();
         }
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
         private void UbicarControles()
         {
 
@@ -343,7 +347,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (confirmResult == DialogResult.Yes)
                 { // Crea el cliente y llama a la capa de datos
-                    ServicioAdicional servicioAdicional = new ServicioAdicional(0,txtNombre.Text,txtDescripcion.Text,Double.Parse(txtTarifa.Text));
+                    ServicioAdicional servicioAdicional = new ServicioAdicional(0,txtNombre.Text,txtDescripcion.Text,Decimal.Parse(txtTarifa.Text));
                     int resultado = DALServicioAdicional.AgregarServicioAdicional(servicioAdicional);
 
                     if (resultado > 0)

@@ -12,9 +12,9 @@ namespace AdministracionPolideportivo.CPresentacion
         static int caracteresPorLinea = 22;
         String textoBoton;
         Form formularioViejo; // formulario viejo que se debe eliminar al abrir el nuevo formulario
-        Form formularioAsociado; // formulario que debe abrir el boton al ser presionado
+        FormularioEstandar formularioAsociado; // formulario que debe abrir el boton al ser presionado
         VentanaMenu ventana; // ventana a la que pertenece el boton y en la que debe abrir el formulario asociado
-        public BotonOpcion(Form formularioAsociado, VentanaMenu ventana, Form formularioViejo, string textoBoton)
+        public BotonOpcion(FormularioEstandar formularioAsociado, VentanaMenu ventana, Form formularioViejo, string textoBoton)
         {
 
             BackColor = Color.FromArgb(64, 64, 64);
@@ -126,6 +126,9 @@ namespace AdministracionPolideportivo.CPresentacion
 
             
             ventana.actualizarFormulario(formularioAsociado);
+
+            formularioAsociado.RefrescarCB();
+
         }
     }
 }

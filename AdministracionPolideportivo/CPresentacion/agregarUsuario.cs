@@ -28,6 +28,10 @@ namespace AdministracionPolideportivo.CPresentacion
             
         }
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
         private void UbicarElementos()
         {
 

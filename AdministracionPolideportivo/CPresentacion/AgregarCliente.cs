@@ -41,6 +41,11 @@ namespace AdministracionPolideportivo.CPresentacion
         
         int coordenadaXTextbox;
 
+        override public void RefrescarCB()
+        {
+            //TODO
+        }
+
         private void InitializeComponent()
         {
             lblDNI = new LabelFormulario();
