@@ -11,7 +11,7 @@ namespace AdministracionPolideportivo.CNegocio
     internal class ServicioAdicional : EntidadDataGridView
     {
         public ServicioAdicional(int idServicio, string nombreServicio,
-            string descripcionServicio, double precio)
+            string descripcionServicio, decimal precio)
         {
             IdServicio = idServicio;
             NombreServicio = nombreServicio;
@@ -25,7 +25,7 @@ namespace AdministracionPolideportivo.CNegocio
 
         public String DescripcionServicio { get; set; } 
 
-        public double Precio { get; set; }
+        public decimal Precio { get; set; }
 
         public override void CargarEnTabla(TablaDatos tabla)
         {
@@ -47,6 +47,11 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("nombre", "Servicio");
             tabla.Columns.Add("descripcion", "Descripcion");
             tabla.Columns.Add("precio", "Precio");
+        }
+
+        public override string ToString()
+        {
+            return this.NombreServicio;
         }
 
     }

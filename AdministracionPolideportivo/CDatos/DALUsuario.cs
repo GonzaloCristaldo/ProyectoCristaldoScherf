@@ -208,7 +208,6 @@ namespace AdministracionPolideportivo.CDatos
 
         public static Image TraerFotoUsuario(int idUsuario)
         {
-
             using (SqlConnection conexion = ConexionDB.GetConexion())
             {
                 // Consulta utilizando parámetros para evitar inyección de SQL

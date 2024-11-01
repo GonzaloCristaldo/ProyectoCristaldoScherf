@@ -56,5 +56,28 @@ namespace AdministracionPolideportivo.CDatos
             return resultado;
         }
 
+        public static List<ServicioAdicional> ListarServicios()
+        {
+            List<ServicioAdicional> lista = new List<ServicioAdicional>();
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Servicio_Adicional";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    ServicioAdicional servicioAdicional = new ServicioAdicional(lector.GetInt32(0),lector.GetString(1), lector.GetString(2), lector.GetDecimal(3));
+                    lista.Add(servicioAdicional);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
+
+
+
     }
 }

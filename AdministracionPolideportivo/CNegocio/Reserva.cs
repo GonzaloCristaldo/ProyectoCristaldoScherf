@@ -36,7 +36,7 @@ namespace AdministracionPolideportivo.CNegocio
             VerDetalle popUp = new VerDetalle();
             popUp.TopLevel = true;
             popUp.FormBorderStyle = FormBorderStyle.FixedSingle;
-            popUp.tabla.setDatoModelo(new ServicioAdicional(1, "", "", 0.1));
+            popUp.tabla.setDatoModelo(new ServicioAdicional(1, "", "", 0.1m));
             popUp.lblDetalle.Text = "Servicios adicionales de la reserva N° " + reserva.idReserva;
             //TODO
             //cargar datos dinamicamente a la tabla
