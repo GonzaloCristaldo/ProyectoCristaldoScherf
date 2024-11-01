@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
-    public abstract partial class FormularioEstandar : Form
+    public partial class FormularioEstandar : Form, Refrescable
     {
         public FormularioEstandar()
         {
@@ -21,6 +21,14 @@ namespace AdministracionPolideportivo.CPresentacion
             this.BackColor = Color.FromArgb(49, 49, 49);
         }
 
-        abstract public void RefrescarCB();
+        public virtual void RefrescarCB()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        /*{
+            //GENERICO
+        }*/
     }
 }
