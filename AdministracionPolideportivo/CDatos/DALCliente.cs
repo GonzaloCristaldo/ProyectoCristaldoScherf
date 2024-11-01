@@ -103,10 +103,92 @@ namespace AdministracionPolideportivo.CDatos
 
             return lista;
         }
+
+
+        public static List<Cliente> BuscarPorDNI(String input)
+        {
+            List<Cliente> lista = new List<Cliente>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Cliente where dni_cliente = " + input + ";";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Cliente cliente = new Cliente(lector.GetInt32(0), lector.GetInt32(1), lector.GetString(2), lector.GetString(3), lector.GetString(4));
+                    lista.Add(cliente);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
+        public static List<Cliente> BuscarPorNombre(String input)
+        {
+            List<Cliente> lista = new List<Cliente>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Cliente where nombre_cliente LIKE '%" + input + "%';";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Cliente cliente = new Cliente(lector.GetInt32(0), lector.GetInt32(1), lector.GetString(2), lector.GetString(3), lector.GetString(4));
+                    lista.Add(cliente);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
+        public static List<Cliente> BuscarPorApellido(String input)
+        {
+            List<Cliente> lista = new List<Cliente>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Cliente where apellido_cliente LIKE '%" + input + "%';";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Cliente cliente = new Cliente(lector.GetInt32(0), lector.GetInt32(1), lector.GetString(2), lector.GetString(3), lector.GetString(4));
+                    lista.Add(cliente);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
+        public static List<Cliente> BuscarPorTelefono(String input)
+        {
+            List<Cliente> lista = new List<Cliente>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Cliente where telefono_cliente LIKE '%" + input + "%';";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Cliente cliente = new Cliente(lector.GetInt32(0), lector.GetInt32(1), lector.GetString(2), lector.GetString(3), lector.GetString(4));
+                    lista.Add(cliente);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
     }
-
-
-
-
 
 }
