@@ -1,5 +1,6 @@
 ﻿using AdministracionPolideportivo.CDatos;
 using AdministracionPolideportivo.CNegocio;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace AdministracionPolideportivo.CPresentacion
             InitializeComponent();
             tablaDatos1.setDatoModelo(new Usuario());
             fotoUsuario.SizeMode = PictureBoxSizeMode.StretchImage;
+            cbBuscar.SelectedIndex = 5;
         }
 
 
@@ -66,6 +68,7 @@ namespace AdministracionPolideportivo.CPresentacion
             cbBuscar.BackColor = SystemColors.WindowFrame;
             cbBuscar.ForeColor = Color.White;
             cbBuscar.FormattingEnabled = true;
+            cbBuscar.Items.AddRange(new object[] { "ID", "DNI", "Nombre", "Apellido", "Telefono", "Listar Usuarios" });
             cbBuscar.Location = new Point(303, 40);
             cbBuscar.Name = "cbBuscar";
             cbBuscar.Size = new Size(210, 23);
@@ -124,11 +127,55 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            List<Usuario> resultadoBusqueda = DALUsuario.ListarUsuarios();
-            tablaDatos1.Rows.Clear();
-            for (int i = 0; i < resultadoBusqueda.Count; i++)
+            if (!txtBuscar.Text.IsNullOrEmpty())
             {
-                resultadoBusqueda[i].CargarEnTabla(tablaDatos1);
+                List<Usuario> resultadoBusqueda = new List<Usuario>();
+                if (!cbBuscar.Text.Equals("Listar Usuarios"))
+                {
+                    if (cbBuscar.Text.Equals("ID"))
+                    {
+                        resultadoBusqueda = DALUsuario.BuscarPorID(txtBuscar.Text);
+                    }
+                    else if (cbBuscar.Text.Equals("DNI"))
+                    {
+                        resultadoBusqueda = DALUsuario.BuscarPorDNI(txtBuscar.Text);
+                    }
+                    else if (cbBuscar.Text.Equals("Nombre"))
+                    {
+                        resultadoBusqueda = DALUsuario.BuscarPorNombre(txtBuscar.Text);
+                    }
+                    else if (cbBuscar.Text.Equals("Apellido"))
+                    {
+                        resultadoBusqueda = DALUsuario.BuscarPorApellido(txtBuscar.Text);
+                    }
+                    else if (cbBuscar.Text.Equals("Telefono"))
+                    {
+                        resultadoBusqueda = DALUsuario.BuscarPorTelefono(txtBuscar.Text);
+                    }
+                }
+
+                else
+                {
+                    resultadoBusqueda = DALUsuario.ListarUsuarios();
+                }
+                tablaDatos1.Rows.Clear();
+                for (int i = 0; i < resultadoBusqueda.Count; i++)
+                {
+                    resultadoBusqueda[i].CargarEnTabla(tablaDatos1);
+                }
+            }
+            else if (cbBuscar.Text.Equals("Listar Usuarios"))
+            {
+                List<Usuario> resultadoBusqueda = DALUsuario.ListarUsuarios();
+                tablaDatos1.Rows.Clear();
+                for (int i = 0; i < resultadoBusqueda.Count; i++)
+                {
+                    resultadoBusqueda[i].CargarEnTabla(tablaDatos1);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, ingrese un valor para realizar la busqueda.");
             }
         }
 

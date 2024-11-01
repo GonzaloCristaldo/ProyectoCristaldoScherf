@@ -197,7 +197,7 @@ namespace AdministracionPolideportivo.CDatos
                         
                     }
 
-                    Usuario usuario = new Usuario(lector.GetInt32(0),lector.GetString(3), lector.GetString(4), DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),lector.GetInt32(1),lector.GetDateTime(6), lector.GetDateTime(5),lector.GetString(8), lector.GetString(7), foto,lector.GetString(10));
+                    Usuario usuario = new Usuario(lector.GetInt32(0),lector.GetString(3), lector.GetString(4), DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),lector.GetInt32(1),lector.GetDateTime(6), lector.GetDateTime(5),lector.GetString(8), foto,lector.GetString(10));
                     lista.Add(usuario);
                 }
                 conexion.Close();
@@ -247,5 +247,130 @@ namespace AdministracionPolideportivo.CDatos
                 }
             }
         }
+
+
+        public static List<Usuario> BuscarPorID(String input)
+        {
+            List<Usuario> lista = new List<Usuario>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Usuario where id_usuario = " + input + ";";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    /*byte[] fotoBytes = new byte[Int32.MaxValue];
+                    lector.GetBytes(2, 0, fotoBytes, 0, Int32.MaxValue);*/
+                    Usuario usuario = new Usuario(lector.GetInt32(0),lector.GetString(3),lector.GetString(4),
+                        DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)),lector.GetString(7),
+                        lector.GetInt32(1),lector.GetDateTime(6), lector.GetDateTime(5),lector.GetString(8),
+                        new byte[0],lector.GetString(10));
+                    lista.Add(usuario);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
+
+        public static List<Usuario> BuscarPorDNI(String input)
+        {
+            List<Usuario> lista = new List<Usuario>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Usuario where dni_usuario = " + input + ";";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Usuario usuario = new Usuario(lector.GetInt32(0), lector.GetString(3), lector.GetString(4),
+                        DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),
+                        lector.GetInt32(1), lector.GetDateTime(6), lector.GetDateTime(5), lector.GetString(8),
+                        new byte[0], lector.GetString(10));
+                    lista.Add(usuario);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
+        public static List<Usuario> BuscarPorNombre(String input)
+        {
+            List<Usuario> lista = new List<Usuario>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Usuario where nombre_usuario LIKE '%" + input + "%';";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Usuario usuario = new Usuario(lector.GetInt32(0), lector.GetString(3), lector.GetString(4),
+                        DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),
+                        lector.GetInt32(1), lector.GetDateTime(6), lector.GetDateTime(5), lector.GetString(8),
+                        new byte[0], lector.GetString(10));
+                    lista.Add(usuario);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
+        public static List<Usuario> BuscarPorApellido(String input)
+        {
+            List<Usuario> lista = new List<Usuario>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Usuario where apellido_usuario LIKE '%" + input + "%';";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Usuario usuario = new Usuario(lector.GetInt32(0), lector.GetString(3), lector.GetString(4),
+                        DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),
+                        lector.GetInt32(1), lector.GetDateTime(6), lector.GetDateTime(5), lector.GetString(8),
+                        new byte[0], lector.GetString(10));
+                    lista.Add(usuario);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
+        public static List<Usuario> BuscarPorTelefono(String input)
+        {
+            List<Usuario> lista = new List<Usuario>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Usuario where telefono LIKE '%" + input + "%';";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Usuario usuario = new Usuario(lector.GetInt32(0), lector.GetString(3), lector.GetString(4),
+                        DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),
+                        lector.GetInt32(1), lector.GetDateTime(6), lector.GetDateTime(5), lector.GetString(8),
+                        new byte[0], lector.GetString(10));
+                    lista.Add(usuario);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
     }
 }

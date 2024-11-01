@@ -17,7 +17,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
             InitializeComponent();
             tabla.setDatoModelo(new Cliente(1, 1, "", "", ""));
-
+            cbBuscar.SelectedIndex = 5;
         }
 
         private BotonFormulario btnBuscar;

@@ -25,7 +25,7 @@ namespace AdministracionPolideportivo.CNegocio
             this.sexo = sexo;
         }
 
-        public Usuario(int idUsuario, string nombreUsuario, string apellidoUsuario, TipoUsuario tipoUsuario, string passUsuario, int dniUsuario, DateTime fechaNacimiento, DateTime fechaIngreso, string telefono, string pass, byte[] foto, String sexo)
+        public Usuario(int idUsuario, string nombreUsuario, string apellidoUsuario, TipoUsuario tipoUsuario, string passUsuario, int dniUsuario, DateTime fechaNacimiento, DateTime fechaIngreso, string telefono, byte[] foto, String sexo)
         {
             this.idUsuario = idUsuario;
             this.nombreUsuario = nombreUsuario;
