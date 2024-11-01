@@ -1,7 +1,10 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -291,6 +294,15 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         }
 
+        private void LimpiarCampos()
+        {
+            txtDescripcion.Text = "";
+            txtNombre.Text = "";
+            txtRecinto.Text = "";
+            txtTarifa.Text = "";
+            cbRecintos.SelectedIndex = -1;
+        }
+
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             if (txtNombre.Text.IsNullOrEmpty() || txtTarifa.Text.IsNullOrEmpty() || txtDescripcion.Text.IsNullOrEmpty())
@@ -330,7 +342,20 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                                      "Confirmar alta de servicio adicional",
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (confirmResult == DialogResult.Yes)
-                { }
+                { // Crea el cliente y llama a la capa de datos
+                    ServicioAdicional servicioAdicional = new ServicioAdicional(0,txtNombre.Text,txtDescripcion.Text,Double.Parse(txtTarifa.Text));
+                    int resultado = DALServicioAdicional.AgregarServicioAdicional(servicioAdicional);
+
+                    if (resultado > 0)
+                    {
+                        MessageBox.Show("Servicio adicional agregado exitosamente.");
+                        LimpiarCampos(); // Limpia los campos después de agregar el servicio
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al agregar el servicio adicional.");
+                    }
+                }
             }
         }
 
