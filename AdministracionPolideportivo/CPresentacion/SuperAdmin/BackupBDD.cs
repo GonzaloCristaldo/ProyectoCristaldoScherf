@@ -1,19 +1,27 @@
-﻿using System;
+﻿using AdministracionPolideportivo.CDatos;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 {
     internal class BackupBDD : FormularioEstandar
     {
+        private SaveFileDialog saveFileDialog;
 
         public BackupBDD()
         {
-
             InitializeComponent();
-
+            saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Archivos de Backup (*.bak)|*.bak",
+                Title = "Guardar Backup de la Base de Datos"
+            };
         }
 
         override public void RefrescarCB()
@@ -85,10 +93,29 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 
         private void botonFormulario1_Click(object sender, EventArgs e)
         {
-            
-            MessageBox.Show("Backup creado con éxito", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string backupPath = saveFileDialog.FileName; // Obtiene la ruta seleccionada por el usuario
 
+                using (SqlConnection connection = ConexionDB.GetConexion())
+                {
+                    string query = $"BACKUP DATABASE [complejoPolideportivo] TO DISK = '{backupPath}'";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        try
+                        {
+                            command.ExecuteNonQuery();
+                            MessageBox.Show("Backup creado con éxito", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al crear el backup: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
 
         private LabelFormulario labelFormulario1;
         private BotonFormulario botonFormulario1;
