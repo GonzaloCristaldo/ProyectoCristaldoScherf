@@ -1,19 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AdministracionPolideportivo.CDatos;
+using System;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 {
     internal class RestaurarBDD : FormularioEstandar
     {
+        private OpenFileDialog openFileDialog;
 
         public RestaurarBDD()
         {
-
             InitializeComponent();
-
+            openFileDialog = new OpenFileDialog
+            {
+                Filter = "Archivos de Backup (*.bak)|*.bak",
+                Title = "Seleccionar Archivo de Respaldo"
+            };
         }
 
         override public void RefrescarCB()
@@ -81,24 +85,58 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 
         private void AgregarMedioPago_Load(object sender, EventArgs e)
         {
+            // TODO: Load actions
+        }
 
+        private void labelFormulario1_Click(object sender, EventArgs e)
+        {
+            // TODO: Click actions
+        }
+
+        private void botonFormulario1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string backupPath = openFileDialog.FileName; 
+
+                using (SqlConnection connection = ConexionDB.GetConexion())
+                {
+                    connection.ChangeDatabase("master"); // Cambia la conexión a la base de datos master debido a que no debe estar en uso la bd que quiero modifica para restaurar precisamente.
+
+                    
+                    string setSingleUserQuery = $"ALTER DATABASE [complejoPolideportivo] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
+                    using (SqlCommand command = new SqlCommand(setSingleUserQuery, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+
+                    // Restaurar la base de datos
+                    string restoreQuery = $"RESTORE DATABASE [complejoPolideportivo] FROM DISK = '{backupPath}' WITH REPLACE";
+                    using (SqlCommand command = new SqlCommand(restoreQuery, connection))
+                    {
+                        try
+                        {
+                            command.ExecuteNonQuery();
+                            MessageBox.Show("Backup restaurado con éxito", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al restaurar el backup: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                    // Regresar la base de datos a modo multiusuario
+                    string setMultiUserQuery = $"ALTER DATABASE [complejoPolideportivo] SET MULTI_USER";
+                    using (SqlCommand command = new SqlCommand(setMultiUserQuery, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
         }
 
         private LabelFormulario labelFormulario1;
         private BotonFormulario botonFormulario1;
         private PictureBox pictureBox1;
-
-        private void labelFormulario1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void botonFormulario1_Click(object sender, EventArgs e)
-        {
-           
-            MessageBox.Show("Backup restaurado con éxito", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-           
-
-        }
     }
 }
