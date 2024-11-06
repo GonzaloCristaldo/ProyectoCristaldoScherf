@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,16 +18,28 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
         public BackupBDD()
         {
             InitializeComponent();
+
+            
+            string carpetaBackup = @"C:\BackupsComplejoPolideportivo";
+
+        
+            if (!Directory.Exists(carpetaBackup))
+            {
+                Directory.CreateDirectory(carpetaBackup);
+            }
+
             saveFileDialog = new SaveFileDialog
             {
                 Filter = "Archivos de Backup (*.bak)|*.bak",
-                Title = "Guardar Backup de la Base de Datos"
+                Title = "Guardar Backup de la Base de Datos",
+                InitialDirectory = carpetaBackup,
+                FileName = "RespaldoComplejoPolideportivo.bak"
             };
         }
 
         override public void RefrescarCB()
         {
-            //TODO
+            // TODO
         }
 
         private void InitializeComponent()
@@ -88,7 +101,7 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 
         private void AgregarMedioPago_Load(object sender, EventArgs e)
         {
-
+            // Código de inicialización si es necesario
         }
 
         private void botonFormulario1_Click(object sender, EventArgs e)
