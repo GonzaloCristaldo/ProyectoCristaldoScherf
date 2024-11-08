@@ -149,11 +149,11 @@
             // txtServiciosAgregados
             // 
             txtServiciosAgregados.BackColor = SystemColors.WindowFrame;
-            txtServiciosAgregados.Enabled = false;
             txtServiciosAgregados.ForeColor = Color.White;
             txtServiciosAgregados.Location = new Point(30, 119);
             txtServiciosAgregados.Multiline = true;
             txtServiciosAgregados.Name = "txtServiciosAgregados";
+            txtServiciosAgregados.ReadOnly = true;
             txtServiciosAgregados.Size = new Size(329, 171);
             txtServiciosAgregados.TabIndex = 9;
             // 
@@ -168,6 +168,7 @@
             btnAgregarServicio.TabIndex = 10;
             btnAgregarServicio.Text = "Agregar Servicio";
             btnAgregarServicio.UseVisualStyleBackColor = false;
+            btnAgregarServicio.Click += btnAgregarServicio_Click;
             // 
             // lblServicio
             // 

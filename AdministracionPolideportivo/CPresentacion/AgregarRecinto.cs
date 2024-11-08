@@ -26,6 +26,8 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             RefrescarCB();
         }
 
+        List<String> servicios = new List<String>();
+
         int anchoPaneles;
 
         int ubiPanel1;
@@ -62,7 +64,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             txtServiciosAgregados.Location = new Point((panelDerecha.Width - txtServiciosAgregados.Width) / 2, txtServiciosAgregados.Location.Y);
 
 
-            lblNumero.Location = new Point((panelIzquierda.Width-lblNumero.Width)/2,lblNumero.Location.Y);
+            lblNumero.Location = new Point((panelIzquierda.Width - lblNumero.Width) / 2, lblNumero.Location.Y);
             lblTarifa.Location = new Point((panelIzquierda.Width - lblTarifa.Width) / 2, lblTarifa.Location.Y);
             lblTipo.Location = new Point((panelIzquierda.Width - lblTipo.Width) / 2, lblTipo.Location.Y);
             lblUbicacion.Location = new Point((panelIzquierda.Width - lblUbicacion.Width) / 2, lblUbicacion.Location.Y);
@@ -73,13 +75,13 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnAgregarServicio.Location = new Point((panelDerecha.Width - btnAgregarServicio.Width) / 2, btnAgregarServicio.Location.Y);
 
             cbTipo.Width = panelDerecha.Width - 40;
-            cbTipo.Location = new Point((panelIzquierda.Width-cbTipo.Width)/2,cbTipo.Location.Y);
+            cbTipo.Location = new Point((panelIzquierda.Width - cbTipo.Width) / 2, cbTipo.Location.Y);
 
             txtTarifa.Width = panelIzquierda.Width - 40;
             txtTarifa.Location = new Point((panelIzquierda.Width - txtTarifa.Width) / 2, txtTarifa.Location.Y);
 
             txtUbicacion.Width = panelIzquierda.Width - 40;
-            txtUbicacion.Location = new Point((panelIzquierda.Width - txtUbicacion.Width ) / 2, txtUbicacion.Location.Y);
+            txtUbicacion.Location = new Point((panelIzquierda.Width - txtUbicacion.Width) / 2, txtUbicacion.Location.Y);
         }
 
         private void labelFormulario1_Click(object sender, EventArgs e)
@@ -148,13 +150,40 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                     recinto.Ubicacion = txtUbicacion.Text;
                     recinto.NroRecinto = Int32.Parse(txtNumCancha.Text);
                     DALRecinto.AgregarRecinto(recinto);
+
+                    for(int i = 0; i < servicios.Count; i++)
+                    {
+                        DALRecintoServicio.AgregarRelacion(recinto,DALServicioAdicional.BuscarPorNombre(servicios.ElementAt(i)).First());
+                    }
+                    LimpiarCampos();
                 }
             }
+        }
+
+        // Método para limpiar los campos del formulario
+        private void LimpiarCampos()
+        {
+            txtNumCancha.Clear();
+            txtServiciosAgregados.Clear();
+            txtTarifa.Clear();
+            txtUbicacion.Clear();
+            servicios = new List<string>();
         }
 
         private void AgregarRecinto_Resize(object sender, EventArgs e)
         {
             UbicarControles();
+        }
+
+        private void btnAgregarServicio_Click(object sender, EventArgs e)
+        {
+            if (!servicios.Contains(cbServicioAdicional.Text))
+            {
+                servicios.Add(cbServicioAdicional.Text);
+                txtServiciosAgregados.AppendText(cbServicioAdicional.Text);
+                txtServiciosAgregados.AppendText(Environment.NewLine);
+            }
+            
         }
     }
 }

@@ -14,7 +14,9 @@ namespace AdministracionPolideportivo.CDatos
 
         public static SqlConnection GetConexion()
         {
-            String query = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=Gnzl\\SQLEXPRESS";
+            String pcLucas= "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
+            String pcGonzalo = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=Gnzl\\SQLEXPRESS";
+            String query = pcLucas;
             SqlConnection conexion = new SqlConnection(query);
             conexion.Open();
             return conexion;
