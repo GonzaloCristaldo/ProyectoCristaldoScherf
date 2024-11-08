@@ -95,5 +95,11 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("telefono", "Telefono");
             tabla.Columns.Add("modificar", "Modificar");
         }
+
+        public override string ToString()
+        {
+            return this.IdCliente+". "+this.NombreCliente + " " +this.ApellidoCliente;
+        }
+
     }
 }

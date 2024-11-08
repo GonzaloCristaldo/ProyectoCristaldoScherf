@@ -17,9 +17,10 @@ namespace AdministracionPolideportivo.CNegocio
             this.monto = monto;
         }
 
-        public Pago pago {  get; set; }
+        public Pago pago { get; set; }
         public MedioPago medioPago { get; set; }
 
+        public Usuario usuario {get;set;}
         public double monto {  get; set; }
 
         public override void CargarEnTabla(TablaDatos tabla)

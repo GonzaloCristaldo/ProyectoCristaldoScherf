@@ -11,19 +11,22 @@ namespace AdministracionPolideportivo.CNegocio
 {
     internal class Reserva : EntidadDataGridView
     {
-        public Reserva(int reservaP, Recinto recintoP, Cliente clienteP, DateOnly fecha, TimeOnly hora)
+        public Reserva(int reservaP, Recinto recintoP, Cliente clienteP, DateOnly fecha, TimeOnly hora, Usuario user)
         {
             this.idReserva = reservaP;
             this.recinto = recintoP;
             this.cliente = clienteP;
             Fecha = fecha;
             Hora = hora;
+            this.usuario = user;
         }
 
         
 
         public int idReserva {  get; set; }
         public Recinto recinto { get; set; }
+
+        public Usuario usuario {  get; set; }
 
         public Cliente cliente { get; set; }
 

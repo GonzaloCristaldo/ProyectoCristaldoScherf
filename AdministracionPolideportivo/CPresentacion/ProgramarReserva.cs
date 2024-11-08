@@ -1,7 +1,10 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,16 +21,29 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             anchoPaneles = (this.Width / 2) - 50;
             ubiPanel2 = anchoPaneles + 30;
             UbicarControles();
+            
+            fecha.MinDate= DateTime.Now;
+            
+            int horaApertura = 10;
+            int horaCierre = 24;
+            for(int i = horaApertura;i<horaCierre;i++)
+            {
+                horas.Add(new TimeOnly(i, 0, 0));
+            }
+            cbHora.DataSource = horas;
         }
-
+        List<TimeOnly> horas=new List<TimeOnly>();
         override public void RefrescarCB()
         {
-            //TODO
+            cbCliente.DataSource = DALCliente.ListarClientes();
+            cbRecinto.DataSource = DALRecinto.ListarRecintos();
+            cbServicioAdicional.DataSource = DALServicioAdicional.ListarServicios();
         }
 
         int anchoPaneles;
 
         int ubiPanel1;
+        private Texto tabla;
         int ubiPanel2;
 
 
@@ -58,6 +74,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
             tabla.Width = panelDerecha.Width;
             tabla.Location= new Point(0, btnAgregarServicio.Location.Y+btnAgregarServicio.Height+15);
+            tabla.Height = panelDerecha.Height - tabla.Location.Y - 10;
             btnAgregarServicio.Location = new Point((panelDerecha.Width - btnAgregarServicio.Width) / 2, btnAgregarServicio.Location.Y);
             btnAgendar.Location = new Point((panelIzquierda.Width - btnAgendar.Width) / 2, btnAgendar.Location.Y);
             lblServicio.Location = new Point((panelDerecha.Width-lblServicio.Width)/2,lblServicio.Location.Y);
@@ -86,10 +103,9 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             lblServicio = new LabelFormulario();
             btnAgregarServicio = new BotonFormulario();
             lblTotal = new LabelFormulario();
-            tabla = new DataGridView();
             panelDerecha = new Panel();
+            tabla = new Texto();
             panelIzquierda = new Panel();
-            ((System.ComponentModel.ISupportInitialize)tabla).BeginInit();
             panelDerecha.SuspendLayout();
             panelIzquierda.SuspendLayout();
             SuspendLayout();
@@ -171,7 +187,6 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             cbHora.BackColor = SystemColors.WindowFrame;
             cbHora.ForeColor = Color.White;
             cbHora.FormattingEnabled = true;
-            cbHora.Items.AddRange(new object[] { "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00" });
             cbHora.Location = new Point(101, 224);
             cbHora.Name = "cbHora";
             cbHora.Size = new Size(82, 23);
@@ -245,24 +260,27 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             lblTotal.TabIndex = 9;
             lblTotal.Text = "Total: $0";
             // 
-            // tabla
-            // 
-            tabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabla.Location = new Point(17, 148);
-            tabla.Name = "tabla";
-            tabla.Size = new Size(292, 150);
-            tabla.TabIndex = 10;
-            // 
             // panelDerecha
             // 
-            panelDerecha.Controls.Add(cbServicioAdicional);
             panelDerecha.Controls.Add(tabla);
+            panelDerecha.Controls.Add(cbServicioAdicional);
             panelDerecha.Controls.Add(lblServicio);
             panelDerecha.Controls.Add(btnAgregarServicio);
             panelDerecha.Location = new Point(347, 50);
             panelDerecha.Name = "panelDerecha";
             panelDerecha.Size = new Size(326, 347);
             panelDerecha.TabIndex = 11;
+            // 
+            // tabla
+            // 
+            tabla.BackColor = SystemColors.WindowFrame;
+            tabla.ForeColor = Color.White;
+            tabla.Location = new Point(12, 146);
+            tabla.Multiline = true;
+            tabla.Name = "tabla";
+            tabla.ReadOnly = true;
+            tabla.Size = new Size(298, 23);
+            tabla.TabIndex = 0;
             // 
             // panelIzquierda
             // 
@@ -291,7 +309,6 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             MinimumSize = new Size(688, 415);
             Name = "ProgramarReserva";
             Resize += ProgramarReserva_Resize;
-            ((System.ComponentModel.ISupportInitialize)tabla).EndInit();
             panelDerecha.ResumeLayout(false);
             panelDerecha.PerformLayout();
             panelIzquierda.ResumeLayout(false);
@@ -313,10 +330,14 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private LabelFormulario lblServicio;
         private BotonFormulario btnAgregarServicio;
         private LabelFormulario lblTotal;
-        private DataGridView tabla;
         private Panel panelDerecha;
         private Panel panelIzquierda;
         private ComboBoxEstandar cbRecinto;
+
+        private void LimpiarCampos()
+        {
+            tabla.Clear();
+        }
 
         private void labelFormulario1_Click(object sender, EventArgs e)
         {
@@ -356,10 +377,29 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                     {
                         mensaje += vacios[i] + ".";
                     }
-
                 }
                 MessageBox.Show(mensaje);
                 return;
+            }
+            var confirmResult = MessageBox.Show("¿Estas seguro que deseas programar una nueva reserva?",
+                                     "Confirmar alta de reserva",
+                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (confirmResult == DialogResult.Yes)
+            {
+                DateOnly fechaSola = new DateOnly(fecha.Value.Year, fecha.Value.Month, fecha.Value.Day);
+                // Crea el cliente y llama a la capa de datos
+                Reserva reserva = new Reserva(0, (Recinto)cbRecinto.SelectedItem, (Cliente)cbCliente.SelectedItem, fechaSola,(TimeOnly)cbHora.SelectedItem,user);
+                int resultado = DALReserva.AgregarReserva(reserva);
+
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Cliente agregado exitosamente.");
+                    LimpiarCampos(); // Limpia los campos después de agregar la reserva
+                }
+                else
+                {
+                    MessageBox.Show("Error al agregar el cliente.");
+                }
             }
         }
 
