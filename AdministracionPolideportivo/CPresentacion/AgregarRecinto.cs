@@ -145,7 +145,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                 {
                     Recinto recinto = new Recinto();
                     recinto.TarifaHora = Int32.Parse(txtTarifa.Text);
-                    recinto.estado = DALEstado.BuscarEstado("funcionando");
+                    recinto.estado = DALEstado.BuscarEstadoNombre("funcionando");
                     recinto.tipoRecinto = (TipoRecinto)cbTipo.SelectedItem;
                     recinto.Ubicacion = txtUbicacion.Text;
                     recinto.NroRecinto = Int32.Parse(txtNumCancha.Text);

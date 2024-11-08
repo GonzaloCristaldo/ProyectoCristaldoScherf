@@ -15,6 +15,27 @@ namespace AdministracionPolideportivo.CDatos
 {
     internal class DALRecinto
     {
+        public static List<Recinto> BuscarPorID(String input)
+        {
+            List<Recinto> lista = new List<Recinto>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Recinto where nro_recinto = " + input + ";";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Recinto recinto = new Recinto(lector.GetInt32(0), lector.GetDouble(1), DALEstado.BuscarEstadoID(lector.GetInt32(4).ToString()), DALTipoRecinto.BuscarTipoRecintoID(lector.GetInt32(3).ToString()), lector.GetString(2));
+                    lista.Add(recinto);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
 
         public static int AgregarRecinto(Recinto recinto)
         {
@@ -65,6 +86,28 @@ namespace AdministracionPolideportivo.CDatos
             }
 
             return resultado;
+        }
+
+
+        public static List<Recinto> ListarRecintos()
+        {
+            List<Recinto> lista = new List<Recinto>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Recinto";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Recinto recinto = new Recinto(lector.GetInt32(0),lector.GetDouble(1), DALEstado.BuscarEstadoID(lector.GetInt32(4).ToString()), DALTipoRecinto.BuscarTipoRecintoID(lector.GetInt32(3).ToString()), lector.GetString(2));
+                    lista.Add(recinto);
+                }
+                conexion.Close();
+            }
+
+            return lista;
         }
 
     }

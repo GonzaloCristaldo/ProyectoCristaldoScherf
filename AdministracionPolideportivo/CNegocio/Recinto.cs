@@ -85,5 +85,10 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("modificar","Editar");
         }
 
+        public override string ToString()
+        {
+            return "n° "+this.NroRecinto+". "+this.tipoRecinto.ToString()+".";
+        }
+
     }
 }

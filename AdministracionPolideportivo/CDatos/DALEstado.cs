@@ -16,7 +16,7 @@ namespace AdministracionPolideportivo.CDatos
     internal class DALEstado
     {
 
-        public static Estado BuscarEstado(String input)
+        public static Estado BuscarEstadoNombre(String input)
         {
             Estado estado= new Estado();
 
@@ -29,6 +29,27 @@ namespace AdministracionPolideportivo.CDatos
                 while (lector.Read())
                 {
                     estado.nombre= lector.GetString(1);
+                    estado.id = lector.GetInt32(0);
+                }
+                conexion.Close();
+            }
+
+            return estado;
+        }
+
+        public static Estado BuscarEstadoID(String input)
+        {
+            Estado estado = new Estado();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Estado where id_estado = '" + input + "';";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    estado.nombre = lector.GetString(1);
                     estado.id = lector.GetInt32(0);
                 }
                 conexion.Close();

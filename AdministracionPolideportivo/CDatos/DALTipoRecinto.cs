@@ -39,5 +39,28 @@ namespace AdministracionPolideportivo.CDatos
             return lista;
         }
 
+
+        public static TipoRecinto BuscarTipoRecintoID(String input)
+        {
+            TipoRecinto tipo_recinto = new TipoRecinto();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Tipo_Recinto where id_tipo_recinto = '" + input + "';";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    tipo_recinto.nombre = lector.GetString(1);
+                    tipo_recinto.id = lector.GetInt32(0);
+                }
+                conexion.Close();
+            }
+
+            return tipo_recinto;
+        }
+
+
     }
 }

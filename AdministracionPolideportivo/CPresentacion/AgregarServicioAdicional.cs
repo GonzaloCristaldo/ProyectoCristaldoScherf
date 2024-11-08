@@ -17,14 +17,26 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         {
 
             InitializeComponent();
-            this.MinimumSize = new Size(cajaHabilitar.Width+40,btnAgregar.Location.Y+btnAgregar.Height+15);
-            txtDescripcion.Height=cajaHabilitar.Height;
+            this.MinimumSize = new Size(cajaHabilitar.Width + 40, btnAgregar.Location.Y + btnAgregar.Height + 15);
+            txtDescripcion.Height = cajaHabilitar.Height;
             UbicarControles();
+            if (rbHabilitarTodos.Checked)
+            {
+                cbRecintos.Enabled = false;
+                btnHabilitarRecinto.Enabled = false;
+                txtRecinto.Enabled = false;
+            }
+            else
+            {
+                cbRecintos.Enabled = true;
+                btnHabilitarRecinto.Enabled = true;
+                txtRecinto.Enabled = true;
+            }
         }
 
         override public void RefrescarCB()
         {
-            //TODO
+            cbRecintos.DataSource = DALRecinto.ListarRecintos();
         }
         private void UbicarControles()
         {
@@ -34,7 +46,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
             lblDescripcion.Location = new System.Drawing.Point(lblNombre.Location.X,
                 lblNombre.Location.Y + 80);
-            
+
             coordenadaXTextbox = lblNombre.Width + lblNombre.Location.X + 10;
 
             txtNombre.Location = new Point(coordenadaXTextbox, lblNombre.Location.Y);
@@ -180,6 +192,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnHabilitarRecinto.TabIndex = 0;
             btnHabilitarRecinto.Text = "Habilitar para el recinto";
             btnHabilitarRecinto.UseVisualStyleBackColor = false;
+            btnHabilitarRecinto.Click += btnHabilitarRecinto_Click;
             // 
             // rbHabilitarTodos
             // 
@@ -205,6 +218,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             rbElegirRecintos.TabStop = true;
             rbElegirRecintos.Text = "Habilitar para una lista personalizada de recintos";
             rbElegirRecintos.UseVisualStyleBackColor = true;
+            rbElegirRecintos.CheckedChanged += rbElegirRecintos_CheckedChanged;
             // 
             // lblUltimoRecinto
             // 
@@ -234,6 +248,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             txtRecinto.ForeColor = Color.White;
             txtRecinto.Location = new Point(214, 329);
             txtRecinto.Name = "txtRecinto";
+            txtRecinto.ReadOnly = true;
             txtRecinto.Size = new Size(247, 23);
             txtRecinto.TabIndex = 0;
             // 
@@ -278,9 +293,22 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private Texto txtRecinto;
         private LabelFormulario lblDescripcion;
 
+        List<Recinto> recintos = new List<Recinto>();
+
         private void rbHabilitarTodos_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (rbHabilitarTodos.Checked)
+            {
+                cbRecintos.Enabled = false;
+                btnHabilitarRecinto.Enabled = false;
+                txtRecinto.Enabled = false;
+            }
+            else
+            {
+                cbRecintos.Enabled = true;
+                btnHabilitarRecinto.Enabled = true;
+                txtRecinto.Enabled = true;
+            }
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -346,10 +374,10 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                                      "Confirmar alta de servicio adicional",
                                      MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (confirmResult == DialogResult.Yes)
-                { // Crea el cliente y llama a la capa de datos
-                    ServicioAdicional servicioAdicional = new ServicioAdicional(0,txtNombre.Text,txtDescripcion.Text,Decimal.Parse(txtTarifa.Text));
+                { // Crea el servicio y llama a la capa de datos
+                    ServicioAdicional servicioAdicional = new ServicioAdicional(0, txtNombre.Text, txtDescripcion.Text, Decimal.Parse(txtTarifa.Text));
                     int resultado = DALServicioAdicional.AgregarServicioAdicional(servicioAdicional);
-
+                    servicioAdicional.IdServicio = DALServicioAdicional.BuscarPorNombre(servicioAdicional.NombreServicio).First().IdServicio;
                     if (resultado > 0)
                     {
                         MessageBox.Show("Servicio adicional agregado exitosamente.");
@@ -359,6 +387,24 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                     {
                         MessageBox.Show("Error al agregar el servicio adicional.");
                     }
+
+                    if (rbHabilitarTodos.Checked)
+                    {
+                        List<Recinto> todos= DALRecinto.ListarRecintos();
+                        for (int i = 0; i < todos.Count; i++)
+                        {
+                            DALRecintoServicio.AgregarRelacion(todos.ElementAt(i), servicioAdicional);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < recintos.Count; i++)
+                        {
+                            DALRecintoServicio.AgregarRelacion(recintos.ElementAt(i), servicioAdicional);
+                        }
+                    }
+                    LimpiarCampos();
+
                 }
             }
         }
@@ -377,8 +423,30 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             txtNombre.Width = anchoTextBox;
             cbRecintos.Width = this.Width - 20;
             UbicarControles();
-            
+
             txtRecinto.Width = this.Width - 20 - lblUltimoRecinto.Location.X - lblUltimoRecinto.Width - 10;
+        }
+
+        private void btnHabilitarRecinto_Click(object sender, EventArgs e)
+        {
+            recintos.Add(DALRecinto.BuscarPorID(((Recinto)(cbRecintos.SelectedItem)).NroRecinto.ToString()).First());
+            txtRecinto.Text = (cbRecintos.Text);
+        }
+
+        private void rbElegirRecintos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbHabilitarTodos.Checked)
+            {
+                cbRecintos.Enabled = false;
+                btnHabilitarRecinto.Enabled = false;
+                txtRecinto.Enabled = false;
+            }
+            else
+            {
+                cbRecintos.Enabled = true;
+                btnHabilitarRecinto.Enabled = true;
+                txtRecinto.Enabled = true;
+            }
         }
     }
 }
