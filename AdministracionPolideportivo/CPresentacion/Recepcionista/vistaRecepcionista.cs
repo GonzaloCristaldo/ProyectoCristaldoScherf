@@ -41,7 +41,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             AgregarBotonOpcion(new BotonOpcion(new AgregarCliente(), this, formActual, "Agregar Cliente"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarCliente(), this, formActual, "Buscar Cliente"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarRecinto(), this, formActual, "Buscar Recinto"));
-            AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(), this, formActual, "Programar Nueva Reserva"));
+            AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(user.idUsuario), this, formActual, "Programar Nueva Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new ListarPagos(),this,formActual,"Listar Pagos"));
             BotonOpcion btnSalirSesion = new BotonOpcion(new AgregarCliente(), this, null, "Cerrar Sesion"); ;

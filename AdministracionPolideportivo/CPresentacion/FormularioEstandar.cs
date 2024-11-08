@@ -14,6 +14,7 @@ namespace AdministracionPolideportivo.CPresentacion
 {
     public partial class FormularioEstandar : Form, Refrescable
     {
+        
         public FormularioEstandar()
         {
             InitializeComponent();

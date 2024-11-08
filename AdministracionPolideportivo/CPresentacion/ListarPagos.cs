@@ -12,7 +12,7 @@ namespace AdministracionPolideportivo.CPresentacion
         public ListarPagos()
         {
             InitializeComponent();
-            tablaDatos.setDatoModelo(new Pago(0,new Reserva(1,new Recinto(),new Cliente(),new DateOnly(),new TimeOnly())));
+            tablaDatos.setDatoModelo(new Pago(0,new Reserva(1,new Recinto(),new Cliente(),new DateOnly(),new TimeOnly(),new Usuario())));
         }
 
         private TablaDatos tabla;

@@ -1,4 +1,5 @@
 ﻿using AdministracionPolideportivo.CNegocio;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         {
 
             InitializeComponent();
-            tablaDatos1.setDatoModelo(new Reserva(1,new Recinto(),new Cliente(), new DateOnly(),new TimeOnly()));
+            tablaDatos1.setDatoModelo(new Reserva(1,new Recinto(),new Cliente(), new DateOnly(),new TimeOnly(), new Usuario()));
 
         }
 

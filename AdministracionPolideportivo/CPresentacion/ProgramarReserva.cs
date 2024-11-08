@@ -12,10 +12,12 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 {
     internal class ProgramarReserva : FormularioEstandar
     {
-
-        public ProgramarReserva()
+        public int usuario_id;
+        public Usuario usuario;
+        public ProgramarReserva(int user_id)
         {
-
+            usuario = DALUsuario.BuscarPorID(user_id.ToString()).First();
+            this.usuario_id= user_id;
             InitializeComponent();
             ubiPanel1 = 20;
             anchoPaneles = (this.Width / 2) - 50;
@@ -388,17 +390,17 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             {
                 DateOnly fechaSola = new DateOnly(fecha.Value.Year, fecha.Value.Month, fecha.Value.Day);
                 // Crea el cliente y llama a la capa de datos
-                Reserva reserva = new Reserva(0, (Recinto)cbRecinto.SelectedItem, (Cliente)cbCliente.SelectedItem, fechaSola,(TimeOnly)cbHora.SelectedItem,user);
+                Reserva reserva = new Reserva(0, (Recinto)cbRecinto.SelectedItem, (Cliente)cbCliente.SelectedItem, fechaSola,(TimeOnly)cbHora.SelectedItem,DALUsuario.BuscarPorID(usuario_id.ToString()).First());
                 int resultado = DALReserva.AgregarReserva(reserva);
 
                 if (resultado > 0)
                 {
-                    MessageBox.Show("Cliente agregado exitosamente.");
+                    MessageBox.Show("Reserva programada exitosamente.");
                     LimpiarCampos(); // Limpia los campos después de agregar la reserva
                 }
                 else
                 {
-                    MessageBox.Show("Error al agregar el cliente.");
+                    MessageBox.Show("Error al programada la reserva.");
                 }
             }
         }
