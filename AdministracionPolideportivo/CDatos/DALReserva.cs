@@ -88,7 +88,32 @@ namespace AdministracionPolideportivo.CDatos
 
             return lista;
         }
-        
 
+        internal static Reserva BuscarPorFechaRecintoHoraCliente(DateOnly fecha, Recinto recinto, TimeOnly hora, Cliente cliente)
+        {
+            List<Reserva> lista = new List<Reserva>();
+
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Reserva where fecha_reserva = '" + fecha.Year + "-" + fecha.Month + "-" + fecha.Day + "' and id_cliente=" + cliente.IdCliente+ " and nro_recinto=" + recinto.NroRecinto + " and hora_reserva="+hora.Hour+";";
+                Console.WriteLine(query);
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Reserva reserva = new Reserva(lector.GetInt32(0), DALRecinto.BuscarPorID(lector.GetInt32(3).ToString()).First(),
+                    DALCliente.BuscarPorID(lector.GetInt32(2).ToString()).First(),
+                    DateOnly.FromDateTime(lector.GetDateTime(1)), new TimeOnly(lector.GetInt32(5), 0), DALUsuario.BuscarPorID(lector.GetInt32(4).ToString()).First());
+                    lista.Add(reserva);
+                }
+                conexion.Close();
+            }
+
+
+
+            return lista.First();
+        }
     }
 }

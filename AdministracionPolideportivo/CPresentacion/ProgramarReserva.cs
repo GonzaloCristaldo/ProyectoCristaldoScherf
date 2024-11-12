@@ -14,6 +14,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
     {
         public int usuario_id;
         public Usuario usuario;
+        List<String> servicios = new List<String>();
         public ProgramarReserva(int user_id)
         {
             usuario = DALUsuario.BuscarPorID(user_id.ToString()).First();
@@ -41,7 +42,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             cbRecinto.DataSource = DALRecinto.ListarRecintos();
             if (DALServicioAdicional.FiltrarPorRecinto((Recinto)cbRecinto.SelectedItem).IsNullOrEmpty())
             {
-                cbServicioAdicional.Enabled= false;
+                cbServicioAdicional.Enabled = false;
                 cbServicioAdicional.Text = "No disponible";
             }
             else
@@ -262,6 +263,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnAgregarServicio.TabIndex = 0;
             btnAgregarServicio.Text = "Agregar Servicio";
             btnAgregarServicio.UseVisualStyleBackColor = false;
+            btnAgregarServicio.Click += btnAgregarServicio_Click;
             // 
             // lblTotal
             // 
@@ -351,6 +353,8 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private void LimpiarCampos()
         {
             tabla.Clear();
+            servicios.Clear();
+            RefrescarCB();
         }
 
         private void labelFormulario1_Click(object sender, EventArgs e)
@@ -404,10 +408,16 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                 // Crea el cliente y llama a la capa de datos
                 Reserva reserva = new Reserva(0, (Recinto)cbRecinto.SelectedItem, (Cliente)cbCliente.SelectedItem, fechaSola, (TimeOnly)cbHora.SelectedItem, DALUsuario.BuscarPorID(usuario_id.ToString()).First());
                 int resultado = DALReserva.AgregarReserva(reserva);
+                for (int i = 0; i < servicios.Count; i++)
+                {
+                    DALServicioReserva.AgregarRelacion(DALServicioAdicional.BuscarPorNombre(servicios.ElementAt(i)).First(),DALReserva.BuscarPorFechaRecintoHoraCliente(reserva.Fecha,reserva.recinto,reserva.Hora,reserva.cliente));
+                }
 
                 if (resultado > 0)
                 {
+
                     MessageBox.Show("Reserva programada exitosamente.");
+
                     LimpiarCampos(); // Limpia los campos después de agregar la reserva
                 }
                 else
@@ -424,19 +434,19 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         private void ActualizarTurnosDisponibles()
         {
-            List<Reserva> reservas = DALReserva.ListarReservasPorFechaYRecinto(new DateOnly(fecha.Value.Year, fecha.Value.Month, fecha.Value.Day),(Recinto)cbRecinto.SelectedItem);
+            List<Reserva> reservas = DALReserva.ListarReservasPorFechaYRecinto(new DateOnly(fecha.Value.Year, fecha.Value.Month, fecha.Value.Day), (Recinto)cbRecinto.SelectedItem);
             List<TimeOnly> nuevasHoras = new List<TimeOnly>();
-            Console.WriteLine("reservas: " +reservas.Count);
+            Console.WriteLine("reservas: " + reservas.Count);
             for (int i = 0; i < horas.Count; i++)
             {
-                Boolean horaParaAñadir=true;
-                for(int j = 0; j < reservas.Count; j++)
+                Boolean horaParaAñadir = true;
+                for (int j = 0; j < reservas.Count; j++)
                 {
-                    Console.WriteLine("reserva a las "+reservas.ElementAt(j).Hora.Hour);
-                    Console.WriteLine("hora "+horas.ElementAt(i).Hour);
-                    if (horas.ElementAt(i).Hour==reservas.ElementAt(j).Hora.Hour)
+                    Console.WriteLine("reserva a las " + reservas.ElementAt(j).Hora.Hour);
+                    Console.WriteLine("hora " + horas.ElementAt(i).Hour);
+                    if (horas.ElementAt(i).Hour == reservas.ElementAt(j).Hora.Hour)
                     {
-                        Console.WriteLine("la hora : " + horas.ElementAt(i).Hour+" esta ocupada por otra reserva");
+                        Console.WriteLine("la hora : " + horas.ElementAt(i).Hour + " esta ocupada por otra reserva");
                         horaParaAñadir = false;
                         break;
                     }
@@ -445,7 +455,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                 {
                     nuevasHoras.Add(horas.ElementAt(i));
                 }
-                
+
             }
             cbHora.DataSource = nuevasHoras;
         }
@@ -473,6 +483,17 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private void cbRecinto_ValueMemberChanged(object sender, EventArgs e)
         {
             ActualizarTurnosDisponibles();
+        }
+
+        private void btnAgregarServicio_Click(object sender, EventArgs e)
+        {
+            if (!servicios.Contains(cbServicioAdicional.Text))
+            {
+                servicios.Add(cbServicioAdicional.Text);
+                tabla.AppendText(cbServicioAdicional.Text);
+                tabla.AppendText(Environment.NewLine);
+            }
+
         }
     }
 }
