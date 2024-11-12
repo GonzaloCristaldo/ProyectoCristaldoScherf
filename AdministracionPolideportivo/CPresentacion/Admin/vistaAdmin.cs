@@ -32,6 +32,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
         public VistaAdmin(Usuario usuario)
         {
             this.usuario = usuario;
+            this.user= usuario;
             InitializeComponent();
             contadorOpciones = 0;
             //tablaOpciones.Width = panelOpciones.Width;

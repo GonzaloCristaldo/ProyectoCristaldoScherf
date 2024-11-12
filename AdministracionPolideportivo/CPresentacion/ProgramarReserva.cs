@@ -17,24 +17,24 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         public ProgramarReserva(int user_id)
         {
             usuario = DALUsuario.BuscarPorID(user_id.ToString()).First();
-            this.usuario_id= user_id;
+            this.usuario_id = user_id;
             InitializeComponent();
             ubiPanel1 = 20;
             anchoPaneles = (this.Width / 2) - 50;
             ubiPanel2 = anchoPaneles + 30;
             UbicarControles();
-            
-            fecha.MinDate= DateTime.Now;
-            
+            RefrescarCB();
+            fecha.MinDate = DateTime.Now;
+
             int horaApertura = 10;
             int horaCierre = 24;
-            for(int i = horaApertura;i<horaCierre;i++)
+            for (int i = horaApertura; i < horaCierre; i++)
             {
-                horas.Add(new TimeOnly(i, 0, 0));
+                horas.Add(new TimeOnly(i, 0));
             }
             cbHora.DataSource = horas;
         }
-        List<TimeOnly> horas=new List<TimeOnly>();
+        List<TimeOnly> horas = new List<TimeOnly>();
         override public void RefrescarCB()
         {
             cbCliente.DataSource = DALCliente.ListarClientes();
@@ -75,11 +75,11 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             cbServicioAdicional.Location = new Point(ubiPanel1, cbServicioAdicional.Location.Y);
 
             tabla.Width = panelDerecha.Width;
-            tabla.Location= new Point(0, btnAgregarServicio.Location.Y+btnAgregarServicio.Height+15);
+            tabla.Location = new Point(0, btnAgregarServicio.Location.Y + btnAgregarServicio.Height + 15);
             tabla.Height = panelDerecha.Height - tabla.Location.Y - 10;
             btnAgregarServicio.Location = new Point((panelDerecha.Width - btnAgregarServicio.Width) / 2, btnAgregarServicio.Location.Y);
             btnAgendar.Location = new Point((panelIzquierda.Width - btnAgendar.Width) / 2, btnAgendar.Location.Y);
-            lblServicio.Location = new Point((panelDerecha.Width-lblServicio.Width)/2,lblServicio.Location.Y);
+            lblServicio.Location = new Point((panelDerecha.Width - lblServicio.Width) / 2, lblServicio.Location.Y);
 
             lblCliente.Location = new Point((panelIzquierda.Width - lblCliente.Width) / 2, lblCliente.Location.Y);
             lblRecinto.Location = new Point((panelIzquierda.Width - lblRecinto.Width) / 2, lblRecinto.Location.Y);
@@ -165,6 +165,8 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             cbRecinto.Name = "cbRecinto";
             cbRecinto.Size = new Size(274, 23);
             cbRecinto.TabIndex = 3;
+            cbRecinto.ValueMemberChanged += cbRecinto_ValueMemberChanged;
+            cbRecinto.SelectedValueChanged += cbRecinto_SelectedValueChanged;
             // 
             // fecha
             // 
@@ -172,6 +174,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             fecha.Name = "fecha";
             fecha.Size = new Size(274, 23);
             fecha.TabIndex = 5;
+            fecha.ValueChanged += fecha_ValueChanged;
             // 
             // lblFecha
             // 
@@ -390,7 +393,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             {
                 DateOnly fechaSola = new DateOnly(fecha.Value.Year, fecha.Value.Month, fecha.Value.Day);
                 // Crea el cliente y llama a la capa de datos
-                Reserva reserva = new Reserva(0, (Recinto)cbRecinto.SelectedItem, (Cliente)cbCliente.SelectedItem, fechaSola,(TimeOnly)cbHora.SelectedItem,DALUsuario.BuscarPorID(usuario_id.ToString()).First());
+                Reserva reserva = new Reserva(0, (Recinto)cbRecinto.SelectedItem, (Cliente)cbCliente.SelectedItem, fechaSola, (TimeOnly)cbHora.SelectedItem, DALUsuario.BuscarPorID(usuario_id.ToString()).First());
                 int resultado = DALReserva.AgregarReserva(reserva);
 
                 if (resultado > 0)
@@ -407,7 +410,50 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         private void ProgramarReserva_Resize(object sender, EventArgs e)
         {
-           UbicarControles();
+            UbicarControles();
+        }
+
+        private void ActualizarTurnosDisponibles()
+        {
+            List<Reserva> reservas = DALReserva.ListarReservasPorFechaYRecinto(new DateOnly(fecha.Value.Year, fecha.Value.Month, fecha.Value.Day),(Recinto)cbRecinto.SelectedItem);
+            List<TimeOnly> nuevasHoras = new List<TimeOnly>();
+            Console.WriteLine("reservas: " +reservas.Count);
+            for (int i = 0; i < horas.Count; i++)
+            {
+                Boolean horaParaAñadir=true;
+                for(int j = 0; j < reservas.Count; j++)
+                {
+                    Console.WriteLine("reserva a las "+reservas.ElementAt(j).Hora.Hour);
+                    Console.WriteLine("hora "+horas.ElementAt(i).Hour);
+                    if (horas.ElementAt(i).Hour==reservas.ElementAt(j).Hora.Hour)
+                    {
+                        Console.WriteLine("la hora : " + horas.ElementAt(i).Hour+" esta ocupada por otra reserva");
+                        horaParaAñadir = false;
+                        break;
+                    }
+                }
+                if (horaParaAñadir)
+                {
+                    nuevasHoras.Add(horas.ElementAt(i));
+                }
+                
+            }
+            cbHora.DataSource = nuevasHoras;
+        }
+
+        private void fecha_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarTurnosDisponibles();
+        }
+
+        private void cbRecinto_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ActualizarTurnosDisponibles();
+        }
+
+        private void cbRecinto_ValueMemberChanged(object sender, EventArgs e)
+        {
+            ActualizarTurnosDisponibles();
         }
     }
 }
