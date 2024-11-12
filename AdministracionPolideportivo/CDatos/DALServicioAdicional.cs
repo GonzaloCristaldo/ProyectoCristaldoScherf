@@ -97,6 +97,27 @@ namespace AdministracionPolideportivo.CDatos
             return lista;
         }
 
+        public static List<ServicioAdicional> FiltrarPorRecinto(Recinto recinto)
+        {
+            List<ServicioAdicional> lista = new List<ServicioAdicional>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from servicio_adicional where id_servicio in (select id_servicio from Recinto_Servicio where nro_recinto="+recinto.NroRecinto+");";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    ServicioAdicional servicio = new ServicioAdicional(lector.GetInt32(0), lector.GetString(1), lector.GetString(2), lector.GetDecimal(3));
+                    lista.Add(servicio);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
 
     }
 }

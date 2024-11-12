@@ -39,7 +39,16 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         {
             cbCliente.DataSource = DALCliente.ListarClientes();
             cbRecinto.DataSource = DALRecinto.ListarRecintos();
-            cbServicioAdicional.DataSource = DALServicioAdicional.ListarServicios();
+            if (DALServicioAdicional.FiltrarPorRecinto((Recinto)cbRecinto.SelectedItem).IsNullOrEmpty())
+            {
+                cbServicioAdicional.Enabled= false;
+                cbServicioAdicional.Text = "No disponible";
+            }
+            else
+            {
+                cbServicioAdicional.Enabled = true;
+                cbServicioAdicional.DataSource = DALServicioAdicional.FiltrarPorRecinto((Recinto)cbRecinto.SelectedItem);
+            }
         }
 
         int anchoPaneles;
@@ -449,6 +458,16 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         private void cbRecinto_SelectedValueChanged(object sender, EventArgs e)
         {
             ActualizarTurnosDisponibles();
+            if (DALServicioAdicional.FiltrarPorRecinto((Recinto)cbRecinto.SelectedItem).IsNullOrEmpty())
+            {
+                cbServicioAdicional.Enabled = false;
+                cbServicioAdicional.Text = "No disponible";
+            }
+            else
+            {
+                cbServicioAdicional.Enabled = true;
+                cbServicioAdicional.DataSource = DALServicioAdicional.FiltrarPorRecinto((Recinto)cbRecinto.SelectedItem);
+            }
         }
 
         private void cbRecinto_ValueMemberChanged(object sender, EventArgs e)
