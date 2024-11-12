@@ -1,9 +1,12 @@
-﻿using AdministracionPolideportivo.CNegocio;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AdministracionPolideportivo.CPresentacion
 {
@@ -16,28 +19,47 @@ namespace AdministracionPolideportivo.CPresentacion
             this.Font = new Font("Segoe UI", 10F); //Aca se establece el tamaño
         }
 
+        private ComboBoxEstandar cbTipo;
+        bool buscarPorTipo;
+
+        private void CambiarFormaDeBusqueda(bool porTipo)
+        {
+            if (porTipo)
+            {
+                buscarPorTipo = true;
+                labelFormulario1.Text = "Tipo de recinto";
+                txtBuscar.Hide();
+                cbTipo.Show();
+            }
+            else
+            {
+                buscarPorTipo = false;
+                labelFormulario1.Text = "N° recinto";
+                txtBuscar.Show();
+                cbTipo.Hide();
+            }
+        }
+
         public BuscarRecinto()
         {
-
+            buscarPorTipo = true;
             InitializeComponent();
             tablaDatos1.setDatoModelo(new Recinto());
-
+            CambiarFormaDeBusqueda(buscarPorTipo);
+            RefrescarCB();
         }
 
         override public void RefrescarCB()
         {
             //TODO
+            cbTipo.DataSource = DALTipoRecinto.ListarTiposRecinto();
         }
 
         private BotonFormulario btnBuscar;
         private LabelFormulario lblBuscar;
-        private BotonFormulario botonFormulario1;
-        private BotonFormulario botonFormulario2;
-        private BotonFormulario botonFormulario3;
+        private BotonFormulario btnNRO;
+        private BotonFormulario btnTipo;
         private LabelFormulario labelFormulario1;
-        private BotonFormulario botonFormulario4;
-        private BotonFormulario botonFormulario5;
-        private BotonFormulario botonFormulario6;
         private TablaDatos tablaDatos1;
         private Texto txtBuscar;
 
@@ -46,14 +68,11 @@ namespace AdministracionPolideportivo.CPresentacion
             btnBuscar = new BotonFormulario();
             lblBuscar = new LabelFormulario();
             txtBuscar = new Texto();
-            botonFormulario1 = new BotonFormulario();
-            botonFormulario2 = new BotonFormulario();
-            botonFormulario3 = new BotonFormulario();
+            btnNRO = new BotonFormulario();
+            btnTipo = new BotonFormulario();
             labelFormulario1 = new LabelFormulario();
-            botonFormulario4 = new BotonFormulario();
-            botonFormulario5 = new BotonFormulario();
-            botonFormulario6 = new BotonFormulario();
             tablaDatos1 = new TablaDatos();
+            cbTipo = new ComboBoxEstandar();
             ((System.ComponentModel.ISupportInitialize)tablaDatos1).BeginInit();
             SuspendLayout();
             // 
@@ -62,12 +81,13 @@ namespace AdministracionPolideportivo.CPresentacion
             btnBuscar.BackColor = Color.DimGray;
             btnBuscar.Font = new Font("Segoe UI", 10F);
             btnBuscar.ForeColor = Color.White;
-            btnBuscar.Location = new Point(385, 49);
+            btnBuscar.Location = new Point(468, 49);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(112, 35);
             btnBuscar.TabIndex = 0;
             btnBuscar.Text = "Buscar Recinto";
             btnBuscar.UseVisualStyleBackColor = false;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // lblBuscar
             // 
@@ -85,96 +105,48 @@ namespace AdministracionPolideportivo.CPresentacion
             txtBuscar.BackColor = SystemColors.WindowFrame;
             txtBuscar.Cursor = Cursors.IBeam;
             txtBuscar.ForeColor = Color.White;
-            txtBuscar.Location = new Point(169, 57);
+            txtBuscar.Location = new Point(243, 57);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(210, 23);
             txtBuscar.TabIndex = 0;
             // 
-            // botonFormulario1
+            // btnNRO
             // 
-            botonFormulario1.BackColor = Color.DimGray;
-            botonFormulario1.Font = new Font("Segoe UI", 10F);
-            botonFormulario1.ForeColor = Color.White;
-            botonFormulario1.Location = new Point(12, 98);
-            botonFormulario1.Name = "botonFormulario1";
-            botonFormulario1.Size = new Size(100, 41);
-            botonFormulario1.TabIndex = 0;
-            botonFormulario1.Text = "Futbol";
-            botonFormulario1.UseVisualStyleBackColor = false;
+            btnNRO.BackColor = Color.DimGray;
+            btnNRO.Font = new Font("Segoe UI", 10F);
+            btnNRO.ForeColor = Color.White;
+            btnNRO.Location = new Point(169, 98);
+            btnNRO.Name = "btnNRO";
+            btnNRO.Size = new Size(163, 41);
+            btnNRO.TabIndex = 0;
+            btnNRO.Text = "Buscar por Numero";
+            btnNRO.UseVisualStyleBackColor = false;
+            btnNRO.Click += btnNRO_Click;
             // 
-            // botonFormulario2
+            // btnTipo
             // 
-            botonFormulario2.BackColor = Color.DimGray;
-            botonFormulario2.Font = new Font("Segoe UI", 10F);
-            botonFormulario2.ForeColor = Color.White;
-            botonFormulario2.Location = new Point(118, 98);
-            botonFormulario2.Name = "botonFormulario2";
-            botonFormulario2.Size = new Size(100, 41);
-            botonFormulario2.TabIndex = 3;
-            botonFormulario2.Text = "Basquet";
-            botonFormulario2.UseVisualStyleBackColor = false;
-            botonFormulario2.Click += botonFormulario2_Click;
-            // 
-            // botonFormulario3
-            // 
-            botonFormulario3.BackColor = Color.DimGray;
-            botonFormulario3.Font = new Font("Segoe UI", 10F);
-            botonFormulario3.ForeColor = Color.White;
-            botonFormulario3.Location = new Point(224, 98);
-            botonFormulario3.Name = "botonFormulario3";
-            botonFormulario3.Size = new Size(100, 41);
-            botonFormulario3.TabIndex = 4;
-            botonFormulario3.Text = "Mixto";
-            botonFormulario3.UseVisualStyleBackColor = false;
-            botonFormulario3.Click += botonFormulario3_Click;
+            btnTipo.BackColor = Color.DimGray;
+            btnTipo.Font = new Font("Segoe UI", 10F);
+            btnTipo.ForeColor = Color.White;
+            btnTipo.Location = new Point(354, 98);
+            btnTipo.Name = "btnTipo";
+            btnTipo.Size = new Size(176, 41);
+            btnTipo.TabIndex = 3;
+            btnTipo.Text = "Buscar por tipo";
+            btnTipo.UseVisualStyleBackColor = false;
+            btnTipo.Click += botonFormulario2_Click;
             // 
             // labelFormulario1
             // 
             labelFormulario1.AutoSize = true;
             labelFormulario1.Font = new Font("Segoe UI", 18F);
             labelFormulario1.ForeColor = Color.White;
-            labelFormulario1.Location = new Point(36, 52);
+            labelFormulario1.Location = new Point(44, 52);
             labelFormulario1.Name = "labelFormulario1";
             labelFormulario1.Size = new Size(127, 32);
             labelFormulario1.TabIndex = 5;
             labelFormulario1.Text = "N° Recinto";
             labelFormulario1.Click += labelFormulario1_Click;
-            // 
-            // botonFormulario4
-            // 
-            botonFormulario4.BackColor = Color.DimGray;
-            botonFormulario4.Font = new Font("Segoe UI", 10F);
-            botonFormulario4.ForeColor = Color.White;
-            botonFormulario4.Location = new Point(330, 98);
-            botonFormulario4.Name = "botonFormulario4";
-            botonFormulario4.Size = new Size(100, 41);
-            botonFormulario4.TabIndex = 6;
-            botonFormulario4.Text = "S.U.M";
-            botonFormulario4.UseVisualStyleBackColor = false;
-            // 
-            // botonFormulario5
-            // 
-            botonFormulario5.BackColor = Color.DimGray;
-            botonFormulario5.Font = new Font("Segoe UI", 10F);
-            botonFormulario5.ForeColor = Color.White;
-            botonFormulario5.Location = new Point(436, 98);
-            botonFormulario5.Name = "botonFormulario5";
-            botonFormulario5.Size = new Size(100, 41);
-            botonFormulario5.TabIndex = 7;
-            botonFormulario5.Text = "Gimnasio";
-            botonFormulario5.UseVisualStyleBackColor = false;
-            // 
-            // botonFormulario6
-            // 
-            botonFormulario6.BackColor = Color.DimGray;
-            botonFormulario6.Font = new Font("Segoe UI", 10F);
-            botonFormulario6.ForeColor = Color.White;
-            botonFormulario6.Location = new Point(542, 98);
-            botonFormulario6.Name = "botonFormulario6";
-            botonFormulario6.Size = new Size(129, 41);
-            botonFormulario6.TabIndex = 8;
-            botonFormulario6.Text = "Entrenamientos";
-            botonFormulario6.UseVisualStyleBackColor = false;
             // 
             // tablaDatos1
             // 
@@ -184,18 +156,25 @@ namespace AdministracionPolideportivo.CPresentacion
             tablaDatos1.Size = new Size(659, 233);
             tablaDatos1.TabIndex = 9;
             // 
+            // cbTipo
+            // 
+            cbTipo.BackColor = SystemColors.WindowFrame;
+            cbTipo.ForeColor = Color.White;
+            cbTipo.FormattingEnabled = true;
+            cbTipo.Location = new Point(243, 57);
+            cbTipo.Name = "cbTipo";
+            cbTipo.Size = new Size(210, 23);
+            cbTipo.TabIndex = 0;
+            // 
             // BuscarRecinto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(683, 400);
+            Controls.Add(cbTipo);
             Controls.Add(tablaDatos1);
-            Controls.Add(botonFormulario6);
-            Controls.Add(botonFormulario5);
-            Controls.Add(botonFormulario4);
             Controls.Add(labelFormulario1);
-            Controls.Add(botonFormulario3);
-            Controls.Add(botonFormulario2);
-            Controls.Add(botonFormulario1);
+            Controls.Add(btnTipo);
+            Controls.Add(btnNRO);
             Controls.Add(txtBuscar);
             Controls.Add(lblBuscar);
             Controls.Add(btnBuscar);
@@ -218,14 +197,40 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void botonFormulario2_Click(object sender, EventArgs e)
         {
-
+            CambiarFormaDeBusqueda(true);
         }
 
-        
+
 
         private void labelFormulario1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnNRO_Click(object sender, EventArgs e)
+        {
+            CambiarFormaDeBusqueda(false);
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            List<Recinto> resultadoBusqueda = new List<Recinto>();
+            if (buscarPorTipo){
+                    resultadoBusqueda = DALRecinto.BuscarPorTipo(((TipoRecinto)cbTipo.SelectedItem).id.ToString());
+            }else{
+                int num;
+                if (!txtBuscar.Text.IsNullOrEmpty() && int.TryParse(txtBuscar.Text,out num))
+                {
+                    resultadoBusqueda = DALRecinto.BuscarPorID(txtBuscar.Text);
+                }else
+                {
+                    resultadoBusqueda = DALRecinto.ListarRecintos();
+                }
+            }
+            tablaDatos1.Rows.Clear();
+            for (int i = 0; i < resultadoBusqueda.Count; i++){
+                resultadoBusqueda[i].CargarEnTabla(tablaDatos1);
+            }
         }
     }
 }

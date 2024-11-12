@@ -110,5 +110,25 @@ namespace AdministracionPolideportivo.CDatos
             return lista;
         }
 
+        internal static List<Recinto> BuscarPorTipo(String input)
+        {
+            List<Recinto> lista = new List<Recinto>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Recinto where id_tipo_recinto = " + input + ";";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Recinto recinto = new Recinto(lector.GetInt32(0), lector.GetDouble(1), DALEstado.BuscarEstadoID(lector.GetInt32(4).ToString()), DALTipoRecinto.BuscarTipoRecintoID(lector.GetInt32(3).ToString()), lector.GetString(2));
+                    lista.Add(recinto);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
     }
 }
