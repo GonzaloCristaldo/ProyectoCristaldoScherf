@@ -18,8 +18,8 @@ namespace AdministracionPolideportivo.CDatos
             {
                 using (SqlConnection conexion = ConexionDB.GetConexion())
                 {
-                    String query = "insert into Reserva (fecha_reserva,id_cliente,nro_recinto,id_usuario) values ('" +
-                        reserva.Fecha.ToShortDateString() + "'," + reserva.cliente.IdCliente + "," + reserva.recinto.NroRecinto + "," + reserva.usuario.idUsuario + ");";
+                    String query = "insert into Reserva (fecha_reserva,id_cliente,nro_recinto,id_usuario,hora_reserva) values ('" +
+                        reserva.Fecha.ToShortDateString() + "'," + reserva.cliente.IdCliente + "," + reserva.recinto.NroRecinto + "," + reserva.usuario.idUsuario + ","+reserva.Hora.Hour+");";
                     SqlCommand comando = new SqlCommand(query, conexion);
                     resultado = comando.ExecuteNonQuery();
                 }

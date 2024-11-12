@@ -400,7 +400,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                 }
                 else
                 {
-                    MessageBox.Show("Error al programada la reserva.");
+                    MessageBox.Show("Error al programar la reserva.");
                 }
             }
         }
