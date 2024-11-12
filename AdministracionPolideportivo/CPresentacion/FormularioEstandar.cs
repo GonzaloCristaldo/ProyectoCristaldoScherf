@@ -24,7 +24,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
         public virtual void RefrescarCB()
         {
-            throw new NotImplementedException();
+            //todo
         }
 
 
