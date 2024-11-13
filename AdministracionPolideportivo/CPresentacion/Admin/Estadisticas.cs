@@ -2,6 +2,7 @@
 using AdministracionPolideportivo.CNegocio;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,6 +85,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             botonFormulario2.TabIndex = 1;
             botonFormulario2.Text = "Horario pico";
             botonFormulario2.UseVisualStyleBackColor = false;
+            botonFormulario2.Click += botonFormulario2_Click;
             // 
             // botonFormulario3
             // 
@@ -96,6 +98,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             botonFormulario3.TabIndex = 2;
             botonFormulario3.Text = "Recintos mas utilizados";
             botonFormulario3.UseVisualStyleBackColor = false;
+            botonFormulario3.Click += botonFormulario3_Click;
             // 
             // botonFormulario4
             // 
@@ -106,8 +109,9 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             botonFormulario4.Name = "botonFormulario4";
             botonFormulario4.Size = new Size(146, 48);
             botonFormulario4.TabIndex = 3;
-            botonFormulario4.Text = "Deporte con mas reservas";
+            botonFormulario4.Text = "Tipo de recinto mas utilizado";
             botonFormulario4.UseVisualStyleBackColor = false;
+            botonFormulario4.Click += botonFormulario4_Click;
             // 
             // botonFormulario5
             // 
@@ -118,8 +122,9 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             botonFormulario5.Name = "botonFormulario5";
             botonFormulario5.Size = new Size(146, 48);
             botonFormulario5.TabIndex = 4;
-            botonFormulario5.Text = "Deporte con mas socios ";
+            botonFormulario5.Text = "Servicio adicional mas utilizado";
             botonFormulario5.UseVisualStyleBackColor = false;
+            botonFormulario5.Click += botonFormulario5_Click;
             // 
             // richTextBox1
             // 
@@ -185,6 +190,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             botonFormulario6.TabIndex = 0;
             botonFormulario6.Text = "Filtrar";
             botonFormulario6.UseVisualStyleBackColor = false;
+            botonFormulario6.Click += botonFormulario6_Click;
             // 
             // labelFormulario1
             // 
@@ -228,7 +234,69 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void botonFormulario1_Click(object sender, EventArgs e)
         {
+ // Obtén las fechas de los DateTimePicker
+    DateTime fechaInicio = dateTimePicker1.Value.Date;
+    DateTime fechaFin = dateTimePicker2.Value.Date;
 
+    // Consulta base para obtener el mes con más reservas, agregando el filtro de fechas
+    string consultaBase = @"
+    SELECT DATENAME(month, fecha_reserva) AS Mes, COUNT(*) AS CantidadReservas
+    FROM Reserva
+    WHERE fecha_reserva >= @fechaInicio AND fecha_reserva <= @fechaFin
+    GROUP BY DATENAME(month, fecha_reserva), MONTH(fecha_reserva)
+    ORDER BY COUNT(*) DESC";  // Ordenar por la cantidad de reservas (de mayor a menor)
+
+    // Ejecutar la consulta con las fechas filtradas
+    DataHelper dataHelper = new DataHelper();
+    DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
+
+    // Crear un diccionario para traducir los meses de inglés a español
+    Dictionary<string, string> mesesEnEspañol = new Dictionary<string, string>
+    {
+        { "January", "Enero" },
+        { "February", "Febrero" },
+        { "March", "Marzo" },
+        { "April", "Abril" },
+        { "May", "Mayo" },
+        { "June", "Junio" },
+        { "July", "Julio" },
+        { "August", "Agosto" },
+        { "September", "Septiembre" },
+        { "October", "Octubre" },
+        { "November", "Noviembre" },
+        { "December", "Diciembre" }
+    };
+
+    // Limpiar el gráfico actual
+    chart1.Series.Clear();
+
+    // Crear una nueva serie para el gráfico
+    var series = chart1.Series.Add("Mes con más reservas");
+    series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+
+    // Inicializar variables para encontrar el mes con más reservas
+    string mesConMasReservas = "";
+    int cantidadMaxima = 0;
+
+    // Añadir los datos al gráfico, traduciendo los meses y actualizando el mensaje
+    foreach (DataRow row in result.Rows)
+    {
+        string mesIngles = row["Mes"].ToString();
+        string mesEnEspanol = mesesEnEspañol.ContainsKey(mesIngles) ? mesesEnEspañol[mesIngles] : mesIngles;
+        int cantidadReservas = Convert.ToInt32(row["CantidadReservas"]);
+
+        series.Points.AddXY(mesEnEspanol, cantidadReservas);
+
+        // Si encontramos un valor mayor, actualizamos el mes con más reservas
+        if (cantidadReservas > cantidadMaxima)
+        {
+            cantidadMaxima = cantidadReservas;
+            mesConMasReservas = mesEnEspanol;
+        }
+    }
+
+    // Mostrar el resultado en el RichTextBox
+    richTextBox1.Text = $"El mes con más reservas es {mesConMasReservas} con {cantidadMaxima} reservas.";
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -261,5 +329,226 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
         private DateTimePicker dateTimePicker2;
         private BotonFormulario botonFormulario6;
         private LabelFormulario labelFormulario1;
+
+        private void botonFormulario2_Click(object sender, EventArgs e)
+        {
+            // Obtén las fechas de los DateTimePicker
+            DateTime fechaInicio = dateTimePicker1.Value.Date;
+            DateTime fechaFin = dateTimePicker2.Value.Date;
+
+            // Consulta base para el horario pico
+            string consultaBase = @"
+    SELECT hora_reserva AS Hora, COUNT(*) AS CantidadReservas
+    FROM Reserva
+    WHERE fecha_reserva >= @fechaInicio AND fecha_reserva <= @fechaFin
+    GROUP BY hora_reserva
+    ORDER BY CantidadReservas DESC";
+
+            // Ejecutar la consulta con las fechas filtradas
+            DataHelper dataHelper = new DataHelper();
+            DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
+
+            // Limpiar el gráfico actual
+            chart1.Series.Clear();
+
+            // Crear una nueva serie para el gráfico
+            var series = chart1.Series.Add("Horario pico");
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+
+            // Inicializar variables para encontrar el horario pico
+            string horaPico = "";
+            int maxReservas = 0;
+
+            // Añadir los datos al gráfico
+            foreach (DataRow row in result.Rows)
+            {
+                series.Points.AddXY(row["Hora"], row["CantidadReservas"]);
+            }
+            if (result.Rows.Count > 0)
+            {
+                DataRow maxRow = result.Rows[0]; // Como está ordenado por cantidad de reservas descendente, el primero es el mayor
+                richTextBox1.Text = $"El horario pico con más reservas es a las {maxRow["Hora"]} con {maxRow["CantidadReservas"]} reservas.";
+            }
+
+        }
+
+        private void botonFormulario3_Click(object sender, EventArgs e)
+        {
+            // Obtén las fechas de los DateTimePicker
+            DateTime fechaInicio = dateTimePicker1.Value.Date;
+            DateTime fechaFin = dateTimePicker2.Value.Date;
+
+            // Consulta base para los recintos más utilizados
+            string consultaBase = @"
+    SELECT R.nro_recinto, COUNT(*) AS CantidadReservas
+    FROM Reserva AS R
+    WHERE fecha_reserva >= @fechaInicio AND fecha_reserva <= @fechaFin
+    GROUP BY R.nro_recinto
+    ORDER BY CantidadReservas DESC";
+
+            // Ejecutar la consulta con las fechas filtradas
+            DataHelper dataHelper = new DataHelper();
+            DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
+
+            // Limpiar el gráfico actual
+            chart1.Series.Clear();
+
+            // Crear una nueva serie para el gráfico
+            var series = chart1.Series.Add("Recintos más utilizados");
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+
+            // Añadir los datos al gráfico
+            foreach (DataRow row in result.Rows)
+            {
+                series.Points.AddXY(row["nro_recinto"], row["CantidadReservas"]);
+            }
+
+            // Mostrar el recinto con más reservas en el RichTextBox
+            if (result.Rows.Count > 0)
+            {
+                DataRow maxRow = result.Rows[0]; // El primer recinto es el más utilizado
+                richTextBox1.Text = $"El recinto más utilizado es el número {maxRow["nro_recinto"]} con {maxRow["CantidadReservas"]} reservas.";
+            }
+        }
+
+        private void botonFormulario4_Click(object sender, EventArgs e)
+        {
+            // Obtén las fechas de los DateTimePicker
+            DateTime fechaInicio = dateTimePicker1.Value.Date;
+            DateTime fechaFin = dateTimePicker2.Value.Date;
+
+            // Consulta base para el deporte más utilizado
+            string consultaBase = @"
+    SELECT TR.nombre_tipo_recinto AS Deporte, COUNT(*) AS CantidadReservas
+    FROM Reserva AS R
+    JOIN Recinto AS RC ON R.nro_recinto = RC.nro_recinto
+    JOIN Tipo_Recinto AS TR ON RC.id_tipo_recinto = TR.id_tipo_recinto
+    WHERE fecha_reserva >= @fechaInicio AND fecha_reserva <= @fechaFin
+    GROUP BY TR.nombre_tipo_recinto
+    ORDER BY CantidadReservas DESC";
+
+            // Ejecutar la consulta con las fechas filtradas
+            DataHelper dataHelper = new DataHelper();
+            DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
+
+            // Limpiar el gráfico actual
+            chart1.Series.Clear();
+
+            // Crear una nueva serie para el gráfico
+            var series = chart1.Series.Add("Tipo recinto mas utilizado");
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+
+            // Añadir los datos al gráfico
+            foreach (DataRow row in result.Rows)
+            {
+                series.Points.AddXY(row["Deporte"], row["CantidadReservas"]);
+            }
+
+            // Mostrar el deporte más utilizado en el RichTextBox
+            if (result.Rows.Count > 0)
+            {
+                DataRow maxRow = result.Rows[0]; 
+                richTextBox1.Text = $"El tipo de recinto más utilizado es {maxRow["Deporte"]} con {maxRow["CantidadReservas"]} reservas.";
+            }
+        }
+
+        private void botonFormulario5_Click(object sender, EventArgs e)
+        {
+            // Obtén las fechas de los DateTimePicker
+            DateTime fechaInicio = dateTimePicker1.Value.Date;
+            DateTime fechaFin = dateTimePicker2.Value.Date;
+
+            // Consulta base para el servicio adicional más utilizado
+            string consultaBase = @"
+    SELECT SA.nombre_servicio AS Servicio, COUNT(*) AS CantidadUsos
+    FROM Servicio_Reserva AS SR
+    JOIN Servicio_Adicional AS SA ON SR.id_servicio = SA.id_servicio
+    JOIN Reserva AS R ON SR.id_reserva = R.id_reserva
+    WHERE R.fecha_reserva >= @fechaInicio AND R.fecha_reserva <= @fechaFin
+    GROUP BY SA.nombre_servicio
+    ORDER BY CantidadUsos DESC";
+
+            // Ejecutar la consulta con las fechas filtradas
+            DataHelper dataHelper = new DataHelper();
+            DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
+
+            // Limpiar el gráfico actual
+            chart1.Series.Clear();
+
+            // Crear una nueva serie para el gráfico
+            var series = chart1.Series.Add("Servicio adicional más utilizado");
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+
+            // Añadir los datos al gráfico
+            foreach (DataRow row in result.Rows)
+            {
+                series.Points.AddXY(row["Servicio"], row["CantidadUsos"]);
+            }
+
+            // Mostrar el servicio más utilizado en el RichTextBox
+            if (result.Rows.Count > 0)
+            {
+                DataRow maxRow = result.Rows[0]; // El primer servicio es el más utilizado
+                richTextBox1.Text = $"El servicio adicional más utilizado es {maxRow["Servicio"]} con {maxRow["CantidadUsos"]} usos.";
+            }
+        }
+
+        private void botonFormulario6_Click(object sender, EventArgs e)
+        {
+            // Obtén las fechas de los DateTimePicker
+            DateTime fechaInicio = dateTimePicker1.Value.Date;  // Usa .Date para eliminar la hora
+            DateTime fechaFin = dateTimePicker2.Value.Date;
+
+            // Consulta base que ya tiene la lógica para obtener el mes y la cantidad de reservas
+            string consultaBase = @"
+    SELECT DATENAME(month, fecha_reserva) AS Mes, COUNT(*) AS CantidadReservas
+    FROM Reserva
+    WHERE fecha_reserva >= @fechaInicio AND fecha_reserva <= @fechaFin
+    GROUP BY DATENAME(month, fecha_reserva), MONTH(fecha_reserva)
+    ORDER BY MONTH(fecha_reserva)";
+
+            // Ejecutar la consulta con las fechas filtradas
+            DataHelper dataHelper = new DataHelper();
+            DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
+
+            // Limpiar el gráfico actual
+            chart1.Series.Clear();
+
+            // Crear una nueva serie para el gráfico filtrado
+            var series = chart1.Series.Add("Filtrado");
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+
+            /* Añadir los datos al gráfico
+            foreach (DataRow row in result.Rows)
+            {
+                series.Points.AddXY(row["Mes"], row["CantidadReservas"]);
+            }*/
+        }
+        private string ConstruirConsultaConFechas(string consultaBase, DateTime? fechaInicio, DateTime? fechaFin)
+        {
+            // Añadir la condición WHERE correctamente
+            StringBuilder queryBuilder = new StringBuilder(consultaBase);
+
+            // Agregar la cláusula WHERE solo si es necesario
+            if (fechaInicio.HasValue || fechaFin.HasValue)
+            {
+                queryBuilder.Append(" WHERE ");
+                if (fechaInicio.HasValue)
+                {
+                    queryBuilder.Append("fecha_reserva >= @fechaInicio ");
+                }
+                if (fechaFin.HasValue)
+                {
+                    if (fechaInicio.HasValue) queryBuilder.Append("AND ");
+                    queryBuilder.Append("fecha_reserva <= @fechaFin ");
+                }
+            }
+
+            // Asegurarse de que ORDER BY esté al final
+            queryBuilder.Append("ORDER BY MONTH(fecha_reserva)");
+
+            return queryBuilder.ToString();
+        }
+
     }
 }
