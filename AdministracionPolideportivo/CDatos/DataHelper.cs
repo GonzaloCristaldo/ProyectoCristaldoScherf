@@ -6,6 +6,7 @@ namespace AdministracionPolideportivo.CDatos
 {
     public class DataHelper
     {
+        //Al igual que en ConexionDB, se debe cambiar el nombre de la base de datos y el servidor.
         private readonly string connectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=Gonzalo";
 
 
