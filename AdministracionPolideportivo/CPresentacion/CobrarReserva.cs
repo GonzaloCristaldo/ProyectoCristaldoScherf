@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,13 +21,21 @@ namespace AdministracionPolideportivo.CPresentacion
         private void InitializeComponent()
         {
             labelFormulario1 = new LabelFormulario();
-            botonFormulario1 = new BotonFormulario();
-            dataGridView1 = new DataGridView();
+            btnCobrar = new BotonFormulario();
             label1 = new Label();
-            label2 = new Label();
-            comboBoxEstandar1 = new ComboBoxEstandar();
-            label3 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            lblTotal = new Label();
+            cbMedioPago = new ComboBoxEstandar();
+            lblMedioPago = new Label();
+            panel1 = new Panel();
+            txtDetalle = new Texto();
+            panel2 = new Panel();
+            lblMonto = new Label();
+            txtMonto = new TextoNumerico();
+            cbReserva = new ComboBoxEstandar();
+            lblReserva = new Label();
+            btnFactura = new BotonFormulario();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // labelFormulario1
@@ -39,96 +49,204 @@ namespace AdministracionPolideportivo.CPresentacion
             labelFormulario1.TabIndex = 0;
             labelFormulario1.Text = "Proceder con el cobro";
             // 
-            // botonFormulario1
+            // btnCobrar
             // 
-            botonFormulario1.BackColor = Color.ForestGreen;
-            botonFormulario1.Font = new Font("Segoe UI", 10F);
-            botonFormulario1.ForeColor = Color.White;
-            botonFormulario1.Location = new Point(379, 234);
-            botonFormulario1.Name = "botonFormulario1";
-            botonFormulario1.Size = new Size(146, 41);
-            botonFormulario1.TabIndex = 0;
-            botonFormulario1.Text = "Cobrar";
-            botonFormulario1.UseVisualStyleBackColor = false;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToOrderColumns = true;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(274, 40);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(240, 150);
-            dataGridView1.TabIndex = 1;
+            btnCobrar.BackColor = Color.ForestGreen;
+            btnCobrar.Font = new Font("Segoe UI", 10F);
+            btnCobrar.ForeColor = Color.White;
+            btnCobrar.Location = new Point(194, 234);
+            btnCobrar.Name = "btnCobrar";
+            btnCobrar.Size = new Size(146, 41);
+            btnCobrar.TabIndex = 0;
+            btnCobrar.Text = "Cobrar";
+            btnCobrar.UseVisualStyleBackColor = false;
+            btnCobrar.Click += btnCobrar_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.White;
-            label1.Location = new Point(274, 202);
+            label1.Location = new Point(14, 156);
             label1.Name = "label1";
             label1.Size = new Size(35, 15);
             label1.TabIndex = 2;
             label1.Text = "Total:";
             // 
-            // label2
+            // lblTotal
             // 
-            label2.AutoSize = true;
-            label2.ForeColor = SystemColors.ButtonFace;
-            label2.Location = new Point(469, 202);
-            label2.Name = "label2";
-            label2.Size = new Size(45, 15);
-            label2.TabIndex = 3;
-            label2.Text = "$ _ _ _ _";
+            lblTotal.AutoSize = true;
+            lblTotal.ForeColor = SystemColors.ButtonFace;
+            lblTotal.Location = new Point(208, 156);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(45, 15);
+            lblTotal.TabIndex = 3;
+            lblTotal.Text = "$ _ _ _ _";
             // 
-            // comboBoxEstandar1
+            // cbMedioPago
             // 
-            comboBoxEstandar1.BackColor = SystemColors.WindowFrame;
-            comboBoxEstandar1.ForeColor = Color.White;
-            comboBoxEstandar1.FormattingEnabled = true;
-            comboBoxEstandar1.Items.AddRange(new object[] { "Efectivo", "Tarjeta de credito", "Tarjeta de debito", "Mercado Pago", "QR MODO" });
-            comboBoxEstandar1.Location = new Point(36, 60);
-            comboBoxEstandar1.Name = "comboBoxEstandar1";
-            comboBoxEstandar1.Size = new Size(210, 23);
-            comboBoxEstandar1.TabIndex = 0;
+            cbMedioPago.BackColor = SystemColors.WindowFrame;
+            cbMedioPago.ForeColor = Color.White;
+            cbMedioPago.FormattingEnabled = true;
+            cbMedioPago.Items.AddRange(new object[] { "Efectivo", "Tarjeta de credito", "Tarjeta de debito", "Mercado Pago", "QR MODO" });
+            cbMedioPago.Location = new Point(23, 81);
+            cbMedioPago.Name = "cbMedioPago";
+            cbMedioPago.Size = new Size(210, 23);
+            cbMedioPago.TabIndex = 0;
             // 
-            // label3
+            // lblMedioPago
             // 
-            label3.AutoSize = true;
-            label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(95, 40);
-            label3.Name = "label3";
-            label3.Size = new Size(87, 15);
-            label3.TabIndex = 4;
-            label3.Text = "Forma de pago";
+            lblMedioPago.AutoSize = true;
+            lblMedioPago.ForeColor = SystemColors.ButtonHighlight;
+            lblMedioPago.Location = new Point(82, 61);
+            lblMedioPago.Name = "lblMedioPago";
+            lblMedioPago.Size = new Size(87, 15);
+            lblMedioPago.TabIndex = 4;
+            lblMedioPago.Text = "Forma de pago";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(txtDetalle);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(lblTotal);
+            panel1.Location = new Point(269, 40);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(256, 185);
+            panel1.TabIndex = 5;
+            // 
+            // txtDetalle
+            // 
+            txtDetalle.BackColor = SystemColors.WindowFrame;
+            txtDetalle.ForeColor = Color.White;
+            txtDetalle.Location = new Point(3, 3);
+            txtDetalle.Multiline = true;
+            txtDetalle.Name = "txtDetalle";
+            txtDetalle.ScrollBars = ScrollBars.Both;
+            txtDetalle.Size = new Size(250, 150);
+            txtDetalle.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(lblMonto);
+            panel2.Controls.Add(txtMonto);
+            panel2.Controls.Add(cbReserva);
+            panel2.Controls.Add(lblReserva);
+            panel2.Controls.Add(cbMedioPago);
+            panel2.Controls.Add(lblMedioPago);
+            panel2.Location = new Point(12, 40);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(251, 185);
+            panel2.TabIndex = 6;
+            // 
+            // lblMonto
+            // 
+            lblMonto.AutoSize = true;
+            lblMonto.ForeColor = SystemColors.ButtonHighlight;
+            lblMonto.Location = new Point(23, 133);
+            lblMonto.Name = "lblMonto";
+            lblMonto.Size = new Size(43, 15);
+            lblMonto.TabIndex = 7;
+            lblMonto.Text = "Monto";
+            // 
+            // txtMonto
+            // 
+            txtMonto.BackColor = SystemColors.WindowFrame;
+            txtMonto.ForeColor = Color.White;
+            txtMonto.Location = new Point(72, 130);
+            txtMonto.Name = "txtMonto";
+            txtMonto.Size = new Size(84, 23);
+            txtMonto.TabIndex = 1;
+            // 
+            // cbReserva
+            // 
+            cbReserva.BackColor = SystemColors.WindowFrame;
+            cbReserva.ForeColor = Color.White;
+            cbReserva.FormattingEnabled = true;
+            cbReserva.Items.AddRange(new object[] { "Efectivo", "Tarjeta de credito", "Tarjeta de debito", "Mercado Pago", "QR MODO" });
+            cbReserva.Location = new Point(23, 35);
+            cbReserva.Name = "cbReserva";
+            cbReserva.Size = new Size(210, 23);
+            cbReserva.TabIndex = 5;
+            cbReserva.SelectedValueChanged += cbReserva_SelectedValueChanged;
+            // 
+            // lblReserva
+            // 
+            lblReserva.AutoSize = true;
+            lblReserva.ForeColor = SystemColors.ButtonHighlight;
+            lblReserva.Location = new Point(82, 15);
+            lblReserva.Name = "lblReserva";
+            lblReserva.Size = new Size(47, 15);
+            lblReserva.TabIndex = 6;
+            lblReserva.Text = "Reserva";
+            // 
+            // btnFactura
+            // 
+            btnFactura.BackColor = Color.DimGray;
+            btnFactura.Font = new Font("Segoe UI", 10F);
+            btnFactura.ForeColor = Color.White;
+            btnFactura.Location = new Point(376, 234);
+            btnFactura.Name = "btnFactura";
+            btnFactura.Size = new Size(146, 41);
+            btnFactura.TabIndex = 0;
+            btnFactura.Text = "Ver Factura";
+            btnFactura.UseVisualStyleBackColor = false;
             // 
             // CobrarReserva
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             ClientSize = new Size(537, 287);
-            Controls.Add(label3);
-            Controls.Add(comboBoxEstandar1);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(dataGridView1);
-            Controls.Add(botonFormulario1);
+            Controls.Add(btnFactura);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Controls.Add(btnCobrar);
             Controls.Add(labelFormulario1);
             Name = "CobrarReserva";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         override public void RefrescarCB()
         {
-            //TODO
+            cbMedioPago.DataSource = DALMedioPago.ListarMedios();
+            cbReserva.DataSource = DALReserva.ListarReservas();
+
         }
 
         private LabelFormulario labelFormulario1;
-        private BotonFormulario botonFormulario1;
-        private DataGridView dataGridView1;
+        private BotonFormulario btnCobrar;
         private Label label1;
-        private ComboBoxEstandar comboBoxEstandar1;
-        private Label label3;
-        private Label label2;
+        private ComboBoxEstandar cbMedioPago;
+        private Label lblMedioPago;
+        private Panel panel1;
+        private Panel panel2;
+        private Label lblMonto;
+        private TextoNumerico txtMonto;
+        private ComboBoxEstandar cbReserva;
+        private Label lblReserva;
+        private Texto txtDetalle;
+        private BotonFormulario btnFactura;
+        private Label lblTotal;
+
+        private void btnCobrar_Click(object sender, EventArgs e)
+        {
+
+        }
+        decimal totalReserva;
+        private void cbReserva_SelectedValueChanged(object sender, EventArgs e)
+        {
+            List<ServicioReserva> serviciosReserva = DALServicioReserva.BuscarPorIdReserva(((Reserva)(cbReserva.SelectedItem)).idReserva.ToString());
+            List<ServicioAdicional> servicios=new List<ServicioAdicional>();
+            totalReserva = 0;
+            for(int i = 0; i < serviciosReserva.Count; i++)
+            {
+                servicios.Add(DALServicioAdicional.BuscarPorId(serviciosReserva.ElementAt(i).servicio.IdServicio.ToString()).First());
+                txtDetalle.Text +=servicios.ElementAt(i).NombreServicio+". $"+servicios.ElementAt(i).Precio+'\n';
+                totalReserva += servicios.ElementAt(i).Precio;
+            }
+            lblTotal.Text= "$"+totalReserva.ToString();
+        }
     }
 }

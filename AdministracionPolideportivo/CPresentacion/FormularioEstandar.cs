@@ -26,10 +26,5 @@ namespace AdministracionPolideportivo.CPresentacion
         {
             //todo
         }
-
-
-        /*{
-            //GENERICO
-        }*/
     }
 }

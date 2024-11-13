@@ -40,5 +40,25 @@ namespace AdministracionPolideportivo.CDatos
             return resultado;
         }
 
+        public static List<ServicioReserva> BuscarPorIdReserva(String input)
+        {
+            List<ServicioReserva> lista = new List<ServicioReserva>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Cliente where id_cliente = " + input + ";";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    ServicioReserva servicioReserva = new ServicioReserva(DALReserva.BuscarPorID(lector.GetInt32(1).ToString()).First(), DALServicioAdicional.BuscarPorIdReserva(lector.GetInt32(0)).First());
+                    lista.Add(servicioReserva);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
     }
 }
