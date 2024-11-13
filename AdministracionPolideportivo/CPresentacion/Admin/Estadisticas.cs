@@ -234,7 +234,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void botonFormulario1_Click(object sender, EventArgs e)
         {
- // Obtén las fechas de los DateTimePicker
+ 
     DateTime fechaInicio = dateTimePicker1.Value.Date;
     DateTime fechaFin = dateTimePicker2.Value.Date;
 
@@ -332,7 +332,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void botonFormulario2_Click(object sender, EventArgs e)
         {
-            // Obtén las fechas de los DateTimePicker
+            
             DateTime fechaInicio = dateTimePicker1.Value.Date;
             DateTime fechaFin = dateTimePicker2.Value.Date;
 
@@ -374,7 +374,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void botonFormulario3_Click(object sender, EventArgs e)
         {
-            // Obtén las fechas de los DateTimePicker
+            // Obtenerr las fechas de los DateTimePicker
             DateTime fechaInicio = dateTimePicker1.Value.Date;
             DateTime fechaFin = dateTimePicker2.Value.Date;
 
@@ -413,7 +413,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void botonFormulario4_Click(object sender, EventArgs e)
         {
-            // Obtén las fechas de los DateTimePicker
+            // Obterr las fechas de los DateTimePicker
             DateTime fechaInicio = dateTimePicker1.Value.Date;
             DateTime fechaFin = dateTimePicker2.Value.Date;
 
@@ -454,7 +454,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void botonFormulario5_Click(object sender, EventArgs e)
         {
-            // Obtén las fechas de los DateTimePicker
+            // Obtner las fechas de los DateTimePicker
             DateTime fechaInicio = dateTimePicker1.Value.Date;
             DateTime fechaFin = dateTimePicker2.Value.Date;
 
@@ -495,7 +495,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void botonFormulario6_Click(object sender, EventArgs e)
         {
-            // Obtén las fechas de los DateTimePicker
+            // Obtengo las fechas de los DateTimePicker
             DateTime fechaInicio = dateTimePicker1.Value.Date;  // Usa .Date para eliminar la hora
             DateTime fechaFin = dateTimePicker2.Value.Date;
 
@@ -544,7 +544,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
                 }
             }
 
-            // Asegurarse de que ORDER BY esté al final
+            // 
             queryBuilder.Append("ORDER BY MONTH(fecha_reserva)");
 
             return queryBuilder.ToString();
