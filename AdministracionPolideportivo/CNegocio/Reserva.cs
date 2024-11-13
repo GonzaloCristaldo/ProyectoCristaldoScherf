@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AdministracionPolideportivo.CPresentacion;
 using System.Runtime.CompilerServices;
+using AdministracionPolideportivo.CDatos;
 
 namespace AdministracionPolideportivo.CNegocio
 {
@@ -39,10 +40,11 @@ namespace AdministracionPolideportivo.CNegocio
             VerDetalle popUp = new VerDetalle();
             popUp.TopLevel = true;
             popUp.FormBorderStyle = FormBorderStyle.FixedSingle;
-            popUp.tabla.setDatoModelo(new ServicioAdicional(1, "", "", 0.1m));
+            //popUp.tabla.setDatoModelo(new ServicioAdicional(1, "", "", 0.1m));
             popUp.lblDetalle.Text = "Servicios adicionales de la reserva N° " + reserva.idReserva;
             //TODO
             //cargar datos dinamicamente a la tabla
+            popUp.tabla.DataSource = DALServicioAdicional.BuscarPorIdReserva(reserva.idReserva);
 
 
             popUp.ShowDialog();
@@ -54,7 +56,7 @@ namespace AdministracionPolideportivo.CNegocio
                 tabla.setDatoModelo(this);
                 System.Console.WriteLine("El tipo de dato no era igual al dato modelo, se cambio la cabecera");
             }
-            String[] datosReserva = [idReserva.ToString(), cliente.NombreCliente,recinto.NroRecinto.ToString(),Fecha.ToString()+Hora.ToString()];
+            String[] datosReserva = [idReserva.ToString(), cliente.NombreCliente,recinto.NroRecinto.ToString(),Fecha.ToString()+" "+Hora.Hour.ToString()];
             tabla.Rows.Add(datosReserva);
 
             TablaBoton boton = new TablaBoton(this);
@@ -79,7 +81,7 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("idReserva", "Id");
             tabla.Columns.Add("cliente", "Cliente");
             tabla.Columns.Add("recinto", "Recinto");
-            tabla.Columns.Add("fecha", "Fecha");
+            tabla.Columns.Add("fecha", "Fecha y Hora");
             tabla.Columns.Add("detalle","Adicionales");
         }
 

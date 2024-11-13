@@ -46,7 +46,7 @@ namespace AdministracionPolideportivo.CDatos
 
             using (SqlConnection conexion = ConexionDB.GetConexion())
             {
-                String query = "select * from Reserva";
+                String query = "select * from Reserva;";
                 SqlCommand comando = new SqlCommand(query, conexion);
                 SqlDataReader lector = comando.ExecuteReader();
 
@@ -54,7 +54,7 @@ namespace AdministracionPolideportivo.CDatos
                 {
                     Reserva reserva = new Reserva(lector.GetInt32(0), DALRecinto.BuscarPorID(lector.GetInt32(3).ToString()).First(),
                     DALCliente.BuscarPorID(lector.GetInt32(2).ToString()).First(),
-                    DateOnly.FromDateTime(lector.GetDateTime(1)),new TimeOnly(lector.GetInt32(4),0),DALUsuario.BuscarPorID(lector.GetInt32(5).ToString()).First());
+                    DateOnly.FromDateTime(lector.GetDateTime(1)),new TimeOnly(lector.GetInt32(4),0),DALUsuario.BuscarPorID(lector.GetInt32(4).ToString()).First());
                     lista.Add(reserva);
                 }
                 conexion.Close();
@@ -89,6 +89,30 @@ namespace AdministracionPolideportivo.CDatos
             return lista;
         }
 
+        internal static List<Reserva> BuscarPorFecha(DateOnly fecha)
+        {
+            List<Reserva> lista = new List<Reserva>();
+
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Reserva where fecha_reserva = '" + fecha.Year + "-" + fecha.Month + "-" + fecha.Day + "';";
+                Console.WriteLine(query);
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Reserva reserva = new Reserva(lector.GetInt32(0), DALRecinto.BuscarPorID(lector.GetInt32(3).ToString()).First(),
+                    DALCliente.BuscarPorID(lector.GetInt32(2).ToString()).First(),
+                    DateOnly.FromDateTime(lector.GetDateTime(1)), new TimeOnly(lector.GetInt32(5), 0), DALUsuario.BuscarPorID(lector.GetInt32(4).ToString()).First());
+                    lista.Add(reserva);
+                }
+                conexion.Close();
+            }
+            return lista;
+        }
+
         internal static Reserva BuscarPorFechaRecintoHoraCliente(DateOnly fecha, Recinto recinto, TimeOnly hora, Cliente cliente)
         {
             List<Reserva> lista = new List<Reserva>();
@@ -114,6 +138,126 @@ namespace AdministracionPolideportivo.CDatos
 
 
             return lista.First();
+        }
+
+        internal static List<Reserva> BuscarPorHora(string text)
+        {
+            List<Reserva> lista = new List<Reserva>();
+
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Reserva where hora_reserva = " + text + ";";
+                Console.WriteLine(query);
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Reserva reserva = new Reserva(lector.GetInt32(0), DALRecinto.BuscarPorID(lector.GetInt32(3).ToString()).First(),
+                    DALCliente.BuscarPorID(lector.GetInt32(2).ToString()).First(),
+                    DateOnly.FromDateTime(lector.GetDateTime(1)), new TimeOnly(lector.GetInt32(5), 0), DALUsuario.BuscarPorID(lector.GetInt32(4).ToString()).First());
+                    lista.Add(reserva);
+                }
+                conexion.Close();
+            }
+            return lista;
+        }
+
+        internal static List<Reserva> BuscarPorID(string text)
+        {
+            List<Reserva> lista = new List<Reserva>();
+
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Reserva where id_reserva = " + text+";";
+                Console.WriteLine(query);
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Reserva reserva = new Reserva(lector.GetInt32(0), DALRecinto.BuscarPorID(lector.GetInt32(3).ToString()).First(),
+                    DALCliente.BuscarPorID(lector.GetInt32(2).ToString()).First(),
+                    DateOnly.FromDateTime(lector.GetDateTime(1)), new TimeOnly(lector.GetInt32(5), 0), DALUsuario.BuscarPorID(lector.GetInt32(4).ToString()).First());
+                    lista.Add(reserva);
+                }
+                conexion.Close();
+            }
+            return lista;
+        }
+
+        internal static List<Reserva> BuscarPorIDCliente(string text)
+        {
+            List<Reserva> lista = new List<Reserva>();
+
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Reserva where id_cliente = " + text + ";";
+                Console.WriteLine(query);
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Reserva reserva = new Reserva(lector.GetInt32(0), DALRecinto.BuscarPorID(lector.GetInt32(3).ToString()).First(),
+                    DALCliente.BuscarPorID(lector.GetInt32(2).ToString()).First(),
+                    DateOnly.FromDateTime(lector.GetDateTime(1)), new TimeOnly(lector.GetInt32(5), 0), DALUsuario.BuscarPorID(lector.GetInt32(4).ToString()).First());
+                    lista.Add(reserva);
+                }
+                conexion.Close();
+            }
+            return lista;
+        }
+
+        internal static List<Reserva> BuscarPorIDUsuario(string text)
+        {
+            List<Reserva> lista = new List<Reserva>();
+
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Reserva where id_usuario = " + text + ";";
+                Console.WriteLine(query);
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Reserva reserva = new Reserva(lector.GetInt32(0), DALRecinto.BuscarPorID(lector.GetInt32(3).ToString()).First(),
+                    DALCliente.BuscarPorID(lector.GetInt32(2).ToString()).First(),
+                    DateOnly.FromDateTime(lector.GetDateTime(1)), new TimeOnly(lector.GetInt32(5), 0), DALUsuario.BuscarPorID(lector.GetInt32(4).ToString()).First());
+                    lista.Add(reserva);
+                }
+                conexion.Close();
+            }
+            return lista;
+        }
+
+        internal static List<Reserva> BuscarPorNroRecinto(string text)
+        {
+            List<Reserva> lista = new List<Reserva>();
+
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Reserva where nro_recinto = " + text + ";";
+                Console.WriteLine(query);
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Reserva reserva = new Reserva(lector.GetInt32(0), DALRecinto.BuscarPorID(lector.GetInt32(3).ToString()).First(),
+                    DALCliente.BuscarPorID(lector.GetInt32(2).ToString()).First(),
+                    DateOnly.FromDateTime(lector.GetDateTime(1)), new TimeOnly(lector.GetInt32(5), 0), DALUsuario.BuscarPorID(lector.GetInt32(4).ToString()).First());
+                    lista.Add(reserva);
+                }
+                conexion.Close();
+            }
+            return lista;
         }
     }
 }

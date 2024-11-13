@@ -1,4 +1,6 @@
-﻿using AdministracionPolideportivo.CNegocio;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         {
 
             InitializeComponent();
-            tablaDatos1.setDatoModelo(new Reserva(1,new Recinto(),new Cliente(), new DateOnly(),new TimeOnly(), new Usuario()));
+            tablaDatos1.setDatoModelo(new Reserva(1, new Recinto(), new Cliente(), new DateOnly(), new TimeOnly(), new Usuario()));
 
         }
 
@@ -26,7 +28,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         {
             labelFormulario1 = new LabelFormulario();
             cbBuscar = new ComboBoxEstandar();
-            texto1 = new Texto();
+            txtBuscar = new Texto();
             btnBuscar = new BotonFormulario();
             tablaDatos1 = new TablaDatos();
             ((System.ComponentModel.ISupportInitialize)tablaDatos1).BeginInit();
@@ -48,20 +50,20 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             cbBuscar.BackColor = SystemColors.WindowFrame;
             cbBuscar.ForeColor = Color.White;
             cbBuscar.FormattingEnabled = true;
-            cbBuscar.Items.AddRange(new object[] { "Nombre", "Fecha", "Recinto", "Deporte", "Servicio " });
+            cbBuscar.Items.AddRange(new object[] { "ID", "Fecha (aaaa-mm-dd)", "ID de Cliente", "Numero de Recinto", "ID de Usuario", "Hora", "Listar Reservas" });
             cbBuscar.Location = new Point(289, 40);
             cbBuscar.Name = "cbBuscar";
             cbBuscar.Size = new Size(210, 23);
             cbBuscar.TabIndex = 0;
             // 
-            // texto1
+            // txtBuscar
             // 
-            texto1.BackColor = SystemColors.WindowFrame;
-            texto1.ForeColor = Color.White;
-            texto1.Location = new Point(269, 86);
-            texto1.Name = "texto1";
-            texto1.Size = new Size(249, 23);
-            texto1.TabIndex = 0;
+            txtBuscar.BackColor = SystemColors.WindowFrame;
+            txtBuscar.ForeColor = Color.White;
+            txtBuscar.Location = new Point(269, 86);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(249, 23);
+            txtBuscar.TabIndex = 0;
             // 
             // btnBuscar
             // 
@@ -74,6 +76,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             btnBuscar.TabIndex = 0;
             btnBuscar.Text = "Buscar Reserva";
             btnBuscar.UseVisualStyleBackColor = false;
+            btnBuscar.Click += btnBuscar_Click;
             // 
             // tablaDatos1
             // 
@@ -89,7 +92,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             ClientSize = new Size(790, 411);
             Controls.Add(tablaDatos1);
             Controls.Add(btnBuscar);
-            Controls.Add(texto1);
+            Controls.Add(txtBuscar);
             Controls.Add(cbBuscar);
             Controls.Add(labelFormulario1);
             MinimumSize = new Size(790, 411);
@@ -101,8 +104,77 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         private LabelFormulario labelFormulario1;
         private ComboBoxEstandar cbBuscar;
-        private Texto texto1;
+        private Texto txtBuscar;
         private TablaDatos tablaDatos1;
         private BotonFormulario btnBuscar;
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            if (!txtBuscar.Text.IsNullOrEmpty())
+            {
+                List<Reserva> resultadoBusqueda = new List<Reserva>();
+                if (!cbBuscar.Text.Equals("Listar Reservas"))
+                {
+                    int num;
+                    
+                    if (cbBuscar.Text.Equals("ID") && int.TryParse(txtBuscar.Text,out num))
+                    {
+                        resultadoBusqueda = DALReserva.BuscarPorID(txtBuscar.Text);
+                    }
+                    else if (cbBuscar.Text.Equals("ID de Cliente") && int.TryParse(txtBuscar.Text, out num))
+                    {
+                        resultadoBusqueda = DALReserva.BuscarPorIDCliente(txtBuscar.Text);
+                    }
+                    else if (cbBuscar.Text.Equals("Numero de Recinto") && int.TryParse(txtBuscar.Text, out num))
+                    {
+                        resultadoBusqueda = DALReserva.BuscarPorNroRecinto(txtBuscar.Text);
+                    }
+                    else if (cbBuscar.Text.Equals("ID de Usuario") && int.TryParse(txtBuscar.Text, out num))
+                    {
+                        resultadoBusqueda = DALReserva.BuscarPorIDUsuario(txtBuscar.Text);
+                    }
+                    else if (cbBuscar.Text.Equals("Hora") && int.TryParse(txtBuscar.Text, out num))
+                    {
+                        resultadoBusqueda = DALReserva.BuscarPorHora(txtBuscar.Text);
+                    }
+                    else if (cbBuscar.Text.Equals("Fecha (aaaa-mm-dd)") )
+                    {
+                        DateOnly fecha;
+                        bool conversion=DateOnly.TryParse(txtBuscar.Text, out fecha);
+                        if (conversion)
+                        {
+                            resultadoBusqueda = DALReserva.BuscarPorFecha(fecha);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error de conversion en la fecha. Por favor utilice el formato aaaa-mm--dd.");
+                        }
+                    }
+                }
+
+                else
+                {
+                    resultadoBusqueda = DALReserva.ListarReservas();
+                }
+                tablaDatos1.Rows.Clear();
+                for (int i = 0; i < resultadoBusqueda.Count; i++)
+                {
+                    resultadoBusqueda[i].CargarEnTabla(tablaDatos1);
+                }
+            }
+            else if (cbBuscar.Text.Equals("Listar Reservas"))
+            {
+                List<Reserva> resultadoBusqueda = DALReserva.ListarReservas();
+                tablaDatos1.Rows.Clear();
+                for (int i = 0; i < resultadoBusqueda.Count; i++)
+                {
+                    resultadoBusqueda[i].CargarEnTabla(tablaDatos1);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, ingrese un valor para realizar la busqueda.");
+            }
+        }
     }
 }
