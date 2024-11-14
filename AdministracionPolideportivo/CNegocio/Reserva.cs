@@ -84,6 +84,9 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("fecha", "Fecha y Hora");
             tabla.Columns.Add("detalle","Adicionales");
         }
-
+        public override string ToString()
+        {
+            return "Reserva ID "+this.idReserva;
+        }
     }
 }

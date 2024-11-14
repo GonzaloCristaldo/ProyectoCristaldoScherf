@@ -189,6 +189,7 @@ namespace AdministracionPolideportivo.CPresentacion
             btnFactura.TabIndex = 0;
             btnFactura.Text = "Ver Factura";
             btnFactura.UseVisualStyleBackColor = false;
+            btnFactura.Click += btnFactura_Click;
             // 
             // CobrarReserva
             // 
@@ -200,6 +201,7 @@ namespace AdministracionPolideportivo.CPresentacion
             Controls.Add(btnCobrar);
             Controls.Add(labelFormulario1);
             Name = "CobrarReserva";
+            Click += CobrarReserva_Click;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -232,21 +234,117 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnCobrar_Click(object sender, EventArgs e)
         {
-
+            totalReserva -= int.Parse(txtMonto.Text);
+            txtMonto.Clear();
+            lblTotal.Text = "$" + totalReserva.ToString();
         }
+        decimal totalReservaAbsoluto;
         decimal totalReserva;
+        List<ServicioAdicional> servicios;
+        List<ServicioReserva> serviciosReserva;
         private void cbReserva_SelectedValueChanged(object sender, EventArgs e)
         {
-            List<ServicioReserva> serviciosReserva = DALServicioReserva.BuscarPorIdReserva(((Reserva)(cbReserva.SelectedItem)).idReserva.ToString());
-            List<ServicioAdicional> servicios=new List<ServicioAdicional>();
+            txtDetalle.Clear();
             totalReserva = 0;
-            for(int i = 0; i < serviciosReserva.Count; i++)
+            serviciosReserva = DALServicioReserva.BuscarPorIdReserva(((Reserva)(cbReserva.SelectedItem)).idReserva.ToString());
+            servicios = new List<ServicioAdicional>();
+            totalReserva = 0;
+            for (int i = 0; i < serviciosReserva.Count; i++)
             {
                 servicios.Add(DALServicioAdicional.BuscarPorId(serviciosReserva.ElementAt(i).servicio.IdServicio.ToString()).First());
-                txtDetalle.Text +=servicios.ElementAt(i).NombreServicio+". $"+servicios.ElementAt(i).Precio+'\n';
+                txtDetalle.Text += servicios.ElementAt(i).NombreServicio + ". $" + servicios.ElementAt(i).Precio + Environment.NewLine;
                 totalReserva += servicios.ElementAt(i).Precio;
             }
-            lblTotal.Text= "$"+totalReserva.ToString();
+            decimal precioRecinto = (decimal)DALRecinto.BuscarPorID(((Reserva)(cbReserva.SelectedItem)).recinto.NroRecinto.ToString()).First().TarifaHora;
+            totalReserva += precioRecinto;
+            totalReservaAbsoluto = totalReserva;
+            txtDetalle.Text += "Tarifa del recinto" + ". $" + precioRecinto + Environment.NewLine;
+            lblTotal.Text = "$" + totalReserva.ToString();
+        }
+
+        private void CobrarReserva_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFactura_Click(object sender, EventArgs e)
+        {
+            GenerarFacturaHTML();
+        }
+
+        public void GenerarFacturaHTML()
+        {
+            string carpetaFacturas = @"C:\Facturas";
+
+
+            if (!Directory.Exists(carpetaFacturas))
+            {
+                Directory.CreateDirectory(carpetaFacturas);
+            }
+
+            // Obtiene la información seleccionada (cliente y reserva)
+            Reserva reservaSeleccionada = (Reserva)cbReserva.SelectedItem;
+            Cliente cliente = DALCliente.BuscarPorID(reservaSeleccionada.cliente.IdCliente.ToString()).First();
+
+            // Generar el HTML con los detalles
+            string htmlContent = $@"
+    <html>
+    <head>
+        <title>Factura de Reserva</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; }}
+            h1 {{ color: #333; }}
+            table {{ width: 100%; border-collapse: collapse; margin-top: 20px; }}
+            th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+            th {{ background-color: #f2f2f2; }}
+            .total {{ font-weight: bold; }}
+        </style>
+    </head>
+    <body>
+        <h1>Factura de Reserva</h1>
+        <p><strong>Cliente:</strong> {cliente.NombreCliente} {cliente.ApellidoCliente}</p>
+        <p><strong>DNI:</strong> {cliente.DniCliente}</p>
+        <p><strong>Fecha de Reserva:</strong> {reservaSeleccionada.Fecha.ToShortDateString()}</p>
+
+        <table>
+            <tr>
+                <th>Detalle</th>
+                <th>Precio</th>
+            </tr>";
+
+            // Agregar servicios adicionales
+            foreach (var servicio in servicios)
+            {
+                htmlContent += $@"
+            <tr>
+                <td>{servicio.NombreServicio}</td>
+                <td>${servicio.Precio}</td>
+            </tr>";
+            }
+
+            // Agregar tarifa del recinto
+            decimal precioRecinto = (decimal)DALRecinto.BuscarPorID(reservaSeleccionada.recinto.NroRecinto.ToString()).First().TarifaHora;
+            htmlContent += $@"
+            <tr>
+                <td>Tarifa del Recinto</td>
+                <td>${precioRecinto}</td>
+            </tr>";
+
+            // Agregar total
+            htmlContent += $@"
+            <tr class='total'>
+                <td>Total</td>
+                <td>${totalReservaAbsoluto}</td>
+            </tr>
+        </table>
+    </body>
+    </html>";
+
+            // Guardar el archivo HTML
+            string filePath = carpetaFacturas+"\\factura_reserva"+reservaSeleccionada.idReserva+".html";
+            File.WriteAllText(filePath, htmlContent);
+
+            MessageBox.Show("Factura generada exitosamente en: " + filePath, "Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

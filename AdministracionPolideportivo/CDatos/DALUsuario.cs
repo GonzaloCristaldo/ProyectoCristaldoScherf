@@ -371,5 +371,29 @@ namespace AdministracionPolideportivo.CDatos
             return lista;
         }
 
+        internal static int ModificarUsuario(int idUsuario, Usuario usuario)
+        {
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                /*UPDATE tblCustomers 
+    SET Email = 'None' 
+    WHERE [Last Name] = 'Smith' 
+*/
+                String query = "update usuario set dni_usuario = "+usuario.DniUsuario + "set foto_usuario = "+usuario.foto+" where id_usuario = " + idUsuario + ";";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Usuario user = new Usuario(lector.GetInt32(0), lector.GetString(3), lector.GetString(4),
+                        DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),
+                        lector.GetInt32(1), lector.GetDateTime(6), lector.GetDateTime(5), lector.GetString(8),
+                        new byte[0], lector.GetString(10));
+                }
+                conexion.Close();
+            }
+
+            return 0;
+        }
     }
 }

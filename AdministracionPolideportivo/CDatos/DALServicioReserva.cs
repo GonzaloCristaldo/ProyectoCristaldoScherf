@@ -46,13 +46,13 @@ namespace AdministracionPolideportivo.CDatos
 
             using (SqlConnection conexion = ConexionDB.GetConexion())
             {
-                String query = "select * from Cliente where id_cliente = " + input + ";";
+                String query = "select * from servicio_reserva where id_reserva = " + input + ";";
                 SqlCommand comando = new SqlCommand(query, conexion);
                 SqlDataReader lector = comando.ExecuteReader();
 
                 while (lector.Read())
                 {
-                    ServicioReserva servicioReserva = new ServicioReserva(DALReserva.BuscarPorID(lector.GetInt32(1).ToString()).First(), DALServicioAdicional.BuscarPorIdReserva(lector.GetInt32(0)).First());
+                    ServicioReserva servicioReserva = new ServicioReserva(DALReserva.BuscarPorID(lector.GetInt32(1).ToString()).First(), DALServicioAdicional.BuscarPorId(lector.GetInt32(0).ToString()).First());
                     lista.Add(servicioReserva);
                 }
                 conexion.Close();

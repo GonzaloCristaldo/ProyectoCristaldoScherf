@@ -7,8 +7,11 @@ namespace AdministracionPolideportivo.CDatos
     public class DataHelper
     {
         //Al igual que en ConexionDB, se debe cambiar el nombre de la base de datos y el servidor.
-        private readonly string connectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=Gonzalo";
+        
 
+        String pcLucas = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
+        String pcGonzalo = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=Gnzl\\SQLEXPRESS";
+        private string connectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
 
         public DataTable ExecuteQueryConParametros(string query, DateTime? fechaInicio, DateTime? fechaFin)
         {

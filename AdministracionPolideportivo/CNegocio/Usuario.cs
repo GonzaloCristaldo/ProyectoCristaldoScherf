@@ -20,7 +20,7 @@ namespace AdministracionPolideportivo.CNegocio
             this.fechaNacimiento = fechaNacimiento;
             this.fechaIngreso = fechaIngreso;
             Telefono = telefono;
-            this.pass = pass;
+            this.pass = passUsuario;
             this.foto = foto;
             this.sexo = sexo;
         }

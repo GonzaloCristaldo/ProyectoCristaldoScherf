@@ -46,8 +46,8 @@ namespace AdministracionPolideportivo.CDatos
                 while (lector.Read())
                 {
                     Pago pago = new Pago(lector.GetInt32(0), DALReserva.BuscarPorID(lector.GetInt32(1).ToString()).First());
-                    MedioPago medioPago = DALMedioPago.BuscarPorId(lector.GetInt32(1)); // Assuming MedioPago has a constructor accepting id
-                    Usuario usuario = new Usuario(lector.GetInt32(3)); // Assuming Usuario has a constructor accepting id
+                    MedioPago medioPago = DALMedioPago.BuscarPorId(lector.GetInt32(1));
+                    Usuario usuario = DALUsuario.BuscarPorID(lector.GetInt32(3).ToString()).First();
 
                     PagoMedioPago pagoMedioPago = new PagoMedioPago(pago, medioPago, lector.GetDouble(2))
                     {

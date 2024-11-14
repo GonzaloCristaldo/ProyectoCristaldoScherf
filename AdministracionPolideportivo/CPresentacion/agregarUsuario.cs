@@ -16,8 +16,8 @@ namespace AdministracionPolideportivo.CPresentacion
     {
         public agregarUsuario()
         {
-            
 
+            modoEdicion = false;
             InitializeComponent();
             UbicarElementos();
             //TODO traer tipos de la db y cargar en el combo box
@@ -26,6 +26,20 @@ namespace AdministracionPolideportivo.CPresentacion
             cbTipo.DataContext = tipos;
             
             
+        }
+        bool modoEdicion;
+        public agregarUsuario(bool editar)
+        {
+            modoEdicion= editar;
+            
+            InitializeComponent();
+            UbicarElementos();
+            //TODO traer tipos de la db y cargar en el combo box
+            List<TipoUsuario> tipos = DALTipoUsuario.ListarTiposDeUsuario();
+            cbTipo.DataSource = tipos;
+            cbTipo.DataContext = tipos;
+
+
         }
 
         override public void RefrescarCB()
@@ -426,76 +440,153 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
-            try
+            if (modoEdicion)
             {
-                // Validaciones de los campos
-                if (string.IsNullOrEmpty(txtDNI.Text) || !int.TryParse(txtDNI.Text, out int dni) || dni <= 0)
+                try
                 {
-                    MessageBox.Show("Por favor, ingrese un DNI válido.");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(txtNombre.Text))
-                {
-                    MessageBox.Show("Por favor, ingrese un nombre.");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(txtApellido.Text))
-                {
-                    MessageBox.Show("Por favor, ingrese un apellido.");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(txtTelefono.Text) || !int.TryParse(txtTelefono.Text, out int telefono) || telefono <= 0)
-                {
-                    MessageBox.Show("Por favor, ingrese un número de teléfono válido.");
-                    return;
-                }
-
-                // Verificar si se seleccionó un tipo de usuario
-                if (cbTipo.SelectedItem == null)
-                {
-                    MessageBox.Show("Por favor, seleccione un tipo de usuario.");
-                    return;
-                }
-
-                // Verificar si se seleccionó un sexo
-                if (cbSexo.SelectedItem == null)
-                {
-                    MessageBox.Show("Por favor, seleccione un sexo.");
-                    return;
-                }
-
-                var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo usuario?",
-                                     "Confirmar alta de usuario",
-                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                if (confirmResult == DialogResult.Yes)
-                {
-                    ImageConverter converter = new ImageConverter();
-                    byte[] imagen = (byte[])converter.ConvertTo(new Bitmap(selectedFile), typeof(byte[]));
-
-                    
-                    // Crea el usuario y llama a la capa de datos
-                    Usuario usuario = new Usuario(txtNombre.Text, txtApellido.Text, (TipoUsuario)cbTipo.SelectedValue, txtPass.Text, Int32.Parse(txtDNI.Text),
-                        dtpNacimiento.Value,DateTime.Today,txtTelefono.Text, imagen,cbSexo.Text);
-                    int resultado = DALUsuario.AgregarUsuario(usuario);
-
-                    if (resultado > 0)
+                    // Validaciones de los campos
+                    if (string.IsNullOrEmpty(txtDNI.Text) || !int.TryParse(txtDNI.Text, out int dni) || dni <= 0)
                     {
-                        MessageBox.Show("Usuario agregado exitosamente.");
-                        LimpiarCampos(); // Limpia los campos después de agregar el cliente
+                        MessageBox.Show("Por favor, ingrese un DNI válido.");
+                        return;
                     }
-                    else
-                    {
-                        MessageBox.Show("Error al agregar el usuario.");
-                    }
-                }
 
+                    if (string.IsNullOrEmpty(txtNombre.Text))
+                    {
+                        MessageBox.Show("Por favor, ingrese un nombre.");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(txtApellido.Text))
+                    {
+                        MessageBox.Show("Por favor, ingrese un apellido.");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(txtTelefono.Text) || !int.TryParse(txtTelefono.Text, out int telefono) || telefono <= 0)
+                    {
+                        MessageBox.Show("Por favor, ingrese un número de teléfono válido.");
+                        return;
+                    }
+
+                    // Verificar si se seleccionó un tipo de usuario
+                    if (cbTipo.SelectedItem == null)
+                    {
+                        MessageBox.Show("Por favor, seleccione un tipo de usuario.");
+                        return;
+                    }
+
+                    // Verificar si se seleccionó un sexo
+                    if (cbSexo.SelectedItem == null)
+                    {
+                        MessageBox.Show("Por favor, seleccione un sexo.");
+                        return;
+                    }
+
+                    var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo usuario?",
+                                         "Confirmar alta de usuario",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        ImageConverter converter = new ImageConverter();
+                        byte[] imagen = (byte[])converter.ConvertTo(new Bitmap(selectedFile), typeof(byte[]));
+
+
+                        // Crea el usuario y llama a la capa de datos
+                        Usuario usuario = new Usuario(txtNombre.Text, txtApellido.Text, (TipoUsuario)cbTipo.SelectedValue, txtPass.Text, Int32.Parse(txtDNI.Text),
+                            dtpNacimiento.Value, DateTime.Today, txtTelefono.Text, imagen, cbSexo.Text);
+                        int resultado = DALUsuario.ModificarUsuario(usuario.idUsuario,usuario);
+
+                        if (resultado > 0)
+                        {
+                            MessageBox.Show("Usuario agregado exitosamente.");
+                            LimpiarCampos(); // Limpia los campos después de agregar el cliente
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al agregar el usuario.");
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                try
+                {
+                    // Validaciones de los campos
+                    if (string.IsNullOrEmpty(txtDNI.Text) || !int.TryParse(txtDNI.Text, out int dni) || dni <= 0)
+                    {
+                        MessageBox.Show("Por favor, ingrese un DNI válido.");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(txtNombre.Text))
+                    {
+                        MessageBox.Show("Por favor, ingrese un nombre.");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(txtApellido.Text))
+                    {
+                        MessageBox.Show("Por favor, ingrese un apellido.");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(txtTelefono.Text) || !int.TryParse(txtTelefono.Text, out int telefono) || telefono <= 0)
+                    {
+                        MessageBox.Show("Por favor, ingrese un número de teléfono válido.");
+                        return;
+                    }
+
+                    // Verificar si se seleccionó un tipo de usuario
+                    if (cbTipo.SelectedItem == null)
+                    {
+                        MessageBox.Show("Por favor, seleccione un tipo de usuario.");
+                        return;
+                    }
+
+                    // Verificar si se seleccionó un sexo
+                    if (cbSexo.SelectedItem == null)
+                    {
+                        MessageBox.Show("Por favor, seleccione un sexo.");
+                        return;
+                    }
+
+                    var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo usuario?",
+                                         "Confirmar alta de usuario",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        ImageConverter converter = new ImageConverter();
+                        byte[] imagen = (byte[])converter.ConvertTo(new Bitmap(selectedFile), typeof(byte[]));
+
+
+                        // Crea el usuario y llama a la capa de datos
+                        Usuario usuario = new Usuario(txtNombre.Text, txtApellido.Text, (TipoUsuario)cbTipo.SelectedValue, txtPass.Text, Int32.Parse(txtDNI.Text),
+                            dtpNacimiento.Value, DateTime.Today, txtTelefono.Text, imagen, cbSexo.Text);
+                        int resultado = DALUsuario.AgregarUsuario(usuario);
+
+                        if (resultado > 0)
+                        {
+                            MessageBox.Show("Usuario agregado exitosamente.");
+                            LimpiarCampos(); // Limpia los campos después de agregar el cliente
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al agregar el usuario.");
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error: {ex.Message}");
+                }
             }
         }
 

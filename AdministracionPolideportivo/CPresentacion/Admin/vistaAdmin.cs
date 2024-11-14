@@ -40,7 +40,6 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             btnMinimizar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCerrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 
-            AgregarBotonOpcion(new BotonOpcion(new listarClienteCheckIn_Out(), this, formActual, "CheckIN/CheckOut"));
             AgregarBotonOpcion(new BotonOpcion(new agregarUsuario(), this, formActual, "Agregar Recepcionista"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarRecinto(), this, formActual, "Agregar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new AgregarServicioAdicional(), this, formActual, "Agregar Servicio Adicional"));
@@ -49,6 +48,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             AgregarBotonOpcion(new BotonOpcion(new BuscarRecinto(), this, formActual, "Buscar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(usuario.idUsuario), this, formActual, "Programar Nueva Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
+            AgregarBotonOpcion(new BotonOpcion(new CobrarReserva(), this, formActual, "Cobrar Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new Estadisticas(), this, formActual, "Ver estadisticas"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarUsuario(), this, formActual, "Buscar Usuario"));
             BotonOpcion btnSalirSesion = new BotonOpcion(new FormularioEstandar(), this, formActual, "Cerrar Sesion");

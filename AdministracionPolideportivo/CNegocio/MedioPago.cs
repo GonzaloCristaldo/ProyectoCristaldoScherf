@@ -38,5 +38,10 @@ namespace AdministracionPolideportivo.CNegocio
             tabla.Columns.Add("id", "Id");
             tabla.Columns.Add("nombre", "Medio de Pago");
         }
+        public override string ToString()
+        {
+            return this.nombreMedioPago;
+        }
     }
+    
 }
