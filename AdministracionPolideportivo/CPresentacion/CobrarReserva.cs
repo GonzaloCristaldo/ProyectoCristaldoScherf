@@ -240,17 +240,21 @@ namespace AdministracionPolideportivo.CPresentacion
         {
             txtDetalle.Clear();
             totalReserva = 0;
-            serviciosReserva = DALServicioReserva.BuscarPorIdReserva(((Reserva)(cbReserva.SelectedItem)).idReserva.ToString());
-            servicios = new List<ServicioAdicional>();
-            totalReserva = 0;
-            for (int i = 0; i < serviciosReserva.Count; i++)
+            decimal precioRecinto = 0;
+            if (cbReserva.SelectedItem!=null)
             {
-                servicios.Add(DALServicioAdicional.BuscarPorId(serviciosReserva.ElementAt(i).servicio.IdServicio.ToString()).First());
-                txtDetalle.Text += servicios.ElementAt(i).NombreServicio + ". $" + servicios.ElementAt(i).Precio + Environment.NewLine;
-                totalReserva += servicios.ElementAt(i).Precio;
+                serviciosReserva = DALServicioReserva.BuscarPorIdReserva(((Reserva)(cbReserva.SelectedItem)).idReserva.ToString());
+                servicios = new List<ServicioAdicional>();
+                totalReserva = 0;
+                for (int i = 0; i < serviciosReserva.Count; i++)
+                {
+                    servicios.Add(DALServicioAdicional.BuscarPorId(serviciosReserva.ElementAt(i).servicio.IdServicio.ToString()).First());
+                    txtDetalle.Text += servicios.ElementAt(i).NombreServicio + ". $" + servicios.ElementAt(i).Precio + Environment.NewLine;
+                    totalReserva += servicios.ElementAt(i).Precio;
+                }
+                precioRecinto = (decimal)DALRecinto.BuscarPorID(((Reserva)(cbReserva.SelectedItem)).recinto.NroRecinto.ToString()).First().TarifaHora;
+                totalReserva += precioRecinto; 
             }
-            decimal precioRecinto = (decimal)DALRecinto.BuscarPorID(((Reserva)(cbReserva.SelectedItem)).recinto.NroRecinto.ToString()).First().TarifaHora;
-            totalReserva += precioRecinto;
             totalReservaAbsoluto = totalReserva;
             txtDetalle.Text += "Tarifa del recinto" + ". $" + precioRecinto + Environment.NewLine;
             lblTotal.Text = "$" + totalReserva.ToString();
@@ -263,20 +267,23 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnFactura_Click(object sender, EventArgs e)
         {
-            
-            DialogResult result = MessageBox.Show("¿Deseas generar la factura?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            
-            if (result == DialogResult.Yes)
+            if (cbReserva.SelectedItem != null)
             {
-                GenerarFacturaHTML();
+
+                DialogResult result = MessageBox.Show("¿Deseas generar la factura?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+                if (result == DialogResult.Yes)
+                {
+                    GenerarFacturaHTML();
+                } 
             }
         }
 
 
         public void GenerarFacturaHTML()
         {
-            string carpetaFacturas = @"C:\Facturas";
+            string carpetaFacturas = @"C:\Facturas\";
 
             if (!Directory.Exists(carpetaFacturas))
             {
@@ -444,6 +451,31 @@ namespace AdministracionPolideportivo.CPresentacion
 
             };
             Process.Start(startInfo);
+
+
+
+
+            string dirFactura = carpetaFacturas+"factura_reserva"+((Reserva)(cbReserva.SelectedItem)).idReserva+".html";
+
+            try
+            {
+                if (System.IO.File.Exists(dirFactura))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = dirFactura,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("File not found: " + dirFactura, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while trying to open the file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void lblTotal_Click(object sender, EventArgs e)
