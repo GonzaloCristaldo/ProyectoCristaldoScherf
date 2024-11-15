@@ -112,7 +112,7 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
 
                 using (SqlConnection connection = ConexionDB.GetConexion())
                 {
-                    string query = $"BACKUP DATABASE [complejoPolideportivo] TO DISK = '{backupPath}'";
+                    string query = $"BACKUP DATABASE [complejoPolideportivoProd] TO DISK = '{backupPath}'";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {

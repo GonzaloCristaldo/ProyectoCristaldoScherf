@@ -189,6 +189,28 @@ namespace AdministracionPolideportivo.CDatos
             return lista;
         }
 
+        internal static int EditarCliente(Cliente cliente)
+        {
+            int resultado = 0;//mayo a 0 representa exitoso, ya que se altero una cantidad de columnas mayor a 0, es decir, efectivamente se altero el cliente
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "UPDATE Cliente SET dni_cliente = @dni, nombre_cliente = @nombre, apellido_cliente = @apellido, telefono_cliente = @telefono WHERE id_cliente = @id;";
+
+                SqlCommand comando = new SqlCommand(query, conexion);
+
+                // Add parameters
+                comando.Parameters.AddWithValue("@dni", cliente.DniCliente);
+                comando.Parameters.AddWithValue("@nombre", cliente.NombreCliente);
+                comando.Parameters.AddWithValue("@apellido", cliente.ApellidoCliente);
+                comando.Parameters.AddWithValue("@telefono", cliente.Telefono);
+                comando.Parameters.AddWithValue("@id", cliente.IdCliente);
+
+                resultado = comando.ExecuteNonQuery();
+                conexion.Close();
+            }
+
+            return resultado;
+        }
     }
 
 }

@@ -19,7 +19,7 @@ namespace AdministracionPolideportivo.CPresentacion
             del label mas largo del formulario mas 10 pixeles de separacion entre label
             y textbox*/
             coordenadaXTextbox = lblTelefono.Width + lblTelefono.Location.X + 10;
-
+            modoEdicion=false;
             /*le asignamos la ubicacion calculada a los textbox*/
             txtApellido.Location = new Point(coordenadaXTextbox, txtApellido.Location.Y);
             txtDNI.Location = new Point(coordenadaXTextbox,txtDNI.Location.Y);
@@ -27,6 +27,27 @@ namespace AdministracionPolideportivo.CPresentacion
             txtTelefono.Location = new Point(coordenadaXTextbox,txtTelefono.Location.Y);
 
         }
+        bool modoEdicion;
+        int idCliente;
+        public AgregarCliente(bool editar,int id_cliente)
+        {
+            InitializeComponent();
+            idCliente= id_cliente;
+            /* calculamos el punto de
+            inicio de los textbox teniendo en cuenta el largo y la ubicacion
+            del label mas largo del formulario mas 10 pixeles de separacion entre label
+            y textbox*/
+            coordenadaXTextbox = lblTelefono.Width + lblTelefono.Location.X + 10;
+            modoEdicion = editar;
+            /*le asignamos la ubicacion calculada a los textbox*/
+            txtApellido.Location = new Point(coordenadaXTextbox, txtApellido.Location.Y);
+            txtDNI.Location = new Point(coordenadaXTextbox, txtDNI.Location.Y);
+            txtNombre.Location = new Point(coordenadaXTextbox, txtNombre.Location.Y);
+            txtTelefono.Location = new Point(coordenadaXTextbox, txtTelefono.Location.Y);
+            btnAgregarCliente.Text = "Editar";
+
+        }
+
 
         private LabelFormulario lblDNI;
         private LabelFormulario lblNombre;
@@ -174,58 +195,118 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
-            try
+            if (modoEdicion)
             {
-                // Validación de campos en el formulario
-                if (string.IsNullOrEmpty(txtDNI.Text) || !int.TryParse(txtDNI.Text, out int dni))
+                try
                 {
-                    MessageBox.Show("Por favor, ingrese un DNI válido.");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(txtNombre.Text))
-                {
-                    MessageBox.Show("Por favor, ingrese un nombre.");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(txtApellido.Text))
-                {
-                    MessageBox.Show("Por favor, ingrese un apellido.");
-                    return;
-                }
-
-                if (string.IsNullOrEmpty(txtTelefono.Text) || txtTelefono.Text.Length < 7)
-                {
-                    MessageBox.Show("Por favor, ingrese un teléfono válido.");
-                    return;
-                }
-
-                var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo cliente?",
-                                     "Confirmar alta de cliente",
-                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                if (confirmResult == DialogResult.Yes)
-                {
-
-                    // Crea el cliente y llama a la capa de datos
-                    Cliente cliente = new Cliente(dni, txtNombre.Text, txtApellido.Text, txtTelefono.Text);
-                    int resultado = DALCliente.AgregarCliente(cliente);
-
-                    if (resultado > 0)
+                    // Validación de campos en el formulario
+                    if (string.IsNullOrEmpty(txtDNI.Text) || !int.TryParse(txtDNI.Text, out int dni))
                     {
-                        MessageBox.Show("Cliente agregado exitosamente.");
-                        LimpiarCampos(); // Limpia los campos después de agregar el cliente
+                        MessageBox.Show("Por favor, ingrese un DNI válido.");
+                        return;
                     }
-                    else
+
+                    if (string.IsNullOrEmpty(txtNombre.Text))
                     {
-                        MessageBox.Show("Error al agregar el cliente.");
+                        MessageBox.Show("Por favor, ingrese un nombre.");
+                        return;
                     }
+
+                    if (string.IsNullOrEmpty(txtApellido.Text))
+                    {
+                        MessageBox.Show("Por favor, ingrese un apellido.");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(txtTelefono.Text) || txtTelefono.Text.Length < 7)
+                    {
+                        MessageBox.Show("Por favor, ingrese un teléfono válido.");
+                        return;
+                    }
+
+                    var confirmResult = MessageBox.Show("¿Estas seguro que deseas editar los datos del cliente?",
+                                         "Confirmar edicion de cliente",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+
+                        // Crea el cliente y llama a la capa de datos
+                        Cliente cliente = new Cliente(dni, txtNombre.Text, txtApellido.Text, txtTelefono.Text);
+                        cliente.IdCliente = this.idCliente;
+                        int resultado = DALCliente.EditarCliente(cliente);
+
+                        if (resultado > 0)
+                        {
+                            MessageBox.Show("Cliente editado exitosamente.");
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al editar el cliente.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Error: " + ex.Message);
+                try
+                {
+                    // Validación de campos en el formulario
+                    if (string.IsNullOrEmpty(txtDNI.Text) || !int.TryParse(txtDNI.Text, out int dni))
+                    {
+                        MessageBox.Show("Por favor, ingrese un DNI válido.");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(txtNombre.Text))
+                    {
+                        MessageBox.Show("Por favor, ingrese un nombre.");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(txtApellido.Text))
+                    {
+                        MessageBox.Show("Por favor, ingrese un apellido.");
+                        return;
+                    }
+
+                    if (string.IsNullOrEmpty(txtTelefono.Text) || txtTelefono.Text.Length < 7)
+                    {
+                        MessageBox.Show("Por favor, ingrese un teléfono válido.");
+                        return;
+                    }
+
+                    var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo cliente?",
+                                         "Confirmar alta de cliente",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+
+                        // Crea el cliente y llama a la capa de datos
+                        Cliente cliente = new Cliente(dni, txtNombre.Text, txtApellido.Text, txtTelefono.Text);
+                        int resultado = DALCliente.AgregarCliente(cliente);
+
+                        if (resultado > 0)
+                        {
+                            MessageBox.Show("Cliente agregado exitosamente.");
+                            LimpiarCampos(); // Limpia los campos después de agregar el cliente
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al agregar el cliente.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
+            
         }
 
         // Método para limpiar los campos del formulario

@@ -48,13 +48,14 @@ namespace AdministracionPolideportivo.CNegocio
 
         public static void EditarEntidad(Cliente cliente)
         {
-            AgregarCliente popUp = new AgregarCliente();
+            AgregarCliente popUp = new AgregarCliente(true,cliente.IdCliente);
             popUp.TopLevel = true;
             popUp.FormBorderStyle= FormBorderStyle.FixedSingle;
             popUp.txtDNI.Text = cliente.DniCliente.ToString();
             popUp.txtNombre.Text = cliente.NombreCliente.ToString();
             popUp.txtApellido.Text = cliente.ApellidoCliente.ToString();
             popUp.txtTelefono.Text = cliente.Telefono.ToString();
+            //popUp.idCliente= cliente.IdCliente;
             popUp.ShowDialog();
         }
 
