@@ -27,10 +27,13 @@ namespace AdministracionPolideportivo.CPresentacion
             
             
         }
+
         bool modoEdicion;
-        public agregarUsuario(bool editar)
+        int idUsuario;
+        public agregarUsuario(bool editar,int id_usuario)
         {
             modoEdicion= editar;
+            idUsuario= id_usuario;
             
             InitializeComponent();
             UbicarElementos();
@@ -39,7 +42,7 @@ namespace AdministracionPolideportivo.CPresentacion
             cbTipo.DataSource = tipos;
             cbTipo.DataContext = tipos;
 
-
+            btnAgregar.Text = "Editar";
         }
 
         override public void RefrescarCB()
@@ -463,6 +466,12 @@ namespace AdministracionPolideportivo.CPresentacion
                         return;
                     }
 
+                    if (string.IsNullOrEmpty(txtPass.Text))
+                    {
+                        MessageBox.Show("Por favor, ingrese una contraseña.");
+                        return;
+                    }
+
                     if (string.IsNullOrEmpty(txtTelefono.Text) || !int.TryParse(txtTelefono.Text, out int telefono) || telefono <= 0)
                     {
                         MessageBox.Show("Por favor, ingrese un número de teléfono válido.");
@@ -495,16 +504,17 @@ namespace AdministracionPolideportivo.CPresentacion
                         // Crea el usuario y llama a la capa de datos
                         Usuario usuario = new Usuario(txtNombre.Text, txtApellido.Text, (TipoUsuario)cbTipo.SelectedValue, txtPass.Text, Int32.Parse(txtDNI.Text),
                             dtpNacimiento.Value, DateTime.Today, txtTelefono.Text, imagen, cbSexo.Text);
-                        int resultado = DALUsuario.ModificarUsuario(usuario.idUsuario,usuario);
+                        usuario.idUsuario = idUsuario;
+                        int resultado = DALUsuario.ModificarUsuario(usuario);
 
                         if (resultado > 0)
                         {
                             MessageBox.Show("Usuario agregado exitosamente.");
-                            LimpiarCampos(); // Limpia los campos después de agregar el cliente
+                            Close();
                         }
                         else
                         {
-                            MessageBox.Show("Error al agregar el usuario.");
+                            MessageBox.Show("Error al editar el usuario.");
                         }
                     }
 

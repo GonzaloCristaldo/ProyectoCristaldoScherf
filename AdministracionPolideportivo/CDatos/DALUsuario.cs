@@ -170,6 +170,89 @@ namespace AdministracionPolideportivo.CDatos
             }
         }
 
+        internal static int EditarCliente(Cliente cliente)
+        {
+            int resultado = 0;//mayo a 0 representa exitoso, ya que se altero una cantidad de columnas mayor a 0, es decir, efectivamente se altero el cliente
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "UPDATE Cliente SET dni_cliente = @dni, nombre_cliente = @nombre, apellido_cliente = @apellido, telefono_cliente = @telefono WHERE id_cliente = @id;";
+
+                SqlCommand comando = new SqlCommand(query, conexion);
+
+                // Add parameters
+                comando.Parameters.AddWithValue("@dni", cliente.DniCliente);
+                comando.Parameters.AddWithValue("@nombre", cliente.NombreCliente);
+                comando.Parameters.AddWithValue("@apellido", cliente.ApellidoCliente);
+                comando.Parameters.AddWithValue("@telefono", cliente.Telefono);
+                comando.Parameters.AddWithValue("@id", cliente.IdCliente);
+
+                resultado = comando.ExecuteNonQuery();
+                conexion.Close();
+            }
+
+            return resultado;
+        }
+
+        public static int ModificarUsuario(Usuario usuario)
+        {
+            int resultado = 0;
+
+            try
+            {
+                using (SqlConnection conexion = ConexionDB.GetConexion())
+                {
+                    // Asegúrate de que la conexión esté cerrada antes de abrirla
+                    if (conexion.State == System.Data.ConnectionState.Open)
+                    {
+                        conexion.Close();
+                    }
+
+                    conexion.Open();
+
+                    String query = @"
+                UPDATE Usuario 
+                SET 
+                    DNI_Usuario = @DNI_Usuario, 
+                    Nombre_Usuario = @Nombre_Usuario, 
+                    foto_usuario = @foto_usuario, 
+                    Apellido_Usuario = @Apellido_Usuario, 
+                    Fecha_Ingreso = @Fecha_Ingreso, 
+                    Fecha_Nacimiento = @Fecha_Nacimiento, 
+                    pass = @pass, 
+                    telefono = @telefono, 
+                    Id_Tipo = @Id_Tipo, 
+                    Sexo_Usuario = @Sexo_Usuario 
+                WHERE id_Usuario = @id_Usuario";
+
+                    SqlCommand comando = new SqlCommand(query, conexion);
+
+                    // Añadir parámetros
+                    comando.Parameters.AddWithValue("@DNI_Usuario", usuario.DniUsuario);
+                    comando.Parameters.AddWithValue("@Nombre_Usuario", usuario.nombreUsuario);
+                    comando.Parameters.AddWithValue("@foto_usuario", usuario.foto);
+                    comando.Parameters.AddWithValue("@Apellido_Usuario", usuario.apellidoUsuario);
+                    comando.Parameters.AddWithValue("@Fecha_Ingreso", usuario.fechaIngreso.ToString("yyyy-MM-dd"));
+                    comando.Parameters.AddWithValue("@Fecha_Nacimiento", usuario.fechaNacimiento.ToString("yyyy-MM-dd"));
+                    comando.Parameters.AddWithValue("@pass", usuario.pass);
+                    comando.Parameters.AddWithValue("@telefono", usuario.Telefono);
+                    comando.Parameters.AddWithValue("@Id_Tipo", usuario.tipoUsuario.idTipoUsuario);
+                    comando.Parameters.AddWithValue("@Sexo_Usuario", usuario.sexo);
+                    comando.Parameters.AddWithValue("@id_Usuario", usuario.idUsuario);
+
+                    // Ejecutar comando
+                    resultado = comando.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al modificar el usuario: " + ex.Message);
+            }
+
+            return resultado;
+        }
+
+
+
 
         public static List<Usuario> ListarUsuarios()
         {
@@ -371,29 +454,6 @@ namespace AdministracionPolideportivo.CDatos
             return lista;
         }
 
-        internal static int ModificarUsuario(int idUsuario, Usuario usuario)
-        {
-            using (SqlConnection conexion = ConexionDB.GetConexion())
-            {
-                /*UPDATE tblCustomers 
-    SET Email = 'None' 
-    WHERE [Last Name] = 'Smith' 
-*/
-                String query = "update usuario set dni_usuario = "+usuario.DniUsuario + "set foto_usuario = "+usuario.foto+" where id_usuario = " + idUsuario + ";";
-                SqlCommand comando = new SqlCommand(query, conexion);
-                SqlDataReader lector = comando.ExecuteReader();
 
-                while (lector.Read())
-                {
-                    Usuario user = new Usuario(lector.GetInt32(0), lector.GetString(3), lector.GetString(4),
-                        DALTipoUsuario.getTipoUsuarioPorId(lector.GetInt32(9)), lector.GetString(7),
-                        lector.GetInt32(1), lector.GetDateTime(6), lector.GetDateTime(5), lector.GetString(8),
-                        new byte[0], lector.GetString(10));
-                }
-                conexion.Close();
-            }
-
-            return 0;
-        }
     }
 }

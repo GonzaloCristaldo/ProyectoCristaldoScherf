@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdministracionPolideportivo.CPresentacion;
+using System.Runtime.CompilerServices;
 
 namespace AdministracionPolideportivo.CNegocio
 {
@@ -67,7 +68,7 @@ namespace AdministracionPolideportivo.CNegocio
 
         public static void EditarEntidad(Usuario usuario)
         {
-            agregarUsuario popUp = new agregarUsuario();
+            agregarUsuario popUp = new agregarUsuario(true,usuario.idUsuario);
             popUp.TopLevel = true;
             popUp.FormBorderStyle = FormBorderStyle.FixedSingle;
             popUp.txtDNI.Text = usuario.DniUsuario.ToString();
@@ -78,6 +79,7 @@ namespace AdministracionPolideportivo.CNegocio
             popUp.cbTipo.Text = usuario.tipoUsuario.NombreTipoUsuario;
             //TODO agregar imagen (foto del usuario) desde la db al picturebox
             popUp.ShowDialog();
+            popUp.Close();
         }
 
         public override void CargarEnTabla(TablaDatos tabla)
