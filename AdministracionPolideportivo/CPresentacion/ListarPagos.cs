@@ -21,6 +21,7 @@ namespace AdministracionPolideportivo.CPresentacion
         override public void RefrescarCB()
         {
             //TODO
+            tablaDatos.DataSource = DALPago.ListarPagos();
         }
 
         private void InitializeComponent()
