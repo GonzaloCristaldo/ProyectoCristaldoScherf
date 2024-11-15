@@ -104,14 +104,14 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
                     connection.ChangeDatabase("master"); // Cambia la conexión a la base de datos master debido a que no debe estar en uso la bd que quiero modifica para restaurar precisamente.
 
                     
-                    string setSingleUserQuery = $"ALTER DATABASE [complejoPolideportivo] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
+                    string setSingleUserQuery = $"ALTER DATABASE [complejoPolideportivoProd] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
                     using (SqlCommand command = new SqlCommand(setSingleUserQuery, connection))
                     {
                         command.ExecuteNonQuery();
                     }
 
                     // Restaurar la base de datos
-                    string restoreQuery = $"RESTORE DATABASE [complejoPolideportivo] FROM DISK = '{backupPath}' WITH REPLACE";
+                    string restoreQuery = $"RESTORE DATABASE [complejoPolideportivoProd] FROM DISK = '{backupPath}' WITH REPLACE";
                     using (SqlCommand command = new SqlCommand(restoreQuery, connection))
                     {
                         try
@@ -126,7 +126,7 @@ namespace AdministracionPolideportivo.CPresentacion.SuperAdmin
                     }
 
                     // Regresar la base de datos a modo multiusuario
-                    string setMultiUserQuery = $"ALTER DATABASE [complejoPolideportivo] SET MULTI_USER";
+                    string setMultiUserQuery = $"ALTER DATABASE [complejoPolideportivoProd] SET MULTI_USER";
                     using (SqlCommand command = new SqlCommand(setMultiUserQuery, connection))
                     {
                         command.ExecuteNonQuery();

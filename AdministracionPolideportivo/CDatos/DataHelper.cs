@@ -9,9 +9,9 @@ namespace AdministracionPolideportivo.CDatos
         //Al igual que en ConexionDB, se debe cambiar el nombre de la base de datos y el servidor.
         
 
-        String pcLucas = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
-        String pcGonzalo = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=Gnzl\\SQLEXPRESS";
-        private string connectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivo;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
+        String pcLucas = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
+        String pcGonzalo = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=Gnzl\\SQLEXPRESS";
+        private string connectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
 
         public DataTable ExecuteQueryConParametros(string query, DateTime? fechaInicio, DateTime? fechaFin)
         {
