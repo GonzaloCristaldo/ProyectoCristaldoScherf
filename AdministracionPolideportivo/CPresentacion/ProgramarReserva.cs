@@ -14,7 +14,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
     {
         public int usuario_id;
         public Usuario usuario;
-        List<String> servicios = new List<String>();
+        List<ServicioAdicional> servicios = new List<ServicioAdicional>();
         public ProgramarReserva(int user_id)
         {
             usuario = DALUsuario.BuscarPorID(user_id.ToString()).First();
@@ -175,6 +175,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             cbRecinto.Name = "cbRecinto";
             cbRecinto.Size = new Size(274, 23);
             cbRecinto.TabIndex = 3;
+            cbRecinto.SelectedIndexChanged += cbRecinto_SelectedIndexChanged;
             cbRecinto.ValueMemberChanged += cbRecinto_ValueMemberChanged;
             cbRecinto.SelectedValueChanged += cbRecinto_SelectedValueChanged;
             // 
@@ -410,7 +411,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                 int resultado = DALReserva.AgregarReserva(reserva);
                 for (int i = 0; i < servicios.Count; i++)
                 {
-                    DALServicioReserva.AgregarRelacion(DALServicioAdicional.BuscarPorNombre(servicios.ElementAt(i)).First(),DALReserva.BuscarPorFechaRecintoHoraCliente(reserva.Fecha,reserva.recinto,reserva.Hora,reserva.cliente));
+                    DALServicioReserva.AgregarRelacion(DALServicioAdicional.BuscarPorNombre(servicios.ElementAt(i).NombreServicio).First(), DALReserva.BuscarPorFechaRecintoHoraCliente(reserva.Fecha, reserva.recinto, reserva.Hora, reserva.cliente));
                 }
 
                 if (resultado > 0)
@@ -487,13 +488,33 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
-            if (!servicios.Contains(cbServicioAdicional.Text))
+            bool esta = false;
+            for(int i = 0; i < servicios.Count; i++)
             {
-                servicios.Add(cbServicioAdicional.Text);
-                tabla.AppendText(cbServicioAdicional.Text);
-                tabla.AppendText(Environment.NewLine);
+                if (servicios.ElementAt(i).IdServicio == ((ServicioAdicional)(cbServicioAdicional.SelectedItem)).IdServicio)
+                {
+                    esta = true;
+                }
             }
 
+            if (!esta)
+            {
+                servicios.Add((ServicioAdicional)(cbServicioAdicional.SelectedItem));
+                tabla.AppendText(cbServicioAdicional.Text);
+                tabla.AppendText(Environment.NewLine);
+                serviciosAdicionalesPrecio += (int)((ServicioAdicional)(cbServicioAdicional.SelectedItem)).Precio;
+            }
+            lblTotal.Text = "Total: $" + (precioRecinto+ serviciosAdicionalesPrecio);
+        }
+        double precioRecinto;
+        int serviciosAdicionalesPrecio;
+        private void cbRecinto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            precioRecinto = ((Recinto)(cbRecinto.SelectedItem)).TarifaHora;
+            lblTotal.Text = "Total: $" + (precioRecinto);
+            serviciosAdicionalesPrecio = 0;
+            tabla.Clear();
+            servicios.Clear();
         }
     }
 }
