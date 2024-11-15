@@ -1,5 +1,7 @@
 ﻿using AdministracionPolideportivo.CDatos;
 using AdministracionPolideportivo.CNegocio;
+using AdministracionPolideportivo.Properties;
+//using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -276,7 +278,6 @@ namespace AdministracionPolideportivo.CPresentacion
         {
             string carpetaFacturas = @"C:\Facturas";
 
-
             if (!Directory.Exists(carpetaFacturas))
             {
                 Directory.CreateDirectory(carpetaFacturas);
@@ -286,30 +287,116 @@ namespace AdministracionPolideportivo.CPresentacion
             Reserva reservaSeleccionada = (Reserva)cbReserva.SelectedItem;
             Cliente cliente = DALCliente.BuscarPorID(reservaSeleccionada.cliente.IdCliente.ToString()).First();
 
-            // Generar el HTML con los detalles
+            // Información del complejo deportivo
+            string razonSocial = "Complejo Polideportivo Taraguinense";
+            string cuit = "30-12345678-9";
+            string direccionComplejo = "Ruta 12 Km 1037, Corrientes, Argentina";
+            string inicioActividades = "01/02/2023";
+
+            // Ruta del logo de fondo en la carpeta de Resources
+            string logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources", "Logo_Taraguinense.png");
+
+            // Convertir el logo a Base64
+            string logoBase64 = "";
+            if (File.Exists(logoPath))
+            {
+                byte[] imageBytes = File.ReadAllBytes(logoPath);
+                logoBase64 = Convert.ToBase64String(imageBytes);
+            }
+
+            // Generar el HTML con los detalles, usando el logo embebido en Base64
             string htmlContent = $@"
-    <html>
-    <head>
-        <title>Factura de Reserva</title>
-        <style>
-            body {{ font-family: Arial, sans-serif; }}
-            h1 {{ color: #333; }}
-            table {{ width: 100%; border-collapse: collapse; margin-top: 20px; }}
-            th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
-            th {{ background-color: #f2f2f2; }}
-            .total {{ font-weight: bold; }}
-        </style>
-    </head>
-    <body>
+<html>
+<head>
+    <title>Factura de Reserva</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; color: #333; background-color: #f9f9f9; margin: 0; padding: 20px; }}
+        .container {{
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }}
+        .logo {{
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.1;
+            width: 300px;
+            height: auto;
+        }}
+        h1 {{ color: #444; text-align: center; font-size: 24px; }}
+        p {{ font-size: 14px; line-height: 1.6; }}
+        
+        /* Sección de encabezado (Cliente y Complejo) */
+        .factura-header {{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            width: 100%;
+        }}
+        .factura-column-iz {{
+            text-align: center;
+            width: 45%;
+            margin: 0;
+            box-sizing: border-box;
+        }}
+
+        .factura-column-der {{
+            text-align: center;
+            width: 45%;
+            margin: 0;
+            box-sizing: border-box;
+        }}
+        
+        /* Tabla de servicios */
+        table {{
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }}
+        th, td {{
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }}
+        th {{ background-color: #f2f2f2; font-weight: bold; }}
+        .total {{ font-weight: bold; color: #333; }}
+        .precio-col {{
+            width: 100px;
+            text-align: right;
+        }}
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <img src='data:image/png;base64,{logoBase64}' class='logo' alt='Logo' />
         <h1>Factura de Reserva</h1>
-        <p><strong>Cliente:</strong> {cliente.NombreCliente} {cliente.ApellidoCliente}</p>
-        <p><strong>DNI:</strong> {cliente.DniCliente}</p>
-        <p><strong>Fecha de Reserva:</strong> {reservaSeleccionada.Fecha.ToShortDateString()}</p>
+        
+        <div class='factura-header'>
+            <!-- Columna de Cliente -->
+            <div class='factura-column-iz'>
+                <p><strong>Cliente:</strong> {cliente.NombreCliente} {cliente.ApellidoCliente}</p>
+                <p><strong>DNI:</strong> {cliente.DniCliente}</p>
+                <p><strong>Fecha de Reserva:</strong> {reservaSeleccionada.Fecha.ToShortDateString()}</p>
+            </div>
+            <!-- Columna del Complejo -->
+            <div class='factura-column-der'>
+                <p><strong>Razón Social:</strong> {razonSocial}</p>
+                <p><strong>CUIT:</strong> {cuit}</p>
+                <p><strong>Dirección:</strong> {direccionComplejo}</p>
+                <p><strong>Inicio de Actividades:</strong> {inicioActividades}</p>
+            </div>
+        </div>
 
         <table>
             <tr>
                 <th>Detalle</th>
-                <th>Precio</th>
+                <th class='precio-col'>Precio</th>
             </tr>";
 
             // Agregar servicios adicionales
@@ -318,7 +405,7 @@ namespace AdministracionPolideportivo.CPresentacion
                 htmlContent += $@"
             <tr>
                 <td>{servicio.NombreServicio}</td>
-                <td>${servicio.Precio}</td>
+                <td class='precio-col'>${servicio.Precio}</td>
             </tr>";
             }
 
@@ -327,24 +414,27 @@ namespace AdministracionPolideportivo.CPresentacion
             htmlContent += $@"
             <tr>
                 <td>Tarifa del Recinto</td>
-                <td>${precioRecinto}</td>
+                <td class='precio-col'>${precioRecinto}</td>
             </tr>";
 
             // Agregar total
             htmlContent += $@"
             <tr class='total'>
                 <td>Total</td>
-                <td>${totalReservaAbsoluto}</td>
+                <td class='precio-col'>${totalReservaAbsoluto}</td>
             </tr>
         </table>
-    </body>
-    </html>";
+    </div>
+</body>
+</html>";
 
             // Guardar el archivo HTML
-            string filePath = carpetaFacturas+"\\factura_reserva"+reservaSeleccionada.idReserva+".html";
+            string filePath = Path.Combine(carpetaFacturas, "factura_reserva" + reservaSeleccionada.idReserva + ".html");
             File.WriteAllText(filePath, htmlContent);
 
             MessageBox.Show("Factura generada exitosamente en: " + filePath, "Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+
     }
 }
