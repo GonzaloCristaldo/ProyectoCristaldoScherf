@@ -15,10 +15,20 @@ namespace AdministracionPolideportivo.CDatos
             {
                 using (SqlConnection conexion = ConexionDB.GetConexion())
                 {
-                    string query = "INSERT INTO Pago (id_reserva) VALUES (@idReserva);";
-                    SqlCommand comando = new SqlCommand(query, conexion);
-                    comando.Parameters.AddWithValue("@idReserva", pago.reserva.idReserva);
+                    // Comando SQL para insertar un pago con todos los campos
+                    string query = @"
+                INSERT INTO Pago (id_reserva, id_usuario, id_medio, monto)
+                VALUES (@idReserva, @idUsuario, @idMedio, @monto);";
 
+                    SqlCommand comando = new SqlCommand(query, conexion);
+
+                    // Asignación de parámetros
+                    comando.Parameters.AddWithValue("@idReserva", pago.reserva.idReserva);
+                    comando.Parameters.AddWithValue("@idUsuario", pago.usuario.idUsuario);
+                    comando.Parameters.AddWithValue("@idMedio", pago.medio.idMedioPago);
+                    comando.Parameters.AddWithValue("@monto", pago.monto);
+
+                    // Ejecutar el comando
                     resultado = comando.ExecuteNonQuery();
                 }
             }
@@ -30,19 +40,21 @@ namespace AdministracionPolideportivo.CDatos
             return resultado;
         }
 
+
         public static List<Pago> ListarPagos()
         {
             List<Pago> lista = new List<Pago>();
 
             using (SqlConnection conexion = ConexionDB.GetConexion())
             {
-                string query = "SELECT id_pago, id_reserva FROM Pago";
+                string query = "SELECT * FROM Pago";
                 SqlCommand comando = new SqlCommand(query, conexion);
                 SqlDataReader lector = comando.ExecuteReader();
 
                 while (lector.Read())
                 {
-                    Pago pago = new Pago(lector.GetInt32(0), (DALReserva.BuscarPorID(lector.GetInt32(1).ToString()).First()));
+                    Pago pago = new Pago(lector.GetInt32(0), (DALReserva.BuscarPorID(lector.GetInt32(1).ToString()).First()),
+                        DALUsuario.BuscarPorID(lector.GetInt32(2).ToString()).First(),DALMedioPago.BuscarPorId(lector.GetInt32(4)),lector.GetInt32(3));
                     lista.Add(pago);
                 }
             }

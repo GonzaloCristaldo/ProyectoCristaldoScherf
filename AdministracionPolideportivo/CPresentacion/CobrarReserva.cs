@@ -238,9 +238,9 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnCobrar_Click(object sender, EventArgs e)
         {
-            totalReserva -= int.Parse(txtMonto.Text);
-            txtMonto.Clear();
-            lblTotal.Text = "$" + totalReserva.ToString();
+            //totalReserva -= int.Parse(txtMonto.Text);
+            //txtMonto.Clear();
+            //lblTotal.Text = "$" + totalReserva.ToString();
         }
         decimal totalReservaAbsoluto;
         decimal totalReserva;

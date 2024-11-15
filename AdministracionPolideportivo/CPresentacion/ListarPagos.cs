@@ -1,4 +1,5 @@
-﻿using AdministracionPolideportivo.CNegocio;
+﻿using AdministracionPolideportivo.CDatos;
+using AdministracionPolideportivo.CNegocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace AdministracionPolideportivo.CPresentacion
         public ListarPagos()
         {
             InitializeComponent();
-            tablaDatos.setDatoModelo(new Pago(0,new Reserva(1,new Recinto(),new Cliente(),new DateOnly(),new TimeOnly(),new Usuario())));
+            tablaDatos.setDatoModelo(new Pago(0,new Reserva(1,new Recinto(),new Cliente(),new DateOnly(),new TimeOnly(),new Usuario()),DALUsuario.BuscarPorID(1.ToString()).First(),new MedioPago(6,""),0));
         }
 
         private TablaDatos tabla;

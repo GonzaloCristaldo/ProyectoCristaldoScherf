@@ -7,7 +7,7 @@ namespace AdministracionPolideportivo.CDatos
 {
     internal class DALPagoMedioPago
     {
-        public static int AgregarPagoMedioPago(PagoMedioPago pagoMedioPago)
+        /*public static int AgregarPagoMedioPago(PagoMedioPago pagoMedioPago)
         {
             int resultado = 0;
 
@@ -59,6 +59,6 @@ namespace AdministracionPolideportivo.CDatos
             }
 
             return lista;
-        }
+        }*/
     }
 }
