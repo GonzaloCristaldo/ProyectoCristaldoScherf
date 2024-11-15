@@ -214,6 +214,7 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            TablaDatos.RemoveCellContentClickHandlers(tablaDatos1);
             List<Recinto> resultadoBusqueda = new List<Recinto>();
             if (buscarPorTipo){
                     resultadoBusqueda = DALRecinto.BuscarPorTipo(((TipoRecinto)cbTipo.SelectedItem).id.ToString());

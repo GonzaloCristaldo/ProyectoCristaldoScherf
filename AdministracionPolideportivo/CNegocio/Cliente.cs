@@ -14,14 +14,13 @@ namespace AdministracionPolideportivo.CNegocio
         
         public Cliente(int idCliente, int dniCliente, string nombreCliente, string apellidoCliente, string telefono)
         {
-            
+
             IdCliente = idCliente;
             DniCliente = dniCliente;
             NombreCliente = nombreCliente;
             ApellidoCliente = apellidoCliente;
             Telefono = telefono;
         }
-
         public Cliente()
         {
 
@@ -34,6 +33,7 @@ namespace AdministracionPolideportivo.CNegocio
 
         public Cliente(int dniCliente, string nombreCliente, string apellidoCliente, string telefono)
         {
+
             DniCliente = dniCliente;
             NombreCliente = nombreCliente;
             ApellidoCliente = apellidoCliente;
@@ -48,17 +48,30 @@ namespace AdministracionPolideportivo.CNegocio
 
         public static void EditarEntidad(Cliente cliente)
         {
-            AgregarCliente popUp = new AgregarCliente(true,cliente.IdCliente);
-            popUp.TopLevel = true;
-            popUp.FormBorderStyle= FormBorderStyle.FixedSingle;
-            popUp.txtDNI.Text = cliente.DniCliente.ToString();
-            popUp.txtNombre.Text = cliente.NombreCliente.ToString();
-            popUp.txtApellido.Text = cliente.ApellidoCliente.ToString();
-            popUp.txtTelefono.Text = cliente.Telefono.ToString();
-            //popUp.idCliente= cliente.IdCliente;
-            popUp.ShowDialog();
-        }
+           
+                AgregarCliente popUp = new AgregarCliente(true, cliente.IdCliente);
+                popUp.TopLevel = true;
+                popUp.FormBorderStyle = FormBorderStyle.FixedSingle;
+                popUp.txtDNI.Text = cliente.DniCliente.ToString();
+                popUp.txtNombre.Text = cliente.NombreCliente.ToString();
+                popUp.txtApellido.Text = cliente.ApellidoCliente.ToString();
+                popUp.txtTelefono.Text = cliente.Telefono.ToString();
+                //popUp.idCliente= cliente.IdCliente;
+                popUp.ShowDialog();
 
+            
+            
+        }
+        Object[] datosCliente;
+        int filaBoton;
+        void clickeado(Object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == filaBoton && e.ColumnIndex == datosCliente.Length)
+            {
+                EditarEntidad(this);
+            }
+
+        }
         public override void CargarEnTabla(TablaDatos tabla)
         {
             if (tabla.getDatoModelo().GetType()!=this.GetType())
@@ -67,20 +80,13 @@ namespace AdministracionPolideportivo.CNegocio
                 System.Console.WriteLine("El tipo de dato no era igual al dato modelo, se cambio la cabecera");
             }
             
-            Object[] datosCliente = [IdCliente.ToString(),DniCliente.ToString(),NombreCliente,ApellidoCliente,Telefono];
+            datosCliente = [IdCliente.ToString(),DniCliente.ToString(),NombreCliente,ApellidoCliente,Telefono];
             tabla.Rows.Add(datosCliente);
             TablaBoton boton = new TablaBoton(this);
-            int filaBoton = tabla.RowCount - 2;
+            filaBoton = tabla.RowCount - 2;
             tabla.Rows[filaBoton].Cells[datosCliente.Length] = boton;
 
-            void clickeado(Object sender, DataGridViewCellEventArgs e)
-            {
-                if (e.RowIndex==filaBoton && e.ColumnIndex==datosCliente.Length)
-                {
-                    EditarEntidad(this);
-                }
-                
-            }
+            
             tabla.CellContentClick += clickeado;
         }
 

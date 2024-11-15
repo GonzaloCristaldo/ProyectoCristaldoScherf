@@ -88,6 +88,26 @@ namespace AdministracionPolideportivo.CDatos
             return resultado;
         }
 
+        public static List<Recinto> ListarRecintosFuncionando()
+        {
+            List<Recinto> lista = new List<Recinto>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Recinto where id_estado=1";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Recinto recinto = new Recinto(lector.GetInt32(0), lector.GetDouble(1), DALEstado.BuscarEstadoID(lector.GetInt32(4).ToString()), DALTipoRecinto.BuscarTipoRecintoID(lector.GetInt32(3).ToString()), lector.GetString(2));
+                    lista.Add(recinto);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
 
         public static List<Recinto> ListarRecintos()
         {
@@ -129,6 +149,31 @@ namespace AdministracionPolideportivo.CDatos
             }
 
             return lista;
+        }
+
+        internal static int EditarRecinto(Recinto recinto)
+        {
+            int resultado = 0;
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "UPDATE Recinto SET tarifa_hora = @tarifa, ubicacion_recinto = @ubicacion, id_tipo_recinto = @tipo, id_estado = @estado WHERE nro_recinto = @nro_recinto;";
+
+                SqlCommand comando = new SqlCommand(query, conexion);
+
+                // Add parameters to prevent SQL injection
+                comando.Parameters.AddWithValue("@tarifa", recinto.TarifaHora);
+                comando.Parameters.AddWithValue("@ubicacion", recinto.Ubicacion);
+                comando.Parameters.AddWithValue("@tipo", recinto.tipoRecinto.id);
+                comando.Parameters.AddWithValue("@estado", recinto.estado.id);
+                comando.Parameters.AddWithValue("@nro_recinto", recinto.NroRecinto);
+
+                // Execute the update command and get the number of rows affected
+                resultado = comando.ExecuteNonQuery();
+                conexion.Close();
+            }
+
+            return resultado;
         }
     }
 }

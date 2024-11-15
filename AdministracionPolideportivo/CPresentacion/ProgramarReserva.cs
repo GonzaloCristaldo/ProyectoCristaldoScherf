@@ -39,7 +39,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
         override public void RefrescarCB()
         {
             cbCliente.DataSource = DALCliente.ListarClientes();
-            cbRecinto.DataSource = DALRecinto.ListarRecintos();
+            cbRecinto.DataSource = DALRecinto.ListarRecintosFuncionando();
             if (DALServicioAdicional.FiltrarPorRecinto((Recinto)cbRecinto.SelectedItem).IsNullOrEmpty())
             {
                 cbServicioAdicional.Enabled = false;

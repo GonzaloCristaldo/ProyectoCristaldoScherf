@@ -12,10 +12,10 @@ namespace AdministracionPolideportivo.CNegocio
     {
         public static void EditarEntidad(Recinto recinto)
         {
-            AgregarRecinto popUp = new AgregarRecinto();
+            AgregarRecinto popUp = new AgregarRecinto(true, recinto.NroRecinto);
             popUp.TopLevel = true;
             popUp.FormBorderStyle = FormBorderStyle.FixedSingle;
-            popUp.txtNumCancha.Text = recinto.NroRecinto.ToString();
+            //popUp.txtNumCancha.Text = recinto.NroRecinto.ToString();
             popUp.txtTarifa.Text = recinto.TarifaHora.ToString();
             popUp.txtUbicacion.Text = recinto.Ubicacion;
             popUp.cbTipo.Text = recinto.tipoRecinto.nombre;

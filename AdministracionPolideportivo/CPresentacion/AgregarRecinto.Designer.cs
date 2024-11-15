@@ -44,6 +44,7 @@
             lblTitulo = new LabelFormulario();
             panelIzquierda = new Panel();
             panelDerecha = new Panel();
+            cbHabilitado = new CheckBox();
             panelIzquierda.SuspendLayout();
             panelDerecha.SuspendLayout();
             SuspendLayout();
@@ -204,6 +205,7 @@
             // 
             // panelIzquierda
             // 
+            panelIzquierda.Controls.Add(cbHabilitado);
             panelIzquierda.Controls.Add(lblNumero);
             panelIzquierda.Controls.Add(txtNumCancha);
             panelIzquierda.Controls.Add(lblTarifa);
@@ -230,6 +232,20 @@
             panelDerecha.Name = "panelDerecha";
             panelDerecha.Size = new Size(381, 327);
             panelDerecha.TabIndex = 15;
+            // 
+            // cbHabilitado
+            // 
+            cbHabilitado.AutoSize = true;
+            cbHabilitado.Checked = true;
+            cbHabilitado.CheckState = CheckState.Checked;
+            cbHabilitado.Font = new Font("Segoe UI", 15F);
+            cbHabilitado.ForeColor = Color.White;
+            cbHabilitado.Location = new Point(123, 37);
+            cbHabilitado.Name = "cbHabilitado";
+            cbHabilitado.Size = new Size(141, 32);
+            cbHabilitado.TabIndex = 16;
+            cbHabilitado.Text = "funcionando";
+            cbHabilitado.UseVisualStyleBackColor = true;
             // 
             // AgregarRecinto
             // 
@@ -269,5 +285,6 @@
         private LabelFormulario lblTitulo;
         private Panel panelIzquierda;
         private Panel panelDerecha;
+        private CheckBox cbHabilitado;
     }
 }

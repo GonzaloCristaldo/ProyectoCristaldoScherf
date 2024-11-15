@@ -14,10 +14,15 @@ namespace AdministracionPolideportivo.CPresentacion
     {
         public BuscarCliente()
         {
-
             InitializeComponent();
             tabla.setDatoModelo(new Cliente(1, 1, "", "", ""));
             cbBuscar.SelectedIndex = 5;
+            reinicios = 0;
+        }
+        int reinicios;
+        private void ReiniciarTabla()
+        {
+            //tabla.CellContentClick -= ;
         }
 
         private BotonFormulario btnBuscar;
@@ -197,10 +202,10 @@ namespace AdministracionPolideportivo.CPresentacion
         {
 
         }
-
+        bool puedeEditar;
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-
+            ReiniciarTabla();
             if (!txtBuscar.Text.IsNullOrEmpty())
             {
                 List<Cliente> resultadoBusqueda = new List<Cliente>();
@@ -245,6 +250,7 @@ namespace AdministracionPolideportivo.CPresentacion
                 for (int i = 0; i < resultadoBusqueda.Count; i++)
                 {
                     resultadoBusqueda[i].CargarEnTabla(tabla);
+                    Console.WriteLine("cargado cliente "+i+"en la tabla" + tabla);
                 }
             }else
             {

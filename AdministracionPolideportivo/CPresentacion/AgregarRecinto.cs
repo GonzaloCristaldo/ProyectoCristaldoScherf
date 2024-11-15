@@ -24,7 +24,35 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             ubiPanel2 += anchoPaneles + 30;
             UbicarControles();
             RefrescarCB();
+            cbHabilitado.Hide();
+            modoEdicion = false;
+            nroRecinto = -1;
+            cbTipo.Enabled = true;
         }
+        bool modoEdicion;
+        int nroRecinto;
+        public AgregarRecinto(bool editar, int nro_recinto)
+        {
+            modoEdicion= editar;
+            nroRecinto = nro_recinto;
+
+            
+
+
+            InitializeComponent();
+            ubiPanel1 = 20;
+            anchoPaneles = (this.Width / 2) - 50;
+            ubiPanel2 += anchoPaneles + 30;
+            UbicarControles();
+            RefrescarCB();
+            btnAgregar.Text = "Editar";
+            lblNumero.Text="Estado del recinto";
+            cbTipo.Enabled = false;
+            cbHabilitado.Location = txtNumCancha.Location;
+            txtNumCancha.Hide();
+        }
+        
+
 
         List<String> servicios = new List<String>();
 
@@ -101,63 +129,159 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (txtNumCancha.Text.IsNullOrEmpty() || txtTarifa.Text.IsNullOrEmpty() || txtUbicacion.Text.IsNullOrEmpty() || cbTipo.Text.IsNullOrEmpty())
+            int resultado;
+            if (modoEdicion)
             {
-                List<String> vacios = new List<String>();
-                if (txtNumCancha.Text.IsNullOrEmpty())
+                if (txtTarifa.Text.IsNullOrEmpty() || txtUbicacion.Text.IsNullOrEmpty() || cbTipo.Text.IsNullOrEmpty())
                 {
-                    vacios.Add("Numero de Recinto");
-                }
-                if (txtTarifa.Text.IsNullOrEmpty())
-                {
-                    vacios.Add("Tarifa");
-                }
-                if (txtUbicacion.Text.IsNullOrEmpty())
-                {
-                    vacios.Add("Ubicacion");
-                }
-                if (cbTipo.Text.IsNullOrEmpty())
-                {
-                    vacios.Add("tipo de recinto");
-                }
-                String mensaje = "Por favor, complete los siguientes campos: ";
-                for (int i = 0; i < vacios.Count; i++)
-                {
-                    if (i + 1 < vacios.Count)
+                    List<String> vacios = new List<String>();
+                    if (txtTarifa.Text.IsNullOrEmpty())
                     {
-                        mensaje += vacios[i] + ", ";
+                        vacios.Add("Tarifa");
                     }
-                    else
+                    if (txtUbicacion.Text.IsNullOrEmpty())
                     {
-                        mensaje += vacios[i] + ".";
+                        vacios.Add("Ubicacion");
                     }
+                    if (cbTipo.Text.IsNullOrEmpty())
+                    {
+                        vacios.Add("tipo de recinto");
+                    }
+                    String mensaje = "Por favor, complete los siguientes campos: ";
+                    for (int i = 0; i < vacios.Count; i++)
+                    {
+                        if (i + 1 < vacios.Count)
+                        {
+                            mensaje += vacios[i] + ", ";
+                        }
+                        else
+                        {
+                            mensaje += vacios[i] + ".";
+                        }
 
+                    }
+                    MessageBox.Show(mensaje);
+                    return;
                 }
-                MessageBox.Show(mensaje);
-                return;
+                else
+                {
+                    var confirmResult = MessageBox.Show("¿Estas seguro que deseas modificar un recinto?",
+                                         "Confirmar edición recinto",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        Recinto recinto = new Recinto();
+                        recinto.TarifaHora = Int32.Parse(txtTarifa.Text);
+                        
+
+                        if (cbHabilitado.Checked)
+                        {
+                            recinto.estado = DALEstado.BuscarEstadoNombre("funcionando");
+                        }
+                        else
+                        {
+                            recinto.estado = DALEstado.BuscarEstadoNombre("deshabilitado");
+                        }
+
+                        recinto.tipoRecinto = (TipoRecinto)cbTipo.SelectedItem;
+                        recinto.Ubicacion = txtUbicacion.Text;
+                        recinto.NroRecinto = this.nroRecinto;
+                        
+
+                        resultado = DALRecinto.EditarRecinto(recinto);
+
+                        if (resultado > 0)
+                        {
+                            MessageBox.Show("Recinto editado exitosamente.");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error al editar el recinto.");
+                        }
+
+                        if (resultado>0)
+                        {
+                            for (int i = 0; i < servicios.Count; i++)
+                            {
+                                ServicioAdicional servicio = DALServicioAdicional.BuscarPorNombre(servicios.ElementAt(i)).First();
+                                resultado = DALRecintoServicio.AgregarRelacion(recinto, servicio);
+                                if (resultado > 0)
+                                {
+                                    MessageBox.Show("Servicio agregado al recinto editado exitosamente.");
+                                    this.Close();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Error al agregar el servicio " + servicio.NombreServicio + " al recinto editado.");
+                                }
+                            } 
+                        }
+                        Close();
+                    }
+                }
             }
-            else
+            else//modo insercion o no edicion
             {
-                var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo recinto?",
-                                     "Confirmar alta de recinto",
-                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                if (confirmResult == DialogResult.Yes)
+                if (txtNumCancha.Text.IsNullOrEmpty() || txtTarifa.Text.IsNullOrEmpty() || txtUbicacion.Text.IsNullOrEmpty() || cbTipo.Text.IsNullOrEmpty())
                 {
-                    Recinto recinto = new Recinto();
-                    recinto.TarifaHora = Int32.Parse(txtTarifa.Text);
-                    recinto.estado = DALEstado.BuscarEstadoNombre("funcionando");
-                    recinto.tipoRecinto = (TipoRecinto)cbTipo.SelectedItem;
-                    recinto.Ubicacion = txtUbicacion.Text;
-                    recinto.NroRecinto = Int32.Parse(txtNumCancha.Text);
-                    DALRecinto.AgregarRecinto(recinto);
-
-                    for(int i = 0; i < servicios.Count; i++)
+                    List<String> vacios = new List<String>();
+                    if (txtNumCancha.Text.IsNullOrEmpty())
                     {
-                        DALRecintoServicio.AgregarRelacion(recinto,DALServicioAdicional.BuscarPorNombre(servicios.ElementAt(i)).First());
+                        vacios.Add("Numero de Recinto");
                     }
-                    LimpiarCampos();
+                    if (txtTarifa.Text.IsNullOrEmpty())
+                    {
+                        vacios.Add("Tarifa");
+                    }
+                    if (txtUbicacion.Text.IsNullOrEmpty())
+                    {
+                        vacios.Add("Ubicacion");
+                    }
+                    if (cbTipo.Text.IsNullOrEmpty())
+                    {
+                        vacios.Add("tipo de recinto");
+                    }
+                    String mensaje = "Por favor, complete los siguientes campos: ";
+                    for (int i = 0; i < vacios.Count; i++)
+                    {
+                        if (i + 1 < vacios.Count)
+                        {
+                            mensaje += vacios[i] + ", ";
+                        }
+                        else
+                        {
+                            mensaje += vacios[i] + ".";
+                        }
+
+                    }
+                    MessageBox.Show(mensaje);
+                    return;
+                }
+                else
+                {
+                    var confirmResult = MessageBox.Show("¿Estas seguro que deseas agregar un nuevo recinto?",
+                                         "Confirmar alta de recinto",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        Recinto recinto = new Recinto();
+                        recinto.TarifaHora = Int32.Parse(txtTarifa.Text);
+                        recinto.estado = DALEstado.BuscarEstadoNombre("funcionando");
+                        recinto.tipoRecinto = (TipoRecinto)cbTipo.SelectedItem;
+                        recinto.Ubicacion = txtUbicacion.Text;
+                        recinto.NroRecinto = Int32.Parse(txtNumCancha.Text);
+                        DALRecinto.AgregarRecinto(recinto);
+
+                        for (int i = 0; i < servicios.Count; i++)
+                        {
+                            DALRecintoServicio.AgregarRelacion(recinto, DALServicioAdicional.BuscarPorNombre(servicios.ElementAt(i)).First());
+                        }
+                        LimpiarCampos();
+                    }
                 }
             }
+
+               
         }
 
         // Método para limpiar los campos del formulario
