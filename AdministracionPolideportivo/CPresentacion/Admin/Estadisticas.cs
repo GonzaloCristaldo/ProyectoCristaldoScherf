@@ -25,9 +25,9 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             botonFormulario1 = new BotonFormulario();
             botonFormulario2 = new BotonFormulario();
@@ -47,16 +47,16 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            chart1.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            chart1.Legends.Add(legend1);
             chart1.Location = new Point(182, 60);
             chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            chart1.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            chart1.Series.Add(series1);
             chart1.Size = new Size(405, 264);
             chart1.TabIndex = 0;
             chart1.Text = "chart1";
@@ -128,9 +128,9 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(60, 330);
+            richTextBox1.Location = new Point(30, 330);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(684, 96);
+            richTextBox1.Size = new Size(758, 96);
             richTextBox1.TabIndex = 5;
             richTextBox1.Text = "";
             richTextBox1.TextChanged += richTextBox1_TextChanged;
@@ -234,24 +234,23 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void botonFormulario1_Click(object sender, EventArgs e)
         {
- 
-    DateTime fechaInicio = dateTimePicker1.Value.Date;
-    DateTime fechaFin = dateTimePicker2.Value.Date;
+            DateTime fechaInicio = dateTimePicker1.Value.Date;
+            DateTime fechaFin = dateTimePicker2.Value.Date;
 
-    // Consulta base para obtener el mes con más reservas, agregando el filtro de fechas
-    string consultaBase = @"
+            // Consulta base para obtener el mes con más reservas, agregando el filtro de fechas
+            string consultaBase = @"
     SELECT DATENAME(month, fecha_reserva) AS Mes, COUNT(*) AS CantidadReservas
     FROM Reserva
     WHERE fecha_reserva >= @fechaInicio AND fecha_reserva <= @fechaFin
     GROUP BY DATENAME(month, fecha_reserva), MONTH(fecha_reserva)
     ORDER BY COUNT(*) DESC";  // Ordenar por la cantidad de reservas (de mayor a menor)
 
-    // Ejecutar la consulta con las fechas filtradas
-    DataHelper dataHelper = new DataHelper();
-    DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
+            // Ejecutar la consulta con las fechas filtradas
+            DataHelper dataHelper = new DataHelper();
+            DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
 
-    // Crear un diccionario para traducir los meses de inglés a español
-    Dictionary<string, string> mesesEnEspañol = new Dictionary<string, string>
+            // Crear un diccionario para traducir los meses de inglés a español
+            Dictionary<string, string> mesesEnEspañol = new Dictionary<string, string>
     {
         { "January", "Enero" },
         { "February", "Febrero" },
@@ -267,37 +266,70 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
         { "December", "Diciembre" }
     };
 
-    // Limpiar el gráfico actual
-    chart1.Series.Clear();
+            // Limpiar el gráfico actual
+            chart1.Series.Clear();
 
-    // Crear una nueva serie para el gráfico
-    var series = chart1.Series.Add("Mes con más reservas");
-    series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            // Crear una nueva serie para el gráfico
+            var series = chart1.Series.Add("Mes con más reservas");
+            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
 
-    // Inicializar variables para encontrar el mes con más reservas
-    string mesConMasReservas = "";
-    int cantidadMaxima = 0;
+            // Inicializar variables para encontrar el mes con más reservas
+            string mesConMasReservas = "";
+            int cantidadMaxima = 0;
 
-    // Añadir los datos al gráfico, traduciendo los meses y actualizando el mensaje
-    foreach (DataRow row in result.Rows)
-    {
-        string mesIngles = row["Mes"].ToString();
-        string mesEnEspanol = mesesEnEspañol.ContainsKey(mesIngles) ? mesesEnEspañol[mesIngles] : mesIngles;
-        int cantidadReservas = Convert.ToInt32(row["CantidadReservas"]);
+            // Inicializar variables para "Otros"
+            int otrosCantidad = 0;
+            bool hayOtros = false;
+            List<string> mesesOtros = new List<string>();
 
-        series.Points.AddXY(mesEnEspanol, cantidadReservas);
+            // Añadir los datos al gráfico, traduciendo los meses y actualizando el mensaje
+            foreach (DataRow row in result.Rows)
+            {
+                string mesIngles = row["Mes"].ToString();
+                string mesEnEspanol = mesesEnEspañol.ContainsKey(mesIngles) ? mesesEnEspañol[mesIngles] : mesIngles;
+                int cantidadReservas = Convert.ToInt32(row["CantidadReservas"]);
 
-        // Si encontramos un valor mayor, actualizamos el mes con más reservas
-        if (cantidadReservas > cantidadMaxima)
-        {
-            cantidadMaxima = cantidadReservas;
-            mesConMasReservas = mesEnEspanol;
+                // Si el mes tiene una cantidad significativa de reservas, lo agregamos al gráfico
+                if (series.Points.Count < 4)
+                {
+                    series.Points.AddXY(mesEnEspanol, cantidadReservas);
+                }
+                else
+                {
+                    // Para los meses con menos reservas, se agrupan bajo "Otros"
+                    otrosCantidad += cantidadReservas;
+                    mesesOtros.Add($"{mesEnEspanol} con {cantidadReservas} reservas");
+                    hayOtros = true;
+                }
+
+                // Si encontramos un mes con más reservas, actualizamos el mes con más reservas
+                if (cantidadReservas > cantidadMaxima)
+                {
+                    cantidadMaxima = cantidadReservas;
+                    mesConMasReservas = mesEnEspanol;
+                }
+            }
+
+            // Si hay meses con pocas reservas, añadir la categoría "Otros"
+            if (hayOtros)
+            {
+                series.Points.AddXY("Otros", otrosCantidad);
+            }
+
+            // Mostrar el mes con más reservas en el RichTextBox
+            richTextBox1.Text = $"El mes con más reservas es {mesConMasReservas} con {cantidadMaxima} reservas.\n\n";
+
+            // Agregar la lista de meses de "Otros"
+            if (mesesOtros.Count > 0)
+            {
+                richTextBox1.Text += "Los meses correspondientes a 'Otros' son:\n";
+                foreach (var mes in mesesOtros)
+                {
+                    richTextBox1.Text += $"{mes}\n";
+                }
+            }
         }
-    }
 
-    // Mostrar el resultado en el RichTextBox
-    richTextBox1.Text = $"El mes con más reservas es {mesConMasReservas} con {cantidadMaxima} reservas.";
-        }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
@@ -413,7 +445,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
 
         private void botonFormulario4_Click(object sender, EventArgs e)
         {
-            // Obterr las fechas de los DateTimePicker
+            // Obtener las fechas de los DateTimePicker
             DateTime fechaInicio = dateTimePicker1.Value.Date;
             DateTime fechaFin = dateTimePicker2.Value.Date;
 
@@ -435,31 +467,67 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             chart1.Series.Clear();
 
             // Crear una nueva serie para el gráfico
-            var series = chart1.Series.Add("Tipo recinto mas utilizado");
+            var series = chart1.Series.Add("Tipo recinto más utilizado");
             series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+
+            // Inicializar variables para "Otros"
+            int otrosCantidad = 0;
+            bool hayOtros = false;
+            List<string> deportesOtros = new List<string>();
 
             // Añadir los datos al gráfico
             foreach (DataRow row in result.Rows)
             {
-                series.Points.AddXY(row["Deporte"], row["CantidadReservas"]);
+                string deporte = row["Deporte"].ToString();
+                int cantidadReservas = Convert.ToInt32(row["CantidadReservas"]);
+
+                // Si el deporte tiene una cantidad significativa de reservas, lo agregamos al gráfico
+                if (series.Points.Count < 4)
+                {
+                    series.Points.AddXY(deporte, cantidadReservas);
+                }
+                else
+                {
+                    // Para los deportes con menos reservas, se agrupan bajo "Otros"
+                    otrosCantidad += cantidadReservas;
+                    deportesOtros.Add($"{deporte} con {cantidadReservas} reservas");
+                    hayOtros = true;
+                }
+            }
+
+            // Si hay deportes con pocas reservas, añadir la categoría "Otros"
+            if (hayOtros)
+            {
+                series.Points.AddXY("Otros", otrosCantidad);
             }
 
             // Mostrar el deporte más utilizado en el RichTextBox
             if (result.Rows.Count > 0)
             {
-                DataRow maxRow = result.Rows[0]; 
-                richTextBox1.Text = $"El tipo de recinto más utilizado es {maxRow["Deporte"]} con {maxRow["CantidadReservas"]} reservas.";
+                DataRow maxRow = result.Rows[0];
+                richTextBox1.Text = $"El tipo de recinto más utilizado es {maxRow["Deporte"]} con {maxRow["CantidadReservas"]} reservas.\n\n";
+            }
+
+            // Agregar la lista de deportes de "Otros"
+            if (deportesOtros.Count > 0)
+            {
+                richTextBox1.Text += "Los Tipo de recintos correspondientes a 'Otros' son:\n";
+                foreach (var deporte in deportesOtros)
+                {
+                    richTextBox1.Text += $"{deporte}\n";
+                }
             }
         }
 
-        private void botonFormulario5_Click(object sender, EventArgs e)
-        {
-            // Obtner las fechas de los DateTimePicker
-            DateTime fechaInicio = dateTimePicker1.Value.Date;
-            DateTime fechaFin = dateTimePicker2.Value.Date;
 
-            // Consulta base para el servicio adicional más utilizado
-            string consultaBase = @"
+        private void botonFormulario5_Click(object sender, EventArgs e)
+{
+    // Obtén las fechas de los DateTimePicker
+    DateTime fechaInicio = dateTimePicker1.Value.Date;
+    DateTime fechaFin = dateTimePicker2.Value.Date;
+
+    // Consulta base para los servicios adicionales más utilizados
+    string consultaBase = @"
     SELECT SA.nombre_servicio AS Servicio, COUNT(*) AS CantidadUsos
     FROM Servicio_Reserva AS SR
     JOIN Servicio_Adicional AS SA ON SR.id_servicio = SA.id_servicio
@@ -468,30 +536,64 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
     GROUP BY SA.nombre_servicio
     ORDER BY CantidadUsos DESC";
 
-            // Ejecutar la consulta con las fechas filtradas
-            DataHelper dataHelper = new DataHelper();
-            DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
+    // Ejecutar la consulta con las fechas filtradas
+    DataHelper dataHelper = new DataHelper();
+    DataTable result = dataHelper.ExecuteQueryConParametros(consultaBase, fechaInicio, fechaFin);
 
-            // Limpiar el gráfico actual
-            chart1.Series.Clear();
+    // Limpiar el gráfico actual
+    chart1.Series.Clear();
 
-            // Crear una nueva serie para el gráfico
-            var series = chart1.Series.Add("Servicio adicional más utilizado");
-            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+    // Crear una nueva serie para el gráfico
+    var series = chart1.Series.Add("Servicio adicional más utilizado");
+    series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
 
-            // Añadir los datos al gráfico
-            foreach (DataRow row in result.Rows)
+    // Inicializar una variable para la categoría "Otros"
+    int otrosCantidad = 0;
+    bool hayOtros = false;
+    List<string> otrosServicios = new List<string>();
+
+    // Limitar a los 4 más populares y agrupar los demás en "Otros"
+    for (int i = 0; i < result.Rows.Count; i++)
+    {
+        if (i < 4)
+        {
+            // Los 4 servicios más populares
+            series.Points.AddXY(result.Rows[i]["Servicio"], result.Rows[i]["CantidadUsos"]);
+        }
+        else
+        {
+            // Agrupar el resto en "Otros"
+            otrosCantidad += Convert.ToInt32(result.Rows[i]["CantidadUsos"]);
+            otrosServicios.Add($"{result.Rows[i]["Servicio"]} con {result.Rows[i]["CantidadUsos"]} reservas");
+            hayOtros = true;
+        }
+    }
+
+    // Si hay servicios con pocas reservas, añadir la categoría "Otros"
+    if (hayOtros)
+    {
+        series.Points.AddXY("Otros", otrosCantidad);
+    }
+
+    // Mostrar el servicio más utilizado en el RichTextBox
+    if (result.Rows.Count > 0)
+    {
+        DataRow maxRow = result.Rows[0]; // El primer servicio es el más utilizado
+        richTextBox1.Text = $"El servicio adicional más utilizado es {maxRow["Servicio"]} con {maxRow["CantidadUsos"]} usos.\n\n";
+
+        // Agregar la lista de servicios de "Otros"
+        if (otrosServicios.Count > 0)
+        {
+            richTextBox1.Text += "Los servicios correspondientes a 'Otros' son:\n";
+            foreach (var servicio in otrosServicios)
             {
-                series.Points.AddXY(row["Servicio"], row["CantidadUsos"]);
-            }
-
-            // Mostrar el servicio más utilizado en el RichTextBox
-            if (result.Rows.Count > 0)
-            {
-                DataRow maxRow = result.Rows[0]; // El primer servicio es el más utilizado
-                richTextBox1.Text = $"El servicio adicional más utilizado es {maxRow["Servicio"]} con {maxRow["CantidadUsos"]} usos.";
+                richTextBox1.Text += $"{servicio}\n";
             }
         }
+    }
+}
+
+
 
         private void botonFormulario6_Click(object sender, EventArgs e)
         {
@@ -518,18 +620,14 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             var series = chart1.Series.Add("Filtrado");
             series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
 
-            /* Añadir los datos al gráfico
-            foreach (DataRow row in result.Rows)
-            {
-                series.Points.AddXY(row["Mes"], row["CantidadReservas"]);
-            }*/
+           
         }
         private string ConstruirConsultaConFechas(string consultaBase, DateTime? fechaInicio, DateTime? fechaFin)
         {
-            // Añadir la condición WHERE correctamente
+           
             StringBuilder queryBuilder = new StringBuilder(consultaBase);
 
-            // Agregar la cláusula WHERE solo si es necesario
+           
             if (fechaInicio.HasValue || fechaFin.HasValue)
             {
                 queryBuilder.Append(" WHERE ");
