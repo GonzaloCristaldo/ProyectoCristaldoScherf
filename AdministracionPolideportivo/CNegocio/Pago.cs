@@ -15,14 +15,22 @@ namespace AdministracionPolideportivo.CNegocio
         {
             //TODO
         }
-        public Pago(int idPago, Reserva reserva)
+        public Pago(int idPago, Reserva reserva,Usuario usuarioP,MedioPago med, int precio)
         {
             this.idPago = idPago;
             this.reserva = reserva;
+            usuario= usuarioP;
+            medio = med;
+            monto = precio;
         }
 
         public int idPago {  get; set; }
         public Reserva reserva {  get; set; }
+
+        public Usuario usuario { get; set; }
+
+        public MedioPago medio { get; set; }
+        public int monto { get; set; }
 
         public override void CargarEnTabla(TablaDatos tabla)
         {
