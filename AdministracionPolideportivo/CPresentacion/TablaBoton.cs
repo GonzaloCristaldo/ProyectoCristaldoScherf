@@ -19,7 +19,16 @@ namespace AdministracionPolideportivo.CPresentacion
             //this.CellContentClick += EditarEntidad;
            
         }
-        
+
+        public TablaBoton(EntidadDataGridView entidad,String nombre)
+        {
+            this.entidad = entidad;
+            //this.UseColumnTextForButtonValue = true;
+            this.Value = nombre;
+            //this.CellContentClick += EditarEntidad;
+
+        }
+
         /*public void EditarEntidad()
         {
             Console.WriteLine("Editar Entidad");

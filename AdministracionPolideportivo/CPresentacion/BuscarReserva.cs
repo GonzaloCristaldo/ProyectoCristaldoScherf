@@ -85,6 +85,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             tablaDatos1.Name = "tablaDatos1";
             tablaDatos1.Size = new Size(766, 212);
             tablaDatos1.TabIndex = 1;
+            tablaDatos1.CellContentClick += tablaDatos1_CellContentClick;
             // 
             // BuscarReserva
             // 
@@ -116,8 +117,8 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                 if (!cbBuscar.Text.Equals("Listar Reservas"))
                 {
                     int num;
-                    
-                    if (cbBuscar.Text.Equals("ID") && int.TryParse(txtBuscar.Text,out num))
+
+                    if (cbBuscar.Text.Equals("ID") && int.TryParse(txtBuscar.Text, out num))
                     {
                         resultadoBusqueda = DALReserva.BuscarPorID(txtBuscar.Text);
                     }
@@ -137,10 +138,10 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                     {
                         resultadoBusqueda = DALReserva.BuscarPorHora(txtBuscar.Text);
                     }
-                    else if (cbBuscar.Text.Equals("Fecha (aaaa-mm-dd)") )
+                    else if (cbBuscar.Text.Equals("Fecha (aaaa-mm-dd)"))
                     {
                         DateOnly fecha;
-                        bool conversion=DateOnly.TryParse(txtBuscar.Text, out fecha);
+                        bool conversion = DateOnly.TryParse(txtBuscar.Text, out fecha);
                         if (conversion)
                         {
                             resultadoBusqueda = DALReserva.BuscarPorFecha(fecha);
@@ -175,6 +176,11 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
             {
                 MessageBox.Show("Por favor, ingrese un valor para realizar la busqueda.");
             }
+        }
+
+        private void tablaDatos1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

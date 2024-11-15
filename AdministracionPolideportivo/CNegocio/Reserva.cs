@@ -59,7 +59,7 @@ namespace AdministracionPolideportivo.CNegocio
             String[] datosReserva = [idReserva.ToString(), cliente.NombreCliente,recinto.NroRecinto.ToString(),Fecha.ToString()+" "+Hora.Hour.ToString()];
             tabla.Rows.Add(datosReserva);
 
-            TablaBoton boton = new TablaBoton(this);
+            TablaBoton boton = new TablaBoton(this,"Detalles");
             int filaBoton = tabla.RowCount - 2;
             tabla.Rows[filaBoton].Cells[datosReserva.Length] = boton;
 

@@ -49,7 +49,7 @@ namespace AdministracionPolideportivo.CDatos
 
             using (SqlConnection conexion = ConexionDB.GetConexion())
             {
-                string query = "SELECT * FROM Pago";
+                string query = "SELECT * FROM Pago ORDER BY id_pago DESC";
                 SqlCommand comando = new SqlCommand(query, conexion);
                 SqlDataReader lector = comando.ExecuteReader();
 

@@ -43,18 +43,15 @@ namespace AdministracionPolideportivo.CPresentacion
 
         public static void RemoveCellContentClickHandlers(TablaDatos tabla)
         {
-            // Access the private event handler list for the DataGridView
             FieldInfo fi = typeof(TablaDatos).GetField("EventCellContentClick", BindingFlags.Static | BindingFlags.NonPublic);
 
             if (fi != null)
             {
                 object clickEventKey = fi.GetValue(tabla);
 
-                // Get the list of event handlers associated with the DataGridView
                 PropertyInfo eventsProp = typeof(Control).GetProperty("Events", BindingFlags.NonPublic | BindingFlags.Instance);
                 EventHandlerList eventList = (EventHandlerList)eventsProp.GetValue(tabla);
 
-                // Remove the CellContentClick event handlers
                 eventList.RemoveHandler(clickEventKey, eventList[clickEventKey]);
             }
         }

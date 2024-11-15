@@ -225,6 +225,17 @@ namespace AdministracionPolideportivo.CPresentacion
                 int resultado = DALPago.AgregarPago(new Pago(0, (Reserva)cbReserva.SelectedItem, usuario, (MedioPago)cbMedioPago.SelectedItem, (int)totalReservaAbsoluto));
                 if (resultado > 0)
                 {
+                    if (cbReserva.SelectedItem != null)
+                    {
+
+                        DialogResult result = MessageBox.Show("¿Deseas generar la factura?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+                        if (result == DialogResult.Yes)
+                        {
+                            GenerarFacturaHTML();
+                        }
+                    }
                     MessageBox.Show("Reserva saldada. El pago se registro correctamente.");
                     cbReserva.SelectedIndex=-1;
                     RefrescarCB();
