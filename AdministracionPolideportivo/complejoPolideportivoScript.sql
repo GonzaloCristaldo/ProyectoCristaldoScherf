@@ -130,11 +130,13 @@ insert into Tipo_Usuario (nombre_Tipo) values ('Administrador'), ('SuperAdminist
 select * from Tipo_Usuario;
 
 insert into Usuario (DNI_Usuario,Nombre_Usuario,Apellido_Usuario,Fecha_Ingreso,Fecha_Nacimiento,pass,telefono,Id_Tipo,Sexo_Usuario) values
-(1234,'admin','admin','2021-06-15','2021-06-15','admin','3794149452',1,'hombre'),
-(12345,'superadmin','superadmin','2021-06-15','2021-06-15','superadmin','3794149452',2,'mujer'),
+(1234,'Milton','admin','2021-06-15','2021-06-15','admin','3794149452',1,'hombre'),
+(12345,'Maria','superadmin','2021-06-15','2021-06-15','superadmin','3794149452',2,'mujer'),
+(43822713,'Lucas','Scherf','2021-08-09','2001-12-19','superadmin','3794149452',2,'hombre'),
+(43123456,'Martin','Lopez','2018-10-24','1992-06-15','admin','3794149452',2,'hombre'),
 (12346,'recep','recep','2021-06-15','2021-06-15','recep','3794149452',3,'hombre');
 
-select * from Usuario where (DNI_Usuario=1234 and pass='admin');
+select * from Usuario;
 
 insert into Tipo_Recinto(nombre_tipo_recinto) values ('cancha de futbol');
 insert into Tipo_Recinto(nombre_tipo_recinto) values ('cancha de padel');
@@ -147,23 +149,38 @@ insert into Estado(nombre_estado) VALUES ('funcionando'), ('deshabilitado');
 insert into Medio_Pago(nombre_medio) VALUES ('efectivo'), ('transferencia'),('debito/credito');
 
 insert into Cliente(dni_cliente,nombre_cliente,apellido_cliente,telefono_cliente)
-VALUES (38765123,'Jose','Martinez','3794149432'),
-(35245123,'Maria','Echeverría','3795643215');
+VALUES (38765123,'Jose','Martinez','379414942'),
+(35245123,'Maria','EcheverrÃ­a','379564215'),
+(32365123,'Milton','Rodriguez','379149432'),
+(35248723,'paula','Santillan','379564315'),
+(48765123,'Raul','Caceres','379414432'),
+(25245123,'Javier','Sandoval','37956325'),
+(48765863,'Marcos','Costas','379414932'),
+(35869373,'Lucia','Jensen','379564215');
 
+
+select * from Tipo_Recinto;
 insert into Recinto(nro_recinto,tarifa_hora,ubicacion_recinto,id_tipo_recinto,id_estado)
 VALUES (1,20000,'Primer cancha a la izquierda',1,1),
-(2,20000,'Primer cancha a la derecha',1,1),
-(3,20000,'segunda cancha a la izquierda',1,1),
-(4,20000,'segunda cancha a la derecha',2,1),
-(5,20000,'Primer parrilla al fondo',3,1),
-(6,20000,'segunda parrilla al fondo',3,1),
-(7,20000,'pileta atras de las parrillas',4,1);
+(2,30000,'Primer cancha a la derecha',1,1),
+(3,24000,'segunda cancha a la izquierda',1,1),
+(4,21000,'segunda cancha a la derecha',2,1),
+(5,27000,'Primer parrilla al fondo',3,1),
+(6,25000,'segunda parrilla al fondo',3,1),
+(7,22500,'pileta atras de las parrillas',4,2),
+(8,22000,'Primer cancha del frente',1,1),
+(9,20000,'Cancha del medio',1,1),
+(10,20000,'Cancha zona estacionamiento',1,1),
+(11,20000,'Cancha de padel techada zona estacionamiento',2,1),
+(12,13000,'parrilla zona central',3,2),
+(13,13000,'parrilla sector estacionamiento',3,1),
+(14,12000,'pileta de salon climatizada',4,1);
 
 INSERT INTO Servicio_Adicional(nombre_servicio,descripcion_servicio,precio)
 VALUES ('Arbitraje de futbol','Servicio de arbitro de partidos de futbol',7000),
 ('Arbitraje de padel','Servicio de arbitro de padel',5000),
-('Grabacion','Servicio de grabación del recinto',2500),
-('Iluminación','Iluminación con luces de tecnologia led',4500),
+('Grabacion','Servicio de grabaciÃ³n del recinto',2500),
+('IluminaciÃ³n','IluminaciÃ³n con luces de tecnologia led',4500),
 ('Pecheras','Alquiler de pecheras de colores para dividir equipos',3500);
 
 INSERT INTO Recinto_Servicio(nro_recinto,id_servicio)
@@ -187,25 +204,20 @@ VALUES (1,1),
 
 INSERT INTO reserva(fecha_reserva,id_cliente,nro_recinto,id_Usuario,hora_reserva)
 VALUES ('2024-12-15',1,1,1,18),
-('2024-12-15',1,1,1,19),
-('2024-12-15',1,1,1,20),
-('2024-12-15',1,1,1,21);
+('2024-11-15',2,2,1,19),
+('2024-10-15',3,3,1,20),
+('2024-9-15',1,4,1,21),
+('2024-8-15',1,5,1,18),
+('2024-7-15',3,6,1,19),
+('2024-6-15',2,7,1,20),
+('2024-5-15',2,8,1,21),
+('2024-4-15',1,9,1,18),
+('2024-3-15',2,1,1,19),
+('2024-2-15',3,1,1,20),
+('2024-1-15',3,1,1,21);
 
 INSERT INTO Servicio_Reserva(id_servicio,id_reserva) 
 VALUES(1,1),
 (3,1),
 (4,1),
 (5,1);
-
-select * from Medio_Pago
-
-INSERT INTO Pago(id_reserva,id_usuario,monto,id_medio)
-VALUES (1,1,37500,1),
-(2,1,20000,2),
-(3,2,20000,3);
-
-UPDATE Reserva
-SET pagado = 1
-WHERE id_reserva IN (1,2,3);
-
-select * from Reserva
