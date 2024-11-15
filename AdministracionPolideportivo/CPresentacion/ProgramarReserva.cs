@@ -504,7 +504,7 @@ namespace AdministracionPolideportivo.CPresentacion.Recepcionista
                 tabla.AppendText(Environment.NewLine);
                 serviciosAdicionalesPrecio += (int)((ServicioAdicional)(cbServicioAdicional.SelectedItem)).Precio;
             }
-            lblTotal.Text = "Total: $" + (precioRecinto+ serviciosAdicionalesPrecio);
+            lblTotal.Text = "Total: $" + (precioRecinto+serviciosAdicionalesPrecio);
         }
         double precioRecinto;
         int serviciosAdicionalesPrecio;

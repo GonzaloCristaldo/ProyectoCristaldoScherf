@@ -82,6 +82,11 @@ namespace AdministracionPolideportivo.CNegocio
             popUp.Close();
         }
 
+        public override string ToString()
+        {
+            return nombreUsuario+" "+apellidoUsuario;
+        }
+
         public override void CargarEnTabla(TablaDatos tabla)
         {
             if (tabla.getDatoModelo().GetType() != this.GetType())

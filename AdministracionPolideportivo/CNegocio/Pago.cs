@@ -61,10 +61,7 @@ namespace AdministracionPolideportivo.CNegocio
         public override void CrearCabecera(TablaDatos tabla)
         {
             tabla.Columns.Clear();
-            tabla.Rows.Clear();
-            tabla.Columns.Add("id", "Id Pago");
-            tabla.Columns.Add("dni", "Id Reserva");
-            tabla.Columns.Add("eliminar","Eliminar");
+            tabla.Rows.Clear();           
         }
 
 
