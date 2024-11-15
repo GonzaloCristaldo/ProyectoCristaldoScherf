@@ -30,6 +30,8 @@ namespace AdministracionPolideportivo.CDatos
 
                     // Ejecutar el comando
                     resultado = comando.ExecuteNonQuery();
+
+                    DALReserva.Pagar(pago.reserva.idReserva);
                 }
             }
             catch (SqlException ex)

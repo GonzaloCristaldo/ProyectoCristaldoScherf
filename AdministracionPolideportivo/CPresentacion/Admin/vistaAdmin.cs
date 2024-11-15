@@ -48,7 +48,7 @@ namespace AdministracionPolideportivo.CPresentacion.Admin
             AgregarBotonOpcion(new BotonOpcion(new BuscarRecinto(), this, formActual, "Buscar Recinto"));
             AgregarBotonOpcion(new BotonOpcion(new ProgramarReserva(usuario.idUsuario), this, formActual, "Programar Nueva Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarReserva(), this, formActual, "Buscar Reserva"));
-            AgregarBotonOpcion(new BotonOpcion(new CobrarReserva(), this, formActual, "Cobrar Reserva"));
+            AgregarBotonOpcion(new BotonOpcion(new CobrarReserva(user), this, formActual, "Cobrar Reserva"));
             AgregarBotonOpcion(new BotonOpcion(new Estadisticas(), this, formActual, "Ver estadisticas"));
             AgregarBotonOpcion(new BotonOpcion(new BuscarUsuario(), this, formActual, "Buscar Usuario"));
             BotonOpcion btnSalirSesion = new BotonOpcion(new FormularioEstandar(), this, formActual, "Cerrar Sesion");

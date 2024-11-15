@@ -1,6 +1,8 @@
 ﻿using AdministracionPolideportivo.CDatos;
 using AdministracionPolideportivo.CNegocio;
 using AdministracionPolideportivo.Properties;
+using Microsoft.IdentityModel.Tokens;
+
 //using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -14,12 +16,13 @@ namespace AdministracionPolideportivo.CPresentacion
     internal class CobrarReserva : FormularioEstandar
     {
 
-        public CobrarReserva()
+        public CobrarReserva(Usuario user)
         {
             InitializeComponent();
+            usuario=user;
         }
 
-
+        Usuario usuario;
 
         private void InitializeComponent()
         {
@@ -32,8 +35,6 @@ namespace AdministracionPolideportivo.CPresentacion
             panel1 = new Panel();
             txtDetalle = new Texto();
             panel2 = new Panel();
-            lblMonto = new Label();
-            txtMonto = new TextoNumerico();
             cbReserva = new ComboBoxEstandar();
             lblReserva = new Label();
             btnFactura = new BotonFormulario();
@@ -130,8 +131,6 @@ namespace AdministracionPolideportivo.CPresentacion
             // 
             // panel2
             // 
-            panel2.Controls.Add(lblMonto);
-            panel2.Controls.Add(txtMonto);
             panel2.Controls.Add(cbReserva);
             panel2.Controls.Add(lblReserva);
             panel2.Controls.Add(cbMedioPago);
@@ -140,25 +139,6 @@ namespace AdministracionPolideportivo.CPresentacion
             panel2.Name = "panel2";
             panel2.Size = new Size(251, 185);
             panel2.TabIndex = 6;
-            // 
-            // lblMonto
-            // 
-            lblMonto.AutoSize = true;
-            lblMonto.ForeColor = SystemColors.ButtonHighlight;
-            lblMonto.Location = new Point(23, 133);
-            lblMonto.Name = "lblMonto";
-            lblMonto.Size = new Size(43, 15);
-            lblMonto.TabIndex = 7;
-            lblMonto.Text = "Monto";
-            // 
-            // txtMonto
-            // 
-            txtMonto.BackColor = SystemColors.WindowFrame;
-            txtMonto.ForeColor = Color.White;
-            txtMonto.Location = new Point(72, 130);
-            txtMonto.Name = "txtMonto";
-            txtMonto.Size = new Size(84, 23);
-            txtMonto.TabIndex = 1;
             // 
             // cbReserva
             // 
@@ -217,7 +197,7 @@ namespace AdministracionPolideportivo.CPresentacion
         override public void RefrescarCB()
         {
             cbMedioPago.DataSource = DALMedioPago.ListarMedios();
-            cbReserva.DataSource = DALReserva.ListarReservas();
+            cbReserva.DataSource = DALReserva.ListarReservasSinPagar();
 
         }
 
@@ -228,8 +208,6 @@ namespace AdministracionPolideportivo.CPresentacion
         private Label lblMedioPago;
         private Panel panel1;
         private Panel panel2;
-        private Label lblMonto;
-        private TextoNumerico txtMonto;
         private ComboBoxEstandar cbReserva;
         private Label lblReserva;
         private Texto txtDetalle;
@@ -241,6 +219,18 @@ namespace AdministracionPolideportivo.CPresentacion
             //totalReserva -= int.Parse(txtMonto.Text);
             //txtMonto.Clear();
             //lblTotal.Text = "$" + totalReserva.ToString();
+
+            if (!cbReserva.Text.IsNullOrEmpty())
+            {
+                int resultado = DALPago.AgregarPago(new Pago(0, (Reserva)cbReserva.SelectedItem, usuario, (MedioPago)cbMedioPago.SelectedItem, (int)totalReservaAbsoluto));
+                if (resultado > 0)
+                {
+                    MessageBox.Show("Reserva saldada. El pago se registro correctamente.");
+                    cbReserva.SelectedIndex=-1;
+                    RefrescarCB();
+                } 
+            }
+        
         }
         decimal totalReservaAbsoluto;
         decimal totalReserva;

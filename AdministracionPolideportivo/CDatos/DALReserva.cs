@@ -259,5 +259,59 @@ namespace AdministracionPolideportivo.CDatos
             }
             return lista;
         }
+
+        public static List<Reserva> ListarReservasSinPagar()
+        {
+            List<Reserva> lista = new List<Reserva>();
+
+            using (SqlConnection conexion = ConexionDB.GetConexion())
+            {
+                String query = "select * from Reserva where pagado=0;";
+                SqlCommand comando = new SqlCommand(query, conexion);
+                SqlDataReader lector = comando.ExecuteReader();
+
+                while (lector.Read())
+                {
+                    Reserva reserva = new Reserva(lector.GetInt32(0), DALRecinto.BuscarPorID(lector.GetInt32(3).ToString()).First(),
+                    DALCliente.BuscarPorID(lector.GetInt32(2).ToString()).First(),
+                    DateOnly.FromDateTime(lector.GetDateTime(1)), new TimeOnly(lector.GetInt32(4), 0), DALUsuario.BuscarPorID(lector.GetInt32(4).ToString()).First());
+                    lista.Add(reserva);
+                }
+                conexion.Close();
+            }
+
+            return lista;
+        }
+
+        public static void Pagar(int idReserva)
+        {
+            try
+            {
+                using (SqlConnection conexion = ConexionDB.GetConexion())
+                {
+                    string query = "UPDATE Reserva SET pagado = 1 WHERE id_reserva = @idReserva;";
+
+                    SqlCommand comando = new SqlCommand(query, conexion);
+                    comando.Parameters.AddWithValue("@idReserva", idReserva);
+
+                    int filasAfectadas = comando.ExecuteNonQuery();
+
+                    if (filasAfectadas > 0)
+                    {
+                        Console.WriteLine("Reserva pagada exitosamente.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No se encontró la reserva con el ID especificado.");
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error al actualizar la reserva: " + ex.Message);
+                throw;
+            }
+        }
+
     }
 }
