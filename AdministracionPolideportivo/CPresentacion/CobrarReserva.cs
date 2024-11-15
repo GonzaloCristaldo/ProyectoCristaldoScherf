@@ -4,6 +4,7 @@ using AdministracionPolideportivo.Properties;
 //using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,6 +84,7 @@ namespace AdministracionPolideportivo.CPresentacion
             lblTotal.Size = new Size(45, 15);
             lblTotal.TabIndex = 3;
             lblTotal.Text = "$ _ _ _ _";
+            lblTotal.Click += lblTotal_Click;
             // 
             // cbMedioPago
             // 
@@ -271,8 +273,16 @@ namespace AdministracionPolideportivo.CPresentacion
 
         private void btnFactura_Click(object sender, EventArgs e)
         {
-            GenerarFacturaHTML();
+            
+            DialogResult result = MessageBox.Show("¿Deseas generar la factura?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            
+            if (result == DialogResult.Yes)
+            {
+                GenerarFacturaHTML();
+            }
         }
+
 
         public void GenerarFacturaHTML()
         {
@@ -293,6 +303,9 @@ namespace AdministracionPolideportivo.CPresentacion
             string direccionComplejo = "Ruta 12 Km 1037, Corrientes, Argentina";
             string inicioActividades = "01/02/2023";
 
+            // Hora actual de expedición de la factura
+            string horaExpedicion = DateTime.Now.ToString("HH:mm:ss");
+
             // Ruta del logo de fondo en la carpeta de Resources
             string logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "resources", "Logo_Taraguinense.png");
 
@@ -304,7 +317,7 @@ namespace AdministracionPolideportivo.CPresentacion
                 logoBase64 = Convert.ToBase64String(imageBytes);
             }
 
-            // Generar el HTML con los detalles, usando el logo embebido en Base64
+            // Generar el HTML con los detalles, usando el logo en Base64
             string htmlContent = $@"
 <html>
 <head>
@@ -390,6 +403,7 @@ namespace AdministracionPolideportivo.CPresentacion
                 <p><strong>CUIT:</strong> {cuit}</p>
                 <p><strong>Dirección:</strong> {direccionComplejo}</p>
                 <p><strong>Inicio de Actividades:</strong> {inicioActividades}</p>
+                <p><strong>Hora de Expedición:</strong> {horaExpedicion}</p>
             </div>
         </div>
 
@@ -433,8 +447,18 @@ namespace AdministracionPolideportivo.CPresentacion
             File.WriteAllText(filePath, htmlContent);
 
             MessageBox.Show("Factura generada exitosamente en: " + filePath, "Factura", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                Arguments = carpetaFacturas,
+                FileName = "explorer.exe",
+
+            };
+            Process.Start(startInfo);
         }
 
+        private void lblTotal_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
