@@ -35,7 +35,7 @@
             btnCerrar = new Button();
             btnMinimizar = new Button();
             panel1 = new Panel();
-            button1 = new Button();
+            btnAdmin = new Button();
             txtUsuario = new CPresentacion.Texto();
             txtPass = new CPresentacion.Texto();
             label1 = new Label();
@@ -106,7 +106,7 @@
             panel1.BackColor = Color.Transparent;
             panel1.BackgroundImage = (Image)resources.GetObject("panel1.BackgroundImage");
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnAdmin);
             panel1.Controls.Add(txtUsuario);
             panel1.Controls.Add(txtPass);
             panel1.Controls.Add(label1);
@@ -124,15 +124,15 @@
             panel1.TabIndex = 7;
             panel1.Paint += panel1_Paint;
             // 
-            // button1
+            // btnAdmin
             // 
-            button1.Location = new Point(325, 324);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 12;
-            button1.Text = "admin";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click_1;
+            btnAdmin.Location = new Point(325, 324);
+            btnAdmin.Name = "btnAdmin";
+            btnAdmin.Size = new Size(75, 23);
+            btnAdmin.TabIndex = 12;
+            btnAdmin.Text = "admin";
+            btnAdmin.UseVisualStyleBackColor = true;
+            btnAdmin.Click += button1_Click_1;
             // 
             // txtUsuario
             // 
@@ -220,6 +220,6 @@
         private Label label1;
         private CPresentacion.Texto txtUsuario;
         private CPresentacion.Texto txtPass;
-        private Button button1;
+        private Button btnAdmin;
     }
 }
