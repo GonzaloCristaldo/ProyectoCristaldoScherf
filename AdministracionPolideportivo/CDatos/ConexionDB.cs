@@ -16,8 +16,8 @@ namespace AdministracionPolideportivo.CDatos
         {
             // Cambiar el nombre de la base de datos y el servidor: se hace cambiando el String query, y ademas cambiando por el nombre de la base de datos y el servidor que se esté utilizando.
             String pcLucas = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
-            String pcGonzalo = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=Gnzl\\SQLEXPRESS";
-            String query = pcLucas;
+            String pcGonzalo = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=Gonzalo";
+            String query = pcGonzalo;
             SqlConnection conexion = new SqlConnection(query);
             conexion.Open();
             return conexion;

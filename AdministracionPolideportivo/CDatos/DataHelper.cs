@@ -11,7 +11,7 @@ namespace AdministracionPolideportivo.CDatos
 
         String pcLucas = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
         String pcGonzalo = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=Gnzl\\SQLEXPRESS";
-        private string connectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=DESKTOP-250LNCS\\SQLEXPRESS";
+        private string connectionString = "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=complejoPolideportivoProd;Data Source=Gonzalo";
 
         public DataTable ExecuteQueryConParametros(string query, DateTime? fechaInicio, DateTime? fechaFin)
         {
